@@ -40,15 +40,27 @@ const achievementsData: Achievement[] = [
   { id: 'master_200', title: 'Мастер знаний', description: 'Изучите 200 тем', icon: <Brain className="w-6 h-6" />, unlocked: false, condition: 'complete_200_topics', points: 750, rarity: 'epic' },
   { id: 'quiz_master', title: 'Мастер тестов', description: 'Пройдите 5 квизов', icon: <Trophy className="w-6 h-6" />, unlocked: false, condition: 'complete_5_quizzes', points: 150, rarity: 'common' },
   { id: 'quiz_pro', title: 'Профи тестов', description: 'Пройдите 20 квизов', icon: <Award className="w-6 h-6" />, unlocked: false, condition: 'complete_20_quizzes', points: 400, rarity: 'rare' },
+  { id: 'quiz_champion', title: 'Чемпион тестов', description: 'Пройдите 50 квизов', icon: <Crown className="w-6 h-6" />, unlocked: false, condition: 'complete_50_quizzes', points: 700, rarity: 'epic' },
   { id: 'perfect_score', title: 'Идеальный результат', description: 'Получите 100% в квизе', icon: <Medal className="w-6 h-6" />, unlocked: false, condition: 'perfect_quiz', points: 200, rarity: 'rare' },
   { id: 'perfect_5', title: '5 идеальных', description: 'Получите 100% в 5 квизах', icon: <Sparkles className="w-6 h-6" />, unlocked: false, condition: '5_perfect_quizzes', points: 500, rarity: 'epic' },
+  { id: 'perfect_10', title: 'Совершенство', description: 'Получите 100% в 10 квизах', icon: <Sun className="w-6 h-6" />, unlocked: false, condition: '10_perfect_quizzes', points: 900, rarity: 'legendary' },
   { id: 'streak_3', title: '3 дня подряд', description: 'Занимайтесь 3 дня подряд', icon: <Flame className="w-6 h-6" />, unlocked: false, condition: '3_day_streak', points: 100, rarity: 'common' },
   { id: 'streak_7', title: 'Неделя знаний', description: 'Занимайтесь 7 дней подряд', icon: <Zap className="w-6 h-6" />, unlocked: false, condition: '7_day_streak', points: 300, rarity: 'rare' },
+  { id: 'streak_14', title: 'Две недели', description: 'Занимайтесь 14 дней подряд', icon: <Heart className="w-6 h-6" />, unlocked: false, condition: '14_day_streak', points: 500, rarity: 'rare' },
   { id: 'streak_30', title: 'Месяц упорства', description: 'Занимайтесь 30 дней подряд', icon: <Crown className="w-6 h-6" />, unlocked: false, condition: '30_day_streak', points: 800, rarity: 'epic' },
+  { id: 'streak_100', title: 'Сотня дней', description: 'Занимайтесь 100 дней подряд', icon: <Gift className="w-6 h-6" />, unlocked: false, condition: '100_day_streak', points: 1500, rarity: 'legendary' },
   { id: 'all_classes', title: 'Все классы', description: 'Откройте все классы', icon: <Layers className="w-6 h-6" />, unlocked: false, condition: 'visit_all_classes', points: 250, rarity: 'epic' },
+  { id: 'math_master', title: 'Математик', description: 'Изучите все темы по математике в одном классе', icon: <Calculator className="w-6 h-6" />, unlocked: false, condition: 'complete_math_subject', points: 400, rarity: 'rare' },
+  { id: 'russian_master', title: 'Филолог', description: 'Изучите все темы по русскому языку в одном классе', icon: <Book className="w-6 h-6" />, unlocked: false, condition: 'complete_russian_subject', points: 400, rarity: 'rare' },
+  { id: 'english_master', title: 'Полиглот', description: 'Изучите все темы по английскому языку в одном классе', icon: <Languages className="w-6 h-6" />, unlocked: false, condition: 'complete_english_subject', points: 400, rarity: 'rare' },
+  { id: 'level_5', title: 'Уровень 5', description: 'Достигните 5 уровня', icon: <TrendingUp className="w-6 h-6" />, unlocked: false, condition: 'level_5', points: 150, rarity: 'common' },
   { id: 'level_10', title: 'Уровень 10', description: 'Достигните 10 уровня', icon: <TrendingUp className="w-6 h-6" />, unlocked: false, condition: 'level_10', points: 300, rarity: 'rare' },
   { id: 'level_25', title: 'Уровень 25', description: 'Достигните 25 уровня', icon: <Heart className="w-6 h-6" />, unlocked: false, condition: 'level_25', points: 600, rarity: 'epic' },
-  { id: 'genius', title: 'Гений', description: 'Изучите все темы', icon: <Sparkles className="w-6 h-6" />, unlocked: false, condition: 'complete_all', points: 1000, rarity: 'legendary' }
+  { id: 'level_50', title: 'Уровень 50', description: 'Достигните 50 уровня', icon: <Crown className="w-6 h-6" />, unlocked: false, condition: 'level_50', points: 1200, rarity: 'legendary' },
+  { id: 'speed_learner', title: 'Быстрый ученик', description: 'Изучите 5 тем за один день', icon: <Zap className="w-6 h-6" />, unlocked: false, condition: '5_topics_one_day', points: 250, rarity: 'rare' },
+  { id: 'night_owl', title: 'Ночная сова', description: 'Занимайтесь после полуночи', icon: <Moon className="w-6 h-6" />, unlocked: false, condition: 'study_at_night', points: 100, rarity: 'common' },
+  { id: 'early_bird', title: 'Ранняя пташка', description: 'Занимайтесь до 7 утра', icon: <Sun className="w-6 h-6" />, unlocked: false, condition: 'study_early', points: 100, rarity: 'common' },
+  { id: 'genius', title: 'Гений', description: 'Изучите все темы', icon: <Sparkles className="w-6 h-6" />, unlocked: false, condition: 'complete_all', points: 2000, rarity: 'legendary' }
 ]
 
 // Ежедневные задания
