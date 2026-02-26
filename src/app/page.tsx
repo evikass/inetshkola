@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from '@/components/ui/dialog'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -189,6 +189,26 @@ export default function SchoolApp() {
   // Заморозка стрика
   const [streakFreeze, setStreakFreeze] = useState<number>(3) // 3 заморозки
   
+  // Интервальное повторение (Spaced Repetition)
+  const [spacedRepetition, setSpacedRepetition] = useState<Record<string, {
+    lastReview: string
+    nextReview: string
+    interval: number // дни
+    easeFactor: number
+    repetitions: number
+  }>>({})
+  
+  // Настройки приложения
+  const [appSettings, setAppSettings] = useState({
+    theme: 'dark' as 'dark' | 'light',
+    soundVolume: 0.5,
+    showNotifications: true,
+    autoStartTimer: false
+  })
+  
+  // Уведомления о достижениях
+  const [achievementNotification, setAchievementNotification] = useState<Achievement | null>(null)
+  
   // Локальная таблица лидеров (симулированная)
   const [leaderboard] = useState([
     { name: 'Вы', points: 0, rank: 1, isUser: true },
@@ -319,6 +339,14 @@ export default function SchoolApp() {
     const savedFreeze = localStorage.getItem('streakFreeze_v2')
     if (savedFreeze) setStreakFreeze(parseInt(savedFreeze))
     
+    // Загрузка интервального повторения
+    const savedSpacedRep = localStorage.getItem('spacedRepetition_v2')
+    if (savedSpacedRep) setSpacedRepetition(JSON.parse(savedSpacedRep))
+    
+    // Загрузка настроек
+    const savedSettings = localStorage.getItem('appSettings_v2')
+    if (savedSettings) setAppSettings(JSON.parse(savedSettings))
+    
     // Загрузка челленджа
     const savedChallenge = localStorage.getItem('dailyChallenge_v2')
     if (savedChallenge) {
@@ -339,11 +367,31 @@ export default function SchoolApp() {
       
       if (lastDate === yesterday.toDateString()) {
         // Продолжение стрика
+        const savedStats = JSON.parse(localStorage.getItem('schoolStats_v2') || '{}')
+        const newStreak = (savedStats.streak || 0) + 1
+        
+        // Награды за стрик
+        let streakBonus = 0
+        if (newStreak === 7) streakBonus = 50
+        else if (newStreak === 14) streakBonus = 100
+        else if (newStreak === 30) streakBonus = 200
+        else if (newStreak === 50) streakBonus = 350
+        else if (newStreak === 100) streakBonus = 500
+        else if (newStreak % 100 === 0 && newStreak > 100) streakBonus = 500 + Math.floor(newStreak / 100) * 100
+        
+        if (streakBonus > 0) {
+          // Показываем уведомление о награде
+          setTimeout(() => {
+            alert(`🎉 Поздравляем! ${newStreak} дней подряд! +${streakBonus} XP бонус!`)
+          }, 1000)
+        }
+        
         setUserStats(prev => ({
           ...prev,
-          streak: prev.streak + 1,
-          maxStreak: Math.max(prev.maxStreak, prev.streak + 1),
-          lastActiveDate: today
+          streak: newStreak,
+          maxStreak: Math.max(prev.maxStreak, newStreak),
+          lastActiveDate: today,
+          totalPoints: prev.totalPoints + streakBonus
         }))
       } else if (lastDate !== '') {
         // Проверяем заморозку стрика
@@ -387,7 +435,9 @@ export default function SchoolApp() {
     localStorage.setItem('notes_v2', JSON.stringify(notes))
     localStorage.setItem('learningGoals_v2', JSON.stringify(learningGoals))
     localStorage.setItem('streakFreeze_v2', String(streakFreeze))
-  }, [progress, userStats, achievements, visitedClasses, dailyTasks, weeklyActivity, bookmarks, notes, learningGoals, streakFreeze])
+    localStorage.setItem('spacedRepetition_v2', JSON.stringify(spacedRepetition))
+    localStorage.setItem('appSettings_v2', JSON.stringify(appSettings))
+  }, [progress, userStats, achievements, visitedClasses, dailyTasks, weeklyActivity, bookmarks, notes, learningGoals, streakFreeze, spacedRepetition, appSettings])
 
   // Таймер обучения
   useEffect(() => {
@@ -611,6 +661,9 @@ export default function SchoolApp() {
         addExperience(newAchievements[idx].points)
         setShowConfetti(true)
         setTimeout(() => setShowConfetti(false), 3000)
+        // Показываем уведомление о достижении
+        setAchievementNotification(newAchievements[idx])
+        setTimeout(() => setAchievementNotification(null), 5000)
       }
     }
     
@@ -767,6 +820,57 @@ export default function SchoolApp() {
     // Увеличиваем счётчик изученных карточек
     setFlashcardsStudiedThisSession(prev => prev + 1)
     
+    // Обновляем интервальное повторение
+    const currentCard = flashcards[currentFlashcardIndex]
+    if (currentCard) {
+      const topicId = currentCard.topic.id
+      const now = new Date()
+      const currentData = spacedRepetition[topicId] || {
+        lastReview: now.toISOString(),
+        nextReview: now.toISOString(),
+        interval: 1,
+        easeFactor: 2.5,
+        repetitions: 0
+      }
+      
+      // SM-2 алгоритм (упрощённый)
+      let newInterval: number
+      let newEaseFactor: number
+      let newRepetitions: number
+      
+      if (known) {
+        // Если ответ правильный
+        newRepetitions = currentData.repetitions + 1
+        newEaseFactor = Math.max(1.3, currentData.easeFactor + 0.1)
+        if (newRepetitions === 1) {
+          newInterval = 1
+        } else if (newRepetitions === 2) {
+          newInterval = 6
+        } else {
+          newInterval = Math.round(currentData.interval * newEaseFactor)
+        }
+      } else {
+        // Если ответ неправильный
+        newRepetitions = 0
+        newEaseFactor = Math.max(1.3, currentData.easeFactor - 0.2)
+        newInterval = 1
+      }
+      
+      const nextReview = new Date(now)
+      nextReview.setDate(nextReview.getDate() + newInterval)
+      
+      setSpacedRepetition(prev => ({
+        ...prev,
+        [topicId]: {
+          lastReview: now.toISOString(),
+          nextReview: nextReview.toISOString(),
+          interval: newInterval,
+          easeFactor: newEaseFactor,
+          repetitions: newRepetitions
+        }
+      }))
+    }
+    
     if (known) {
       setFlashcardsKnown(prev => prev + 1)
     } else {
@@ -788,7 +892,7 @@ export default function SchoolApp() {
         setTimeout(() => setShowConfetti(false), 3000)
       }
     }
-  }, [currentFlashcardIndex, flashcards, flashcardsKnown, flashcardsUnknown, addExperience])
+  }, [currentFlashcardIndex, flashcards, flashcardsKnown, flashcardsUnknown, addExperience, spacedRepetition])
 
   // Начать режим повторения
   const startReview = useCallback(() => {
@@ -1097,6 +1201,38 @@ export default function SchoolApp() {
           ))}
         </div>
       )}
+      
+      {/* Уведомление о достижении */}
+      {achievementNotification && appSettings.showNotifications && (
+        <div className="fixed top-20 right-4 z-50 animate-slide-in">
+          <Card className="bg-gradient-to-br from-amber-500/20 to-yellow-500/20 border-amber-500/30 shadow-xl max-w-sm">
+            <CardContent className="p-4">
+              <div className="flex items-start gap-3">
+                <div className="p-2 rounded-full bg-amber-500/20">
+                  {achievementNotification.icon}
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <Trophy className="w-4 h-4 text-amber-400" />
+                    <span className="text-xs text-amber-400 font-medium">Достижение разблокировано!</span>
+                  </div>
+                  <h4 className="font-bold text-white mt-1">{achievementNotification.title}</h4>
+                  <p className="text-sm text-gray-400">{achievementNotification.description}</p>
+                  <p className="text-xs text-amber-300 mt-1">+{achievementNotification.points} XP</p>
+                </div>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setAchievementNotification(null)}
+                  className="h-6 w-6 p-0 text-gray-400 hover:text-white"
+                >
+                  <X className="w-4 h-4" />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
 
       {/* Шапка */}
       <header className="sticky top-0 z-40 backdrop-blur-xl bg-slate-900/80 border-b border-white/10">
@@ -1171,6 +1307,126 @@ export default function SchoolApp() {
               >
                 {soundEnabled ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
               </Button>
+              
+              {/* Кнопка настроек */}
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="h-9 w-9 p-0 text-gray-400 hover:text-white"
+                    title="Настройки"
+                  >
+                    <Settings className="w-5 h-5" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="bg-slate-900 border-white/10 text-white max-w-md">
+                  <DialogHeader>
+                    <DialogTitle className="flex items-center gap-2">
+                      <Settings className="w-5 h-5 text-purple-400" />
+                      Настройки
+                    </DialogTitle>
+                    <DialogDescription className="text-gray-400">
+                      Настройте приложение под себя
+                    </DialogDescription>
+                  </DialogHeader>
+                  
+                  <div className="space-y-6 py-4">
+                    {/* Звук */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <Volume2 className="w-5 h-5 text-cyan-400" />
+                        <div>
+                          <p className="font-medium">Звуковые эффекты</p>
+                          <p className="text-sm text-gray-400">Звуки при правильных ответах</p>
+                        </div>
+                      </div>
+                      <Button
+                        size="sm"
+                        variant={soundEnabled ? "default" : "outline"}
+                        onClick={() => setSoundEnabled(!soundEnabled)}
+                        className={soundEnabled 
+                          ? "bg-cyan-600 hover:bg-cyan-700" 
+                          : "bg-white/5 border-white/20"
+                        }
+                      >
+                        {soundEnabled ? 'Вкл' : 'Выкл'}
+                      </Button>
+                    </div>
+                    
+                    <Separator className="bg-white/10" />
+                    
+                    {/* Уведомления */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <Sparkles className="w-5 h-5 text-amber-400" />
+                        <div>
+                          <p className="font-medium">Уведомления о достижениях</p>
+                          <p className="text-sm text-gray-400">Показывать при получении</p>
+                        </div>
+                      </div>
+                      <Button
+                        size="sm"
+                        variant={appSettings.showNotifications ? "default" : "outline"}
+                        onClick={() => setAppSettings(prev => ({ ...prev, showNotifications: !prev.showNotifications }))}
+                        className={appSettings.showNotifications 
+                          ? "bg-amber-600 hover:bg-amber-700" 
+                          : "bg-white/5 border-white/20"
+                        }
+                      >
+                        {appSettings.showNotifications ? 'Вкл' : 'Выкл'}
+                      </Button>
+                    </div>
+                    
+                    <Separator className="bg-white/10" />
+                    
+                    {/* Автостарт таймера */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <Timer className="w-5 h-5 text-green-400" />
+                        <div>
+                          <p className="font-medium">Автозапуск таймера</p>
+                          <p className="text-sm text-gray-400">Запускать при входе</p>
+                        </div>
+                      </div>
+                      <Button
+                        size="sm"
+                        variant={appSettings.autoStartTimer ? "default" : "outline"}
+                        onClick={() => setAppSettings(prev => ({ ...prev, autoStartTimer: !prev.autoStartTimer }))}
+                        className={appSettings.autoStartTimer 
+                          ? "bg-green-600 hover:bg-green-700" 
+                          : "bg-white/5 border-white/20"
+                        }
+                      >
+                        {appSettings.autoStartTimer ? 'Вкл' : 'Выкл'}
+                      </Button>
+                    </div>
+                    
+                    <Separator className="bg-white/10" />
+                    
+                    {/* Информация о стрике */}
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3">
+                        <Flame className="w-5 h-5 text-orange-400" />
+                        <div>
+                          <p className="font-medium">Заморозки стрика</p>
+                          <p className="text-sm text-gray-400">Защищают от сброса</p>
+                        </div>
+                        <span className="ml-auto text-xl">❄️ {streakFreeze}</span>
+                      </div>
+                      <p className="text-xs text-gray-500">
+                        Заморозки автоматически используются при пропуске дня. Зарабатывайте новые за достижения!
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <DialogFooter>
+                    <p className="text-xs text-gray-500 text-center w-full">
+                      Настройки сохраняются автоматически
+                    </p>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
               
               {/* Поиск */}
               <div className="relative hidden md:block">
@@ -1638,6 +1894,77 @@ export default function SchoolApp() {
                     )}
                   </CardContent>
                 </Card>
+                
+                {/* Карточки для повторения (Spaced Repetition) */}
+                {Object.keys(spacedRepetition).length > 0 && (
+                  <Card className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border-green-500/30">
+                    <CardHeader>
+                      <CardTitle className="text-white flex items-center gap-2">
+                        <Clock className="w-5 h-5 text-green-400" />
+                        Повторить сегодня
+                      </CardTitle>
+                      <CardDescription>
+                        Карточки, которые нужно повторить по алгоритму интервального повторения
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      {(() => {
+                        const now = new Date()
+                        const dueCards = Object.entries(spacedRepetition)
+                          .filter(([_, data]) => new Date(data.nextReview) <= now)
+                          .sort((a, b) => new Date(a[1].nextReview).getTime() - new Date(b[1].nextReview).getTime())
+                        
+                        if (dueCards.length === 0) {
+                          return (
+                            <div className="text-center py-4 text-gray-400">
+                              <CheckCircle className="w-8 h-8 mx-auto mb-2 text-green-400" />
+                              <p>Все карточки повторены!</p>
+                              <p className="text-sm">Новых карточек для сегодня нет</p>
+                            </div>
+                          )
+                        }
+                        
+                        return (
+                          <div className="space-y-3">
+                            <p className="text-sm text-green-300 mb-3">
+                              📚 {dueCards.length} карточек ждут повторения
+                            </p>
+                            <div className="max-h-40 overflow-y-auto space-y-2">
+                              {dueCards.slice(0, 5).map(([topicId, data]) => {
+                                // Find topic title
+                                let topicTitle = ''
+                                for (const grade of schoolData) {
+                                  for (const subject of grade.subjects) {
+                                    const topic = subject.topics.find(t => t.id === topicId)
+                                    if (topic) {
+                                      topicTitle = topic.title
+                                      break
+                                    }
+                                  }
+                                  if (topicTitle) break
+                                }
+                                
+                                const daysSinceReview = Math.floor(
+                                  (now.getTime() - new Date(data.lastReview).getTime()) / (1000 * 60 * 60 * 24)
+                                )
+                                
+                                return (
+                                  <div key={topicId} className="flex items-center gap-2 p-2 rounded bg-white/5 text-sm">
+                                    <Clock className="w-4 h-4 text-amber-400" />
+                                    <span className="text-white truncate flex-1">{topicTitle}</span>
+                                    <span className="text-gray-400 text-xs">
+                                      {daysSinceReview} дн. назад
+                                    </span>
+                                  </div>
+                                )
+                              })}
+                            </div>
+                          </div>
+                        )
+                      })()}
+                    </CardContent>
+                  </Card>
+                )}
                 
                 {/* Советы */}
                 <Card className="bg-gradient-to-br from-amber-500/10 to-orange-500/10 border-amber-500/30">
@@ -2846,6 +3173,20 @@ export default function SchoolApp() {
         }
         .animate-fall {
           animation: fall linear forwards;
+        }
+        
+        @keyframes slide-in {
+          0% {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+          100% {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+        .animate-slide-in {
+          animation: slide-in 0.3s ease-out forwards;
         }
         
         .prose h3 {
