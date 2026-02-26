@@ -21,7 +21,7 @@ import {
   Flame, Gift, Calendar, Settings, Play, Pause, Volume2, VolumeX, Home,
   Layers, FileText, Pen, LucideIcon, ChevronDown, X, RefreshCw, Send,
   BarChart3, PieChart, Activity, Timer, CreditCard, Sticker, Sun, Moon,
-  Download, Upload
+  Download, Upload, Shuffle, Eye, EyeOff, ThumbsUp, ThumbsDown, Repeat
 } from 'lucide-react'
 
 // ==================== ИМПОРТ ТИПОВ И КОНСТАНТ ====================
@@ -60,7 +60,13 @@ const achievementsData: Achievement[] = [
   { id: 'speed_learner', title: 'Быстрый ученик', description: 'Изучите 5 тем за один день', icon: <Zap className="w-6 h-6" />, unlocked: false, condition: '5_topics_one_day', points: 250, rarity: 'rare' },
   { id: 'night_owl', title: 'Ночная сова', description: 'Занимайтесь после полуночи', icon: <Moon className="w-6 h-6" />, unlocked: false, condition: 'study_at_night', points: 100, rarity: 'common' },
   { id: 'early_bird', title: 'Ранняя пташка', description: 'Занимайтесь до 7 утра', icon: <Sun className="w-6 h-6" />, unlocked: false, condition: 'study_early', points: 100, rarity: 'common' },
-  { id: 'genius', title: 'Гений', description: 'Изучите все темы', icon: <Sparkles className="w-6 h-6" />, unlocked: false, condition: 'complete_all', points: 2000, rarity: 'legendary' }
+  { id: 'genius', title: 'Гений', description: 'Изучите все темы', icon: <Sparkles className="w-6 h-6" />, unlocked: false, condition: 'complete_all', points: 2000, rarity: 'legendary' },
+  // Новые достижения
+  { id: 'flashcard_10', title: 'Карточник', description: 'Изучите 10 карточек за одну сессию', icon: <Brain className="w-6 h-6" />, unlocked: false, condition: 'flashcard_session_10', points: 150, rarity: 'common' },
+  { id: 'flashcard_50', title: 'Супер память', description: 'Изучите 50 карточек за одну сессию', icon: <Brain className="w-6 h-6" />, unlocked: false, condition: 'flashcard_session_50', points: 400, rarity: 'rare' },
+  { id: 'reviewer', title: 'Повторитель', description: 'Завершите сессию повторения', icon: <Repeat className="w-6 h-6" />, unlocked: false, condition: 'complete_review', points: 100, rarity: 'common' },
+  { id: 'dedicated', title: 'Преданный ученик', description: 'Занимайтесь 1 час подряд', icon: <Clock className="w-6 h-6" />, unlocked: false, condition: 'study_1_hour', points: 200, rarity: 'rare' },
+  { id: 'marathoner', title: 'Марафонец', description: 'Занимайтесь 3 часа подряд', icon: <Activity className="w-6 h-6" />, unlocked: false, condition: 'study_3_hours', points: 500, rarity: 'epic' }
 ]
 
 // Ежедневные задания
@@ -112,6 +118,19 @@ export default function SchoolApp() {
   const [timerActive, setTimerActive] = useState(false)
   const [timerSeconds, setTimerSeconds] = useState(0)
   const [showExportDialog, setShowExportDialog] = useState(false)
+  
+  // Режим карточек (Flashcards)
+  const [flashcardMode, setFlashcardMode] = useState(false)
+  const [flashcards, setFlashcards] = useState<{topic: Topic, subjectId: string, subjectTitle: string}[]>([])
+  const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0)
+  const [showFlashcardAnswer, setShowFlashcardAnswer] = useState(false)
+  const [flashcardsKnown, setFlashcardsKnown] = useState(0)
+  const [flashcardsUnknown, setFlashcardsUnknown] = useState(0)
+  
+  // Режим повторения
+  const [reviewMode, setReviewMode] = useState(false)
+  const [reviewTopics, setReviewTopics] = useState<{topic: Topic, subjectId: string, subjectTitle: string}[]>([])
+  const [currentReviewIndex, setCurrentReviewIndex] = useState(0)
 
   // Загрузка данных из localStorage
   useEffect(() => {
@@ -482,6 +501,77 @@ export default function SchoolApp() {
     setExpandedSubject(null)
   }, [])
 
+  // Начать режим карточек
+  const startFlashcards = useCallback((mode: 'all' | 'completed' | 'uncompleted' = 'all') => {
+    const grade = schoolData.find(g => g.id === selectedGrade)
+    if (!grade) return
+    
+    const cards: {topic: Topic, subjectId: string, subjectTitle: string}[] = []
+    grade.subjects.forEach(subject => {
+      subject.topics.forEach(topic => {
+        const isCompleted = progress[subject.id]?.[topic.id]
+        if (mode === 'all' || (mode === 'completed' && isCompleted) || (mode === 'uncompleted' && !isCompleted)) {
+          cards.push({ topic, subjectId: subject.id, subjectTitle: subject.title })
+        }
+      })
+    })
+    
+    // Перемешиваем карточки
+    const shuffled = cards.sort(() => Math.random() - 0.5)
+    setFlashcards(shuffled)
+    setCurrentFlashcardIndex(0)
+    setShowFlashcardAnswer(false)
+    setFlashcardsKnown(0)
+    setFlashcardsUnknown(0)
+    setFlashcardMode(true)
+  }, [selectedGrade, progress])
+
+  // Ответ на карточку
+  const answerFlashcard = useCallback((known: boolean) => {
+    if (known) {
+      setFlashcardsKnown(prev => prev + 1)
+    } else {
+      setFlashcardsUnknown(prev => prev + 1)
+    }
+    
+    if (currentFlashcardIndex < flashcards.length - 1) {
+      setCurrentFlashcardIndex(prev => prev + 1)
+      setShowFlashcardAnswer(false)
+    } else {
+      // Конец сессии карточек
+      setFlashcardMode(false)
+      const total = flashcards.length
+      const knownCount = known ? flashcardsKnown + 1 : flashcardsKnown
+      const accuracy = Math.round((knownCount / total) * 100)
+      if (accuracy >= 80) {
+        addExperience(30)
+        setShowConfetti(true)
+        setTimeout(() => setShowConfetti(false), 3000)
+      }
+    }
+  }, [currentFlashcardIndex, flashcards, flashcardsKnown, flashcardsUnknown, addExperience])
+
+  // Начать режим повторения
+  const startReview = useCallback(() => {
+    const completed: {topic: Topic, subjectId: string, subjectTitle: string}[] = []
+    
+    schoolData.forEach(grade => {
+      grade.subjects.forEach(subject => {
+        subject.topics.forEach(topic => {
+          if (progress[subject.id]?.[topic.id]) {
+            completed.push({ topic, subjectId: subject.id, subjectTitle: subject.title })
+          }
+        })
+      })
+    })
+    
+    // Случайные 10 тем для повторения
+    const shuffled = completed.sort(() => Math.random() - 0.5).slice(0, 10)
+    setReviewTopics(shuffled)
+    setCurrentReviewIndex(0)
+    setReviewMode(true)
+  }, [progress])
+
   // Фильтрация предметов
   const filteredSubjects = useMemo(() => {
     const grade = schoolData.find(g => g.id === selectedGrade)
@@ -693,10 +783,14 @@ export default function SchoolApp() {
       {/* Основной контент */}
       <div className="max-w-7xl mx-auto px-4 pb-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="bg-white/5 border border-white/10 mb-4 h-10">
+          <TabsList className="bg-white/5 border border-white/10 mb-4 h-10 flex-wrap">
             <TabsTrigger value="subjects" className="data-[state=active]:bg-purple-600 h-8 text-sm">
               <Book className="w-4 h-4 mr-1.5" />
               Предметы
+            </TabsTrigger>
+            <TabsTrigger value="flashcards" className="data-[state=active]:bg-purple-600 h-8 text-sm">
+              <Brain className="w-4 h-4 mr-1.5" />
+              Карточки
             </TabsTrigger>
             <TabsTrigger value="tasks" className="data-[state=active]:bg-purple-600 h-8 text-sm">
               <Calendar className="w-4 h-4 mr-1.5" />
@@ -847,6 +941,178 @@ export default function SchoolApp() {
                 )
               })}
             </div>
+          </TabsContent>
+
+          {/* Таб карточек */}
+          <TabsContent value="flashcards" className="space-y-4">
+            {/* Режим изучения карточек */}
+            {flashcardMode && flashcards.length > 0 ? (
+              <div className="max-w-2xl mx-auto">
+                {/* Прогресс */}
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-gray-400">
+                    Карточка {currentFlashcardIndex + 1} из {flashcards.length}
+                  </span>
+                  <div className="flex gap-3 text-sm">
+                    <span className="text-green-400">✓ {flashcardsKnown}</span>
+                    <span className="text-red-400">✗ {flashcardsUnknown}</span>
+                  </div>
+                </div>
+                <Progress value={((currentFlashcardIndex + 1) / flashcards.length) * 100} className="h-2 mb-6" />
+                
+                {/* Карточка */}
+                <Card className="bg-gradient-to-br from-purple-500/20 to-blue-500/20 border-purple-500/30 min-h-[400px]">
+                  <CardContent className="p-6 flex flex-col items-center justify-center min-h-[400px]">
+                    <Badge className="mb-4 bg-purple-500/20 text-purple-300">
+                      {flashcards[currentFlashcardIndex].subjectTitle}
+                    </Badge>
+                    
+                    <h3 className="text-2xl font-bold text-white text-center mb-6">
+                      {flashcards[currentFlashcardIndex].topic.title}
+                    </h3>
+                    
+                    {!showFlashcardAnswer ? (
+                      <div className="text-center">
+                        <p className="text-gray-400 mb-6">
+                          {flashcards[currentFlashcardIndex].topic.description}
+                        </p>
+                        <Button
+                          onClick={() => setShowFlashcardAnswer(true)}
+                          className="bg-gradient-to-r from-purple-600 to-blue-600"
+                        >
+                          <Eye className="w-4 h-4 mr-2" />
+                          Показать ответ
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="w-full">
+                        <div 
+                          className="prose prose-invert prose-sm max-w-none mb-6 text-center"
+                          dangerouslySetInnerHTML={{ __html: flashcards[currentFlashcardIndex].topic.theory }}
+                        />
+                        <div className="flex gap-4 justify-center">
+                          <Button
+                            onClick={() => answerFlashcard(false)}
+                            variant="outline"
+                            className="bg-red-500/20 border-red-500/30 text-red-300 hover:bg-red-500/30"
+                          >
+                            <ThumbsDown className="w-4 h-4 mr-2" />
+                            Не помню
+                          </Button>
+                          <Button
+                            onClick={() => answerFlashcard(true)}
+                            className="bg-green-500/20 border-green-500/30 text-green-300 hover:bg-green-500/30"
+                          >
+                            <ThumbsUp className="w-4 h-4 mr-2" />
+                            Помню
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {/* Выбор режима */}
+                <Card className="bg-white/5 border-white/10">
+                  <CardHeader>
+                    <CardTitle className="text-white flex items-center gap-2">
+                      <Brain className="w-5 h-5 text-purple-400" />
+                      Режим карточек
+                    </CardTitle>
+                    <CardDescription>
+                      Запоминайте материал с помощью интервального повторения
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <Button
+                        onClick={() => startFlashcards('all')}
+                        className="h-24 flex-col bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                      >
+                        <Layers className="w-6 h-6 mb-2" />
+                        Все темы
+                        <span className="text-xs opacity-70 mt-1">
+                          {currentGrade?.subjects.reduce((acc, s) => acc + s.topics.length, 0)} карточек
+                        </span>
+                      </Button>
+                      <Button
+                        onClick={() => startFlashcards('uncompleted')}
+                        variant="outline"
+                        className="h-24 flex-col bg-white/5 border-white/20 hover:bg-white/10"
+                      >
+                        <Target className="w-6 h-6 mb-2 text-amber-400" />
+                        Неизученные
+                        <span className="text-xs opacity-70 mt-1">
+                          {currentGrade?.subjects.reduce((acc, s) => {
+                            return acc + s.topics.filter(t => !progress[s.id]?.[t.id]).length
+                          }, 0)} карточек
+                        </span>
+                      </Button>
+                      <Button
+                        onClick={() => startFlashcards('completed')}
+                        variant="outline"
+                        className="h-24 flex-col bg-white/5 border-white/20 hover:bg-white/10"
+                      >
+                        <CheckCircle className="w-6 h-6 mb-2 text-green-400" />
+                        Повторить
+                        <span className="text-xs opacity-70 mt-1">
+                          {currentGrade?.subjects.reduce((acc, s) => {
+                            return acc + s.topics.filter(t => progress[s.id]?.[t.id]).length
+                          }, 0)} карточек
+                        </span>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                {/* Режим повторения */}
+                <Card className="bg-white/5 border-white/10">
+                  <CardHeader>
+                    <CardTitle className="text-white flex items-center gap-2">
+                      <Repeat className="w-5 h-5 text-cyan-400" />
+                      Быстрое повторение
+                    </CardTitle>
+                    <CardDescription>
+                      Повторите случайные 10 изученных тем из всех классов
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Button
+                      onClick={startReview}
+                      disabled={totalTopicsCompleted < 5}
+                      className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 disabled:opacity-50"
+                    >
+                      <Shuffle className="w-4 h-4 mr-2" />
+                      Начать повторение
+                    </Button>
+                    {totalTopicsCompleted < 5 && (
+                      <p className="text-sm text-gray-400 mt-2">
+                        Изучите хотя бы 5 тем для активации режима
+                      </p>
+                    )}
+                  </CardContent>
+                </Card>
+                
+                {/* Советы */}
+                <Card className="bg-gradient-to-br from-amber-500/10 to-orange-500/10 border-amber-500/30">
+                  <CardContent className="p-4">
+                    <div className="flex items-start gap-3">
+                      <Lightbulb className="w-5 h-5 text-amber-400 mt-0.5" />
+                      <div>
+                        <h4 className="font-medium text-white mb-1">Советы по запоминанию</h4>
+                        <ul className="text-sm text-gray-400 space-y-1">
+                          <li>• Повторяйте материал регулярно — лучше понемногу каждый день</li>
+                          <li>• Отмечайте «Не помню», если сомневаетесь — система покажет тему ещё раз</li>
+                          <li>• Используйте режим «Повторить» для закрепления изученного</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
           </TabsContent>
 
           {/* Таб ежедневных заданий */}
@@ -1086,6 +1352,42 @@ export default function SchoolApp() {
               </CardContent>
             </Card>
 
+            {/* Активность за неделю */}
+            <Card className="bg-white/5 border-white/10">
+              <CardHeader>
+                <CardTitle className="text-white text-lg flex items-center gap-2">
+                  <Activity className="w-5 h-5 text-green-400" />
+                  Активность за неделю
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-end justify-between gap-2 h-32">
+                  {['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((day, index) => {
+                    // Генерируем случайную активность для демонстрации
+                    // В реальном приложении здесь были бы реальные данные
+                    const activity = Math.random() * 100
+                    const isToday = index === new Date().getDay() - 1 || (new Date().getDay() === 0 && index === 6)
+                    
+                    return (
+                      <div key={day} className="flex-1 flex flex-col items-center gap-1">
+                        <div 
+                          className={`w-full rounded-t transition-all ${
+                            isToday 
+                              ? 'bg-gradient-to-t from-purple-500 to-blue-500' 
+                              : 'bg-gradient-to-t from-purple-500/50 to-blue-500/50'
+                          }`}
+                          style={{ height: `${Math.max(activity, 10)}%` }}
+                        />
+                        <span className={`text-xs ${isToday ? 'text-white font-bold' : 'text-gray-400'}`}>
+                          {day}
+                        </span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Прогресс по классам */}
             <Card className="bg-white/5 border-white/10">
               <CardHeader>
@@ -1276,6 +1578,94 @@ export default function SchoolApp() {
             >
               <CheckCircle className="w-4 h-4 mr-2" />
               Отметить как изученное
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Диалог режима повторения */}
+      <Dialog open={reviewMode} onOpenChange={setReviewMode}>
+        <DialogContent className="bg-slate-900 border-white/10 text-white max-w-2xl max-h-[80vh] overflow-hidden">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Repeat className="w-5 h-5 text-cyan-400" />
+              Повторение материала
+            </DialogTitle>
+            <DialogDescription className="text-gray-400">
+              Тема {currentReviewIndex + 1} из {reviewTopics.length}
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="flex gap-1 mb-4">
+            {reviewTopics.map((_, i) => (
+              <div
+                key={i}
+                className={`h-1 flex-1 rounded-full ${
+                  i < currentReviewIndex ? 'bg-cyan-500' :
+                  i === currentReviewIndex ? 'bg-purple-500' : 'bg-white/10'
+                }`}
+              />
+            ))}
+          </div>
+          
+          {reviewTopics.length > 0 && currentReviewIndex < reviewTopics.length && (
+            <ScrollArea className="h-[50vh]">
+              <div className="space-y-4 pr-4">
+                <Badge className="bg-cyan-500/20 text-cyan-300">
+                  {reviewTopics[currentReviewIndex].subjectTitle}
+                </Badge>
+                <h3 className="text-xl font-bold text-white">
+                  {reviewTopics[currentReviewIndex].topic.title}
+                </h3>
+                <div 
+                  className="prose prose-invert prose-sm max-w-none"
+                  dangerouslySetInnerHTML={{ __html: reviewTopics[currentReviewIndex].topic.theory }}
+                />
+                
+                {reviewTopics[currentReviewIndex].topic.examples.length > 0 && (
+                  <div className="space-y-2">
+                    <h4 className="text-white font-medium">Примеры:</h4>
+                    <ul className="space-y-1">
+                      {reviewTopics[currentReviewIndex].topic.examples.map((example, i) => (
+                        <li key={i} className="flex items-center gap-2 text-gray-300">
+                          <ChevronRight className="w-4 h-4 text-cyan-400" />
+                          {example}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </ScrollArea>
+          )}
+          
+          <DialogFooter className="flex gap-2">
+            <Button
+              onClick={() => {
+                if (currentReviewIndex > 0) {
+                  setCurrentReviewIndex(prev => prev - 1)
+                }
+              }}
+              disabled={currentReviewIndex === 0}
+              variant="outline"
+              className="bg-white/5 border-white/20"
+            >
+              Назад
+            </Button>
+            <Button
+              onClick={() => {
+                if (currentReviewIndex < reviewTopics.length - 1) {
+                  setCurrentReviewIndex(prev => prev + 1)
+                } else {
+                  setReviewMode(false)
+                  addExperience(20)
+                  setShowConfetti(true)
+                  setTimeout(() => setShowConfetti(false), 3000)
+                }
+              }}
+              className="bg-gradient-to-r from-cyan-600 to-blue-600"
+            >
+              {currentReviewIndex < reviewTopics.length - 1 ? 'Далее' : 'Завершить'}
             </Button>
           </DialogFooter>
         </DialogContent>
