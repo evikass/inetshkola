@@ -20,7 +20,8 @@ import {
   Bookmark, Clock, TrendingUp, Medal, Crown, Sparkles, Book, Pencil, Ruler,
   Flame, Gift, Calendar, Settings, Play, Pause, Volume2, VolumeX, Home,
   Layers, FileText, Pen, LucideIcon, ChevronDown, X, RefreshCw, Send,
-  BarChart3, PieChart, Activity, Timer, CreditCard, Sticker, Sun, Moon
+  BarChart3, PieChart, Activity, Timer, CreditCard, Sticker, Sun, Moon,
+  Download, Upload
 } from 'lucide-react'
 
 // ==================== ИМПОРТ ТИПОВ И КОНСТАНТ ====================
@@ -550,17 +551,69 @@ export default function SchoolApp() {
       <div className="max-w-7xl mx-auto px-4 py-3">
         <Card className="bg-white/5 border-white/10 backdrop-blur overflow-hidden">
           <CardContent className="p-4">
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
               <div className="flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-green-400" />
                 <span className="text-white font-medium">Общий прогресс</span>
               </div>
-              <div className="flex items-center gap-4 text-sm">
+              <div className="flex items-center gap-4 text-sm flex-wrap">
+                {/* Таймер обучения */}
+                <div className="flex items-center gap-2 px-3 py-1 rounded-lg bg-white/5 border border-white/10">
+                  <Timer className="w-4 h-4 text-cyan-400" />
+                  <span className="font-mono text-cyan-400">{formatTime(timerSeconds)}</span>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => {
+                      if (timerActive) {
+                        setTimerActive(false)
+                        setUserStats(prev => ({ ...prev, totalStudyTime: prev.totalStudyTime + timerSeconds }))
+                      } else {
+                        setTimerActive(true)
+                      }
+                    }}
+                    className="h-6 w-6 p-0"
+                  >
+                    {timerActive ? <Pause className="w-3 h-3 text-white" /> : <Play className="w-3 h-3 text-white" />}
+                  </Button>
+                </div>
                 <span className="text-gray-400">{totalTopicsCompleted} тем</span>
                 <span className="text-green-400 font-bold">{overallProgress}%</span>
               </div>
             </div>
             <Progress value={overallProgress} className="h-2" />
+            
+            {/* Кнопки экспорта/импорта */}
+            <div className="flex gap-2 mt-3 pt-3 border-t border-white/10">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={exportProgress}
+                className="h-7 text-xs bg-white/5 border-white/20 text-gray-300 hover:bg-white/10"
+              >
+                <Download className="w-3 h-3 mr-1" />
+                Экспорт прогресса
+              </Button>
+              <label className="cursor-pointer">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  asChild
+                  className="h-7 text-xs bg-white/5 border-white/20 text-gray-300 hover:bg-white/10"
+                >
+                  <span>
+                    <Upload className="w-3 h-3 mr-1" />
+                    Импорт прогресса
+                  </span>
+                </Button>
+                <input
+                  type="file"
+                  accept=".json"
+                  onChange={importProgress}
+                  className="hidden"
+                />
+              </label>
+            </div>
           </CardContent>
         </Card>
       </div>
