@@ -968,6 +968,45 @@ export default function SchoolApp() {
               </Card>
             </div>
 
+            {/* Таймер обучения */}
+            <Card className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-cyan-500/30">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-xl bg-cyan-500/20">
+                      <Timer className="w-6 h-6 text-cyan-400" />
+                    </div>
+                    <div>
+                      <p className="text-gray-400 text-xs">Время обучения сегодня</p>
+                      <p className="text-2xl font-bold text-white font-mono">{formatTime(timerSeconds)}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      variant={timerActive ? "destructive" : "default"}
+                      onClick={() => setTimerActive(!timerActive)}
+                      className={timerActive 
+                        ? "bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/30"
+                        : "bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/30"
+                      }
+                    >
+                      {timerActive ? <Pause className="w-4 h-4 mr-1" /> : <Play className="w-4 h-4 mr-1" />}
+                      {timerActive ? 'Пауза' : 'Старт'}
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => { setTimerActive(false); setTimerSeconds(0); }}
+                      className="bg-white/5 border-white/20 text-gray-300 hover:bg-white/10"
+                    >
+                      <RotateCcw className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Прогресс по классам */}
             <Card className="bg-white/5 border-white/10">
               <CardHeader>
