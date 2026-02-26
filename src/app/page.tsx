@@ -36,11 +36,17 @@ const achievementsData: Achievement[] = [
   { id: 'explorer', title: 'Исследователь', description: 'Изучите 10 тем', icon: <Target className="w-6 h-6" />, unlocked: false, condition: 'complete_10_topics', points: 100, rarity: 'common' },
   { id: 'scholar', title: 'Учёный', description: 'Изучите 50 тем', icon: <BookOpen className="w-6 h-6" />, unlocked: false, condition: 'complete_50_topics', points: 300, rarity: 'rare' },
   { id: 'expert', title: 'Эксперт', description: 'Изучите 100 тем', icon: <GraduationCap className="w-6 h-6" />, unlocked: false, condition: 'complete_100_topics', points: 500, rarity: 'rare' },
+  { id: 'master_200', title: 'Мастер знаний', description: 'Изучите 200 тем', icon: <Brain className="w-6 h-6" />, unlocked: false, condition: 'complete_200_topics', points: 750, rarity: 'epic' },
   { id: 'quiz_master', title: 'Мастер тестов', description: 'Пройдите 5 квизов', icon: <Trophy className="w-6 h-6" />, unlocked: false, condition: 'complete_5_quizzes', points: 150, rarity: 'common' },
+  { id: 'quiz_pro', title: 'Профи тестов', description: 'Пройдите 20 квизов', icon: <Award className="w-6 h-6" />, unlocked: false, condition: 'complete_20_quizzes', points: 400, rarity: 'rare' },
   { id: 'perfect_score', title: 'Идеальный результат', description: 'Получите 100% в квизе', icon: <Medal className="w-6 h-6" />, unlocked: false, condition: 'perfect_quiz', points: 200, rarity: 'rare' },
+  { id: 'perfect_5', title: '5 идеальных', description: 'Получите 100% в 5 квизах', icon: <Sparkles className="w-6 h-6" />, unlocked: false, condition: '5_perfect_quizzes', points: 500, rarity: 'epic' },
   { id: 'streak_3', title: '3 дня подряд', description: 'Занимайтесь 3 дня подряд', icon: <Flame className="w-6 h-6" />, unlocked: false, condition: '3_day_streak', points: 100, rarity: 'common' },
   { id: 'streak_7', title: 'Неделя знаний', description: 'Занимайтесь 7 дней подряд', icon: <Zap className="w-6 h-6" />, unlocked: false, condition: '7_day_streak', points: 300, rarity: 'rare' },
-  { id: 'all_classes', title: 'Все классы', description: 'Откройте все классы', icon: <Crown className="w-6 h-6" />, unlocked: false, condition: 'visit_all_classes', points: 250, rarity: 'epic' },
+  { id: 'streak_30', title: 'Месяц упорства', description: 'Занимайтесь 30 дней подряд', icon: <Crown className="w-6 h-6" />, unlocked: false, condition: '30_day_streak', points: 800, rarity: 'epic' },
+  { id: 'all_classes', title: 'Все классы', description: 'Откройте все классы', icon: <Layers className="w-6 h-6" />, unlocked: false, condition: 'visit_all_classes', points: 250, rarity: 'epic' },
+  { id: 'level_10', title: 'Уровень 10', description: 'Достигните 10 уровня', icon: <TrendingUp className="w-6 h-6" />, unlocked: false, condition: 'level_10', points: 300, rarity: 'rare' },
+  { id: 'level_25', title: 'Уровень 25', description: 'Достигните 25 уровня', icon: <Heart className="w-6 h-6" />, unlocked: false, condition: 'level_25', points: 600, rarity: 'epic' },
   { id: 'genius', title: 'Гений', description: 'Изучите все темы', icon: <Sparkles className="w-6 h-6" />, unlocked: false, condition: 'complete_all', points: 1000, rarity: 'legendary' }
 ]
 
@@ -85,6 +91,11 @@ export default function SchoolApp() {
   const [topicDialogOpen, setTopicDialogOpen] = useState(false)
   const [visitedClasses, setVisitedClasses] = useState<Set<number>>(new Set([1]))
   const [showConfetti, setShowConfetti] = useState(false)
+  
+  // Таймер обучения
+  const [timerActive, setTimerActive] = useState(false)
+  const [timerSeconds, setTimerSeconds] = useState(0)
+  const [showExportDialog, setShowExportDialog] = useState(false)
 
   // Загрузка данных из localStorage
   useEffect(() => {
@@ -141,6 +152,69 @@ export default function SchoolApp() {
     localStorage.setItem('visitedClasses_v2', JSON.stringify([...visitedClasses]))
     localStorage.setItem('dailyTasks_v2', JSON.stringify(dailyTasks))
   }, [progress, userStats, achievements, visitedClasses, dailyTasks])
+
+  // Таймер обучения
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null
+    if (timerActive) {
+      interval = setInterval(() => {
+        setTimerSeconds(s => s + 1)
+      }, 1000)
+    }
+    return () => {
+      if (interval) clearInterval(interval)
+    }
+  }, [timerActive])
+
+  // Форматирование времени
+  const formatTime = (seconds: number) => {
+    const h = Math.floor(seconds / 3600)
+    const m = Math.floor((seconds % 3600) / 60)
+    const s = seconds % 60
+    return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`
+  }
+
+  // Экспорт прогресса
+  const exportProgress = useCallback(() => {
+    const data = {
+      progress,
+      userStats,
+      achievements,
+      visitedClasses: [...visitedClasses],
+      dailyTasks,
+      exportDate: new Date().toISOString()
+    }
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `inetshkola-progress-${new Date().toLocaleDateString('ru-RU')}.json`
+    a.click()
+    URL.revokeObjectURL(url)
+  }, [progress, userStats, achievements, visitedClasses, dailyTasks])
+
+  // Импорт прогресса
+  const importProgress = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+    
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      try {
+        const data = JSON.parse(e.target?.result as string)
+        if (data.progress) setProgress(data.progress)
+        if (data.userStats) setUserStats(data.userStats)
+        if (data.achievements) setAchievements(data.achievements)
+        if (data.visitedClasses) setVisitedClasses(new Set(data.visitedClasses))
+        if (data.dailyTasks) setDailyTasks(data.dailyTasks)
+        setShowConfetti(true)
+        setTimeout(() => setShowConfetti(false), 3000)
+      } catch (err) {
+        alert('Ошибка при импорте файла')
+      }
+    }
+    reader.readAsText(file)
+  }, [])
 
   // Подсчёт общего прогресса
   const overallProgress = useMemo(() => {
@@ -268,10 +342,18 @@ export default function SchoolApp() {
     updateAchievement('explorer', totalTopicsCompleted >= 10)
     updateAchievement('scholar', totalTopicsCompleted >= 50)
     updateAchievement('expert', totalTopicsCompleted >= 100)
+    updateAchievement('master_200', totalTopicsCompleted >= 200)
     updateAchievement('quiz_master', userStats.quizzesCompleted >= 5)
+    updateAchievement('quiz_pro', userStats.quizzesCompleted >= 20)
+    updateAchievement('perfect_score', userStats.perfectQuizzes >= 1)
+    updateAchievement('perfect_5', userStats.perfectQuizzes >= 5)
     updateAchievement('streak_3', userStats.streak >= 3)
     updateAchievement('streak_7', userStats.streak >= 7)
+    updateAchievement('streak_30', userStats.streak >= 30)
     updateAchievement('all_classes', visitedClasses.size >= 12)
+    updateAchievement('level_10', userStats.level >= 10)
+    updateAchievement('level_25', userStats.level >= 25)
+    updateAchievement('genius', totalTopicsCompleted >= 500)
     
     if (changed) setAchievements(newAchievements)
   }, [totalTopicsCompleted, userStats.quizzesCompleted, userStats.streak, visitedClasses.size, achievements, addExperience])
