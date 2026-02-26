@@ -144,6 +144,20 @@ export default function SchoolApp() {
   const [examFinished, setExamFinished] = useState(false)
   const [examSelectedAnswer, setExamSelectedAnswer] = useState<number | null>(null)
   const [examShowResult, setExamShowResult] = useState(false)
+  
+  // Недельная активность
+  const [weeklyActivity, setWeeklyActivity] = useState<number[]>([0, 0, 0, 0, 0, 0, 0])
+  
+  // Закладки
+  const [bookmarks, setBookmarks] = useState<Set<string>>(new Set())
+  
+  // Заметки
+  const [notes, setNotes] = useState<Record<string, string>>({})
+  
+  // Таймер сессии для достижений
+  const [sessionStartTime, setSessionStartTime] = useState<number | null>(null)
+  const [flashcardsStudiedThisSession, setFlashcardsStudiedThisSession] = useState(0)
+  const [reviewCompleted, setReviewCompleted] = useState(false)
 
   // Мотивационные цитаты
   const motivationalQuotes = [
@@ -222,6 +236,41 @@ export default function SchoolApp() {
     if (savedVisited) setVisitedClasses(new Set(JSON.parse(savedVisited)))
     if (savedTasks) setDailyTasks(JSON.parse(savedTasks))
     
+    // Загрузка активности
+    const savedActivity = localStorage.getItem('weeklyActivity_v2')
+    if (savedActivity) {
+      const activity = JSON.parse(savedActivity)
+      // Проверяем, нужно ли сбросить активность (прошла неделя)
+      const lastActivityDate = localStorage.getItem('lastActivityDate_v2')
+      if (lastActivityDate) {
+        const lastDate = new Date(lastActivityDate)
+        const now = new Date()
+        const daysDiff = Math.floor((now.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24))
+        if (daysDiff >= 7) {
+          // Сброс активности
+          setWeeklyActivity([0, 0, 0, 0, 0, 0, 0])
+        } else {
+          // Сдвигаем активность если нужно
+          const shifted = [...activity]
+          for (let i = 0; i < daysDiff; i++) {
+            shifted.shift()
+            shifted.push(0)
+          }
+          setWeeklyActivity(shifted)
+        }
+      } else {
+        setWeeklyActivity(activity)
+      }
+    }
+    
+    // Загрузка закладок
+    const savedBookmarks = localStorage.getItem('bookmarks_v2')
+    if (savedBookmarks) setBookmarks(new Set(JSON.parse(savedBookmarks)))
+    
+    // Загрузка заметок
+    const savedNotes = localStorage.getItem('notes_v2')
+    if (savedNotes) setNotes(JSON.parse(savedNotes))
+    
     // Проверка стрика
     const today = new Date().toDateString()
     const lastDate = savedLastDate || ''
@@ -261,20 +310,39 @@ export default function SchoolApp() {
     localStorage.setItem('schoolAchievements_v2', JSON.stringify(achievements))
     localStorage.setItem('visitedClasses_v2', JSON.stringify([...visitedClasses]))
     localStorage.setItem('dailyTasks_v2', JSON.stringify(dailyTasks))
-  }, [progress, userStats, achievements, visitedClasses, dailyTasks])
+    localStorage.setItem('weeklyActivity_v2', JSON.stringify(weeklyActivity))
+    localStorage.setItem('lastActivityDate_v2', new Date().toISOString())
+    localStorage.setItem('bookmarks_v2', JSON.stringify([...bookmarks]))
+    localStorage.setItem('notes_v2', JSON.stringify(notes))
+  }, [progress, userStats, achievements, visitedClasses, dailyTasks, weeklyActivity, bookmarks, notes])
 
   // Таймер обучения
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null
     if (timerActive) {
+      if (!sessionStartTime) setSessionStartTime(Date.now())
       interval = setInterval(() => {
         setTimerSeconds(s => s + 1)
       }, 1000)
+    } else if (sessionStartTime) {
+      // Сохраняем время сессии при паузе/остановке
+      const sessionTime = Math.floor((Date.now() - sessionStartTime) / 1000)
+      if (sessionTime > 0) {
+        // Обновляем недельную активность
+        setWeeklyActivity(prev => {
+          const updated = [...prev]
+          const today = (new Date().getDay() + 6) % 7 // Пн=0, Вс=6
+          updated[today] = updated[today] + sessionTime
+          return updated
+        })
+        setUserStats(prev => ({ ...prev, totalStudyTime: prev.totalStudyTime + sessionTime }))
+      }
+      setSessionStartTime(null)
     }
     return () => {
       if (interval) clearInterval(interval)
     }
-  }, [timerActive])
+  }, [timerActive, sessionStartTime])
 
   // Форматирование времени
   const formatTime = (seconds: number) => {
@@ -476,14 +544,26 @@ export default function SchoolApp() {
     updateAchievement('perfect_5', userStats.perfectQuizzes >= 5)
     updateAchievement('streak_3', userStats.streak >= 3)
     updateAchievement('streak_7', userStats.streak >= 7)
+    updateAchievement('streak_14', userStats.streak >= 14)
     updateAchievement('streak_30', userStats.streak >= 30)
+    updateAchievement('streak_100', userStats.streak >= 100)
     updateAchievement('all_classes', visitedClasses.size >= 12)
+    updateAchievement('level_5', userStats.level >= 5)
     updateAchievement('level_10', userStats.level >= 10)
     updateAchievement('level_25', userStats.level >= 25)
+    updateAchievement('level_50', userStats.level >= 50)
     updateAchievement('genius', totalTopicsCompleted >= 500)
+    // Новые достижения
+    updateAchievement('flashcard_10', flashcardsStudiedThisSession >= 10)
+    updateAchievement('flashcard_50', flashcardsStudiedThisSession >= 50)
+    updateAchievement('reviewer', reviewCompleted)
+    updateAchievement('dedicated', userStats.totalStudyTime >= 3600) // 1 час
+    updateAchievement('marathoner', userStats.totalStudyTime >= 10800) // 3 часа
+    updateAchievement('night_owl', new Date().getHours() >= 0 && new Date().getHours() < 5)
+    updateAchievement('early_bird', new Date().getHours() >= 5 && new Date().getHours() < 7)
     
     if (changed) setAchievements(newAchievements)
-  }, [totalTopicsCompleted, userStats.quizzesCompleted, userStats.streak, visitedClasses.size, achievements, addExperience])
+  }, [totalTopicsCompleted, userStats.quizzesCompleted, userStats.streak, visitedClasses.size, achievements, addExperience, flashcardsStudiedThisSession, reviewCompleted, userStats.totalStudyTime, userStats.level])
 
   // Прогресс по предмету
   const getSubjectProgress = useCallback((subject: Subject) => {
@@ -603,6 +683,9 @@ export default function SchoolApp() {
 
   // Ответ на карточку
   const answerFlashcard = useCallback((known: boolean) => {
+    // Увеличиваем счётчик изученных карточек
+    setFlashcardsStudiedThisSession(prev => prev + 1)
+    
     if (known) {
       setFlashcardsKnown(prev => prev + 1)
     } else {
@@ -722,6 +805,69 @@ export default function SchoolApp() {
       subject.topics.some(t => t.title.toLowerCase().includes(searchQuery.toLowerCase()))
     )
   }, [selectedGrade, searchQuery])
+
+  // Переключение закладки
+  const toggleBookmark = useCallback((topicId: string) => {
+    setBookmarks(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(topicId)) {
+        newSet.delete(topicId)
+      } else {
+        newSet.add(topicId)
+      }
+      return newSet
+    })
+  }, [])
+
+  // Сохранение заметки
+  const saveNote = useCallback((topicId: string, note: string) => {
+    setNotes(prev => ({
+      ...prev,
+      [topicId]: note
+    }))
+  }, [])
+
+  // Получение избранных тем
+  const bookmarkedTopics = useMemo(() => {
+    const result: {topic: Topic, subjectId: string, subjectTitle: string, gradeName: string}[] = []
+    schoolData.forEach(grade => {
+      grade.subjects.forEach(subject => {
+        subject.topics.forEach(topic => {
+          if (bookmarks.has(topic.id)) {
+            result.push({ topic, subjectId: subject.id, subjectTitle: subject.title, gradeName: grade.name })
+          }
+        })
+      })
+    })
+    return result
+  }, [bookmarks])
+
+  // Рекомендации тем (неизученные темы из начатых предметов)
+  const recommendedTopics = useMemo(() => {
+    const startedSubjects = new Set<string>()
+    schoolData.forEach(grade => {
+      grade.subjects.forEach(subject => {
+        const hasProgress = subject.topics.some(t => progress[subject.id]?.[t.id])
+        if (hasProgress) startedSubjects.add(subject.id)
+      })
+    })
+    
+    const result: {topic: Topic, subjectId: string, subjectTitle: string, gradeName: string}[] = []
+    schoolData.forEach(grade => {
+      grade.subjects.forEach(subject => {
+        if (startedSubjects.has(subject.id)) {
+          subject.topics.forEach(topic => {
+            if (!progress[subject.id]?.[topic.id]) {
+              result.push({ topic, subjectId: subject.id, subjectTitle: subject.title, gradeName: grade.name })
+            }
+          })
+        }
+      })
+    })
+    
+    // Возвращаем топ-10 рекомендуемых тем
+    return result.sort(() => Math.random() - 0.5).slice(0, 10)
+  }, [progress])
 
   const currentGrade = schoolData.find(g => g.id === selectedGrade)
   const currentRank = getCurrentRank(userStats.level)
@@ -971,6 +1117,15 @@ export default function SchoolApp() {
               <Trophy className="w-4 h-4 mr-1.5" />
               Достижения
             </TabsTrigger>
+            <TabsTrigger value="bookmarks" className="data-[state=active]:bg-purple-600 h-8 text-sm">
+              <Bookmark className="w-4 h-4 mr-1.5" />
+              Избранное
+              {bookmarks.size > 0 && (
+                <Badge className="ml-1.5 h-5 px-1.5 bg-amber-500/20 text-amber-300 text-xs">
+                  {bookmarks.size}
+                </Badge>
+              )}
+            </TabsTrigger>
             <TabsTrigger value="stats" className="data-[state=active]:bg-purple-600 h-8 text-sm">
               <BarChart3 className="w-4 h-4 mr-1.5" />
               Статистика
@@ -1065,6 +1220,17 @@ export default function SchoolApp() {
                                   <Clock className="w-3 h-3" />
                                   {topic.estimatedTime} мин
                                 </div>
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
+                                  onClick={(e) => {
+                                    e.stopPropagation()
+                                    toggleBookmark(topic.id)
+                                  }}
+                                  className={`h-7 w-7 p-0 ${bookmarks.has(topic.id) ? 'text-amber-400' : 'text-white/40 hover:text-amber-400'}`}
+                                >
+                                  <Bookmark className={`w-3.5 h-3.5 ${bookmarks.has(topic.id) ? 'fill-amber-400' : ''}`} />
+                                </Button>
                                 <Button
                                   size="sm"
                                   variant="ghost"
@@ -1552,6 +1718,127 @@ export default function SchoolApp() {
             </div>
           </TabsContent>
 
+          {/* Таб избранного */}
+          <TabsContent value="bookmarks" className="space-y-4">
+            {/* Рекомендации */}
+            {recommendedTopics.length > 0 && (
+              <Card className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border-cyan-500/30">
+                <CardHeader>
+                  <CardTitle className="text-white flex items-center gap-2">
+                    <Lightbulb className="w-5 h-5 text-cyan-400" />
+                    Рекомендуется изучить
+                  </CardTitle>
+                  <CardDescription>
+                    Темы из предметов, которые вы уже начали изучать
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {recommendedTopics.map(({ topic, subjectId, subjectTitle, gradeName }) => (
+                      <div 
+                        key={topic.id}
+                        className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 cursor-pointer transition-all"
+                        onClick={() => {
+                          toggleTopic(subjectId, topic)
+                        }}
+                      >
+                        <Checkbox
+                          checked={progress[subjectId]?.[topic.id] || false}
+                          className="data-[state=checked]:bg-green-500 data-[state=checked]:border-green-500"
+                          onCheckedChange={() => {}}
+                        />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span className="text-white truncate">{topic.title}</span>
+                          </div>
+                          <p className="text-xs text-gray-400 truncate">{subjectTitle} • {gradeName}</p>
+                        </div>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            toggleBookmark(topic.id)
+                          }}
+                          className="h-7 w-7 p-0"
+                        >
+                          <Bookmark className={`w-4 h-4 ${bookmarks.has(topic.id) ? 'text-amber-400 fill-amber-400' : 'text-gray-400'}`} />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+            
+            {/* Закладки */}
+            <Card className="bg-white/5 border-white/10">
+              <CardHeader>
+                <CardTitle className="text-white flex items-center gap-2">
+                  <Bookmark className="w-5 h-5 text-amber-400" />
+                  Избранные темы
+                </CardTitle>
+                <CardDescription>
+                  Темы, которые вы сохранили для быстрого доступа
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {bookmarkedTopics.length === 0 ? (
+                  <div className="text-center py-8 text-gray-400">
+                    <Bookmark className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                    <p>Нет избранных тем</p>
+                    <p className="text-sm mt-1">Нажмите на иконку закладки рядом с темой, чтобы добавить её в избранное</p>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    {bookmarkedTopics.map(({ topic, subjectId, subjectTitle, gradeName }) => (
+                      <div 
+                        key={topic.id}
+                        className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-all"
+                      >
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span className={`text-white truncate ${progress[subjectId]?.[topic.id] ? 'line-through text-green-300' : ''}`}>
+                              {topic.title}
+                            </span>
+                            {progress[subjectId]?.[topic.id] && (
+                              <CheckCircle className="w-4 h-4 text-green-400 shrink-0" />
+                            )}
+                          </div>
+                          <p className="text-xs text-gray-400 truncate">{subjectTitle} • {gradeName}</p>
+                          {notes[topic.id] && (
+                            <p className="text-xs text-amber-300 mt-1 truncate">
+                              📝 {notes[topic.id]}
+                            </p>
+                          )}
+                        </div>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => {
+                            setSelectedTopic(topic)
+                            setTopicDialogOpen(true)
+                          }}
+                          className="h-7 w-7 p-0 text-gray-400 hover:text-white"
+                        >
+                          <BookOpen className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => toggleBookmark(topic.id)}
+                          className="h-7 w-7 p-0 text-amber-400"
+                        >
+                          <X className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
           {/* Таб статистики */}
           <TabsContent value="stats" className="space-y-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -1703,20 +1990,28 @@ export default function SchoolApp() {
               <CardContent>
                 <div className="flex items-end justify-between gap-2 h-32">
                   {['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((day, index) => {
-                    // Генерируем случайную активность для демонстрации
-                    // В реальном приложении здесь были бы реальные данные
-                    const activity = Math.random() * 100
-                    const isToday = index === new Date().getDay() - 1 || (new Date().getDay() === 0 && index === 6)
+                    // Используем реальные данные активности (в минутах)
+                    const maxActivity = Math.max(...weeklyActivity, 3600) // Максимум за день - 1 час
+                    const activityPercent = maxActivity > 0 ? (weeklyActivity[index] / maxActivity) * 100 : 0
+                    const isToday = index === (new Date().getDay() + 6) % 7 // Пн=0, Вс=6
+                    const hours = Math.floor(weeklyActivity[index] / 3600)
+                    const minutes = Math.floor((weeklyActivity[index] % 3600) / 60)
+                    const timeStr = hours > 0 ? `${hours}ч ${minutes}м` : `${minutes}м`
                     
                     return (
-                      <div key={day} className="flex-1 flex flex-col items-center gap-1">
+                      <div key={day} className="flex-1 flex flex-col items-center gap-1 group relative">
+                        {weeklyActivity[index] > 0 && (
+                          <div className="absolute -top-8 bg-purple-600 rounded px-2 py-1 text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                            {timeStr}
+                          </div>
+                        )}
                         <div 
                           className={`w-full rounded-t transition-all ${
                             isToday 
                               ? 'bg-gradient-to-t from-purple-500 to-blue-500' 
                               : 'bg-gradient-to-t from-purple-500/50 to-blue-500/50'
                           }`}
-                          style={{ height: `${Math.max(activity, 10)}%` }}
+                          style={{ height: `${Math.max(activityPercent, 5)}%` }}
                         />
                         <span className={`text-xs ${isToday ? 'text-white font-bold' : 'text-gray-400'}`}>
                           {day}
@@ -1724,6 +2019,14 @@ export default function SchoolApp() {
                       </div>
                     )
                   })}
+                </div>
+                <div className="mt-4 pt-3 border-t border-white/10">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-400">Всего за неделю:</span>
+                    <span className="text-white font-medium">
+                      {Math.floor(weeklyActivity.reduce((a, b) => a + b, 0) / 3600)}ч {Math.floor((weeklyActivity.reduce((a, b) => a + b, 0) % 3600) / 60)}м
+                    </span>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -1898,7 +2201,33 @@ export default function SchoolApp() {
             )}
           </ScrollArea>
           
-          <DialogFooter>
+          {/* Заметки */}
+          {selectedTopic && (
+            <div className="mt-4 pt-4 border-t border-white/10">
+              <div className="flex items-center gap-2 mb-2">
+                <Pencil className="w-4 h-4 text-gray-400" />
+                <span className="text-sm text-gray-400">Ваша заметка:</span>
+              </div>
+              <Input
+                placeholder="Добавьте заметку к этой теме..."
+                value={notes[selectedTopic.id] || ''}
+                onChange={(e) => saveNote(selectedTopic.id, e.target.value)}
+                className="bg-white/5 border-white/10 text-white placeholder:text-gray-500"
+              />
+            </div>
+          )}
+          
+          <DialogFooter className="flex gap-2 flex-wrap sm:flex-nowrap">
+            {selectedTopic && (
+              <Button
+                variant="outline"
+                onClick={() => toggleBookmark(selectedTopic.id)}
+                className={`bg-white/5 border-white/20 ${bookmarks.has(selectedTopic.id) ? 'text-amber-400' : 'text-gray-300'}`}
+              >
+                <Bookmark className={`w-4 h-4 mr-2 ${bookmarks.has(selectedTopic.id) ? 'fill-amber-400' : ''}`} />
+                {bookmarks.has(selectedTopic.id) ? 'В избранном' : 'В избранное'}
+              </Button>
+            )}
             <Button
               onClick={() => {
                 if (selectedTopic) {
@@ -1998,6 +2327,7 @@ export default function SchoolApp() {
                   setCurrentReviewIndex(prev => prev + 1)
                 } else {
                   setReviewMode(false)
+                  setReviewCompleted(true)
                   addExperience(20)
                   setShowConfetti(true)
                   setTimeout(() => setShowConfetti(false), 3000)
