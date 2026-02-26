@@ -19,12 +19,12 @@ export const metadata: Metadata = {
   keywords: ["школа", "образование", "тесты", "ЕГЭ", "учение", "онлайн школа", "ИНЕТШКОЛА"],
   authors: [{ name: "ИНЕТШКОЛА" }],
   icons: {
-    icon: "/logo.svg",
+    icon: "/inetshkola/logo.svg",
   },
   openGraph: {
     title: "ИНЕТШКОЛА",
     description: "Интерактивная образовательная платформа для школьников",
-    url: "https://evikass.github.io/inetshkola",
+    url: "https://evikass.github.io/inetshkola/",
     siteName: "ИНЕТШКОЛА",
     type: "website",
   },
