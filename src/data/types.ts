@@ -31,7 +31,7 @@ export interface Subject {
   gradient: string
   description: string
   topics: Topic[]
-  quiz: QuizQuestion[]
+  quiz?: QuizQuestion[]
 }
 
 export interface Grade {
@@ -83,4 +83,21 @@ export interface Rank {
   minLevel: number
   icon: string
   color: string
+}
+
+export interface GameUserStats {
+  level: number
+  experience: number
+  experienceToNextLevel: number
+  totalPoints: number
+  topicsCompleted: number
+  quizzesCompleted: number
+  perfectQuizzes: number
+  streak: number
+  maxStreak: number
+  lastActiveDate: string
+  totalStudyTime: number
+  rank: string
+  achievements: string[]
+  dailyTasksCompleted: number
 }

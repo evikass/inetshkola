@@ -1,9 +1,9 @@
-// ==================== ПОДГОТОВИТЕЛЬНЫЙ КЛАСС ====================
+// ==================== ПОДГОТОВИТЕЛЬНЫЙ КЛАСС (0) ====================
 
 import { Pencil, Calculator, Leaf } from 'lucide-react'
 import type { Grade } from '../types'
 
-export const class0: Grade = {
+export const grade0: Grade = {
   id: 0,
   name: 'Подготовительный класс',
   shortName: 'Подг.',

@@ -19,3 +19,26 @@ export const XP_PER_LEVEL = 100
 
 // Бонус за серию дней
 export const STREAK_BONUS = 1.5
+
+// Бонус за сложность
+export const DIFFICULTY_MULTIPLIER = {
+  easy: 1,
+  medium: 1.5,
+  hard: 2
+}
+
+// Очки за действия
+export const POINTS = {
+  TOPIC_COMPLETE: 10,
+  QUIZ_QUESTION: 5,
+  PERFECT_QUIZ: 50,
+  DAILY_TASK: 25,
+  ACHIEVEMENT: 100,
+  STREAK_BONUS: 5
+}
+
+// Время до следующего дня (для сброса ежедневных заданий)
+export const DAILY_RESET_HOUR = 0 // полночь
+
+// Максимальная серия дней
+export const MAX_STREAK = 365

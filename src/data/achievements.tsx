@@ -1,9 +1,10 @@
 // ==================== ДОСТИЖЕНИЯ ====================
 
-import { Star, Target, BookOpen, GraduationCap, Trophy, Medal, Flame, Zap, Crown, Sparkles } from 'lucide-react'
+import { Star, Target, BookOpen, GraduationCap, Trophy, Medal, Flame, Zap, Crown, Sparkles, Brain, Heart, Rocket } from 'lucide-react'
 import type { Achievement } from './types'
 
 export const achievementsData: Achievement[] = [
+  // === ОБЫЧНЫЕ ===
   { 
     id: 'first_step', 
     title: 'Первый шаг', 
@@ -25,6 +26,28 @@ export const achievementsData: Achievement[] = [
     rarity: 'common' 
   },
   { 
+    id: 'quiz_master', 
+    title: 'Мастер тестов', 
+    description: 'Пройдите 5 квизов', 
+    icon: <Trophy className="w-6 h-6" />, 
+    unlocked: false, 
+    condition: 'complete_5_quizzes', 
+    points: 150, 
+    rarity: 'common' 
+  },
+  { 
+    id: 'streak_3', 
+    title: '3 дня подряд', 
+    description: 'Занимайтесь 3 дня подряд', 
+    icon: <Flame className="w-6 h-6" />, 
+    unlocked: false, 
+    condition: '3_day_streak', 
+    points: 100, 
+    rarity: 'common' 
+  },
+  
+  // === РЕДКИЕ ===
+  { 
     id: 'scholar', 
     title: 'Учёный', 
     description: 'Изучите 50 тем', 
@@ -45,16 +68,6 @@ export const achievementsData: Achievement[] = [
     rarity: 'rare' 
   },
   { 
-    id: 'quiz_master', 
-    title: 'Мастер тестов', 
-    description: 'Пройдите 5 квизов', 
-    icon: <Trophy className="w-6 h-6" />, 
-    unlocked: false, 
-    condition: 'complete_5_quizzes', 
-    points: 150, 
-    rarity: 'common' 
-  },
-  { 
     id: 'perfect_score', 
     title: 'Идеальный результат', 
     description: 'Получите 100% в квизе', 
@@ -63,16 +76,6 @@ export const achievementsData: Achievement[] = [
     condition: 'perfect_quiz', 
     points: 200, 
     rarity: 'rare' 
-  },
-  { 
-    id: 'streak_3', 
-    title: '3 дня подряд', 
-    description: 'Занимайтесь 3 дня подряд', 
-    icon: <Flame className="w-6 h-6" />, 
-    unlocked: false, 
-    condition: '3_day_streak', 
-    points: 100, 
-    rarity: 'common' 
   },
   { 
     id: 'streak_7', 
@@ -85,6 +88,18 @@ export const achievementsData: Achievement[] = [
     rarity: 'rare' 
   },
   { 
+    id: 'brain_power', 
+    title: 'Мозговая сила', 
+    description: 'Наберите 1000 очков', 
+    icon: <Brain className="w-6 h-6" />, 
+    unlocked: false, 
+    condition: '1000_points', 
+    points: 250, 
+    rarity: 'rare' 
+  },
+  
+  // === ЭПИЧЕСКИЕ ===
+  { 
     id: 'all_classes', 
     title: 'Все классы', 
     description: 'Откройте все классы', 
@@ -95,12 +110,44 @@ export const achievementsData: Achievement[] = [
     rarity: 'epic' 
   },
   { 
+    id: 'streak_30', 
+    title: 'Месяц упорства', 
+    description: 'Занимайтесь 30 дней подряд', 
+    icon: <Heart className="w-6 h-6" />, 
+    unlocked: false, 
+    condition: '30_day_streak', 
+    points: 500, 
+    rarity: 'epic' 
+  },
+  { 
+    id: 'all_subjects', 
+    title: 'Энциклопедист', 
+    description: 'Изучите темы по всем предметам класса', 
+    icon: <Rocket className="w-6 h-6" />, 
+    unlocked: false, 
+    condition: 'all_subjects_in_grade', 
+    points: 400, 
+    rarity: 'epic' 
+  },
+  
+  // === ЛЕГЕНДАРНЫЕ ===
+  { 
     id: 'genius', 
     title: 'Гений', 
     description: 'Изучите все темы', 
     icon: <Sparkles className="w-6 h-6" />, 
     unlocked: false, 
     condition: 'complete_all', 
+    points: 1000, 
+    rarity: 'legendary' 
+  },
+  { 
+    id: 'streak_100', 
+    title: 'Легенда упорства', 
+    description: 'Занимайтесь 100 дней подряд', 
+    icon: <Crown className="w-6 h-6" />, 
+    unlocked: false, 
+    condition: '100_day_streak', 
     points: 1000, 
     rarity: 'legendary' 
   }
