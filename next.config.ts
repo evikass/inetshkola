@@ -1,8 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
-  /* config options here */
+  output: "export",
+  distDir: "out",
+  basePath: "/shkola-educational-app",
+  images: {
+    unoptimized: true,
+  },
+  trailingSlash: true,
   typescript: {
     ignoreBuildErrors: true,
   },
