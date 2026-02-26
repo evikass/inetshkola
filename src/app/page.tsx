@@ -158,6 +158,46 @@ export default function SchoolApp() {
   const [sessionStartTime, setSessionStartTime] = useState<number | null>(null)
   const [flashcardsStudiedThisSession, setFlashcardsStudiedThisSession] = useState(0)
   const [reviewCompleted, setReviewCompleted] = useState(false)
+  
+  // Ежедневный челлендж
+  const [dailyChallenge, setDailyChallenge] = useState<{
+    completed: boolean
+    questions: QuizQuestion[]
+    currentIndex: number
+    score: number
+    showResult: boolean
+    selectedAnswer: number | null
+  } | null>(null)
+  
+  // Цели обучения
+  const [learningGoals, setLearningGoals] = useState<{
+    dailyTopics: number
+    weeklyTopics: number
+    monthlyTopics: number
+    dailyTarget: number
+    weeklyTarget: number
+    monthlyTarget: number
+  }>({
+    dailyTopics: 0,
+    weeklyTopics: 0,
+    monthlyTopics: 0,
+    dailyTarget: 5,
+    weeklyTarget: 25,
+    monthlyTarget: 100
+  })
+  
+  // Заморозка стрика
+  const [streakFreeze, setStreakFreeze] = useState<number>(3) // 3 заморозки
+  
+  // Локальная таблица лидеров (симулированная)
+  const [leaderboard] = useState([
+    { name: 'Вы', points: 0, rank: 1, isUser: true },
+    { name: 'Алексей М.', points: 12500, rank: 1, isUser: false },
+    { name: 'Мария К.', points: 11200, rank: 2, isUser: false },
+    { name: 'Дмитрий С.', points: 9800, rank: 3, isUser: false },
+    { name: 'Анна П.', points: 8500, rank: 4, isUser: false },
+    { name: 'Иван В.', points: 7200, rank: 5, isUser: false },
+  ])
 
   // Мотивационные цитаты
   const motivationalQuotes = [
@@ -271,6 +311,24 @@ export default function SchoolApp() {
     const savedNotes = localStorage.getItem('notes_v2')
     if (savedNotes) setNotes(JSON.parse(savedNotes))
     
+    // Загрузка целей обучения
+    const savedGoals = localStorage.getItem('learningGoals_v2')
+    if (savedGoals) setLearningGoals(JSON.parse(savedGoals))
+    
+    // Загрузка заморозок стрика
+    const savedFreeze = localStorage.getItem('streakFreeze_v2')
+    if (savedFreeze) setStreakFreeze(parseInt(savedFreeze))
+    
+    // Загрузка челленджа
+    const savedChallenge = localStorage.getItem('dailyChallenge_v2')
+    if (savedChallenge) {
+      const challenge = JSON.parse(savedChallenge)
+      // Проверяем, что челлендж сегодняшнего дня
+      if (challenge.date === new Date().toDateString()) {
+        setDailyChallenge(challenge)
+      }
+    }
+    
     // Проверка стрика
     const today = new Date().toDateString()
     const lastDate = savedLastDate || ''
@@ -288,13 +346,26 @@ export default function SchoolApp() {
           lastActiveDate: today
         }))
       } else if (lastDate !== '') {
-        // Сброс стрика
-        setUserStats(prev => ({
-          ...prev,
-          streak: 1,
-          lastActiveDate: today
-        }))
-        setDailyTasks(dailyTasksData) // Сброс ежедневных заданий
+        // Проверяем заморозку стрика
+        const savedFreezeCount = parseInt(localStorage.getItem('streakFreeze_v2') || '3')
+        if (savedFreezeCount > 0) {
+          // Используем заморозку
+          setStreakFreeze(savedFreezeCount - 1)
+          localStorage.setItem('streakFreeze_v2', String(savedFreezeCount - 1))
+          // Стрик сохраняется
+          setUserStats(prev => ({
+            ...prev,
+            lastActiveDate: today
+          }))
+        } else {
+          // Сброс стрика
+          setUserStats(prev => ({
+            ...prev,
+            streak: 1,
+            lastActiveDate: today
+          }))
+          setDailyTasks(dailyTasksData) // Сброс ежедневных заданий
+        }
       } else {
         setUserStats(prev => ({ ...prev, lastActiveDate: today }))
       }
@@ -314,7 +385,9 @@ export default function SchoolApp() {
     localStorage.setItem('lastActivityDate_v2', new Date().toISOString())
     localStorage.setItem('bookmarks_v2', JSON.stringify([...bookmarks]))
     localStorage.setItem('notes_v2', JSON.stringify(notes))
-  }, [progress, userStats, achievements, visitedClasses, dailyTasks, weeklyActivity, bookmarks, notes])
+    localStorage.setItem('learningGoals_v2', JSON.stringify(learningGoals))
+    localStorage.setItem('streakFreeze_v2', String(streakFreeze))
+  }, [progress, userStats, achievements, visitedClasses, dailyTasks, weeklyActivity, bookmarks, notes, learningGoals, streakFreeze])
 
   // Таймер обучения
   useEffect(() => {
@@ -507,6 +580,14 @@ export default function SchoolApp() {
           }
         }
         return task
+      }))
+      
+      // Обновление целей обучения
+      setLearningGoals(prev => ({
+        ...prev,
+        dailyTopics: prev.dailyTopics + 1,
+        weeklyTopics: prev.weeklyTopics + 1,
+        monthlyTopics: prev.monthlyTopics + 1
       }))
     }
     
@@ -730,6 +811,125 @@ export default function SchoolApp() {
     setReviewMode(true)
   }, [progress])
 
+  // Начать ежедневный челлендж
+  const startDailyChallenge = useCallback(() => {
+    // Собираем все вопросы
+    const allQuestions: QuizQuestion[] = []
+    schoolData.forEach(grade => {
+      grade.subjects.forEach(subject => {
+        if (subject.quiz) {
+          subject.quiz.forEach(q => allQuestions.push(q))
+        }
+      })
+    })
+    
+    if (allQuestions.length === 0) return
+    
+    // Используем дату как seed для одинаковых вопросов в течение дня
+    const today = new Date().toDateString()
+    const seed = today.split('').reduce((a, b) => a + b.charCodeAt(0), 0)
+    const shuffled = [...allQuestions].sort((a, b) => {
+      return ((seed + a.question.length) % 2) - 0.5
+    })
+    
+    const challengeQuestions = shuffled.slice(0, Math.min(10, shuffled.length))
+    
+    setDailyChallenge({
+      completed: false,
+      questions: challengeQuestions,
+      currentIndex: 0,
+      score: 0,
+      showResult: false,
+      selectedAnswer: null
+    })
+    
+    // Сохраняем дату челленджа
+    localStorage.setItem('dailyChallenge_v2', JSON.stringify({
+      date: today,
+      completed: false,
+      questions: challengeQuestions
+    }))
+  }, [])
+  
+  // Ответ на вопрос челленджа
+  const answerChallengeQuestion = useCallback((answerIndex: number) => {
+    if (!dailyChallenge) return
+    
+    const isCorrect = answerIndex === dailyChallenge.questions[dailyChallenge.currentIndex].correctAnswer
+    if (soundEnabled) {
+      playSound(isCorrect ? 'correct' : 'wrong')
+    }
+    
+    setDailyChallenge(prev => {
+      if (!prev) return null
+      return {
+        ...prev,
+        score: isCorrect ? prev.score + 1 : prev.score,
+        showResult: true,
+        selectedAnswer: answerIndex
+      }
+    })
+  }, [dailyChallenge, soundEnabled, playSound])
+  
+  // Следующий вопрос челленджа
+  const nextChallengeQuestion = useCallback(() => {
+    if (!dailyChallenge) return
+    
+    if (dailyChallenge.currentIndex < dailyChallenge.questions.length - 1) {
+      setDailyChallenge(prev => {
+        if (!prev) return null
+        return {
+          ...prev,
+          currentIndex: prev.currentIndex + 1,
+          showResult: false,
+          selectedAnswer: null
+        }
+      })
+    } else {
+      // Челлендж завершён
+      const finalScore = dailyChallenge.score + (dailyChallenge.selectedAnswer === dailyChallenge.questions[dailyChallenge.currentIndex]?.correctAnswer ? 1 : 0)
+      const percent = Math.round((finalScore / dailyChallenge.questions.length) * 100)
+      
+      // Бонус за челлендж
+      if (percent === 100) {
+        addExperience(100)
+        if (soundEnabled) playSound('levelup')
+      } else if (percent >= 80) {
+        addExperience(70)
+        if (soundEnabled) playSound('complete')
+      } else if (percent >= 60) {
+        addExperience(50)
+        if (soundEnabled) playSound('complete')
+      } else {
+        addExperience(20)
+      }
+      
+      setDailyChallenge(prev => {
+        if (!prev) return null
+        return { ...prev, completed: true }
+      })
+      
+      // Обновляем ежедневные задания
+      setDailyTasks(prev => prev.map(task => {
+        if (task.type === 'quizzes' && !task.completed) {
+          return { ...task, progress: task.progress + 1, completed: true }
+        }
+        return task
+      }))
+      
+      // Сохраняем результат челленджа
+      localStorage.setItem('dailyChallenge_v2', JSON.stringify({
+        date: new Date().toDateString(),
+        completed: true,
+        score: finalScore,
+        total: dailyChallenge.questions.length
+      }))
+      
+      setShowConfetti(true)
+      setTimeout(() => setShowConfetti(false), 3000)
+    }
+  }, [dailyChallenge, addExperience, soundEnabled, playSound])
+
   // Начать экзамен
   const startExam = useCallback((gradeId: number) => {
     const grade = schoolData.find(g => g.id === gradeId)
@@ -924,6 +1124,11 @@ export default function SchoolApp() {
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-500/30">
                 <Flame className="w-4 h-4 text-orange-400" />
                 <span className="font-bold text-orange-400">{userStats.streak}</span>
+                {streakFreeze > 0 && (
+                  <span className="text-xs text-cyan-400 ml-1" title="Заморозки стрика">
+                    ❄️{streakFreeze}
+                  </span>
+                )}
               </div>
               
               {/* Уровень */}
@@ -1103,6 +1308,13 @@ export default function SchoolApp() {
             <TabsTrigger value="exam" className="data-[state=active]:bg-purple-600 h-8 text-sm">
               <FileText className="w-4 h-4 mr-1.5" />
               Экзамен
+            </TabsTrigger>
+            <TabsTrigger value="challenge" className="data-[state=active]:bg-purple-600 h-8 text-sm">
+              <Zap className="w-4 h-4 mr-1.5" />
+              Челлендж
+              {dailyChallenge?.completed && (
+                <CheckCircle className="w-3.5 h-3.5 ml-1 text-green-400" />
+              )}
             </TabsTrigger>
             <TabsTrigger value="tasks" className="data-[state=active]:bg-purple-600 h-8 text-sm">
               <Calendar className="w-4 h-4 mr-1.5" />
@@ -1621,6 +1833,179 @@ export default function SchoolApp() {
             )}
           </TabsContent>
 
+          {/* Таб челленджа */}
+          <TabsContent value="challenge" className="space-y-4">
+            {dailyChallenge && dailyChallenge.questions.length > 0 ? (
+              dailyChallenge.completed ? (
+                /* Результат челленджа */
+                <Card className="bg-gradient-to-br from-amber-500/20 to-yellow-500/20 border-amber-500/30">
+                  <CardContent className="p-8 text-center">
+                    <div className="text-6xl mb-4">🏆</div>
+                    <h2 className="text-2xl font-bold text-white mb-2">
+                      Челлендж завершён!
+                    </h2>
+                    <p className="text-gray-400 mb-4">
+                      Вы ответили правильно на {dailyChallenge.score} из {dailyChallenge.questions.length} вопросов
+                    </p>
+                    <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-400 mb-6">
+                      {Math.round((dailyChallenge.score / dailyChallenge.questions.length) * 100)}%
+                    </div>
+                    <Badge className="bg-amber-500/20 text-amber-300 text-lg px-4 py-2">
+                      <Gift className="w-5 h-5 mr-2" />
+                      Бонус получен!
+                    </Badge>
+                    <p className="text-sm text-gray-400 mt-4">
+                      Приходите завтра за новым челленджем!
+                    </p>
+                  </CardContent>
+                </Card>
+              ) : (
+                /* Активный челлендж */
+                <div className="max-w-2xl mx-auto">
+                  {/* Прогресс */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-gray-400">
+                      Вопрос {dailyChallenge.currentIndex + 1} из {dailyChallenge.questions.length}
+                    </span>
+                    <Badge className="bg-amber-500/20 text-amber-300">
+                      <Zap className="w-3.5 h-3.5 mr-1" />
+                      Ежедневный челлендж
+                    </Badge>
+                  </div>
+                  <Progress value={((dailyChallenge.currentIndex + 1) / dailyChallenge.questions.length) * 100} className="h-2 mb-6" />
+                  
+                  {/* Вопрос */}
+                  <Card className="bg-gradient-to-br from-amber-500/20 to-orange-500/20 border-amber-500/30">
+                    <CardContent className="p-6">
+                      <h3 className="text-xl font-bold text-white mb-6">
+                        {dailyChallenge.questions[dailyChallenge.currentIndex]?.question}
+                      </h3>
+                      
+                      <div className="space-y-3">
+                        {dailyChallenge.questions[dailyChallenge.currentIndex]?.options.map((option: string, index: number) => {
+                          const isSelected = dailyChallenge.selectedAnswer === index
+                          const isCorrect = index === dailyChallenge.questions[dailyChallenge.currentIndex]?.correctAnswer
+                          let bgClass = 'bg-white/5 hover:bg-white/10 border-white/10'
+                          
+                          if (dailyChallenge.showResult) {
+                            if (isCorrect) bgClass = 'bg-green-500/20 border-green-500/30'
+                            else if (isSelected && !isCorrect) bgClass = 'bg-red-500/20 border-red-500/30'
+                          }
+                          
+                          return (
+                            <button
+                              key={index}
+                              onClick={() => !dailyChallenge.showResult && answerChallengeQuestion(index)}
+                              disabled={dailyChallenge.showResult}
+                              className={`w-full p-4 rounded-xl border text-left transition-all ${bgClass}`}
+                            >
+                              <div className="flex items-center gap-3">
+                                <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm font-medium shrink-0">
+                                  {String.fromCharCode(65 + index)}
+                                </span>
+                                <span className="text-white">{option}</span>
+                                {dailyChallenge.showResult && isCorrect && (
+                                  <CheckCircle className="w-5 h-5 text-green-400 ml-auto" />
+                                )}
+                                {dailyChallenge.showResult && isSelected && !isCorrect && (
+                                  <XCircle className="w-5 h-5 text-red-400 ml-auto" />
+                                )}
+                              </div>
+                            </button>
+                          )
+                        })}
+                      </div>
+                      
+                      {dailyChallenge.showResult && (
+                        <div className="mt-4">
+                          <p className="text-sm text-gray-400 mb-4">
+                            {dailyChallenge.questions[dailyChallenge.currentIndex]?.explanation}
+                          </p>
+                          <Button
+                            onClick={nextChallengeQuestion}
+                            className="w-full bg-gradient-to-r from-amber-600 to-orange-600"
+                          >
+                            {dailyChallenge.currentIndex < dailyChallenge.questions.length - 1 ? 'Следующий вопрос' : 'Завершить челлендж'}
+                          </Button>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </div>
+              )
+            ) : (
+              /* Начало челленджа */
+              <div className="space-y-6">
+                <Card className="bg-gradient-to-br from-amber-500/10 to-orange-500/10 border-amber-500/30">
+                  <CardHeader>
+                    <CardTitle className="text-white flex items-center gap-2">
+                      <Zap className="w-5 h-5 text-amber-400" />
+                      Ежедневный челлендж
+                    </CardTitle>
+                    <CardDescription>
+                      Проверьте свои знания в ежедневном тесте из 10 вопросов
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-3 gap-4 text-center">
+                      <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+                        <p className="text-2xl font-bold text-amber-400">10</p>
+                        <p className="text-xs text-gray-400">вопросов</p>
+                      </div>
+                      <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+                        <p className="text-2xl font-bold text-green-400">100</p>
+                        <p className="text-xs text-gray-400">XP за 100%</p>
+                      </div>
+                      <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+                        <p className="text-2xl font-bold text-purple-400">1</p>
+                        <p className="text-xs text-gray-400">попытка в день</p>
+                      </div>
+                    </div>
+                    
+                    <Button
+                      onClick={startDailyChallenge}
+                      className="w-full h-14 text-lg bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700"
+                    >
+                      <Zap className="w-5 h-5 mr-2" />
+                      Начать челлендж
+                    </Button>
+                  </CardContent>
+                </Card>
+                
+                {/* Правила челленджа */}
+                <Card className="bg-white/5 border-white/10">
+                  <CardHeader>
+                    <CardTitle className="text-white text-lg">Правила</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2 text-sm text-gray-400">
+                      <li className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-400" />
+                        Каждый день новый набор вопросов
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-400" />
+                        Вопросы из всех предметов и классов
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-400" />
+                        100% результат = 100 XP бонус
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-400" />
+                        80%+ результат = 70 XP бонус
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-400" />
+                        60%+ результат = 50 XP бонус
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+          </TabsContent>
+
           {/* Таб ежедневных заданий */}
           <TabsContent value="tasks" className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1898,6 +2283,112 @@ export default function SchoolApp() {
                 </CardContent>
               </Card>
             </div>
+
+            {/* Цели обучения */}
+            <Card className="bg-white/5 border-white/10">
+              <CardHeader>
+                <CardTitle className="text-white text-lg flex items-center gap-2">
+                  <Target className="w-5 h-5 text-green-400" />
+                  Цели обучения
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {/* Дневная цель */}
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-white">Дневная цель</span>
+                    <span className="text-gray-400">{learningGoals.dailyTopics}/{learningGoals.dailyTarget} тем</span>
+                  </div>
+                  <Progress 
+                    value={(learningGoals.dailyTopics / learningGoals.dailyTarget) * 100} 
+                    className="h-2"
+                  />
+                </div>
+                
+                {/* Недельная цель */}
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-white">Недельная цель</span>
+                    <span className="text-gray-400">{learningGoals.weeklyTopics}/{learningGoals.weeklyTarget} тем</span>
+                  </div>
+                  <Progress 
+                    value={(learningGoals.weeklyTopics / learningGoals.weeklyTarget) * 100} 
+                    className="h-2"
+                  />
+                </div>
+                
+                {/* Месячная цель */}
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-white">Месячная цель</span>
+                    <span className="text-gray-400">{learningGoals.monthlyTopics}/{learningGoals.monthlyTarget} тем</span>
+                  </div>
+                  <Progress 
+                    value={(learningGoals.monthlyTopics / learningGoals.monthlyTarget) * 100} 
+                    className="h-2"
+                  />
+                </div>
+                
+                <div className="pt-3 border-t border-white/10">
+                  <div className="flex items-center gap-2 text-sm text-gray-400">
+                    <Lightbulb className="w-4 h-4 text-amber-400" />
+                    <span>Настройте цели в зависимости от вашего темпа обучения</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Таблица лидеров */}
+            <Card className="bg-white/5 border-white/10">
+              <CardHeader>
+                <CardTitle className="text-white text-lg flex items-center gap-2">
+                  <Trophy className="w-5 h-5 text-amber-400" />
+                  Таблица лидеров
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  {leaderboard.map((player, index) => {
+                    const isUser = player.isUser
+                    const userPoints = userStats.totalPoints
+                    const displayPoints = isUser ? userPoints : player.points
+                    const maxPoints = Math.max(...leaderboard.map(p => isUser ? userPoints : p.points), userPoints)
+                    
+                    return (
+                      <div 
+                        key={index}
+                        className={`flex items-center gap-3 p-3 rounded-lg ${
+                          isUser 
+                            ? 'bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-purple-500/30' 
+                            : 'bg-white/5'
+                        }`}
+                      >
+                        <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
+                          index === 0 ? 'bg-amber-500/20 text-amber-400' :
+                          index === 1 ? 'bg-gray-400/20 text-gray-300' :
+                          index === 2 ? 'bg-orange-500/20 text-orange-400' :
+                          'bg-white/10 text-gray-400'
+                        }`}>
+                          {index + 1}
+                        </span>
+                        <div className="flex-1">
+                          <p className={`font-medium ${isUser ? 'text-purple-300' : 'text-white'}`}>
+                            {isUser ? 'Вы' : player.name}
+                          </p>
+                          <div className="h-1.5 bg-white/10 rounded-full mt-1 overflow-hidden">
+                            <div 
+                              className={`h-full rounded-full ${isUser ? 'bg-gradient-to-r from-purple-500 to-blue-500' : 'bg-white/30'}`}
+                              style={{ width: `${(displayPoints / maxPoints) * 100}%` }}
+                            />
+                          </div>
+                        </div>
+                        <span className="text-amber-400 font-medium">{displayPoints.toLocaleString()}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </CardContent>
+            </Card>
 
             {/* Таймер обучения */}
             <Card className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-cyan-500/30">
