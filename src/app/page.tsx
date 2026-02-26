@@ -67,7 +67,10 @@ const achievementsData: Achievement[] = [
 const dailyTasksData: DailyTask[] = [
   { id: 'daily_topics', title: 'Изучить темы', description: 'Изучите 3 темы сегодня', target: 3, progress: 0, reward: 30, completed: false, type: 'topics' },
   { id: 'daily_quiz', title: 'Пройти тест', description: 'Пройдите 1 квиз сегодня', target: 1, progress: 0, reward: 25, completed: false, type: 'quizzes' },
-  { id: 'daily_points', title: 'Набрать очки', description: 'Наберите 50 очков сегодня', target: 50, progress: 0, reward: 20, completed: false, type: 'points' }
+  { id: 'daily_points', title: 'Набрать очки', description: 'Наберите 50 очков сегодня', target: 50, progress: 0, reward: 20, completed: false, type: 'points' },
+  { id: 'daily_perfect', title: 'Идеальный тест', description: 'Получите 100% в квизе', target: 1, progress: 0, reward: 50, completed: false, type: 'perfect' },
+  { id: 'daily_subjects', title: 'Разнообразие', description: 'Изучите темы из 2 разных предметов', target: 2, progress: 0, reward: 35, completed: false, type: 'subjects' },
+  { id: 'daily_time', title: 'Усердие', description: 'Занимайтесь 15 минут', target: 15, progress: 0, reward: 40, completed: false, type: 'time' }
 ]
 
 // ==================== ГЛАВНЫЙ КОМПОНЕНТ ====================
@@ -264,6 +267,23 @@ export default function SchoolApp() {
       if (level >= rank.minLevel) currentRank = rank
     }
     return currentRank
+  }, [])
+
+  // Определение следующего ранга
+  const getNextRank = useCallback((level: number) => {
+    const currentIndex = RANKS.findIndex(rank => rank.minLevel > level)
+    return currentIndex !== -1 ? RANKS[currentIndex] : null
+  }, [])
+
+  // Прогресс до следующего ранга
+  const getRankProgress = useCallback((level: number) => {
+    const currentRankIndex = RANKS.findIndex(rank => rank.minLevel > level) - 1
+    if (currentRankIndex === RANKS.length - 2 || currentRankIndex === -1) return 100
+    const currentMinLevel = RANKS[Math.max(0, currentRankIndex)].minLevel
+    const nextRank = RANKS[currentRankIndex + 1]
+    if (!nextRank) return 100
+    const progress = ((level - currentMinLevel) / (nextRank.minLevel - currentMinLevel)) * 100
+    return Math.min(100, Math.max(0, progress))
   }, [])
 
   // Добавление опыта
@@ -477,6 +497,8 @@ export default function SchoolApp() {
 
   const currentGrade = schoolData.find(g => g.id === selectedGrade)
   const currentRank = getCurrentRank(userStats.level)
+  const nextRank = getNextRank(userStats.level)
+  const rankProgress = getRankProgress(userStats.level)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
@@ -513,7 +535,10 @@ export default function SchoolApp() {
               <div>
                 <h1 className="text-xl font-bold text-white">ИНЕТШКОЛА</h1>
                 <div className="flex items-center gap-2 text-sm text-purple-300">
-                  <span>{currentRank.icon} {currentRank.name}</span>
+                  <span className={`flex items-center gap-1 px-2 py-0.5 rounded-full bg-gradient-to-r ${currentRank.gradient || 'from-gray-500 to-gray-600'} bg-opacity-20 border border-white/10`}>
+                    <span className="text-base">{currentRank.icon}</span>
+                    <span className="font-medium">{currentRank.name}</span>
+                  </span>
                   <span className="text-white/30">•</span>
                   <span>Уровень {userStats.level}</span>
                 </div>
@@ -528,14 +553,27 @@ export default function SchoolApp() {
               </div>
               
               {/* Уровень */}
-              <div className="hidden sm:flex items-center gap-2">
-                <div className="w-32 h-2 bg-white/10 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-gradient-to-r from-purple-500 to-blue-500 transition-all duration-300"
-                    style={{ width: `${(userStats.experience / XP_PER_LEVEL) * 100}%` }}
-                  />
+              <div className="hidden sm:flex flex-col gap-1">
+                <div className="flex items-center gap-2">
+                  <div className="w-32 h-2 bg-white/10 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-purple-500 to-blue-500 transition-all duration-300"
+                      style={{ width: `${(userStats.experience / XP_PER_LEVEL) * 100}%` }}
+                    />
+                  </div>
+                  <span className="text-xs text-gray-400">{userStats.experience}/{XP_PER_LEVEL} XP</span>
                 </div>
-                <span className="text-xs text-gray-400">{userStats.experience}/{XP_PER_LEVEL} XP</span>
+                {nextRank && (
+                  <div className="flex items-center gap-2">
+                    <div className="w-32 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                      <div 
+                        className={`h-full bg-gradient-to-r ${currentRank.gradient || 'from-gray-500 to-gray-600'} transition-all duration-300`}
+                        style={{ width: `${rankProgress}%` }}
+                      />
+                    </div>
+                    <span className="text-xs text-gray-500">{currentRank.icon}→{nextRank.icon}</span>
+                  </div>
+                )}
               </div>
               
               {/* Очки */}
@@ -1003,6 +1041,47 @@ export default function SchoolApp() {
                       <RotateCcw className="w-4 h-4" />
                     </Button>
                   </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Ранги */}
+            <Card className="bg-white/5 border-white/10">
+              <CardHeader>
+                <CardTitle className="text-white text-lg flex items-center gap-2">
+                  <Crown className="w-5 h-5 text-amber-400" />
+                  Система рангов
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {RANKS.map((rank, index) => {
+                    const isCurrent = rank.name === currentRank.name
+                    const isUnlocked = userStats.level >= rank.minLevel
+                    return (
+                      <div 
+                        key={rank.name}
+                        className={`p-3 rounded-xl border transition-all ${
+                          isCurrent 
+                            ? `bg-gradient-to-br ${rank.gradient || 'from-gray-500 to-gray-600'} border-white/30 shadow-lg` 
+                            : isUnlocked 
+                              ? 'bg-white/5 border-white/20 opacity-80' 
+                              : 'bg-white/5 border-white/10 opacity-40'
+                        }`}
+                      >
+                        <div className="text-center">
+                          <span className="text-2xl">{rank.icon}</span>
+                          <p className={`text-sm font-medium mt-1 ${isCurrent ? 'text-white' : 'text-gray-300'}`}>
+                            {rank.name}
+                          </p>
+                          <p className="text-xs text-gray-500">Ур. {rank.minLevel}+</p>
+                          {isCurrent && (
+                            <Badge className="mt-2 bg-white/20 text-white text-xs">Текущий</Badge>
+                          )}
+                        </div>
+                      </div>
+                    )
+                  })}
                 </div>
               </CardContent>
             </Card>

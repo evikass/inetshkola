@@ -61,7 +61,7 @@ export interface DailyTask {
   progress: number
   reward: number
   completed: boolean
-  type: 'topics' | 'quizzes' | 'points'
+  type: 'topics' | 'quizzes' | 'points' | 'perfect' | 'subjects' | 'time'
 }
 
 export interface UserStats {
@@ -83,6 +83,7 @@ export interface Rank {
   minLevel: number
   icon: string
   color: string
+  gradient?: string
 }
 
 export interface GameUserStats {
