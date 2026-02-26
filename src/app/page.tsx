@@ -131,6 +131,81 @@ export default function SchoolApp() {
   const [reviewMode, setReviewMode] = useState(false)
   const [reviewTopics, setReviewTopics] = useState<{topic: Topic, subjectId: string, subjectTitle: string}[]>([])
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0)
+  
+  // Звуковые эффекты
+  const [soundEnabled, setSoundEnabled] = useState(true)
+  
+  // Режим экзамена
+  const [examMode, setExamMode] = useState(false)
+  const [examQuestions, setExamQuestions] = useState<QuizQuestion[]>([])
+  const [examGrade, setExamGrade] = useState<number | null>(null)
+  const [examScore, setExamScore] = useState(0)
+  const [examQuestionIndex, setExamQuestionIndex] = useState(0)
+  const [examFinished, setExamFinished] = useState(false)
+  const [examSelectedAnswer, setExamSelectedAnswer] = useState<number | null>(null)
+  const [examShowResult, setExamShowResult] = useState(false)
+
+  // Мотивационные цитаты
+  const motivationalQuotes = [
+    { text: "Обучение — это сокровище, которое следует за своим владельцем повсюду.", author: "Китайская пословица" },
+    { text: "Знание — сила.", author: "Фрэнсис Бэкон" },
+    { text: "Жизнь — это школа, и мы в ней всегда ученики.", author: "Оноре де Бальзак" },
+    { text: "Учись так, словно тебе предстоит жить вечно.", author: "Махатма Ганди" },
+    { text: "Кто хочет — ищет возможность, кто не хочет — ищет причину.", author: "Сократ" },
+    { text: "Образование — это то, что остаётся, когда вы забыли всё, чему вас учили.", author: "Альберт Эйнштейн" },
+    { text: "Единственный способ делать великую работу — любить то, что делаешь.", author: "Стив Джобс" },
+    { text: "Чем больше ты знаешь, тем больше ты можешь.", author: "Жюль Верн" },
+    { text: "Никогда не поздно стать тем, кем ты мог бы быть.", author: "Джордж Элиот" },
+    { text: "Ошибка — это не провал, а урок.", author: "Неизвестный автор" }
+  ]
+  
+  const [currentQuote] = useState(() => motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)])
+
+  // Звуковые эффекты
+  const playSound = useCallback((type: 'correct' | 'wrong' | 'complete' | 'levelup') => {
+    if (!soundEnabled || typeof window === 'undefined') return
+    
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
+    const oscillator = audioContext.createOscillator()
+    const gainNode = audioContext.createGain()
+    
+    oscillator.connect(gainNode)
+    gainNode.connect(audioContext.destination)
+    
+    switch (type) {
+      case 'correct':
+        oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime) // C5
+        oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1) // E5
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime)
+        gainNode.gain.exponentialDecayTo = 0.01
+        oscillator.start(audioContext.currentTime)
+        oscillator.stop(audioContext.currentTime + 0.2)
+        break
+      case 'wrong':
+        oscillator.frequency.setValueAtTime(200, audioContext.currentTime)
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime)
+        oscillator.start(audioContext.currentTime)
+        oscillator.stop(audioContext.currentTime + 0.3)
+        break
+      case 'complete':
+        oscillator.frequency.setValueAtTime(392, audioContext.currentTime) // G4
+        oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime + 0.15) // C5
+        oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.3) // E5
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime)
+        oscillator.start(audioContext.currentTime)
+        oscillator.stop(audioContext.currentTime + 0.5)
+        break
+      case 'levelup':
+        oscillator.frequency.setValueAtTime(392, audioContext.currentTime)
+        oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime + 0.1)
+        oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.2)
+        oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.3)
+        gainNode.gain.setValueAtTime(0.4, audioContext.currentTime)
+        oscillator.start(audioContext.currentTime)
+        oscillator.stop(audioContext.currentTime + 0.6)
+        break
+    }
+  }, [soundEnabled])
 
   // Загрузка данных из localStorage
   useEffect(() => {
@@ -572,6 +647,69 @@ export default function SchoolApp() {
     setReviewMode(true)
   }, [progress])
 
+  // Начать экзамен
+  const startExam = useCallback((gradeId: number) => {
+    const grade = schoolData.find(g => g.id === gradeId)
+    if (!grade) return
+    
+    // Собираем все вопросы из всех предметов класса
+    const allQuestions: QuizQuestion[] = []
+    grade.subjects.forEach(subject => {
+      if (subject.quiz) {
+        subject.quiz.forEach(q => allQuestions.push(q))
+      }
+    })
+    
+    if (allQuestions.length === 0) return
+    
+    // Перемешиваем и берем до 20 вопросов
+    const shuffled = allQuestions.sort(() => Math.random() - 0.5).slice(0, Math.min(20, allQuestions.length))
+    setExamQuestions(shuffled)
+    setExamGrade(gradeId)
+    setExamScore(0)
+    setExamQuestionIndex(0)
+    setExamFinished(false)
+    setExamMode(true)
+  }, [])
+
+  // Ответ на вопрос экзамена
+  const answerExamQuestion = useCallback((answerIndex: number) => {
+    const isCorrect = answerIndex === examQuestions[examQuestionIndex].correctAnswer
+    if (isCorrect) {
+      setExamScore(prev => prev + 1)
+      if (soundEnabled) playSound('correct')
+    } else {
+      if (soundEnabled) playSound('wrong')
+    }
+    setExamSelectedAnswer(answerIndex)
+    setExamShowResult(true)
+  }, [examQuestions, examQuestionIndex, soundEnabled, playSound])
+
+  // Следующий вопрос экзамена
+  const nextExamQuestion = useCallback(() => {
+    if (examQuestionIndex < examQuestions.length - 1) {
+      setExamQuestionIndex(prev => prev + 1)
+      setExamSelectedAnswer(null)
+      setExamShowResult(false)
+    } else {
+      // Экзамен завершен
+      setExamFinished(true)
+      const finalScore = examScore + (examSelectedAnswer === examQuestions[examQuestionIndex]?.correctAnswer ? 1 : 0)
+      const percent = Math.round((finalScore / examQuestions.length) * 100)
+      if (percent >= 80) {
+        if (soundEnabled) playSound('levelup')
+        addExperience(100)
+      } else if (percent >= 60) {
+        if (soundEnabled) playSound('complete')
+        addExperience(50)
+      }
+      setUserStats(prev => ({
+        ...prev,
+        quizzesCompleted: prev.quizzesCompleted + 1
+      }))
+    }
+  }, [examQuestionIndex, examQuestions, examScore, examSelectedAnswer, soundEnabled, playSound, addExperience])
+
   // Фильтрация предметов
   const filteredSubjects = useMemo(() => {
     const grade = schoolData.find(g => g.id === selectedGrade)
@@ -672,6 +810,17 @@ export default function SchoolApp() {
                 <span className="font-bold text-yellow-400">{userStats.totalPoints}</span>
               </div>
               
+              {/* Кнопка звука */}
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setSoundEnabled(!soundEnabled)}
+                className={`h-9 w-9 p-0 ${soundEnabled ? 'text-cyan-400' : 'text-gray-500'}`}
+                title={soundEnabled ? 'Выключить звук' : 'Включить звук'}
+              >
+                {soundEnabled ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
+              </Button>
+              
               {/* Поиск */}
               <div className="relative hidden md:block">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -756,6 +905,19 @@ export default function SchoolApp() {
             </div>
           </CardContent>
         </Card>
+        
+        {/* Мотивационная цитата */}
+        <Card className="bg-gradient-to-r from-purple-500/10 via-blue-500/10 to-cyan-500/10 border-white/10 mt-3">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <Sparkles className="w-5 h-5 text-yellow-400 shrink-0" />
+              <div>
+                <p className="text-white/90 text-sm italic">"{currentQuote.text}"</p>
+                <p className="text-gray-400 text-xs mt-1">— {currentQuote.author}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Кнопки классов */}
@@ -791,6 +953,10 @@ export default function SchoolApp() {
             <TabsTrigger value="flashcards" className="data-[state=active]:bg-purple-600 h-8 text-sm">
               <Brain className="w-4 h-4 mr-1.5" />
               Карточки
+            </TabsTrigger>
+            <TabsTrigger value="exam" className="data-[state=active]:bg-purple-600 h-8 text-sm">
+              <FileText className="w-4 h-4 mr-1.5" />
+              Экзамен
             </TabsTrigger>
             <TabsTrigger value="tasks" className="data-[state=active]:bg-purple-600 h-8 text-sm">
               <Calendar className="w-4 h-4 mr-1.5" />
@@ -1106,6 +1272,180 @@ export default function SchoolApp() {
                           <li>• Повторяйте материал регулярно — лучше понемногу каждый день</li>
                           <li>• Отмечайте «Не помню», если сомневаетесь — система покажет тему ещё раз</li>
                           <li>• Используйте режим «Повторить» для закрепления изученного</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+          </TabsContent>
+
+          {/* Таб экзамена */}
+          <TabsContent value="exam" className="space-y-4">
+            {examMode ? (
+              <div className="max-w-2xl mx-auto">
+                {!examFinished ? (
+                  <>
+                    {/* Прогресс экзамена */}
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-gray-400">
+                        Вопрос {examQuestionIndex + 1} из {examQuestions.length}
+                      </span>
+                      <Badge className="bg-purple-500/20 text-purple-300">
+                        Правильно: {examScore}
+                      </Badge>
+                    </div>
+                    <Progress value={((examQuestionIndex + 1) / examQuestions.length) * 100} className="h-2 mb-6" />
+                    
+                    {/* Вопрос */}
+                    <Card className="bg-gradient-to-br from-rose-500/20 to-orange-500/20 border-rose-500/30">
+                      <CardContent className="p-6">
+                        <h3 className="text-xl font-bold text-white mb-6">
+                          {examQuestions[examQuestionIndex]?.question}
+                        </h3>
+                        
+                        <div className="space-y-3">
+                          {examQuestions[examQuestionIndex]?.options.map((option: string, index: number) => {
+                            const isSelected = examSelectedAnswer === index
+                            const isCorrect = index === examQuestions[examQuestionIndex]?.correctAnswer
+                            let bgClass = 'bg-white/5 hover:bg-white/10 border-white/10'
+                            
+                            if (examShowResult) {
+                              if (isCorrect) bgClass = 'bg-green-500/20 border-green-500/30'
+                              else if (isSelected && !isCorrect) bgClass = 'bg-red-500/20 border-red-500/30'
+                            }
+                            
+                            return (
+                              <button
+                                key={index}
+                                onClick={() => !examShowResult && answerExamQuestion(index)}
+                                disabled={examShowResult}
+                                className={`w-full p-4 rounded-xl border text-left transition-all ${bgClass}`}
+                              >
+                                <div className="flex items-center gap-3">
+                                  <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm font-medium shrink-0">
+                                    {String.fromCharCode(65 + index)}
+                                  </span>
+                                  <span className="text-white">{option}</span>
+                                  {examShowResult && isCorrect && (
+                                    <CheckCircle className="w-5 h-5 text-green-400 ml-auto" />
+                                  )}
+                                  {examShowResult && isSelected && !isCorrect && (
+                                    <XCircle className="w-5 h-5 text-red-400 ml-auto" />
+                                  )}
+                                </div>
+                              </button>
+                            )
+                          })}
+                        </div>
+                        
+                        {examShowResult && (
+                          <div className="mt-4">
+                            <p className="text-sm text-gray-400 mb-4">
+                              {examQuestions[examQuestionIndex]?.explanation}
+                            </p>
+                            <Button
+                              onClick={nextExamQuestion}
+                              className="w-full bg-gradient-to-r from-rose-600 to-orange-600"
+                            >
+                              {examQuestionIndex < examQuestions.length - 1 ? 'Следующий вопрос' : 'Завершить экзамен'}
+                            </Button>
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </>
+                ) : (
+                  /* Результаты экзамена */
+                  <Card className="bg-gradient-to-br from-purple-500/20 to-blue-500/20 border-purple-500/30">
+                    <CardContent className="p-8 text-center">
+                      <div className="text-6xl mb-4">
+                        {(examScore / examQuestions.length) >= 0.8 ? '🏆' : 
+                         (examScore / examQuestions.length) >= 0.6 ? '⭐' : 
+                         (examScore / examQuestions.length) >= 0.4 ? '📚' : '💪'}
+                      </div>
+                      <h2 className="text-2xl font-bold text-white mb-2">
+                        Экзамен завершён!
+                      </h2>
+                      <p className="text-gray-400 mb-4">
+                        Вы ответили правильно на {examScore} из {examQuestions.length} вопросов
+                      </p>
+                      <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 mb-6">
+                        {Math.round((examScore / examQuestions.length) * 100)}%
+                      </div>
+                      <div className="flex gap-4 justify-center">
+                        <Button
+                          onClick={() => {
+                            setExamMode(false)
+                            setExamScore(0)
+                            setExamQuestionIndex(0)
+                            setExamFinished(false)
+                          }}
+                          variant="outline"
+                          className="bg-white/5 border-white/20"
+                        >
+                          Вернуться к выбору
+                        </Button>
+                        <Button
+                          onClick={() => startExam(examGrade!)}
+                          className="bg-gradient-to-r from-purple-600 to-blue-600"
+                        >
+                          Попробовать снова
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            ) : (
+              /* Выбор класса для экзамена */
+              <div className="space-y-6">
+                <Card className="bg-white/5 border-white/10">
+                  <CardHeader>
+                    <CardTitle className="text-white flex items-center gap-2">
+                      <FileText className="w-5 h-5 text-rose-400" />
+                      Режим экзамена
+                    </CardTitle>
+                    <CardDescription>
+                      Проверьте свои знания по всем предметам выбранного класса
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                      {schoolData.map(grade => {
+                        const totalQuestions = grade.subjects.reduce((acc, s) => acc + (s.quiz?.length || 0), 0)
+                        return (
+                          <Button
+                            key={grade.id}
+                            onClick={() => startExam(grade.id)}
+                            disabled={totalQuestions === 0}
+                            className="h-24 flex-col bg-gradient-to-r from-rose-600 to-orange-600 hover:from-rose-700 hover:to-orange-700 disabled:opacity-50"
+                          >
+                            <GraduationCap className="w-6 h-6 mb-2" />
+                            {grade.shortName}
+                            <span className="text-xs opacity-70 mt-1">
+                              {totalQuestions} вопросов
+                            </span>
+                          </Button>
+                        )
+                      })}
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                {/* Правила экзамена */}
+                <Card className="bg-gradient-to-br from-amber-500/10 to-orange-500/10 border-amber-500/30">
+                  <CardContent className="p-4">
+                    <div className="flex items-start gap-3">
+                      <Lightbulb className="w-5 h-5 text-amber-400 mt-0.5" />
+                      <div>
+                        <h4 className="font-medium text-white mb-2">Правила экзамена</h4>
+                        <ul className="text-sm text-gray-400 space-y-1">
+                          <li>• Экзамен состоит из 20 случайных вопросов по всем предметам класса</li>
+                          <li>• За каждый правильный ответ начисляются очки опыта</li>
+                          <li>• Результат 80%+ даёт бонус 100 XP, 60%+ — 50 XP</li>
+                          <li>• После экзамена можно посмотреть объяснения к вопросам</li>
                         </ul>
                       </div>
                     </div>
