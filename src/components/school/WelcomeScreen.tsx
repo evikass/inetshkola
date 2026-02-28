@@ -7,12 +7,14 @@ import { Sparkles, Star, Gamepad2, BookOpen, Trophy } from 'lucide-react'
 import { useState } from 'react'
 
 interface WelcomeScreenProps {
+  isOpen: boolean
   userName?: string
   gradeName?: string
   onClose: () => void
 }
 
 export default function WelcomeScreen({ 
+  isOpen,
   userName = 'Ученик', 
   gradeName = '1 класс',
   onClose 
@@ -30,6 +32,8 @@ export default function WelcomeScreen({
     { icon: Gamepad2, emoji: '🎮', label: 'Игры', color: 'from-purple-500 to-pink-500' },
     { icon: Trophy, emoji: '🏆', label: 'Награды', color: 'from-yellow-500 to-orange-500' }
   ]
+
+  if (!isOpen) return null
 
   return (
     <AnimatePresence>
