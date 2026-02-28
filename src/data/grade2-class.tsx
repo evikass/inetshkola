@@ -828,6 +828,26 @@ export const grade2Subjects: Subject[] = [
             completed: false,
             difficulty: 'easy',
             estimatedTime: 15,
+            quiz: [
+              {
+                id: 'world2-s1-t1-q1',
+                question: 'Что относится к живой природе?',
+                options: ['Камень', 'Дерево', 'Вода', 'Солнце'],
+                correctAnswer: 1,
+                explanation: 'Дерево — это растение, оно растёт, дышит, питается!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'world2-s1-t1-q2',
+                question: 'Что НЕ относится к живой природе?',
+                options: ['Птица', 'Цветок', 'Камень', 'Гриб'],
+                correctAnswer: 2,
+                explanation: 'Камень — неживая природа! Он не дышит и не растёт!',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'world2-s1-t1-l1',
