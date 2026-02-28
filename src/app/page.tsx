@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { Tabs, TabsContent } from '@/components/ui/tabs'
 import { SchoolProvider, useSchool } from '@/context/SchoolContext'
 import { 
@@ -18,13 +19,15 @@ function SchoolApp() {
   } = useSchool()
   
   const [activeTab, setActiveTab] = useState('learn')
-  const [selectedGrade, setSelectedGrade] = useState(0)
+  const [selectedGrade, setSelectedGrade] = useState<number | null>(null)
   const [topicDialogOpen, setTopicDialogOpen] = useState(false)
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null)
   const [quizDialogOpen, setQuizDialogOpen] = useState(false)
   const [quizSubject, setQuizSubject] = useState<Subject | null>(null)
 
-  const currentGradeData = schoolData.find(g => g.id === selectedGrade)
+  const currentGradeData = selectedGrade !== null 
+    ? schoolData.find(g => g.id === selectedGrade) 
+    : null
 
   const handleOpenTopic = (topic: Topic) => {
     setSelectedTopic(topic)
@@ -50,6 +53,14 @@ function SchoolApp() {
 
   const handleWelcomeClose = () => {
     setFirstVisit(false)
+  }
+
+  const handleSelectGrade = (gradeId: number) => {
+    setSelectedGrade(gradeId)
+  }
+
+  const handleBackToGrades = () => {
+    setSelectedGrade(null)
   }
 
   const gradeName = currentGradeData?.name || '1 класс'
@@ -85,7 +96,7 @@ function SchoolApp() {
       <FloatingNav 
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        selectedGrade={selectedGrade}
+        selectedGrade={selectedGrade || 0}
       />
       
       {/* Основной контент */}
@@ -96,31 +107,40 @@ function SchoolApp() {
             <GradeSelector
               grades={schoolData}
               selectedGrade={selectedGrade}
-              onSelectGrade={setSelectedGrade}
+              onSelectGrade={handleSelectGrade}
+              onBack={handleBackToGrades}
+              showBackButton={selectedGrade !== null}
             />
             
-            {currentGradeData && (
-              <SubjectGrid
-                subjects={currentGradeData.subjects}
-                completedTopics={completedTopics}
-                onOpenTopic={handleOpenTopic}
-                onStartQuiz={handleStartQuiz}
-                gradeId={selectedGrade}
-              />
+            {/* Показываем предметы только когда выбран класс */}
+            {selectedGrade !== null && currentGradeData && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <SubjectGrid
+                  subjects={currentGradeData.subjects}
+                  completedTopics={completedTopics}
+                  onOpenTopic={handleOpenTopic}
+                  onStartQuiz={handleStartQuiz}
+                  gradeId={selectedGrade}
+                />
+              </motion.div>
             )}
           </TabsContent>
           
           {/* Games Tab */}
           <TabsContent value="games" className="space-y-6">
             <GamesTab 
-              gradeId={selectedGrade}
+              gradeId={selectedGrade || 0}
               onExperience={addExperience}
             />
           </TabsContent>
           
           {/* Progress Tab */}
           <TabsContent value="progress">
-            <ProgressTab gradeId={selectedGrade} />
+            <ProgressTab gradeId={selectedGrade || 0} />
           </TabsContent>
           
           {/* Achievements Tab */}
@@ -130,7 +150,7 @@ function SchoolApp() {
           
           {/* Tools Tab */}
           <TabsContent value="tools" className="space-y-6">
-            <ToolsTabs onExperience={addExperience} gradeId={selectedGrade} />
+            <ToolsTabs onExperience={addExperience} gradeId={selectedGrade || 0} />
           </TabsContent>
         </Tabs>
       </div>
@@ -141,7 +161,7 @@ function SchoolApp() {
         onOpenChange={setTopicDialogOpen}
         topic={selectedTopic}
         onComplete={handleCompleteTopic}
-        gradeId={selectedGrade}
+        gradeId={selectedGrade || 0}
       />
 
       {/* Quiz Dialog */}
@@ -151,7 +171,7 @@ function SchoolApp() {
         questions={quizSubject?.quiz || []}
         subjectName={quizSubject?.title || ''}
         onComplete={handleCompleteQuiz}
-        gradeId={selectedGrade}
+        gradeId={selectedGrade || 0}
       />
       
       {/* Отступ для мобильной навигации */}
