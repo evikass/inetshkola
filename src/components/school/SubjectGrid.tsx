@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
@@ -429,37 +430,85 @@ export default function SubjectGrid({
   if (useKidMode) {
     return (
       <div className="space-y-6">
-        <div className="flex items-center gap-2">
-          <Sparkles className="w-6 h-6 text-yellow-400" />
+        <motion.div 
+          className="flex items-center gap-3"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+        >
+          <motion.div
+            animate={{ rotate: [0, 10, -10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <Sparkles className="w-7 h-7 text-yellow-400" />
+          </motion.div>
           <h2 className="text-xl sm:text-2xl font-bold text-white">Выбери урок!</h2>
-        </div>
+          <motion.span
+            className="text-2xl"
+            animate={{ scale: [1, 1.2, 1] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          >
+            📚
+          </motion.span>
+        </motion.div>
 
         <div className="space-y-6">
-          {subjects.map((subject) => (
-            <KidSubjectCardWithSections
+          {subjects.map((subject, index) => (
+            <motion.div
               key={subject.id}
-              subject={subject}
-              completedTopics={completedTopics}
-              onOpenTopic={onOpenTopic}
-              onStartQuiz={onStartQuiz}
-            />
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <KidSubjectCardWithSections
+                subject={subject}
+                completedTopics={completedTopics}
+                onOpenTopic={onOpenTopic}
+                onStartQuiz={onStartQuiz}
+              />
+            </motion.div>
           ))}
         </div>
       </div>
     )
   }
 
+  // Старшие классы - красивые карточки
   return (
-    <div className="grid gap-4 md:grid-cols-2">
-      {subjects.map((subject) => (
-        <StandardSubjectCard
-          key={subject.id}
-          subject={subject}
-          completedTopics={completedTopics}
-          onOpenTopic={onOpenTopic}
-          onStartQuiz={onStartQuiz}
-        />
-      ))}
+    <div className="space-y-6">
+      <motion.div 
+        className="flex items-center gap-3"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+      >
+        <motion.div
+          animate={{ rotate: [0, 10, -10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <Sparkles className="w-7 h-7 text-purple-400" />
+        </motion.div>
+        <h2 className="text-xl sm:text-2xl font-bold text-white">Предметы</h2>
+        <Badge variant="outline" className="border-white/20 text-white/60">
+          {subjects.length} предметов
+        </Badge>
+      </motion.div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        {subjects.map((subject, index) => (
+          <motion.div
+            key={subject.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
+          >
+            <StandardSubjectCard
+              subject={subject}
+              completedTopics={completedTopics}
+              onOpenTopic={onOpenTopic}
+              onStartQuiz={onStartQuiz}
+            />
+          </motion.div>
+        ))}
+      </div>
     </div>
   )
 }
