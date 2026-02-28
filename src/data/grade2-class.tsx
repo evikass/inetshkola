@@ -479,6 +479,26 @@ export const grade2Subjects: Subject[] = [
             completed: false,
             difficulty: 'easy',
             estimatedTime: 15,
+            quiz: [
+              {
+                id: 'rus2-s1-t1-q1',
+                question: 'Какую букву нужно написать в слове "маш_на"?',
+                options: ['Ы', 'И', 'Е', 'Я'],
+                correctAnswer: 1,
+                explanation: 'После Ш пишется И! Правило: ЖИ-ШИ пиши с буквой И!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'rus2-s1-t1-q2',
+                question: 'В каком слове допущена ошибка?',
+                options: ['Машина', 'Жизнь', 'Жыр', 'Лыжи'],
+                correctAnswer: 2,
+                explanation: 'Правильно писать "жир"! После Ж пишется И!',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'rus2-s1-t1-l1',
@@ -542,6 +562,26 @@ export const grade2Subjects: Subject[] = [
             completed: false,
             difficulty: 'easy',
             estimatedTime: 15,
+            quiz: [
+              {
+                id: 'rus2-s1-t2-q1',
+                question: 'Какую букву нужно написать в слове "ч_шка"?',
+                options: ['И', 'Я', 'У', 'А'],
+                correctAnswer: 3,
+                explanation: 'После Ч пишется А! Правило: ЧА-ЩА пиши с буквой А!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'rus2-s1-t2-q2',
+                question: 'Как правильно написать слово?',
+                options: ['Щявель', 'Щавель', 'Щивель', 'Щевель'],
+                correctAnswer: 1,
+                explanation: 'Правильно "щавель"! После Щ пишется А!',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'rus2-s1-t2-l1',
@@ -603,6 +643,26 @@ export const grade2Subjects: Subject[] = [
             completed: false,
             difficulty: 'easy',
             estimatedTime: 15,
+            quiz: [
+              {
+                id: 'rus2-s1-t3-q1',
+                question: 'Какую букву нужно написать в слове "ч_до"?',
+                options: ['А', 'О', 'У', 'Ю'],
+                correctAnswer: 2,
+                explanation: 'После Ч пишется У! Правило: ЧУ-ЩУ пиши с буквой У!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'rus2-s1-t3-q2',
+                question: 'Как правильно: щ_ка?',
+                options: ['Щука', 'Щака', 'Щика', 'Щока'],
+                correctAnswer: 0,
+                explanation: 'Правильно "щука"! После Щ пишется У!',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'rus2-s1-t3-l1',
