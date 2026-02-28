@@ -4,9 +4,9 @@ import { useState } from 'react'
 import { Tabs, TabsContent } from '@/components/ui/tabs'
 import { SchoolProvider, useSchool } from '@/context/SchoolContext'
 import { 
-  GradeSelector, SubjectGrid, Sidebar, TopicDialog, 
+  GradeSelector, SubjectGrid, TopicDialog, 
   QuizDialog, ToolsTabs, ProgressTab, AchievementsTab,
-  GamesTab
+  GamesTab, FloatingNav
 } from '@/components/school'
 import { schoolData } from '@/data/school-data'
 import type { Subject, Topic } from '@/data/types'
@@ -54,62 +54,58 @@ function SchoolApp() {
         <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
       </div>
       
-      <div className="container mx-auto p-4 relative">
-        <div className="flex gap-6">
-          {/* Sidebar */}
-          <Sidebar 
-            activeTab={activeTab} 
-            setActiveTab={setActiveTab}
-            selectedGrade={selectedGrade}
-          />
+      {/* Плавающая навигация */}
+      <FloatingNav 
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        selectedGrade={selectedGrade}
+      />
+      
+      {/* Основной контент */}
+      <div className="container mx-auto p-4 pl-20 md:pl-24 relative">
+        <Tabs value={activeTab} onValueChange={setActiveTab}>
+          {/* Learn Tab */}
+          <TabsContent value="learn" className="space-y-6">
+            <GradeSelector
+              grades={schoolData}
+              selectedGrade={selectedGrade}
+              onSelectGrade={setSelectedGrade}
+            />
+            
+            {currentGradeData && (
+              <SubjectGrid
+                subjects={currentGradeData.subjects}
+                completedTopics={completedTopics}
+                onOpenTopic={handleOpenTopic}
+                onStartQuiz={handleStartQuiz}
+                gradeId={selectedGrade}
+              />
+            )}
+          </TabsContent>
           
-          {/* Main Content */}
-          <div className="flex-1 min-w-0">
-            <Tabs value={activeTab} onValueChange={setActiveTab}>
-              {/* Learn Tab */}
-              <TabsContent value="learn" className="space-y-6">
-                <GradeSelector
-                  grades={schoolData}
-                  selectedGrade={selectedGrade}
-                  onSelectGrade={setSelectedGrade}
-                />
-                
-                {currentGradeData && (
-                  <SubjectGrid
-                    subjects={currentGradeData.subjects}
-                    completedTopics={completedTopics}
-                    onOpenTopic={handleOpenTopic}
-                    onStartQuiz={handleStartQuiz}
-                    gradeId={selectedGrade}
-                  />
-                )}
-              </TabsContent>
-              
-              {/* Games Tab */}
-              <TabsContent value="games" className="space-y-6">
-                <GamesTab 
-                  gradeId={selectedGrade}
-                  onExperience={addExperience}
-                />
-              </TabsContent>
-              
-              {/* Progress Tab */}
-              <TabsContent value="progress">
-                <ProgressTab gradeId={selectedGrade} />
-              </TabsContent>
-              
-              {/* Achievements Tab */}
-              <TabsContent value="achievements">
-                <AchievementsTab />
-              </TabsContent>
-              
-              {/* Tools Tab */}
-              <TabsContent value="tools" className="space-y-6">
-                <ToolsTabs onExperience={addExperience} gradeId={selectedGrade} />
-              </TabsContent>
-            </Tabs>
-          </div>
-        </div>
+          {/* Games Tab */}
+          <TabsContent value="games" className="space-y-6">
+            <GamesTab 
+              gradeId={selectedGrade}
+              onExperience={addExperience}
+            />
+          </TabsContent>
+          
+          {/* Progress Tab */}
+          <TabsContent value="progress">
+            <ProgressTab gradeId={selectedGrade} />
+          </TabsContent>
+          
+          {/* Achievements Tab */}
+          <TabsContent value="achievements">
+            <AchievementsTab />
+          </TabsContent>
+          
+          {/* Tools Tab */}
+          <TabsContent value="tools" className="space-y-6">
+            <ToolsTabs onExperience={addExperience} gradeId={selectedGrade} />
+          </TabsContent>
+        </Tabs>
       </div>
 
       {/* Topic Dialog */}
@@ -130,6 +126,9 @@ function SchoolApp() {
         onComplete={handleCompleteQuiz}
         gradeId={selectedGrade}
       />
+      
+      {/* Отступ для мобильной навигации */}
+      <div className="h-20 md:hidden" />
     </div>
   )
 }
