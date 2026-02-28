@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { Tabs, TabsContent } from '@/components/ui/tabs'
 import { SchoolProvider, useSchool } from '@/context/SchoolContext'
 import { 
-  GradeSelector, SubjectGrid, TopicDialog, 
+  GradeSelector, SubjectGrid, SectionList, TopicDialog, 
   QuizDialog, ToolsTabs, ProgressTab, AchievementsTab,
   GamesTab, FloatingNav, WelcomeScreen, RewardCelebration
 } from '@/components/school'
@@ -20,6 +20,7 @@ function SchoolApp() {
   
   const [activeTab, setActiveTab] = useState('learn')
   const [selectedGrade, setSelectedGrade] = useState<number | null>(null)
+  const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null)
   const [topicDialogOpen, setTopicDialogOpen] = useState(false)
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null)
   const [quizDialogOpen, setQuizDialogOpen] = useState(false)
@@ -57,10 +58,20 @@ function SchoolApp() {
 
   const handleSelectGrade = (gradeId: number) => {
     setSelectedGrade(gradeId)
+    setSelectedSubject(null) // Сбрасываем выбранный предмет при смене класса
   }
 
   const handleBackToGrades = () => {
     setSelectedGrade(null)
+    setSelectedSubject(null)
+  }
+
+  const handleSelectSubject = (subject: Subject) => {
+    setSelectedSubject(subject)
+  }
+
+  const handleBackToSubjects = () => {
+    setSelectedSubject(null)
   }
 
   const gradeName = currentGradeData?.name || '1 класс'
@@ -112,8 +123,8 @@ function SchoolApp() {
               showBackButton={selectedGrade !== null}
             />
             
-            {/* Показываем предметы только когда выбран класс */}
-            {selectedGrade !== null && currentGradeData && (
+            {/* Показываем предметы когда выбран класс, но не выбран предмет */}
+            {selectedGrade !== null && currentGradeData && !selectedSubject && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -122,7 +133,25 @@ function SchoolApp() {
                 <SubjectGrid
                   subjects={currentGradeData.subjects}
                   completedTopics={completedTopics}
+                  onSelectSubject={handleSelectSubject}
+                  onStartQuiz={handleStartQuiz}
+                  gradeId={selectedGrade}
+                />
+              </motion.div>
+            )}
+
+            {/* Показываем темы когда выбран предмет */}
+            {selectedGrade !== null && selectedSubject && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <SectionList
+                  subject={selectedSubject}
+                  completedTopics={completedTopics}
                   onOpenTopic={handleOpenTopic}
+                  onBack={handleBackToSubjects}
                   onStartQuiz={handleStartQuiz}
                   gradeId={selectedGrade}
                 />
