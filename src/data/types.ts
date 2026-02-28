@@ -39,6 +39,7 @@ export interface Topic {
   difficulty: 'easy' | 'medium' | 'hard'
   estimatedTime: number        // Минуты
   lessons?: Lesson[]           // Новое: уроки внутри темы
+  quiz?: QuizQuestion[]        // Тест по теме
   image?: string               // Путь к изображению
 }
 

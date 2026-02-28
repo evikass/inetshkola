@@ -1,12 +1,16 @@
 'use client'
 
 import { useState } from 'react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { BookOpen, CheckCircle, ChevronRight, Baby, GraduationCap, Zap } from 'lucide-react'
-import type { Topic, Subject } from '@/data/types'
-import KidFriendlyLessonViewer from './KidFriendlyLessonViewer'
+import { Progress } from '@/components/ui/progress'
+import { 
+  BookOpen, CheckCircle, ChevronRight, ChevronLeft, Zap,
+  Star, PartyPopper, Lightbulb
+} from 'lucide-react'
+import type { Topic, Subject, QuizQuestion } from '@/data/types'
+import KidFriendlyQuiz from './KidFriendlyQuiz'
 
 interface TopicDialogProps {
   open: boolean
@@ -15,7 +19,235 @@ interface TopicDialogProps {
   subject?: Subject | null
   onComplete: () => void
   onOpenQuiz?: () => void
-  gradeId?: number  // ID класса для определения режима
+  gradeId?: number
+}
+
+// Эмодзи для разных типов контента
+const contentEmojis: Record<string, string[]> = {
+  math: ['🔢', '➕', '➖', '✖️', '➗', '🧮', '📐', '📏'],
+  russian: ['🔤', '📖', '✏️', '📝', '📚', '🖋️'],
+  world: ['🌍', '🌳', '🌸', '🐕', '🐈', '🦋', '🌺'],
+  default: ['⭐', '🌟', '✨', '💫', '🎉', '🎈', '🏆']
+}
+
+function getEmojis(topicId: string): string[] {
+  if (topicId.includes('math') || topicId.includes('счёт')) return contentEmojis.math
+  if (topicId.includes('rus') || topicId.includes('writing') || topicId.includes('письм')) return contentEmojis.russian
+  if (topicId.includes('world') || topicId.includes('окруж')) return contentEmojis.world
+  return contentEmojis.default
+}
+
+// Парсинг контента в шаги
+interface LessonStep {
+  type: 'intro' | 'item' | 'example' | 'complete'
+  title: string
+  content: string
+  emoji: string
+}
+
+function parseContentToSteps(theory: string, examples: string[], topicTitle?: string): LessonStep[] {
+  const steps: LessonStep[] = []
+
+  // Добавляем введение
+  steps.push({
+    type: 'intro',
+    title: topicTitle || 'Урок',
+    content: 'Нажми на стрелочку, чтобы продолжить! →',
+    emoji: '👋'
+  })
+
+  // Парсим HTML и создаём простые шаги
+  if (typeof document !== 'undefined') {
+    const tempDiv = document.createElement('div')
+    tempDiv.innerHTML = theory
+
+    // Заголовки как подсказки
+    const headings = tempDiv.querySelectorAll('h3, h4')
+    headings.forEach((heading, index) => {
+      const text = heading.textContent || ''
+      if (text.length > 2) {
+        steps.push({
+          type: 'item',
+          title: 'Запомни!',
+          content: text,
+          emoji: ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'][index] || '•'
+        })
+      }
+    })
+
+    // Пункты списка
+    const lists = tempDiv.querySelectorAll('ul li, ol li')
+    lists.forEach((item, index) => {
+      const text = item.textContent || ''
+      if (text.length > 2 && text.length < 200) {
+        steps.push({
+          type: 'item',
+          title: 'Важно!',
+          content: text,
+          emoji: ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'][index % 10] || '•'
+        })
+      }
+    })
+  }
+
+  // Если шагов мало, добавляем базовые
+  if (steps.length < 3) {
+    steps.push({
+      type: 'item',
+      title: 'Важно!',
+      content: theory.replace(/<[^>]*>/g, ' ').substring(0, 150),
+      emoji: '⭐'
+    })
+  }
+
+  // Добавляем примеры
+  examples.forEach((example, index) => {
+    steps.push({
+      type: 'example',
+      title: `Пример ${index + 1}`,
+      content: example,
+      emoji: '💡'
+    })
+  })
+
+  // Добавляем финальный шаг
+  steps.push({
+    type: 'complete',
+    title: 'Отлично! 🎉',
+    content: 'Ты прошёл весь урок! Нажми кнопку, чтобы получить звезду!',
+    emoji: '🏆'
+  })
+
+  return steps
+}
+
+// Мини-тест внутри урока
+function MiniQuiz({
+  questions,
+  onComplete
+}: {
+  questions: QuizQuestion[]
+  onComplete: () => void
+}) {
+  const [currentQuestion, setCurrentQuestion] = useState(0)
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
+  const [score, setScore] = useState(0)
+
+  const question = questions[currentQuestion]
+  const isLastQuestion = currentQuestion === questions.length - 1
+  const isFinished = currentQuestion >= questions.length
+
+  const handleAnswer = (index: number) => {
+    if (selectedAnswer !== null) return
+
+    setSelectedAnswer(index)
+    const correct = index === question.correctAnswer
+    setIsCorrect(correct)
+
+    if (correct) {
+      setScore(prev => prev + 1)
+    }
+  }
+
+  const nextQuestion = () => {
+    if (isLastQuestion) {
+      setCurrentQuestion(prev => prev + 1)
+    } else {
+      setCurrentQuestion(prev => prev + 1)
+      setSelectedAnswer(null)
+      setIsCorrect(null)
+    }
+  }
+
+  if (isFinished) {
+    const percentage = Math.round((score / questions.length) * 100)
+    const isPerfect = score === questions.length
+
+    return (
+      <div className="text-center space-y-4 py-6">
+        <div className="text-6xl animate-bounce">
+          {isPerfect ? '🏆' : percentage >= 70 ? '🎉' : '💪'}
+        </div>
+        <h3 className="text-2xl font-bold text-white">
+          {isPerfect ? 'Идеально!' : percentage >= 70 ? 'Отлично!' : 'Хорошая попытка!'}
+        </h3>
+        <p className="text-lg text-white/80">
+          {score} из {questions.length} правильных ответов
+        </p>
+        <div className="flex justify-center gap-2">
+          {[...Array(Math.min(score, 5))].map((_, i) => (
+            <Star key={i} className="w-8 h-8 text-yellow-400 fill-yellow-400" />
+          ))}
+        </div>
+        <Button
+          onClick={onComplete}
+          className="bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-2xl px-8 py-4 text-lg font-bold"
+        >
+          <PartyPopper className="w-5 h-5 mr-2" />
+          Завершить
+        </Button>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <span className="text-sm text-white/60">Вопрос {currentQuestion + 1} из {questions.length}</span>
+        <div className="flex items-center gap-1">
+          <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+          <span className="font-bold text-white">{score}</span>
+        </div>
+      </div>
+
+      <Progress value={((currentQuestion + 1) / questions.length) * 100} className="h-2" />
+
+      <div className="bg-white/10 rounded-2xl p-4">
+        <h4 className="text-lg font-medium text-white mb-4">{question.question}</h4>
+        
+        <div className="space-y-2">
+          {question.options.map((option, index) => {
+            const isSelected = selectedAnswer === index
+            const isTheCorrectAnswer = index === question.correctAnswer
+            const showCorrect = selectedAnswer !== null && isTheCorrectAnswer
+
+            return (
+              <Button
+                key={index}
+                onClick={() => handleAnswer(index)}
+                disabled={selectedAnswer !== null}
+                className={`w-full rounded-xl py-4 text-left transition-all ${
+                  showCorrect
+                    ? 'bg-green-500 text-white'
+                    : isSelected && !isCorrect
+                      ? 'bg-red-500 text-white'
+                      : isSelected
+                        ? 'bg-purple-500 text-white'
+                        : 'bg-white/10 hover:bg-white/20 text-white'
+                }`}
+              >
+                {showCorrect ? '✅ ' : isSelected && !isCorrect ? '❌ ' : ''}
+                {option}
+              </Button>
+            )
+          })}
+        </div>
+
+        {selectedAnswer !== null && (
+          <div className="mt-4">
+            <p className="text-sm text-white/80 mb-3">{question.explanation}</p>
+            <Button
+              onClick={nextQuestion}
+              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl py-3"
+            >
+              {isLastQuestion ? 'Результаты' : 'Дальше'}
+            </Button>
+          </div>
+        )}
+      </div>
+    </div>
+  )
 }
 
 export default function TopicDialog({ 
@@ -27,106 +259,208 @@ export default function TopicDialog({
   onOpenQuiz,
   gradeId = 0
 }: TopicDialogProps) {
-  const [showKidViewer, setShowKidViewer] = useState(false)
+  const [currentStep, setCurrentStep] = useState(0)
+  const [steps, setSteps] = useState<LessonStep[]>([])
+  const [starsEarned, setStarsEarned] = useState(0)
+  const [showQuiz, setShowQuiz] = useState(false)
+
+  // Инициализация шагов при открытии
+  useState(() => {
+    if (topic) {
+      const parsedSteps = parseContentToSteps(topic.theory, topic.examples, topic.title)
+      setSteps(parsedSteps)
+    }
+  })
+
+  // Сброс при открытии/закрытии
+  useState(() => {
+    if (open) {
+      setCurrentStep(0)
+      setStarsEarned(0)
+      setShowQuiz(false)
+      if (topic) {
+        const parsedSteps = parseContentToSteps(topic.theory, topic.examples, topic.title)
+        setSteps(parsedSteps)
+      }
+    }
+  })
 
   if (!topic) return null
 
-  // Определяем, использовать ли детский режим
-  // Детский режим для классов 0-2 (подготовительный, 1, 2 класс)
   const useKidMode = gradeId <= 2
+  const hasTopicQuiz = topic.quiz && topic.quiz.length > 0
+  const hasSubjectQuiz = subject?.quiz && subject.quiz.length > 0
+  
+  const progress = steps.length > 0 ? ((currentStep + 1) / steps.length) * 100 : 0
+  const currentStepData = steps[currentStep]
+  const emojis = getEmojis(topic.id)
 
-  // Проверяем, есть ли тест у предмета
-  const hasQuiz = subject?.quiz && subject.quiz.length > 0
-
-  // Открыть детский просмотрщик
-  const handleOpenKidViewer = () => {
-    setShowKidViewer(true)
+  const handleNext = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(prev => prev + 1)
+      setStarsEarned(prev => prev + 1)
+    }
   }
 
-  // Закрыть детский просмотрщик
-  const handleCloseKidViewer = () => {
-    setShowKidViewer(false)
+  const handlePrev = () => {
+    if (currentStep > 0) {
+      setCurrentStep(prev => prev - 1)
+    }
   }
 
-  // Завершить урок (из детского режима)
-  const handleCompleteKidMode = () => {
-    setShowKidViewer(false)
+  const handleComplete = () => {
     onComplete()
     onOpenChange(false)
+    // Сброс
+    setCurrentStep(0)
+    setStarsEarned(0)
+    setShowQuiz(false)
   }
 
-  // Если открыт детский просмотрщик
-  if (showKidViewer && topic) {
-    return (
-      <KidFriendlyLessonViewer
-        topic={topic}
-        onComplete={handleCompleteKidMode}
-        onBack={handleCloseKidViewer}
-      />
-    )
+  const handleStartTopicQuiz = () => {
+    setShowQuiz(true)
   }
 
-  // Выбор режима просмотра для младших классов
-  if (useKidMode && open) {
+  // Детский режим - модальное окно с шагами
+  if (useKidMode) {
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="bg-gradient-to-br from-purple-900 to-pink-900 border-white/20 text-white max-w-md overflow-hidden">
-          <DialogHeader className="text-center pb-4">
-            <div className="text-6xl mb-4 animate-bounce">📚</div>
-            <DialogTitle className="text-2xl text-center">
-              {topic.title}
-            </DialogTitle>
-            <DialogDescription className="text-purple-200 text-center text-lg">
-              {topic.description}
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="space-y-3 py-4">
-            {/* Детский режим - БОЛЬШАЯ КНОПКА */}
-            <Button
-              onClick={handleOpenKidViewer}
-              className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-3xl py-8 text-xl font-bold shadow-xl flex flex-col items-center gap-2 transition-all hover:scale-105"
-            >
-              <div className="flex items-center gap-2">
-                <Baby className="w-8 h-8" />
-                <span>Игровой урок</span>
-              </div>
-              <span className="text-sm font-normal opacity-80">
-                Картинки и звёзды! ⭐
-              </span>
-            </Button>
-
-            {/* Обычный режим - меньшая кнопка */}
-            <Button
-              onClick={handleOpenKidViewer}
-              className="w-full bg-white/10 hover:bg-white/20 text-white border-2 border-white/20 rounded-2xl py-4 text-base font-medium flex items-center justify-center gap-2"
-            >
-              <GraduationCap className="w-5 h-5" />
-              Обычный режим
-            </Button>
-
-            {/* Кнопка Тест */}
-            {hasQuiz && onOpenQuiz && (
-              <Button
-                onClick={onOpenQuiz}
-                className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white rounded-2xl py-4 text-lg font-bold flex items-center justify-center gap-2 shadow-lg"
-              >
-                <Zap className="w-6 h-6" />
-                Тест по предмету
-                <span className="text-sm font-normal opacity-80">({subject?.quiz?.length} вопросов)</span>
-              </Button>
-            )}
-          </div>
-
-          <DialogFooter className="flex justify-center">
+        <DialogContent className="bg-gradient-to-br from-purple-900 via-pink-900 to-orange-900 border-white/20 text-white max-w-lg overflow-hidden rounded-3xl">
+          {/* Шапка с прогрессом */}
+          <div className="flex items-center justify-between p-4 border-b border-white/10">
+            <div className="flex items-center gap-2">
+              <Star className="w-6 h-6 text-yellow-400 fill-yellow-400 animate-pulse" />
+              <span className="font-bold text-lg">{starsEarned}</span>
+            </div>
+            <div className="flex-1 mx-4">
+              <Progress value={showQuiz ? 100 : progress} className="h-2" />
+            </div>
             <Button
               variant="ghost"
               onClick={() => onOpenChange(false)}
-              className="text-white/60 hover:text-white hover:bg-white/10"
+              className="text-white/60 hover:text-white"
             >
-              Закрыть
+              ✕
             </Button>
-          </DialogFooter>
+          </div>
+
+          {/* Контент */}
+          <div className="p-4 min-h-[300px]">
+            {showQuiz && hasTopicQuiz ? (
+              <MiniQuiz
+                questions={topic.quiz!}
+                onComplete={handleComplete}
+              />
+            ) : showQuiz && hasSubjectQuiz && onOpenQuiz ? (
+              <div className="text-center space-y-4 py-6">
+                <p className="text-white/80">Тест по предмету</p>
+                <Button
+                  onClick={() => {
+                    onOpenChange(false)
+                    onOpenQuiz()
+                  }}
+                  className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-2xl px-8 py-4 text-lg font-bold"
+                >
+                  <Zap className="w-5 h-5 mr-2" />
+                  Начать тест
+                </Button>
+              </div>
+            ) : currentStepData ? (
+              <div className="space-y-6">
+                {/* Эмодзи */}
+                <div className="text-center">
+                  <div className="text-6xl mb-4 animate-bounce-slow">
+                    {currentStepData.emoji}
+                  </div>
+                  <h3 className="text-xl font-bold text-white">
+                    {currentStepData.title}
+                  </h3>
+                </div>
+
+                {/* Контент шага */}
+                {currentStepData.type === 'complete' ? (
+                  <div className="text-center space-y-4">
+                    <p className="text-lg text-white/80">{currentStepData.content}</p>
+                    <div className="flex justify-center gap-2">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className="w-8 h-8 text-yellow-400 fill-yellow-400 animate-bounce"
+                          style={{ animationDelay: `${i * 0.1}s` }}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Кнопки */}
+                    <div className="space-y-2 pt-4">
+                      {/* Кнопка теста */}
+                      {(hasTopicQuiz || hasSubjectQuiz) && (
+                        <Button
+                          onClick={handleStartTopicQuiz}
+                          className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white rounded-2xl py-4 text-lg font-bold"
+                        >
+                          <Zap className="w-5 h-5 mr-2" />
+                          {hasTopicQuiz ? 'Тест по уроку' : 'Тест по предмету'}
+                        </Button>
+                      )}
+                      
+                      <Button
+                        onClick={handleComplete}
+                        className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-2xl py-4 text-lg font-bold"
+                      >
+                        <CheckCircle className="w-5 h-5 mr-2" />
+                        Завершить урок
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <p className="text-lg text-white/90 text-center">
+                      {currentStepData.content}
+                    </p>
+
+                    {currentStepData.type === 'example' && (
+                      <div className="bg-white/10 rounded-2xl p-4 text-center">
+                        <Lightbulb className="w-8 h-8 text-yellow-400 mx-auto mb-2" />
+                        <p className="text-white/80">Попробуй сам!</p>
+                      </div>
+                    )}
+
+                    {/* Навигация */}
+                    <div className="flex gap-2 pt-4">
+                      <Button
+                        onClick={handlePrev}
+                        disabled={currentStep === 0}
+                        className="flex-1 bg-white/10 hover:bg-white/20 disabled:opacity-50 text-white rounded-xl py-3"
+                      >
+                        <ChevronLeft className="w-5 h-5 mr-1" />
+                        Назад
+                      </Button>
+                      <Button
+                        onClick={handleNext}
+                        className="flex-1 bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-xl py-3"
+                      >
+                        Дальше
+                        <ChevronRight className="w-5 h-5 ml-1" />
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="text-center text-white/60">
+                Загрузка...
+              </div>
+            )}
+          </div>
+
+          <style jsx>{`
+            @keyframes bounce-slow {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(-10px); }
+            }
+            .animate-bounce-slow { animation: bounce-slow 2s ease-in-out infinite; }
+          `}</style>
         </DialogContent>
       </Dialog>
     )
@@ -169,29 +503,50 @@ export default function TopicDialog({
           </div>
         </ScrollArea>
         
-        <DialogFooter className="flex-col sm:flex-row gap-2">
-          {/* Кнопка Тест */}
-          {hasQuiz && onOpenQuiz && (
+        <div className="flex flex-col sm:flex-row gap-2 p-4 border-t border-white/10">
+          {/* Кнопка Тест по теме */}
+          {hasTopicQuiz && (
             <Button
-              onClick={onOpenQuiz}
+              onClick={() => setShowQuiz(true)}
               className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white"
             >
               <Zap className="w-4 h-4 mr-2" />
-              Тест ({subject?.quiz?.length} вопросов)
+              Тест по уроку ({topic.quiz?.length})
+            </Button>
+          )}
+          
+          {/* Кнопка Тест по предмету */}
+          {!hasTopicQuiz && hasSubjectQuiz && onOpenQuiz && (
+            <Button
+              onClick={() => {
+                onOpenChange(false)
+                onOpenQuiz()
+              }}
+              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+            >
+              <Zap className="w-4 h-4 mr-2" />
+              Тест по предмету
             </Button>
           )}
           
           <Button
-            onClick={() => {
-              onComplete()
-              onOpenChange(false)
-            }}
+            onClick={handleComplete}
             className="bg-gradient-to-r from-green-600 to-emerald-600"
           >
             <CheckCircle className="w-4 h-4 mr-2" />
             Отметить как изученное
           </Button>
-        </DialogFooter>
+        </div>
+
+        {/* Мини-тест внутри диалога */}
+        {showQuiz && hasTopicQuiz && (
+          <div className="absolute inset-0 bg-slate-900 flex items-center justify-center p-4 z-10">
+            <MiniQuiz
+              questions={topic.quiz!}
+              onComplete={handleComplete}
+            />
+          </div>
+        )}
       </DialogContent>
     </Dialog>
   )
