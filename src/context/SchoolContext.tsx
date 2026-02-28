@@ -11,6 +11,10 @@ interface SchoolContextType {
   userStats: UserStats
   setUserStats: (stats: UserStats) => void
   
+  // First visit
+  isFirstVisit: boolean
+  setFirstVisit: (value: boolean) => void
+  
   // Achievements
   achievements: Achievement[]
   setAchievements: (achievements: Achievement[]) => void
@@ -26,6 +30,24 @@ interface SchoolContextType {
   // Quiz state
   quizResults: Record<string, { correct: number; total: number }>
   setQuizResults: (results: Record<string, { correct: number; total: number }>) => void
+  
+  // Celebration
+  celebrationData: {
+    isOpen: boolean
+    title: string
+    message: string
+    stars: number
+    xp: number
+    achievement?: { name: string; icon: string }
+  } | null
+  showCelebration: (data: {
+    title: string
+    message: string
+    stars: number
+    xp?: number
+    achievement?: { name: string; icon: string }
+  }) => void
+  hideCelebration: () => void
   
   // Actions
   addExperience: (xp: number) => void
@@ -60,6 +82,15 @@ export function SchoolProvider({ children }: { children: ReactNode }) {
   const [dailyTasks, setDailyTasks] = useState<DailyTask[]>(DAILY_TASKS)
   const [completedTopics, setCompletedTopics] = useState<string[]>([])
   const [quizResults, setQuizResults] = useState<Record<string, { correct: number; total: number }>>({})
+  const [isFirstVisit, setIsFirstVisit] = useState(true)
+  const [celebrationData, setCelebrationData] = useState<{
+    isOpen: boolean
+    title: string
+    message: string
+    stars: number
+    xp: number
+    achievement?: { name: string; icon: string }
+  } | null>(null)
 
   // Load from localStorage
   useEffect(() => {
@@ -68,6 +99,7 @@ export function SchoolProvider({ children }: { children: ReactNode }) {
     const savedTasks = localStorage.getItem('school-daily-tasks')
     const savedTopics = localStorage.getItem('school-completed-topics')
     const savedQuizResults = localStorage.getItem('school-quiz-results')
+    const savedFirstVisit = localStorage.getItem('school-first-visit')
 
     if (savedStats) {
       try {
@@ -107,6 +139,10 @@ export function SchoolProvider({ children }: { children: ReactNode }) {
       } catch (e) {
         console.error('Error loading quiz results:', e)
       }
+    }
+
+    if (savedFirstVisit !== null) {
+      setIsFirstVisit(savedFirstVisit === 'true')
     }
   }, [])
 
@@ -341,10 +377,35 @@ export function SchoolProvider({ children }: { children: ReactNode }) {
     })))
   }, [])
 
+  const setFirstVisit = useCallback((value: boolean) => {
+    setIsFirstVisit(value)
+    localStorage.setItem('school-first-visit', String(value))
+  }, [])
+
+  const showCelebration = useCallback((data: {
+    title: string
+    message: string
+    stars: number
+    xp?: number
+    achievement?: { name: string; icon: string }
+  }) => {
+    setCelebrationData({
+      isOpen: true,
+      ...data,
+      xp: data.xp || 0
+    })
+  }, [])
+
+  const hideCelebration = useCallback(() => {
+    setCelebrationData(null)
+  }, [])
+
   return (
     <SchoolContext.Provider value={{
       userStats,
       setUserStats,
+      isFirstVisit,
+      setFirstVisit,
       achievements,
       setAchievements,
       dailyTasks,
@@ -353,6 +414,9 @@ export function SchoolProvider({ children }: { children: ReactNode }) {
       setCompletedTopics,
       quizResults,
       setQuizResults,
+      celebrationData,
+      showCelebration,
+      hideCelebration,
       addExperience,
       addPoints,
       completeTopic,

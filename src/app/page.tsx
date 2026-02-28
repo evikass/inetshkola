@@ -6,13 +6,16 @@ import { SchoolProvider, useSchool } from '@/context/SchoolContext'
 import { 
   GradeSelector, SubjectGrid, TopicDialog, 
   QuizDialog, ToolsTabs, ProgressTab, AchievementsTab,
-  GamesTab, FloatingNav
+  GamesTab, FloatingNav, WelcomeScreen, RewardCelebration
 } from '@/components/school'
 import { schoolData } from '@/data/school-data'
 import type { Subject, Topic } from '@/data/types'
 
 function SchoolApp() {
-  const { completedTopics, completeTopic, completeQuiz, addExperience } = useSchool()
+  const { 
+    completedTopics, completeTopic, completeQuiz, addExperience,
+    isFirstVisit, setFirstVisit, celebrationData, hideCelebration
+  } = useSchool()
   
   const [activeTab, setActiveTab] = useState('learn')
   const [selectedGrade, setSelectedGrade] = useState(0)
@@ -45,6 +48,12 @@ function SchoolApp() {
     }
   }
 
+  const handleWelcomeClose = () => {
+    setFirstVisit(false)
+  }
+
+  const gradeName = currentGradeData?.name || '1 класс'
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Декоративный фон */}
@@ -53,6 +62,24 @@ function SchoolApp() {
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
         <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
       </div>
+      
+      {/* Приветственный экран для новых пользователей */}
+      <WelcomeScreen 
+        isOpen={isFirstVisit}
+        onClose={handleWelcomeClose}
+        gradeName={gradeName}
+      />
+      
+      {/* Экран празднования награды */}
+      <RewardCelebration
+        isOpen={celebrationData?.isOpen || false}
+        onClose={hideCelebration}
+        title={celebrationData?.title || ''}
+        message={celebrationData?.message || ''}
+        stars={celebrationData?.stars || 0}
+        xp={celebrationData?.xp}
+        achievement={celebrationData?.achievement}
+      />
       
       {/* Плавающая навигация */}
       <FloatingNav 
