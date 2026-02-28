@@ -1,0 +1,220 @@
+/src/
+├── context/
+│   └── SchoolContext.tsx      # Контекст с общим состоянием
+│
+├── components/
+│   └── school/
+│       ├── index.ts           # Экспорт всех компонентов
+│       ├── Header.tsx         # Шапка приложения
+│       ├── GradeSelector.tsx  # Выбор класса
+│       ├── QuoteCard.tsx      # Цитата дня
+│       ├── SearchInput.tsx    # Поиск
+│       ├── SubjectCard.tsx    # Карточка предмета
+│       ├── SubjectsTab.tsx    # Вкладка предметов
+│       ├── TasksTab.tsx       # Вкладка заданий
+│       ├── AchievementsTab.tsx# Вкладка достижений
+│       ├── StatsTab.tsx       # Вкладка статистики
+│       ├── TopicDialog.tsx    # Диалог темы урока
+│       ├── QuizDialog.tsx     # Диалог теста
+│       ├── SettingsDialog.tsx # Настройки
+│       └── Confetti.tsx       # Эффект конфетти
+│
+└── app/
+    └── page.tsx               # Главный файл (95 строк!)
+
+src/
+├── components/
+│   └── school/
+│       ├── index.ts
+│       ├── Flashcards.tsx
+│       ├── StudyTimer.tsx
+│       ├── Notes.tsx
+│       └── FormulaReference.tsx
+└── app/
+    └── page.tsx (обновлён)
+
+/src/components/school/ - 30 компонентов
+├── Обучение: SubjectsTab, TopicDialog, QuizDialog, VocabularyBuilder
+├── Практика: InteractiveExercise, Flashcards, MathProblemGenerator
+├── Игры: MemoryGame, WordScramble, NumberRace
+├── Инструменты: StudyTimer, SprintMode, SpacedRepetition, HomeworkTracker
+├── Прогресс: ProgressChart, Leaderboard, AchievementGallery
+├── Награды: DailyRewards, DailyStreak, Confetti
+└── UI: Header, WelcomeCard, SearchInput, GradeSelector...
+
+Сайдбар (9 виджетов):
+├── XPProgress
+├── DailyStreak
+├── HomeworkTrackerMini
+├── SpacedRepetitionMini
+├── VocabularyBuilderMini
+├── MathProblemGeneratorMini
+├── LeaderboardMini
+├── MiniProgressChart
+└── RecentAchievements
+
+/src/components/school/ - 28 компонентов
+├── Основные: Header, WelcomeCard, SearchInput...
+├── Обучение: SubjectCard, TopicDialog, QuizDialog...
+├── Игры: MemoryGame, WordScramble, NumberRace...
+├── Инструменты: StudyTimer, SprintMode, SpacedRepetition, HomeworkTracker
+├── Прогресс: ProgressChart, Leaderboard, AchievementGallery
+└── Награды: DailyRewards, DailyStreak, Confetti...
+
+/public/images/
+├── subjects/ - 7 изображений для предметов
+├── topics/ - изображения для тем
+├── achievements/ - иконки достижений
+└── classrooms/ - изображения классов
+
+Структура папок для изображений:
+/public/images/
+├── classes/          # Изображения для классов
+├── subjects/         # Изображения по предметам
+│   ├── math/         # Математика
+│   ├── russian/      # Русский язык
+│   ├── literature/   # Литература
+│   ├── english/      # Английский
+│   ├── science/      # Окружающий мир
+│   ├── history/      # История
+│   ├── geography/    # География
+│   ├── biology/      # Биология
+│   ├── physics/      # Физика
+│   ├── chemistry/    # Химия
+│   ├── informatics/  # Информатика
+│   ├── art/          # ИЗО
+│   ├── music/        # Музыка
+│   ├── pe/           # Физкультура
+│   ├── obzh/         # ОБЖ
+│   └── social/       # Обществознание
+├── sections/         # Изображения для разделов
+├── topics/           # Изображения для тем
+├── lessons/          # Изображения для уроков
+├── icons/            # Общие иконки
+├── backgrounds/      # Фоны
+├── illustrations/    # Иллюстрации
+├── achievements/     # Значки достижений
+└── badges/           # Значки и ранги
+Новая структура файлов:
+
+/src/
+├── context/
+│   └── SchoolContext.tsx      # Контекст с общим состоянием
+│
+├── components/
+│   └── school/
+│       ├── index.ts           # Экспорт всех компонентов
+│       ├── Header.tsx         # Шапка приложения
+│       ├── GradeSelector.tsx  # Выбор класса
+│       ├── QuoteCard.tsx      # Цитата дня
+│       ├── SearchInput.tsx    # Поиск
+│       ├── SubjectCard.tsx    # Карточка предмета
+│       ├── SubjectsTab.tsx    # Вкладка предметов
+│       ├── TasksTab.tsx       # Вкладка заданий
+│       ├── AchievementsTab.tsx# Вкладка достижений
+│       ├── StatsTab.tsx       # Вкладка статистики
+│       ├── TopicDialog.tsx    # Диалог темы урока
+│       ├── QuizDialog.tsx     # Диалог теста
+│       ├── SettingsDialog.tsx # Настройки
+│       └── Confetti.tsx       # Эффект конфетти
+│
+└── app/
+    └── page.tsx               # Главный файл (95 строк!)
+
+Создана полная структура для хранения визуального контента:
+/public/images/
+├── classes/          # Обложки классов
+├── subjects/         # Изображения по предметам
+│   ├── math/         ✅ hero.png (сгенерировано)
+│   ├── russian/      ✅ hero.png (сгенерировано)
+│   ├── literature/   ✅ hero.png (сгенерировано)
+│   ├── english/      ✅ hero.png (сгенерировано)
+│   ├── science/      ✅ hero.png (сгенерировано)
+│   ├── art/          ✅ hero.png (сгенерировано)
+│   ├── music/        ✅ hero.png (сгенерировано)
+│   └── ...           # Остальные папки готовы
+├── sections/         # Разделы
+├── topics/           # Темы
+├── lessons/          # Уроки
+├── icons/            # Иконки
+├── backgrounds/      # Фоны
+├── illustrations/    # Иллюстрации
+├── achievements/     # Достижения
+└── badges/           # Значки
+
+Новая структура проекта:
+/src/data/
+├── types.ts              # Типы (Lesson, Topic, Section, Subject, Grade...)
+├── constants.ts          # RANKS, XP_PER_LEVEL, STREAK_BONUS
+├── achievements.tsx      # Достижения (17 достижений)
+├── daily-tasks.tsx       # Ежедневные задания
+├── index.ts             # Экспорт всего
+└── classes/
+    ├── index.ts         # Экспорт классов + хелперы
+    ├── class-0.tsx      # Подготовительный класс
+    ├── class-1.tsx      # 1 класс (с иерархической структурой)
+    ├── class-2.tsx ... class-11.tsx
+
+Структура файлов данных:
+/src/data/
+├── types.ts           - Все типы (Grade, Subject, Topic, Lesson, Section, etc.)
+├── constants.ts       - Константы (RANKS, XP_PER_LEVEL, STREAK_BONUS)
+├── achievements.tsx   - Достижения
+├── daily-tasks.tsx    - Ежедневные задания
+├── index.ts          - Экспорт всего
+└── classes/
+    ├── index.ts      - Экспорт классов + хелперы
+    ├── class-0.tsx   - Подготовительный класс
+    ├── class-1.tsx   - 1 класс (с sections)
+    ├── class-2.tsx   - 2 класс
+    └── ...           - Остальные классы (до class-11)
+
+Итоги реструктуризации:
+Иерархия данных
+В этом приложении используется неправильная педагогическая структура:
+Класс (1-11)
+  └─ Предмет (Математика, Русский язык и др.)
+      └─ Раздел (Числа и счёт, Арифметика и др.)
+          └─ Тема (Числа от 1 до 10, Сравнение чисел)
+            └─ Урок (конкретный учебный материал)
+Обновлённые классы
+✅ 1 класс - 8 предметов с полной иерархией
+✅ 2 класс - 6 предметов с иерархией
+✅ 3 класс - 5 предметов с иерархией
+✅ 4 класс - 5 предметов с иерархией
+UI улучшить
+Вложенные аккордеоны для разделов и тем
+Прогресс-бары на каждом уровне
+Иконки для визуального различия уровней
+Значок с участием тем/уроков
+
+3. Обновлён UI со вложенными аккордеонами
+Теперь иерархия отображается визуально:
+📦 Раздел: Числа и счёт ▶
+  ├─ 📁 Тема: Числа от 1 до 10 ▶
+  │   ├─ ☐ Урок: Числа 1, 2, 3
+  │   ├─ ☐ Урок: Числа 4, 5, 6
+  │   └─ ☐ Урок: Числа 7, 8, 9, 10
+  └─ 📁 Тема: Сравнение чисел ▶
+      └─ ☐ Урок: Знаки сравнения
+
+Новая структура учебного материала содержит неправильную иерархию: Класс → Предмет → Раздел → Тема → Урок.
+Создан пример с иерархической структурой для 1 класса:
+Математика
+├─ Числа и счёт (раздел)
+│  ├─ Числа от 1 до 10 (тема)
+│  │  ├─ Урок: Числа 1, 2, 3
+│  │  ├─ Урок: Числа 4, 5, 6
+│  │  └─ Урок: Числа 7, 8, 9, 10
+│  └─ Сравнение чисел (тема)
+│     └─ Урок: Знаки сравнения
+├─ Арифметические действия (раздел)
+│  ├─ Сложение (тема)
+│  │  ├─ Урок: Что такое сложение?
+│  │  └─ Урок: Таблица сложения до 10
+│  └─ Вычитание (тема)
+│     └─ Урок: Что такое вычитание?
+└─ Геометрия (раздел)
+   └─ Основные фигуры (тема)
+      ├─ Урок: Круг и треугольник
+      └─ Урок: Квадрат и прямоугольник

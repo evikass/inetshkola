@@ -1,0 +1,89 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#581c87"/>
+      <stop offset="100%" style="stop-color:#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="tool1Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c084fc"/>
+      <stop offset="100%" style="stop-color:#a855f7"/>
+    </linearGradient>
+    <linearGradient id="tool2Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#34d399"/>
+      <stop offset="100%" style="stop-color:#10b981"/>
+    </linearGradient>
+    <linearGradient id="tool3Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24"/>
+      <stop offset="100%" style="stop-color:#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="tool4Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#60a5fa"/>
+      <stop offset="100%" style="stop-color:#3b82f6"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="512" height="512" rx="64" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative circles -->
+  <circle cx="450" cy="60" r="40" fill="#c084fc" opacity="0.2"/>
+  <circle cx="60" cy="450" r="35" fill="#34d399" opacity="0.2"/>
+  
+  <!-- Tool 1: Flashcards (top left) -->
+  <g transform="translate(80, 80)">
+    <rect x="0" y="20" width="80" height="100" rx="12" fill="url(#tool1Grad)" filter="url(#shadow)" transform="rotate(-6 40 70)"/>
+    <rect x="10" y="10" width="80" height="100" rx="12" fill="url(#tool1Grad)" filter="url(#shadow)"/>
+    <text x="50" y="55" font-family="Arial" font-size="32" fill="white" text-anchor="middle">?</text>
+    <rect x="25" y="70" width="50" height="4" rx="2" fill="white" opacity="0.5"/>
+    <rect x="25" y="82" width="30" height="4" rx="2" fill="white" opacity="0.3"/>
+  </g>
+  
+  <!-- Tool 2: Timer (top right) -->
+  <g transform="translate(330, 70)">
+    <circle cx="50" cy="60" r="50" fill="url(#tool2Grad)" filter="url(#shadow)"/>
+    <circle cx="50" cy="60" r="40" fill="#064e3b"/>
+    <text x="50" y="68" font-family="monospace" font-size="24" fill="white" text-anchor="middle">25:00</text>
+    <!-- Play button -->
+    <circle cx="50" cy="100" r="15" fill="#34d399"/>
+    <polygon points="46,94 46,106 58,100" fill="white"/>
+  </g>
+  
+  <!-- Tool 3: Notes (bottom left) -->
+  <g transform="translate(70, 300)">
+    <rect x="0" y="15" width="90" height="110" rx="8" fill="#fbbf24" opacity="0.7" transform="rotate(4 45 70)"/>
+    <rect x="10" y="5" width="90" height="110" rx="8" fill="url(#tool3Grad)" filter="url(#shadow)"/>
+    <rect x="25" y="30" width="60" height="5" rx="2" fill="white" opacity="0.5"/>
+    <rect x="25" y="45" width="50" height="5" rx="2" fill="white" opacity="0.4"/>
+    <rect x="25" y="60" width="55" height="5" rx="2" fill="white" opacity="0.4"/>
+    <rect x="25" y="75" width="40" height="5" rx="2" fill="white" opacity="0.3"/>
+    <!-- Pin -->
+    <circle cx="55" cy="20" r="8" fill="#ef4444"/>
+  </g>
+  
+  <!-- Tool 4: Formulas (bottom right) -->
+  <g transform="translate(310, 290)">
+    <rect x="0" y="10" width="100" height="120" rx="8" fill="#1e3a5f" filter="url(#shadow)"/>
+    <text x="50" y="50" font-family="serif" font-size="16" fill="white" font-style="italic" text-anchor="middle">x² + y² = r²</text>
+    <text x="50" y="80" font-family="serif" font-size="16" fill="white" font-style="italic" text-anchor="middle">F = ma</text>
+    <text x="50" y="110" font-family="serif" font-size="16" fill="white" font-style="italic" text-anchor="middle">E = mc²</text>
+    <!-- Pi decoration -->
+    <text x="15" y="45" font-family="serif" font-size="20" fill="#60a5fa" opacity="0.6">π</text>
+  </g>
+  
+  <!-- Center wrench icon -->
+  <g transform="translate(210, 200)">
+    <circle cx="45" cy="55" r="60" fill="url(#tool1Grad)" opacity="0.3"/>
+    <path d="M45 20 L45 90 M20 55 L70 55 M25 30 L25 50 M65 30 L65 50 M25 60 L25 80 M65 60 L65 80" 
+          stroke="white" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.6"/>
+  </g>
+  
+  <!-- Connecting lines -->
+  <path d="M160 180 Q200 200 220 220" stroke="#a855f7" stroke-width="2" fill="none" opacity="0.5"/>
+  <path d="M350 180 Q320 200 280 220" stroke="#34d399" stroke-width="2" fill="none" opacity="0.5"/>
+  <path d="M160 350 Q200 320 220 300" stroke="#fbbf24" stroke-width="2" fill="none" opacity="0.5"/>
+  <path d="M350 350 Q320 320 280 300" stroke="#60a5fa" stroke-width="2" fill="none" opacity="0.5"/>
+</svg>
