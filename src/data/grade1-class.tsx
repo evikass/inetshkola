@@ -42,6 +42,26 @@ export const grade1Subjects: Subject[] = [
             completed: false,
             difficulty: 'easy',
             estimatedTime: 20,
+            quiz: [
+              {
+                id: 'math1-s1-t1-q1',
+                question: 'Сколько пальчиков на одной руке?',
+                options: ['3', '4', '5', '6'],
+                correctAnswer: 2,
+                explanation: 'На одной руке 5 пальчиков! Посчитай: большой, указательный, средний, безымянный, мизинец!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'math1-s1-t1-q2',
+                question: 'Какое число идёт после 3?',
+                options: ['2', '4', '5', '6'],
+                correctAnswer: 1,
+                explanation: 'После 3 идёт 4! 1, 2, 3, 4, 5!',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'math1-s1-t1-l1',
@@ -120,6 +140,26 @@ export const grade1Subjects: Subject[] = [
             completed: false,
             difficulty: 'easy',
             estimatedTime: 20,
+            quiz: [
+              {
+                id: 'math1-s1-t2-q1',
+                question: 'Сколько дней в неделе?',
+                options: ['5', '6', '7', '8'],
+                correctAnswer: 2,
+                explanation: 'В неделе 7 дней: понедельник, вторник, среда, четверг, пятница, суббота, воскресенье!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'math1-s1-t2-q2',
+                question: 'Сколько лапок у паука?',
+                options: ['4', '6', '8', '10'],
+                correctAnswer: 2,
+                explanation: 'У паука 8 лапок! Это число 8!',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'math1-s1-t2-l1',
@@ -190,6 +230,26 @@ export const grade1Subjects: Subject[] = [
             completed: false,
             difficulty: 'easy',
             estimatedTime: 25,
+            quiz: [
+              {
+                id: 'math1-s2-t1-q1',
+                question: 'Чему равно 2 + 3?',
+                options: ['4', '5', '6', '7'],
+                correctAnswer: 1,
+                explanation: '2 + 3 = 5! Можно посчитать на пальчиках: 2 + 3 = 5!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'math1-s2-t1-q2',
+                question: 'Чему равно 5 + 0?',
+                options: ['0', '4', '5', '6'],
+                correctAnswer: 2,
+                explanation: 'Если к числу прибавить 0, оно не меняется! 5 + 0 = 5!',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'math1-s2-t1-l1',
@@ -252,6 +312,26 @@ export const grade1Subjects: Subject[] = [
             completed: false,
             difficulty: 'easy',
             estimatedTime: 25,
+            quiz: [
+              {
+                id: 'math1-s2-t2-q1',
+                question: 'Чему равно 5 − 2?',
+                options: ['2', '3', '4', '7'],
+                correctAnswer: 1,
+                explanation: '5 − 2 = 3! Было 5, убрали 2, осталось 3!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'math1-s2-t2-q2',
+                question: 'Чему равно 4 − 4?',
+                options: ['0', '1', '4', '8'],
+                correctAnswer: 0,
+                explanation: 'Если из числа вычесть само число, будет 0! 4 − 4 = 0!',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'math1-s2-t2-l1',
@@ -322,6 +402,26 @@ export const grade1Subjects: Subject[] = [
             completed: false,
             difficulty: 'easy',
             estimatedTime: 20,
+            quiz: [
+              {
+                id: 'math1-s3-t1-q1',
+                question: 'Сколько углов у треугольника?',
+                options: ['2', '3', '4', '5'],
+                correctAnswer: 1,
+                explanation: 'У треугольника 3 угла! Это видно из названия: три + угольник!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'math1-s3-t1-q2',
+                question: 'У какой фигуры нет углов?',
+                options: ['Квадрат', 'Треугольник', 'Круг', 'Прямоугольник'],
+                correctAnswer: 2,
+                explanation: 'У круга нет углов! Он круглый и гладкий!',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'math1-s3-t1-l1',
@@ -432,6 +532,26 @@ export const grade1Subjects: Subject[] = [
             completed: false,
             difficulty: 'easy',
             estimatedTime: 25,
+            quiz: [
+              {
+                id: 'rus1-s1-t1-q1',
+                question: 'Сколько букв в русском алфавите?',
+                options: ['30', '31', '33', '35'],
+                correctAnswer: 2,
+                explanation: 'В русском алфавите 33 буквы! От А до Я!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'rus1-s1-t1-q2',
+                question: 'Какая буква первая в алфавите?',
+                options: ['Б', 'А', 'В', 'Я'],
+                correctAnswer: 1,
+                explanation: 'Первая буква алфавита — А!',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'rus1-s1-t1-l1',
@@ -499,6 +619,26 @@ export const grade1Subjects: Subject[] = [
             completed: false,
             difficulty: 'medium',
             estimatedTime: 20,
+            quiz: [
+              {
+                id: 'rus1-s2-t1-q1',
+                question: 'Сколько гласных звуков в русском языке?',
+                options: ['5', '6', '10', '33'],
+                correctAnswer: 1,
+                explanation: 'Гласных звуков 6: [а], [о], [у], [ы], [и], [э]!',
+                difficulty: 'medium',
+                points: 10
+              },
+              {
+                id: 'rus1-s2-t1-q2',
+                question: 'Что мы делаем с буквами?',
+                options: ['Слышим', 'Пишем и видим', 'Произносим', 'Говорим'],
+                correctAnswer: 1,
+                explanation: 'Буквы мы пишем и видим, а звуки — произносим и слышим!',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'rus1-s2-t1-l1',
