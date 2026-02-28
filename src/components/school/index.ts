@@ -40,3 +40,5 @@ export {
 export { default as MathGame } from './MathGame'
 export { default as ReadingGame } from './ReadingGame'
 export { default as GamesTab } from './GamesTab'
+export { default as WelcomeScreen } from './WelcomeScreen'
+export { default as RewardCelebration } from './RewardCelebration'
