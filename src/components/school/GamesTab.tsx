@@ -10,7 +10,7 @@ import {
 } from 'lucide-react'
 import MathGame from './MathGame'
 import ReadingGame from './ReadingGame'
-import KidMiniGames from './KidMiniGames'
+import { CountingGame, AlphabetGame, MemoryGame, ShapeGame } from './KidMiniGames'
 
 interface GamesTabProps {
   gradeId?: number
@@ -212,8 +212,35 @@ export default function GamesTab({ gradeId = 0, onExperience }: GamesTabProps) {
                 Игры для малышей
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <KidMiniGames />
+            <CardContent className="grid grid-cols-2 gap-4">
+              <Button
+                onClick={() => setCurrentGame('counting')}
+                className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl py-8 text-lg font-bold flex flex-col gap-2"
+              >
+                <span className="text-4xl">🔢</span>
+                Учим цифры
+              </Button>
+              <Button
+                onClick={() => setCurrentGame('alphabet')}
+                className="bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl py-8 text-lg font-bold flex flex-col gap-2"
+              >
+                <span className="text-4xl">🔤</span>
+                Учим буквы
+              </Button>
+              <Button
+                onClick={() => setCurrentGame('memory')}
+                className="bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl py-8 text-lg font-bold flex flex-col gap-2"
+              >
+                <span className="text-4xl">🃏</span>
+                Найди пару
+              </Button>
+              <Button
+                onClick={() => setCurrentGame('shapes')}
+                className="bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl py-8 text-lg font-bold flex flex-col gap-2"
+              >
+                <span className="text-4xl">🔷</span>
+                Учим фигуры
+              </Button>
             </CardContent>
           </Card>
         </motion.div>
@@ -279,31 +306,35 @@ export default function GamesTab({ gradeId = 0, onExperience }: GamesTabProps) {
         )
       
       case 'memory':
+        return (
+          <MemoryGame 
+            onBack={() => setCurrentGame('menu')}
+            onComplete={(stars) => handleGameComplete(stars * 10, stars)}
+          />
+        )
+      
       case 'counting':
+        return (
+          <CountingGame 
+            onBack={() => setCurrentGame('menu')}
+            onComplete={(stars) => handleGameComplete(stars * 10, stars)}
+          />
+        )
+      
       case 'alphabet':
+        return (
+          <AlphabetGame 
+            onBack={() => setCurrentGame('menu')}
+            onComplete={(stars) => handleGameComplete(stars * 10, stars)}
+          />
+        )
+      
       case 'shapes':
         return (
-          <div>
-            <GameHeader />
-            <Card className="bg-white/5 border-white/10 p-8 text-center">
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                className="text-6xl mb-4"
-              >
-                {gameConfig?.icon}
-              </motion.div>
-              <h3 className="text-2xl font-bold mb-2">{gameConfig?.title}</h3>
-              <p className="text-gray-400 mb-6">Эта игра скоро будет доступна!</p>
-              <div className="flex justify-center gap-4">
-                {gameConfig?.difficulty.map((diff, i) => (
-                  <Button key={i} variant="outline" className="rounded-xl">
-                    {diff}
-                  </Button>
-                ))}
-              </div>
-            </Card>
-          </div>
+          <ShapeGame 
+            onBack={() => setCurrentGame('menu')}
+            onComplete={(stars) => handleGameComplete(stars * 10, stars)}
+          />
         )
       
       default:
