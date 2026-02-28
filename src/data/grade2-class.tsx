@@ -40,6 +40,26 @@ export const grade2Subjects: Subject[] = [
             completed: false,
             difficulty: 'easy',
             estimatedTime: 20,
+            quiz: [
+              {
+                id: 'math2-s1-t1-q1',
+                question: 'Сколько десятков в числе 50?',
+                options: ['5', '50', '0', '10'],
+                correctAnswer: 0,
+                explanation: 'В числе 50 — 5 десятков! 50 = 5 × 10!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'math2-s1-t1-q2',
+                question: 'Какое число состоит из 7 десятков?',
+                options: ['17', '70', '7', '77'],
+                correctAnswer: 1,
+                explanation: '7 десятков = 70! Это круглое число!',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'math2-s1-t1-l1',
@@ -101,6 +121,26 @@ export const grade2Subjects: Subject[] = [
             completed: false,
             difficulty: 'easy',
             estimatedTime: 20,
+            quiz: [
+              {
+                id: 'math2-s1-t2-q1',
+                question: 'Какое число: 3 десятка и 5 единиц?',
+                options: ['35', '53', '305', '8'],
+                correctAnswer: 0,
+                explanation: '3 десятка = 30, 5 единиц = 5. 30 + 5 = 35!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'math2-s1-t2-q2',
+                question: 'Сколько десятков в числе 78?',
+                options: ['7', '8', '78', '70'],
+                correctAnswer: 0,
+                explanation: 'В числе 78: 7 десятков и 8 единиц!',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'math2-s1-t2-l1',
