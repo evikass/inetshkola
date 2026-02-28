@@ -19,7 +19,7 @@ interface KidFriendlyQuizProps {
 
 // Эмодзи для правильных ответов
 const celebrationEmojis = ['🎉', '⭐', '🌟', '✨', '🏆', '👏', '🎊', '💪', '🥳', '🤩']
-const encouragementEmojis = ['💪', '😊', '🌈', '🐝', '🦋', '🌻', '☀️', '🎈']
+const encouragementEmojis = ['💪', '😊', '🌸', '🐝', '🦋', '🌻', '☀️', '🎈']
 
 // Получить случайный эмодзи
 const getRandomEmoji = (list: string[]) => list[Math.floor(Math.random() * list.length)]
