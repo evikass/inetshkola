@@ -812,6 +812,26 @@ export const grade1Subjects: Subject[] = [
             completed: false,
             difficulty: 'easy',
             estimatedTime: 20,
+            quiz: [
+              {
+                id: 'world1-s1-t1-q1',
+                question: 'Какой цвет светофора разрешает переходить дорогу?',
+                options: ['Красный', 'Жёлтый', 'Зелёный', 'Синий'],
+                correctAnswer: 2,
+                explanation: 'Зелёный цвет разрешает переходить дорогу!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'world1-s1-t1-q2',
+                question: 'Как называется пешеходный переход?',
+                options: ['Лошадь', 'Зебра', 'Жираф', 'Тигр'],
+                correctAnswer: 1,
+                explanation: 'Пешеходный переход называют "зеброй" из-за белых полосок!',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'world1-s1-t1-l1',
