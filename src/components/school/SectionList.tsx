@@ -1,14 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import { Badge } from '@/components/ui/badge'
 import {
   ArrowLeft, Layers, BookOpen, Clock, CheckCircle, Sparkles,
-  ChevronDown, ChevronRight, Star, Zap
+  ChevronDown, Star, Zap
 } from 'lucide-react'
 import type { Subject, Topic, Section } from '@/data/types'
 import { getAllTopics, hasNewStructure } from '@/data/types'
@@ -53,13 +53,16 @@ const getSubjectEmoji = (subjectId: string): string => {
 function KidSectionCard({
   section,
   completedTopics,
-  onOpenTopic
+  onOpenTopic,
+  isExpanded,
+  onToggle
 }: {
   section: Section
   completedTopics: string[]
   onOpenTopic: (topic: Topic) => void
+  isExpanded: boolean
+  onToggle: () => void
 }) {
-  const [isExpanded, setIsExpanded] = useState(false)
   const completedCount = section.topics.filter(t => completedTopics.includes(t.id)).length
   const progress = section.topics.length > 0 ? (completedCount / section.topics.length) * 100 : 0
 
@@ -67,7 +70,7 @@ function KidSectionCard({
     <Card className="bg-white/10 backdrop-blur-lg border-white/20 rounded-2xl overflow-hidden">
       <div
         className="p-4 cursor-pointer hover:bg-white/5 transition-colors"
-        onClick={() => setIsExpanded(!isExpanded)}
+        onClick={onToggle}
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -88,29 +91,34 @@ function KidSectionCard({
                 style={{ width: `${progress}%` }}
               />
             </div>
-            <ChevronDown className={`w-5 h-5 text-white/60 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+            <ChevronDown className={`w-5 h-5 text-white/60 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
           </div>
         </div>
       </div>
 
-      {isExpanded && (
-        <motion.div 
-          className="p-4 pt-0 space-y-3"
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-        >
-          {section.topics.map((topic) => (
-            <KidTopicCard
-              key={topic.id}
-              topic={topic}
-              isCompleted={completedTopics.includes(topic.id)}
-              onOpenTopic={() => onOpenTopic(topic)}
-              onCompleteTopic={() => {}}
-            />
-          ))}
-        </motion.div>
-      )}
+      <AnimatePresence initial={false}>
+        {isExpanded && (
+          <motion.div 
+            className="overflow-hidden"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+          >
+            <div className="p-4 pt-0 space-y-3">
+              {section.topics.map((topic) => (
+                <KidTopicCard
+                  key={topic.id}
+                  topic={topic}
+                  isCompleted={completedTopics.includes(topic.id)}
+                  onOpenTopic={() => onOpenTopic(topic)}
+                  onCompleteTopic={() => {}}
+                />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Card>
   )
 }
@@ -119,13 +127,16 @@ function KidSectionCard({
 function StandardSectionCard({
   section,
   completedTopics,
-  onOpenTopic
+  onOpenTopic,
+  isExpanded,
+  onToggle
 }: {
   section: Section
   completedTopics: string[]
   onOpenTopic: (topic: Topic) => void
+  isExpanded: boolean
+  onToggle: () => void
 }) {
-  const [isExpanded, setIsExpanded] = useState(false)
   const completedCount = section.topics.filter(t => completedTopics.includes(t.id)).length
   const progress = section.topics.length > 0 ? (completedCount / section.topics.length) * 100 : 0
 
@@ -133,7 +144,7 @@ function StandardSectionCard({
     <Card className="bg-white/5 border-white/10 overflow-hidden rounded-xl">
       <div
         className="p-4 cursor-pointer hover:bg-white/5 transition-colors"
-        onClick={() => setIsExpanded(!isExpanded)}
+        onClick={onToggle}
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -152,57 +163,63 @@ function StandardSectionCard({
                 style={{ width: `${progress}%` }}
               />
             </div>
-            <ChevronDown className={`w-4 h-4 text-white/60 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+            <ChevronDown className={`w-4 h-4 text-white/60 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
           </div>
         </div>
       </div>
 
-      {isExpanded && (
-        <motion.div 
-          className="px-4 pb-4 space-y-2"
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-        >
-          {section.topics.map((topic) => {
-            const isCompleted = completedTopics.includes(topic.id)
-            
-            return (
-              <button
-                key={topic.id}
-                onClick={() => onOpenTopic(topic)}
-                className={`w-full p-3 rounded-lg border text-left transition-all ${
-                  isCompleted
-                    ? 'bg-green-500/10 border-green-500/30'
-                    : 'bg-white/5 border-white/10 hover:bg-white/10'
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    {isCompleted ? (
-                      <CheckCircle className="w-4 h-4 text-green-400" />
-                    ) : (
-                      <div className="w-4 h-4 rounded-full border-2 border-gray-500" />
+      <AnimatePresence initial={false}>
+        {isExpanded && (
+          <motion.div 
+            className="overflow-hidden"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+          >
+            <div className="px-4 pb-4 space-y-2">
+              {section.topics.map((topic) => {
+                const isCompleted = completedTopics.includes(topic.id)
+                
+                return (
+                  <button
+                    key={topic.id}
+                    onClick={() => onOpenTopic(topic)}
+                    className={`w-full p-3 rounded-lg border text-left transition-all ${
+                      isCompleted
+                        ? 'bg-green-500/10 border-green-500/30'
+                        : 'bg-white/5 border-white/10 hover:bg-white/10'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        {isCompleted ? (
+                          <CheckCircle className="w-4 h-4 text-green-400" />
+                        ) : (
+                          <div className="w-4 h-4 rounded-full border-2 border-gray-500" />
+                        )}
+                        <span className="font-medium text-sm text-white">{topic.title}</span>
+                      </div>
+                      {topic.estimatedTime && (
+                        <span className="text-xs text-gray-500 flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          {topic.estimatedTime} мин
+                        </span>
+                      )}
+                    </div>
+                    {topic.lessons && topic.lessons.length > 0 && (
+                      <div className="flex items-center gap-1 mt-1 ml-6 text-xs text-gray-500">
+                        <BookOpen className="w-3 h-3" />
+                        <span>{topic.lessons.length} уроков</span>
+                      </div>
                     )}
-                    <span className="font-medium text-sm text-white">{topic.title}</span>
-                  </div>
-                  {topic.estimatedTime && (
-                    <span className="text-xs text-gray-500 flex items-center gap-1">
-                      <Clock className="w-3 h-3" />
-                      {topic.estimatedTime} мин
-                    </span>
-                  )}
-                </div>
-                {topic.lessons && topic.lessons.length > 0 && (
-                  <div className="flex items-center gap-1 mt-1 ml-6 text-xs text-gray-500">
-                    <BookOpen className="w-3 h-3" />
-                    <span>{topic.lessons.length} уроков</span>
-                  </div>
-                )}
-              </button>
-            )
-          })}
-        </motion.div>
-      )}
+                  </button>
+                )
+              })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Card>
   )
 }
@@ -223,6 +240,14 @@ export default function SectionList({
 
   const completedCount = allTopics.filter(t => completedTopics.includes(t.id)).length
   const progress = allTopics.length > 0 ? (completedCount / allTopics.length) * 100 : 0
+
+  // Состояние для раскрытого раздела (только один может быть открыт)
+  const [expandedSectionId, setExpandedSectionId] = useState<string | null>(null)
+
+  const handleToggleSection = (sectionId: string) => {
+    // Если кликнули на уже открытый - закрываем, иначе открываем новый (и закрываем старый)
+    setExpandedSectionId(prev => prev === sectionId ? null : sectionId)
+  }
 
   if (useKidMode) {
     return (
@@ -327,6 +352,8 @@ export default function SectionList({
                   section={section}
                   completedTopics={completedTopics}
                   onOpenTopic={onOpenTopic}
+                  isExpanded={expandedSectionId === section.id}
+                  onToggle={() => handleToggleSection(section.id)}
                 />
               </motion.div>
             ))
@@ -434,6 +461,8 @@ export default function SectionList({
                 section={section}
                 completedTopics={completedTopics}
                 onOpenTopic={onOpenTopic}
+                isExpanded={expandedSectionId === section.id}
+                onToggle={() => handleToggleSection(section.id)}
               />
             </motion.div>
           ))
