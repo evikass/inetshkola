@@ -432,7 +432,7 @@ export default function SectionList({
                 size="sm"
               >
                 <Zap className="w-4 h-4 mr-2" />
-                Пройти тест ({subject.quiz.length} вопросов)
+                Тест ({subject.quiz.length})
               </Button>
             )}
           </div>
