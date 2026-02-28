@@ -189,7 +189,14 @@ function SchoolApp() {
         open={topicDialogOpen}
         onOpenChange={setTopicDialogOpen}
         topic={selectedTopic}
+        subject={selectedSubject}
         onComplete={handleCompleteTopic}
+        onOpenQuiz={() => {
+          if (selectedSubject) {
+            setTopicDialogOpen(false)
+            handleStartQuiz(selectedSubject)
+          }
+        }}
         gradeId={selectedGrade || 0}
       />
 

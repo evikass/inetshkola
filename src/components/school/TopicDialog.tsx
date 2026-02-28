@@ -4,15 +4,17 @@ import { useState } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { BookOpen, CheckCircle, ChevronRight, Baby, GraduationCap } from 'lucide-react'
-import type { Topic } from '@/data/types'
+import { BookOpen, CheckCircle, ChevronRight, Baby, GraduationCap, Zap } from 'lucide-react'
+import type { Topic, Subject } from '@/data/types'
 import KidFriendlyLessonViewer from './KidFriendlyLessonViewer'
 
 interface TopicDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   topic: Topic | null
+  subject?: Subject | null
   onComplete: () => void
+  onOpenQuiz?: () => void
   gradeId?: number  // ID класса для определения режима
 }
 
@@ -20,7 +22,9 @@ export default function TopicDialog({
   open, 
   onOpenChange, 
   topic, 
+  subject,
   onComplete,
+  onOpenQuiz,
   gradeId = 0
 }: TopicDialogProps) {
   const [showKidViewer, setShowKidViewer] = useState(false)
@@ -30,6 +34,9 @@ export default function TopicDialog({
   // Определяем, использовать ли детский режим
   // Детский режим для классов 0-2 (подготовительный, 1, 2 класс)
   const useKidMode = gradeId <= 2
+
+  // Проверяем, есть ли тест у предмета
+  const hasQuiz = subject?.quiz && subject.quiz.length > 0
 
   // Открыть детский просмотрщик
   const handleOpenKidViewer = () => {
@@ -97,6 +104,18 @@ export default function TopicDialog({
               <GraduationCap className="w-5 h-5" />
               Обычный режим
             </Button>
+
+            {/* Кнопка Тест */}
+            {hasQuiz && onOpenQuiz && (
+              <Button
+                onClick={onOpenQuiz}
+                className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white rounded-2xl py-4 text-lg font-bold flex items-center justify-center gap-2 shadow-lg"
+              >
+                <Zap className="w-6 h-6" />
+                Тест по предмету
+                <span className="text-sm font-normal opacity-80">({subject?.quiz?.length} вопросов)</span>
+              </Button>
+            )}
           </div>
 
           <DialogFooter className="flex justify-center">
@@ -150,7 +169,18 @@ export default function TopicDialog({
           </div>
         </ScrollArea>
         
-        <DialogFooter>
+        <DialogFooter className="flex-col sm:flex-row gap-2">
+          {/* Кнопка Тест */}
+          {hasQuiz && onOpenQuiz && (
+            <Button
+              onClick={onOpenQuiz}
+              className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white"
+            >
+              <Zap className="w-4 h-4 mr-2" />
+              Тест ({subject?.quiz?.length} вопросов)
+            </Button>
+          )}
+          
           <Button
             onClick={() => {
               onComplete()
