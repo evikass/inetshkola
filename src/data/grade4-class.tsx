@@ -40,6 +40,26 @@ export const grade4Subjects: Subject[] = [
             completed: false,
             difficulty: 'medium',
             estimatedTime: 25,
+            quiz: [
+              {
+                id: 'math4-s1-t1-q1',
+                question: 'Сколько тысяч в числе 15 000?',
+                options: ['5', '15', '150', '15000'],
+                correctAnswer: 1,
+                explanation: '15 000 = 15 тысяч! Цифры до пробела показывают количество тысяч.',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math4-s1-t1-q2',
+                question: 'Как правильно прочитать число 1 234 567?',
+                options: ['Один миллион двести тридцать четыре тысячи пятьсот шестьдесят семь', 'Сто двадцать три тысячи', 'Двенадцать миллионов', 'Миллиард'],
+                correctAnswer: 0,
+                explanation: '1 234 567 = один миллион двести тридцать четыре тысячи пятьсот шестьдесят семь!',
+                difficulty: 'medium',
+                points: 15
+              }
+            ],
             lessons: [
               {
                 id: 'math4-s1-t1-l1',
@@ -101,6 +121,26 @@ export const grade4Subjects: Subject[] = [
             completed: false,
             difficulty: 'medium',
             estimatedTime: 30,
+            quiz: [
+              {
+                id: 'math4-s1-t2-q1',
+                question: 'Чему равно 2345 + 1678?',
+                options: ['4013', '4023', '3923', '4113'],
+                correctAnswer: 1,
+                explanation: '2345 + 1678 = 4023! Складываем в столбик по разрядам.',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math4-s1-t2-q2',
+                question: 'Чему равно 5000 - 2345?',
+                options: ['2655', '2755', '2655', '2665'],
+                correctAnswer: 0,
+                explanation: '5000 - 2345 = 2655! Вычитаем в столбик, занимаем у старших разрядов.',
+                difficulty: 'medium',
+                points: 15
+              }
+            ],
             lessons: [
               {
                 id: 'math4-s1-t2-l1',
@@ -172,6 +212,26 @@ export const grade4Subjects: Subject[] = [
             completed: false,
             difficulty: 'medium',
             estimatedTime: 30,
+            quiz: [
+              {
+                id: 'math4-s2-t1-q1',
+                question: 'Как записать дробью "половина"?',
+                options: ['1/3', '1/2', '1/4', '2/1'],
+                correctAnswer: 1,
+                explanation: 'Половина = 1/2 (одна вторая). Целое разделено на 2 части, взяли 1.',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'math4-s2-t1-q2',
+                question: 'Какая дробь правильная?',
+                options: ['5/3', '7/2', '3/8', '9/4'],
+                correctAnswer: 2,
+                explanation: '3/8 — правильная дробь (числитель 3 меньше знаменателя 8).',
+                difficulty: 'medium',
+                points: 15
+              }
+            ],
             lessons: [
               {
                 id: 'math4-s2-t1-l1',
