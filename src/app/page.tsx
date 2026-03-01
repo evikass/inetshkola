@@ -10,7 +10,7 @@ import {
   GamesTab, FloatingNav, WelcomeScreen, RewardCelebration
 } from '@/components/school'
 import { schoolData } from '@/data/school-data'
-import type { Subject, Topic } from '@/data/types'
+import type { Subject, Topic, QuizQuestion } from '@/data/types'
 
 function SchoolApp() {
   const { 
@@ -25,6 +25,7 @@ function SchoolApp() {
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null)
   const [quizDialogOpen, setQuizDialogOpen] = useState(false)
   const [quizSubject, setQuizSubject] = useState<Subject | null>(null)
+  const [topicQuizData, setTopicQuizData] = useState<{ questions: QuizQuestion[], title: string } | null>(null)
 
   const currentGradeData = selectedGrade !== null 
     ? schoolData.find(g => g.id === selectedGrade) 
@@ -43,12 +44,24 @@ function SchoolApp() {
 
   const handleStartQuiz = (subject: Subject) => {
     setQuizSubject(subject)
+    setTopicQuizData(null) // Сбрасываем тест темы
+    setQuizDialogOpen(true)
+  }
+
+  // Обработчик для запуска теста по теме
+  const handleStartTopicQuiz = (quiz: QuizQuestion[], title: string) => {
+    setQuizSubject(null) // Сбрасываем предмет
+    setTopicQuizData({ questions: quiz, title })
     setQuizDialogOpen(true)
   }
 
   const handleCompleteQuiz = (correct: number, total: number) => {
     if (quizSubject) {
       completeQuiz(quizSubject.id, correct, total)
+    }
+    // Для теста по теме тоже начисляем XP
+    if (topicQuizData) {
+      addExperience(correct * 10)
     }
   }
 
@@ -75,6 +88,10 @@ function SchoolApp() {
   }
 
   const gradeName = currentGradeData?.name || '1 класс'
+
+  // Определяем, какие вопросы показывать
+  const quizQuestions = topicQuizData?.questions || quizSubject?.quiz || []
+  const quizTitle = topicQuizData?.title || quizSubject?.title || ''
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
@@ -153,6 +170,7 @@ function SchoolApp() {
                   onOpenTopic={handleOpenTopic}
                   onBack={handleBackToSubjects}
                   onStartQuiz={handleStartQuiz}
+                  onStartTopicQuiz={handleStartTopicQuiz}
                   gradeId={selectedGrade}
                 />
               </motion.div>
@@ -200,12 +218,12 @@ function SchoolApp() {
         gradeId={selectedGrade || 0}
       />
 
-      {/* Quiz Dialog */}
+      {/* Quiz Dialog - поддерживает тесты по предмету и по теме */}
       <QuizDialog
         open={quizDialogOpen}
         onOpenChange={setQuizDialogOpen}
-        questions={quizSubject?.quiz || []}
-        subjectName={quizSubject?.title || ''}
+        questions={quizQuestions}
+        subjectName={quizTitle}
         onComplete={handleCompleteQuiz}
         gradeId={selectedGrade || 0}
       />

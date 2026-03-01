@@ -3,8 +3,8 @@
 import { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { ChevronRight, Star, Clock, Play, CheckCircle, BookOpen } from 'lucide-react'
-import type { Topic } from '@/data/types'
+import { ChevronRight, Star, Clock, Play, CheckCircle, BookOpen, Zap } from 'lucide-react'
+import type { Topic, QuizQuestion } from '@/data/types'
 import KidLessonViewer from './KidLessonViewer'
 
 interface KidTopicCardProps {
@@ -12,24 +12,31 @@ interface KidTopicCardProps {
   isCompleted: boolean
   onOpenTopic: () => void
   onCompleteTopic: () => void
+  onStartQuiz?: (quiz: QuizQuestion[], title: string) => void
 }
 
 export default function KidTopicCard({
   topic,
   isCompleted,
   onOpenTopic,
-  onCompleteTopic
+  onCompleteTopic,
+  onStartQuiz
 }: KidTopicCardProps) {
   const [showLessons, setShowLessons] = useState(false)
 
   const hasLessons = topic.lessons && topic.lessons.length > 0
   const totalLessons = hasLessons ? topic.lessons!.length : 0
+  const hasQuiz = topic.quiz && topic.quiz.length > 0
 
   // Определяем эмодзи по теме
   const getEmoji = () => {
     if (topic.id.includes('writing')) return '✏️'
     if (topic.id.includes('math')) return '🔢'
     if (topic.id.includes('world')) return '🌍'
+    if (topic.id.includes('reading')) return '📖'
+    if (topic.id.includes('art')) return '🎨'
+    if (topic.id.includes('music')) return '🎵'
+    if (topic.id.includes('pe')) return '⚽'
     return '📚'
   }
 
@@ -63,14 +70,24 @@ export default function KidTopicCard({
     onCompleteTopic()
   }
 
+  // Начать тест
+  const handleStartQuiz = () => {
+    if (hasQuiz && onStartQuiz) {
+      setShowLessons(false)
+      onStartQuiz(topic.quiz!, topic.title)
+    }
+  }
+
   // Если открыты уроки
   if (showLessons && hasLessons) {
     return (
       <KidLessonViewer
         lessons={topic.lessons!}
         topicTitle={topic.title}
+        topicQuiz={topic.quiz}
         onComplete={handleCompleteTopic}
         onBack={handleCloseLessons}
+        onStartQuiz={hasQuiz ? handleStartQuiz : undefined}
       />
     )
   }
@@ -126,6 +143,14 @@ export default function KidTopicCard({
           <div className="flex items-center gap-1">
             <BookOpen className="w-3 h-3 sm:w-4 sm:h-4" />
             <span>{totalLessons} уроков</span>
+          </div>
+        )}
+
+        {/* Есть тест */}
+        {hasQuiz && (
+          <div className="flex items-center gap-1">
+            <Zap className="w-3 h-3 sm:w-4 sm:h-4" />
+            <span>Тест</span>
           </div>
         )}
       </div>

@@ -4,15 +4,17 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { 
-  ChevronLeft, ChevronRight, Star, CheckCircle, ArrowLeft
+  ChevronLeft, ChevronRight, Star, CheckCircle, ArrowLeft, Zap
 } from 'lucide-react'
-import type { Lesson } from '@/data/types'
+import type { Lesson, QuizQuestion } from '@/data/types'
 
 interface KidLessonViewerProps {
   lessons: Lesson[]
   topicTitle: string
+  topicQuiz?: QuizQuestion[]
   onComplete: () => void
   onBack: () => void
+  onStartQuiz?: () => void
 }
 
 // Эмодзи для разных типов уроков
@@ -21,16 +23,20 @@ const lessonEmojis = ['📚', '✏️', '🎨', '🔢', '🔤', '🌍', '🔬', 
 export default function KidLessonViewer({
   lessons,
   topicTitle,
+  topicQuiz,
   onComplete,
-  onBack
+  onBack,
+  onStartQuiz
 }: KidLessonViewerProps) {
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0)
   const [completedLessons, setCompletedLessons] = useState<Set<string>>(new Set())
   const [showCelebration, setShowCelebration] = useState(false)
+  const [allCompleted, setAllCompleted] = useState(false)
 
   const currentLesson = lessons[currentLessonIndex]
   const totalLessons = lessons.length
   const completedCount = completedLessons.size
+  const hasQuiz = topicQuiz && topicQuiz.length > 0
 
   // Перейти к следующему уроку
   const nextLesson = () => {
@@ -49,7 +55,8 @@ export default function KidLessonViewer({
   // Завершить урок
   const completeLesson = () => {
     if (currentLesson) {
-      setCompletedLessons(prev => new Set([...prev, currentLesson.id]))
+      const newCompleted = new Set([...completedLessons, currentLesson.id])
+      setCompletedLessons(newCompleted)
 
       // Вибрация
       if (navigator.vibrate) {
@@ -57,17 +64,17 @@ export default function KidLessonViewer({
       }
 
       // Проверяем, все ли уроки пройдены
-      if (completedCount + 1 === totalLessons) {
+      if (newCompleted.size === totalLessons) {
+        setAllCompleted(true)
         setShowCelebration(true)
         setTimeout(() => {
           setShowCelebration(false)
-          onComplete()
         }, 2000)
       } else {
         // Автопереход к следующему
         setTimeout(() => {
           nextLesson()
-        }, 1000)
+        }, 800)
       }
     }
   }
@@ -75,6 +82,18 @@ export default function KidLessonViewer({
   // Выбрать урок по индексу
   const selectLesson = (index: number) => {
     setCurrentLessonIndex(index)
+  }
+
+  // Начать тест
+  const handleStartQuiz = () => {
+    if (onStartQuiz) {
+      onStartQuiz()
+    }
+  }
+
+  // Завершить тему
+  const handleComplete = () => {
+    onComplete()
   }
 
   if (!currentLesson) return null
@@ -201,26 +220,57 @@ export default function KidLessonViewer({
               </div>
             )}
 
-            {/* Навигация */}
-            <div className="flex justify-between mt-6">
-              <Button
-                onClick={prevLesson}
-                disabled={currentLessonIndex === 0}
-                className="bg-white/50 hover:bg-white/70 disabled:opacity-30 text-gray-700 rounded-2xl px-6 py-3"
-              >
-                <ChevronLeft className="w-5 h-5 mr-1" />
-                Назад
-              </Button>
+            {/* Кнопки после завершения всех уроков */}
+            {allCompleted && (
+              <div className="mt-6 space-y-3">
+                {/* Кнопка теста */}
+                {hasQuiz && (
+                  <Button
+                    onClick={handleStartQuiz}
+                    className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white rounded-2xl py-5 sm:py-6 text-lg font-bold shadow-xl"
+                  >
+                    <Zap className="w-5 h-5 mr-2" />
+                    Тест по теме ({topicQuiz?.length} вопросов)
+                  </Button>
+                )}
+                
+                {/* Кнопка завершения */}
+                <Button
+                  onClick={handleComplete}
+                  className={`w-full rounded-2xl py-5 sm:py-6 text-lg font-bold shadow-xl ${
+                    hasQuiz 
+                      ? 'bg-white/50 hover:bg-white/70 text-gray-700 border border-gray-200'
+                      : 'bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white'
+                  }`}
+                >
+                  <CheckCircle className="w-5 h-5 mr-2" />
+                  {hasQuiz ? 'Пропустить тест' : 'Завершить тему'}
+                </Button>
+              </div>
+            )}
 
-              <Button
-                onClick={nextLesson}
-                disabled={currentLessonIndex === totalLessons - 1}
-                className="bg-white/50 hover:bg-white/70 disabled:opacity-30 text-gray-700 rounded-2xl px-6 py-3"
-              >
-                Дальше
-                <ChevronRight className="w-5 h-5 ml-1" />
-              </Button>
-            </div>
+            {/* Навигация */}
+            {!allCompleted && (
+              <div className="flex justify-between mt-6">
+                <Button
+                  onClick={prevLesson}
+                  disabled={currentLessonIndex === 0}
+                  className="bg-white/50 hover:bg-white/70 disabled:opacity-30 text-gray-700 rounded-2xl px-6 py-3"
+                >
+                  <ChevronLeft className="w-5 h-5 mr-1" />
+                  Назад
+                </Button>
+
+                <Button
+                  onClick={nextLesson}
+                  disabled={currentLessonIndex === totalLessons - 1}
+                  className="bg-white/50 hover:bg-white/70 disabled:opacity-30 text-gray-700 rounded-2xl px-6 py-3"
+                >
+                  Дальше
+                  <ChevronRight className="w-5 h-5 ml-1" />
+                </Button>
+              </div>
+            )}
           </div>
         </Card>
       </div>
@@ -234,7 +284,10 @@ export default function KidLessonViewer({
               ВСЕ УРОКИ ПРОЙДЕНЫ!
             </h2>
             <p className="text-xl text-white/80">
-              Ты получил +{totalLessons * 2} звёзд!
+              {hasQuiz 
+                ? 'Теперь пройди тест по теме!'
+                : `Ты получил +${totalLessons * 2} звёзд!`
+              }
             </p>
             <div className="flex justify-center gap-2 mt-4">
               {[...Array(Math.min(totalLessons, 5))].map((_, i) => (

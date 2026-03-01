@@ -20,6 +20,7 @@ interface SectionListProps {
   onOpenTopic: (topic: Topic) => void
   onBack: () => void
   onStartQuiz: (subject: Subject) => void
+  onStartTopicQuiz?: (quiz: import('@/data/types').QuizQuestion[], title: string) => void
   gradeId?: number
 }
 
@@ -54,12 +55,14 @@ function KidSectionCard({
   section,
   completedTopics,
   onOpenTopic,
+  onStartTopicQuiz,
   isExpanded,
   onToggle
 }: {
   section: Section
   completedTopics: string[]
   onOpenTopic: (topic: Topic) => void
+  onStartTopicQuiz?: (quiz: import('@/data/types').QuizQuestion[], title: string) => void
   isExpanded: boolean
   onToggle: () => void
 }) {
@@ -113,6 +116,7 @@ function KidSectionCard({
                   isCompleted={completedTopics.includes(topic.id)}
                   onOpenTopic={() => onOpenTopic(topic)}
                   onCompleteTopic={() => {}}
+                  onStartQuiz={onStartTopicQuiz}
                 />
               ))}
             </div>
@@ -230,6 +234,7 @@ export default function SectionList({
   onOpenTopic,
   onBack,
   onStartQuiz,
+  onStartTopicQuiz,
   gradeId = 0
 }: SectionListProps) {
   const useKidMode = gradeId <= 2
@@ -352,6 +357,7 @@ export default function SectionList({
                   section={section}
                   completedTopics={completedTopics}
                   onOpenTopic={onOpenTopic}
+                  onStartTopicQuiz={onStartTopicQuiz}
                   isExpanded={expandedSectionId === section.id}
                   onToggle={() => handleToggleSection(section.id)}
                 />
@@ -371,6 +377,7 @@ export default function SectionList({
                     isCompleted={completedTopics.includes(topic.id)}
                     onOpenTopic={() => onOpenTopic(topic)}
                     onCompleteTopic={() => {}}
+                    onStartQuiz={onStartTopicQuiz}
                   />
                 </motion.div>
               ))}
