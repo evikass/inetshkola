@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion'
 import { Card } from '@/components/ui/card'
 import { GraduationCap, Sparkles, ArrowLeft } from 'lucide-react'
-import Image from 'next/image'
 import type { Grade } from '@/data/types'
 
 interface GradeSelectorProps {
@@ -105,23 +104,16 @@ export default function GradeSelector({
             
             {/* Изображение класса */}
             <div className="flex justify-center mb-4 relative z-10">
-              <motion.div
-                className="relative w-32 h-32 sm:w-40 sm:h-40"
+              <motion.img
+                src={`/images/classes/class-${selectedGrade}.jpg`}
+                alt={grade?.shortName || 'Класс'}
+                className="w-32 h-32 sm:w-40 sm:h-40 object-contain drop-shadow-2xl"
                 animate={{ 
                   y: [-5, 5, -5],
                   rotate: [-3, 3, -3]
                 }}
                 transition={{ duration: 4, repeat: Infinity }}
-              >
-                <Image
-                  src={`/images/classes/class-${selectedGrade}.jpg`}
-                  alt={grade?.shortName || 'Класс'}
-                  fill
-                  unoptimized
-                  priority
-                  className="object-contain drop-shadow-2xl"
-                />
-              </motion.div>
+              />
             </div>
 
             {/* Бейдж */}
@@ -210,25 +202,16 @@ export default function GradeSelector({
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-purple-500/20 via-pink-500/20 to-orange-500/20" />
                 
                 {/* Изображение класса */}
-                <div className="relative w-14 h-14 sm:w-20 sm:h-20 mb-2 sm:mb-3 z-10">
-                  <motion.div
-                    className="w-full h-full"
-                    whileHover={{ 
-                      scale: 1.15, 
-                      rotate: [0, -5, 5, 0],
-                      transition: { duration: 0.3 }
-                    }}
-                  >
-                    <Image
-                      src={`/images/classes/class-${grade.id}.jpg`}
-                      alt={grade.shortName}
-                      fill
-                      unoptimized
-                      loading="eager"
-                      className="object-contain drop-shadow-lg"
-                    />
-                  </motion.div>
-                </div>
+                <motion.img
+                  src={`/images/classes/class-${grade.id}.jpg`}
+                  alt={grade.shortName}
+                  className="w-14 h-14 sm:w-20 sm:h-20 object-contain drop-shadow-lg mb-2 sm:mb-3 z-10"
+                  whileHover={{ 
+                    scale: 1.15, 
+                    rotate: [0, -5, 5, 0],
+                    transition: { duration: 0.3 }
+                  }}
+                />
 
                 {/* Название класса */}
                 <h3 className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 bg-clip-text text-transparent text-center drop-shadow-lg relative z-10 mb-1">
