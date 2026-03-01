@@ -117,6 +117,8 @@ export default function GradeSelector({
                   src={`/images/classes/class-${selectedGrade}.png`}
                   alt={grade?.shortName || 'Класс'}
                   fill
+                  unoptimized
+                  priority
                   className="object-contain drop-shadow-2xl"
                 />
               </motion.div>
@@ -196,9 +198,9 @@ export default function GradeSelector({
                 onClick={() => onSelectGrade(grade.id)}
                 className={`
                   relative overflow-hidden cursor-pointer transition-all duration-300
-                  bg-gradient-to-br from-slate-900/90 to-slate-800/90
-                  hover:from-slate-800/90 hover:to-slate-700/90
-                  border-2 border-white/10 hover:border-white/30
+                  bg-gradient-to-br from-white/95 to-white/80
+                  hover:from-white hover:to-white/95
+                  border-2 border-purple-200/50 hover:border-purple-400
                   rounded-2xl sm:rounded-3xl p-3 sm:p-4
                   aspect-square flex flex-col items-center justify-center
                   group shadow-lg hover:shadow-2xl hover:shadow-purple-500/20
@@ -221,26 +223,28 @@ export default function GradeSelector({
                       src={`/images/classes/class-${grade.id}.png`}
                       alt={grade.shortName}
                       fill
+                      unoptimized
+                      loading="eager"
                       className="object-contain drop-shadow-lg"
                     />
                   </motion.div>
                 </div>
 
                 {/* Название класса */}
-                <h3 className="text-2xl sm:text-3xl font-black text-white text-center drop-shadow-lg relative z-10 mb-1">
+                <h3 className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 bg-clip-text text-transparent text-center drop-shadow-lg relative z-10 mb-1">
                   {grade.shortName}
                 </h3>
 
                 {/* Описание */}
-                <p className="text-xs sm:text-sm text-white/70 text-center font-medium relative z-10">
+                <p className="text-xs sm:text-sm text-slate-600 text-center font-medium relative z-10">
                   {style.description}
                 </p>
 
                 {/* Бейдж снизу */}
                 <motion.div
                   className="mt-2 px-2 py-0.5 rounded-full text-[10px] sm:text-xs
-                    bg-gradient-to-r from-purple-500/30 to-pink-500/30
-                    text-white/80 font-medium relative z-10 opacity-0 group-hover:opacity-100
+                    bg-gradient-to-r from-purple-500 to-pink-500
+                    text-white font-medium relative z-10 opacity-0 group-hover:opacity-100
                     transition-opacity duration-300"
                   initial={{ y: 5 }}
                   whileHover={{ y: 0 }}
@@ -249,8 +253,8 @@ export default function GradeSelector({
                 </motion.div>
 
                 {/* Декоративные элементы */}
-                <div className="absolute top-2 left-2 w-2 h-2 rounded-full bg-white/20 group-hover:bg-white/40 transition-colors" />
-                <div className="absolute bottom-2 right-2 w-1.5 h-1.5 rounded-full bg-white/10 group-hover:bg-white/30 transition-colors" />
+                <div className="absolute top-2 left-2 w-2 h-2 rounded-full bg-purple-300/50 group-hover:bg-purple-400 transition-colors" />
+                <div className="absolute bottom-2 right-2 w-1.5 h-1.5 rounded-full bg-pink-300/50 group-hover:bg-pink-400 transition-colors" />
               </Card>
             </motion.div>
           )
