@@ -41,6 +41,26 @@ export const grade3Subjects: Subject[] = [
             completed: false,
             difficulty: 'medium',
             estimatedTime: 30,
+            quiz: [
+              {
+                id: 'math3-s1-t1-q1',
+                question: 'Чему равно 5 × 7?',
+                options: ['30', '35', '40', '45'],
+                correctAnswer: 1,
+                explanation: '5 × 7 = 35! Все ответы при умножении на 5 заканчиваются на 0 или 5!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math3-s1-t1-q2',
+                question: 'Чему равно 6 × 8?',
+                options: ['42', '48', '54', '56'],
+                correctAnswer: 1,
+                explanation: '6 × 8 = 48! Шестью восемь — сорок восемь!',
+                difficulty: 'medium',
+                points: 15
+              }
+            ],
             lessons: [
               {
                 id: 'math3-s1-t1-l1',
@@ -105,6 +125,26 @@ export const grade3Subjects: Subject[] = [
             completed: false,
             difficulty: 'medium',
             estimatedTime: 30,
+            quiz: [
+              {
+                id: 'math3-s1-t2-q1',
+                question: 'Чему равно 7 × 8?',
+                options: ['54', '56', '58', '63'],
+                correctAnswer: 1,
+                explanation: '7 × 8 = 56! Запомни: 5, 6, 7, 8 — цифры по порядку!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math3-s1-t2-q2',
+                question: 'Чему равно 9 × 6?',
+                options: ['45', '54', '63', '56'],
+                correctAnswer: 1,
+                explanation: '9 × 6 = 54! Проверка: 5 + 4 = 9!',
+                difficulty: 'medium',
+                points: 15
+              }
+            ],
             lessons: [
               {
                 id: 'math3-s1-t2-l1',
@@ -176,6 +216,26 @@ export const grade3Subjects: Subject[] = [
             completed: false,
             difficulty: 'medium',
             estimatedTime: 25,
+            quiz: [
+              {
+                id: 'math3-s2-t1-q1',
+                question: 'Чему равно 15 ÷ 3?',
+                options: ['3', '5', '7', '12'],
+                correctAnswer: 1,
+                explanation: '15 ÷ 3 = 5, потому что 5 × 3 = 15!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math3-s2-t1-q2',
+                question: 'Чему равно 24 ÷ 6?',
+                options: ['3', '4', '5', '6'],
+                correctAnswer: 1,
+                explanation: '24 ÷ 6 = 4, потому что 4 × 6 = 24!',
+                difficulty: 'medium',
+                points: 15
+              }
+            ],
             lessons: [
               {
                 id: 'math3-s2-t1-l1',
@@ -245,6 +305,26 @@ export const grade3Subjects: Subject[] = [
             completed: false,
             difficulty: 'medium',
             estimatedTime: 25,
+            quiz: [
+              {
+                id: 'math3-s3-t1-q1',
+                question: 'Чему равен периметр квадрата со стороной 5 см?',
+                options: ['10 см', '15 см', '20 см', '25 см'],
+                correctAnswer: 2,
+                explanation: 'P = 5 × 4 = 20 см! У квадрата 4 равные стороны.',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math3-s3-t1-q2',
+                question: 'Периметр прямоугольника со сторонами 6 см и 2 см?',
+                options: ['8 см', '12 см', '16 см', '24 см'],
+                correctAnswer: 2,
+                explanation: 'P = (6 + 2) × 2 = 16 см!',
+                difficulty: 'medium',
+                points: 15
+              }
+            ],
             lessons: [
               {
                 id: 'math3-s3-t1-l1',
@@ -306,6 +386,26 @@ export const grade3Subjects: Subject[] = [
             completed: false,
             difficulty: 'medium',
             estimatedTime: 25,
+            quiz: [
+              {
+                id: 'math3-s3-t2-q1',
+                question: 'Чему равна площадь прямоугольника со сторонами 6 см и 4 см?',
+                options: ['10 см²', '20 см²', '24 см²', '48 см²'],
+                correctAnswer: 2,
+                explanation: 'S = 6 × 4 = 24 см²!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math3-s3-t2-q2',
+                question: 'Чему равна площадь квадрата со стороной 5 см?',
+                options: ['10 см²', '15 см²', '20 см²', '25 см²'],
+                correctAnswer: 3,
+                explanation: 'S = 5 × 5 = 25 см²!',
+                difficulty: 'medium',
+                points: 15
+              }
+            ],
             lessons: [
               {
                 id: 'math3-s3-t2-l1',
@@ -418,6 +518,26 @@ export const grade3Subjects: Subject[] = [
             completed: false,
             difficulty: 'medium',
             estimatedTime: 25,
+            quiz: [
+              {
+                id: 'rus3-s1-t1-q1',
+                question: 'На какие вопросы отвечает существительное?',
+                options: ['Что делать? Какой?', 'Кто? Что?', 'Как? Где?', 'Чей? Какая?'],
+                correctAnswer: 1,
+                explanation: 'Существительное отвечает на вопросы "Кто?" и "Что?"!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'rus3-s1-t1-q2',
+                question: 'Какой род у слова "солнце"?',
+                options: ['Мужской', 'Женский', 'Средний', 'Множественный'],
+                correctAnswer: 2,
+                explanation: 'Солнце — средний род (оно, моё). Проверяем: моё солнце!',
+                difficulty: 'medium',
+                points: 15
+              }
+            ],
             lessons: [
               {
                 id: 'rus3-s1-t1-l1',
@@ -484,6 +604,26 @@ export const grade3Subjects: Subject[] = [
             completed: false,
             difficulty: 'medium',
             estimatedTime: 20,
+            quiz: [
+              {
+                id: 'rus3-s1-t2-q1',
+                question: 'На какие вопросы отвечает прилагательное?',
+                options: ['Кто? Что?', 'Что делать?', 'Какой? Какая?', 'Где? Куда?'],
+                correctAnswer: 2,
+                explanation: 'Прилагательное отвечает на вопросы "Какой? Какая? Какое?"!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'rus3-s1-t2-q2',
+                question: 'Какое окончание у прилагательного женского рода?',
+                options: ['-ый, -ий', '-ая, -яя', '-ое, -ее', '-ые, -ие'],
+                correctAnswer: 1,
+                explanation: 'Прилагательные женского рода имеют окончания -ая, -яя (красивая, синяя)!',
+                difficulty: 'medium',
+                points: 15
+              }
+            ],
             lessons: [
               {
                 id: 'rus3-s1-t2-l1',
