@@ -45,6 +45,26 @@ export const grade5Subjects: Subject[] = [
             completed: false,
             difficulty: 'medium',
             estimatedTime: 30,
+            quiz: [
+              {
+                id: 'math5-s1-t1-q1',
+                question: 'Вычисли: 2 + 3 × 4',
+                options: ['20', '14', '9', '24'],
+                correctAnswer: 1,
+                explanation: 'Сначала умножение: 3 × 4 = 12, потом сложение: 2 + 12 = 14!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math5-s1-t1-q2',
+                question: 'Вычисли: (15 + 5) × 2 - 10',
+                options: ['20', '30', '40', '25'],
+                correctAnswer: 1,
+                explanation: 'Скобки: 15 + 5 = 20, умножение: 20 × 2 = 40, вычитание: 40 - 10 = 30!',
+                difficulty: 'medium',
+                points: 15
+              }
+            ],
             lessons: [
               {
                 id: 'math5-s1-t1-l1',
@@ -111,6 +131,26 @@ export const grade5Subjects: Subject[] = [
             completed: false,
             difficulty: 'medium',
             estimatedTime: 25,
+            quiz: [
+              {
+                id: 'math5-s1-t2-q1',
+                question: 'Чему равно 5²?',
+                options: ['10', '15', '25', '125'],
+                correctAnswer: 2,
+                explanation: '5² = 5 × 5 = 25! Квадрат числа — это число, умноженное само на себя.',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'math5-s1-t2-q2',
+                question: 'Чему равно 3³?',
+                options: ['6', '9', '27', '81'],
+                correctAnswer: 2,
+                explanation: '3³ = 3 × 3 × 3 = 27! Куб числа — это число, умноженное само на себя три раза.',
+                difficulty: 'medium',
+                points: 15
+              }
+            ],
             lessons: [
               {
                 id: 'math5-s1-t2-l1',
@@ -173,6 +213,26 @@ export const grade5Subjects: Subject[] = [
             completed: false,
             difficulty: 'medium',
             estimatedTime: 30,
+            quiz: [
+              {
+                id: 'math5-s2-t1-q1',
+                question: 'Сократи дробь: 12/18',
+                options: ['6/9', '4/6', '2/3', '3/4'],
+                correctAnswer: 2,
+                explanation: '12/18 = (12÷6)/(18÷6) = 2/3. НОД(12, 18) = 6.',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math5-s2-t1-q2',
+                question: 'Какая дробь равна 1/2?',
+                options: ['2/5', '3/6', '4/7', '5/9'],
+                correctAnswer: 1,
+                explanation: '3/6 = (3÷3)/(6÷3) = 1/2. Это основное свойство дроби!',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'math5-s2-t1-l1',
