@@ -216,6 +216,26 @@ export const grade2Subjects: Subject[] = [
             completed: false,
             difficulty: 'medium',
             estimatedTime: 25,
+            quiz: [
+              {
+                id: 'math2-s2-t1-q1',
+                question: 'Чему равно 45 + 23?',
+                options: ['68', '65', '78', '58'],
+                correctAnswer: 0,
+                explanation: '45 + 23 = 68! Единицы: 5+3=8, Десятки: 4+2=6!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math2-s2-t1-q2',
+                question: 'Чему равно 58 + 17?',
+                options: ['65', '75', '85', '71'],
+                correctAnswer: 1,
+                explanation: '58 + 17 = 75! 8+7=15 (5 пишем, 1 запоминаем), 5+1+1=7!',
+                difficulty: 'medium',
+                points: 15
+              }
+            ],
             lessons: [
               {
                 id: 'math2-s2-t1-l1',
@@ -297,6 +317,26 @@ export const grade2Subjects: Subject[] = [
             completed: false,
             difficulty: 'medium',
             estimatedTime: 25,
+            quiz: [
+              {
+                id: 'math2-s2-t2-q1',
+                question: 'Чему равно 68 - 23?',
+                options: ['45', '55', '35', '41'],
+                correctAnswer: 0,
+                explanation: '68 - 23 = 45! Единицы: 8-3=5, Десятки: 6-2=4!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math2-s2-t2-q2',
+                question: 'Чему равно 52 - 37?',
+                options: ['25', '15', '35', '14'],
+                correctAnswer: 1,
+                explanation: '52 - 37 = 15! Занимаем десяток: 12-7=5, 4-3=1!',
+                difficulty: 'medium',
+                points: 15
+              }
+            ],
             lessons: [
               {
                 id: 'math2-s2-t2-l1',

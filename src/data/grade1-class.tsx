@@ -1175,6 +1175,26 @@ export const grade1Subjects: Subject[] = [
             completed: false,
             difficulty: 'easy',
             estimatedTime: 15,
+            quiz: [
+              {
+                id: 'eng1-s1-t1-q1',
+                question: 'Как поздороваться по-английски?',
+                options: ['Goodbye', 'Hello', 'Morning', 'Red'],
+                correctAnswer: 1,
+                explanation: 'Hello! — это приветствие по-английски!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'eng1-s1-t1-q2',
+                question: 'Как сказать "До свидания" по-английски?',
+                options: ['Hello', 'Hi', 'Goodbye', 'Morning'],
+                correctAnswer: 2,
+                explanation: 'Goodbye! — это прощание по-английски!',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'eng1-s1-t1-l1',
@@ -1226,6 +1246,26 @@ export const grade1Subjects: Subject[] = [
             completed: false,
             difficulty: 'easy',
             estimatedTime: 20,
+            quiz: [
+              {
+                id: 'eng1-s1-t2-q1',
+                question: 'Какой цвет "red"?',
+                options: ['Синий', 'Зелёный', 'Красный', 'Жёлтый'],
+                correctAnswer: 2,
+                explanation: 'Red — это красный цвет! 🔴',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'eng1-s1-t2-q2',
+                question: 'Как будет "синий" по-английски?',
+                options: ['Red', 'Blue', 'Green', 'Yellow'],
+                correctAnswer: 1,
+                explanation: 'Blue — это синий цвет! 🔵',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'eng1-s1-t2-l1',
@@ -1284,6 +1324,26 @@ export const grade1Subjects: Subject[] = [
             completed: false,
             difficulty: 'easy',
             estimatedTime: 15,
+            quiz: [
+              {
+                id: 'eng1-s2-t1-q1',
+                question: 'Как будет "три" по-английски?',
+                options: ['One', 'Two', 'Three', 'Four'],
+                correctAnswer: 2,
+                explanation: 'Three — это три! 3️⃣',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'eng1-s2-t1-q2',
+                question: 'Какое число идёт после three?',
+                options: ['Two', 'Four', 'Five', 'One'],
+                correctAnswer: 1,
+                explanation: 'После three (3) идёт four (4)!',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'eng1-s2-t1-l1',
@@ -1333,6 +1393,26 @@ export const grade1Subjects: Subject[] = [
             completed: false,
             difficulty: 'easy',
             estimatedTime: 15,
+            quiz: [
+              {
+                id: 'eng1-s2-t2-q1',
+                question: 'Как будет "семь" по-английски?',
+                options: ['Six', 'Seven', 'Eight', 'Nine'],
+                correctAnswer: 1,
+                explanation: 'Seven — это семь! 7️⃣',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'eng1-s2-t2-q2',
+                question: 'Как будет "десять" по-английски?',
+                options: ['Eight', 'Nine', 'Ten', 'Seven'],
+                correctAnswer: 2,
+                explanation: 'Ten — это десять! 🔟',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'eng1-s2-t2-l1',
@@ -1391,6 +1471,26 @@ export const grade1Subjects: Subject[] = [
             completed: false,
             difficulty: 'easy',
             estimatedTime: 20,
+            quiz: [
+              {
+                id: 'eng1-s3-t1-q1',
+                question: 'Как будет "мама" по-английски?',
+                options: ['Dad', 'Mom', 'Sister', 'Brother'],
+                correctAnswer: 1,
+                explanation: 'Mom (Mother) — это мама! 👩',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'eng1-s3-t1-q2',
+                question: 'Как будет "бабушка" по-английски?',
+                options: ['Grandma', 'Sister', 'Mom', 'Dad'],
+                correctAnswer: 0,
+                explanation: 'Grandma (Grandmother) — это бабушка! 👵',
+                difficulty: 'easy',
+                points: 10
+              }
+            ],
             lessons: [
               {
                 id: 'eng1-s3-t1-l1',
