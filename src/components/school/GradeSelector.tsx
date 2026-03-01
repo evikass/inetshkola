@@ -114,7 +114,7 @@ export default function GradeSelector({
                 transition={{ duration: 4, repeat: Infinity }}
               >
                 <Image
-                  src={`/images/classes/class-${selectedGrade}.png`}
+                  src={`/images/classes/class-${selectedGrade}.jpg`}
                   alt={grade?.shortName || 'Класс'}
                   fill
                   unoptimized
@@ -220,7 +220,7 @@ export default function GradeSelector({
                     }}
                   >
                     <Image
-                      src={`/images/classes/class-${grade.id}.png`}
+                      src={`/images/classes/class-${grade.id}.jpg`}
                       alt={grade.shortName}
                       fill
                       unoptimized
