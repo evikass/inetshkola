@@ -2,7 +2,8 @@
 
 import { motion } from 'framer-motion'
 import { Card } from '@/components/ui/card'
-import { GraduationCap, Sparkles, Star, ArrowLeft } from 'lucide-react'
+import { GraduationCap, Sparkles, ArrowLeft } from 'lucide-react'
+import Image from 'next/image'
 import type { Grade } from '@/data/types'
 
 interface GradeSelectorProps {
@@ -13,98 +14,23 @@ interface GradeSelectorProps {
   showBackButton?: boolean
 }
 
-// Расширенные стили для каждого класса с милыми эмодзи
+// Описание для каждого класса
 const gradeStyles: Record<number, { 
-  emoji: string; 
-  color: string; 
-  gradient: string; 
   description: string;
-  toyEmoji: string;
+  badge: string;
 }> = {
-  0: { 
-    emoji: '🎈', 
-    color: 'from-pink-400 via-rose-400 to-purple-400', 
-    gradient: 'from-pink-500 via-rose-500 to-purple-500',
-    description: 'Подготовишки',
-    toyEmoji: '🧸'
-  },
-  1: { 
-    emoji: '🌟', 
-    color: 'from-yellow-400 via-amber-400 to-orange-400', 
-    gradient: 'from-yellow-500 via-amber-500 to-orange-500',
-    description: 'Первоклашки',
-    toyEmoji: '⭐'
-  },
-  2: { 
-    emoji: '🌻', 
-    color: 'from-blue-400 via-cyan-400 to-teal-400', 
-    gradient: 'from-blue-500 via-cyan-500 to-teal-500',
-    description: 'Второклашки',
-    toyEmoji: '🐝'
-  },
-  3: { 
-    emoji: '🚀', 
-    color: 'from-green-400 via-emerald-400 to-teal-400', 
-    gradient: 'from-green-500 via-emerald-500 to-teal-500',
-    description: 'Третьеклашки',
-    toyEmoji: '🌙'
-  },
-  4: { 
-    emoji: '🎯', 
-    color: 'from-purple-400 via-violet-400 to-indigo-400', 
-    gradient: 'from-purple-500 via-violet-500 to-indigo-500',
-    description: 'Четвероклашки',
-    toyEmoji: '🎪'
-  },
-  5: { 
-    emoji: '📚', 
-    color: 'from-red-400 via-rose-400 to-pink-400', 
-    gradient: 'from-red-500 via-rose-500 to-pink-500',
-    description: 'Пятиклашки',
-    toyEmoji: '📖'
-  },
-  6: { 
-    emoji: '🔬', 
-    color: 'from-teal-400 via-cyan-400 to-sky-400', 
-    gradient: 'from-teal-500 via-cyan-500 to-sky-500',
-    description: 'Шестиклассники',
-    toyEmoji: '🧪'
-  },
-  7: { 
-    emoji: '🎨', 
-    color: 'from-orange-400 via-amber-400 to-red-400', 
-    gradient: 'from-orange-500 via-amber-500 to-red-500',
-    description: 'Семиклассники',
-    toyEmoji: '🖼️'
-  },
-  8: { 
-    emoji: '⚙️', 
-    color: 'from-slate-400 via-zinc-400 to-neutral-400', 
-    gradient: 'from-slate-500 via-zinc-500 to-neutral-500',
-    description: 'Восьмиклассники',
-    toyEmoji: '🔧'
-  },
-  9: { 
-    emoji: '🏆', 
-    color: 'from-amber-400 via-yellow-400 to-orange-400', 
-    gradient: 'from-amber-500 via-yellow-500 to-orange-500',
-    description: 'Девятиклассники',
-    toyEmoji: '🥇'
-  },
-  10: { 
-    emoji: '🎓', 
-    color: 'from-indigo-400 via-violet-400 to-purple-400', 
-    gradient: 'from-indigo-500 via-violet-500 to-purple-500',
-    description: 'Десятиклассники',
-    toyEmoji: '📜'
-  },
-  11: { 
-    emoji: '👑', 
-    color: 'from-rose-400 via-pink-400 to-fuchsia-400', 
-    gradient: 'from-rose-500 via-pink-500 to-fuchsia-500',
-    description: 'Выпускники',
-    toyEmoji: '💎'
-  }
+  0: { description: 'Подготовишки', badge: 'Начало пути' },
+  1: { description: 'Первоклашки', badge: 'Первый раз' },
+  2: { description: 'Второклашки', badge: 'Учимся' },
+  3: { description: 'Третьеклашки', badge: 'Вперед!' },
+  4: { description: 'Четвероклашки', badge: 'Малыши+' },
+  5: { description: 'Пятиклашки', badge: 'Средняя' },
+  6: { description: 'Шестиклассники', badge: 'Наука' },
+  7: { description: 'Семиклассники', badge: 'Углубленно' },
+  8: { description: 'Восьмиклассники', badge: 'Серьезно' },
+  9: { description: 'Девятиклассники', badge: 'ОГЭ' },
+  10: { description: 'Десятиклассники', badge: 'Старшая' },
+  11: { description: 'Выпускники', badge: 'ЕГЭ' }
 }
 
 // Анимация появления
@@ -113,56 +39,20 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.05
+      staggerChildren: 0.06
     }
   }
 }
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20, scale: 0.8 },
+  hidden: { opacity: 0, y: 30, scale: 0.9 },
   visible: { 
     opacity: 1, 
     y: 0, 
     scale: 1,
-    transition: { type: 'spring', stiffness: 300, damping: 20 }
+    transition: { type: 'spring', stiffness: 200, damping: 15 }
   }
 }
-
-// Компонент для декоративных звёздочек
-const FloatingStars = ({ color }: { color: string }) => (
-  <>
-    <motion.div
-      className="absolute top-2 left-2 text-lg opacity-60"
-      animate={{ 
-        scale: [1, 1.3, 1],
-        rotate: [0, 180, 360]
-      }}
-      transition={{ duration: 3, repeat: Infinity }}
-    >
-      ✨
-    </motion.div>
-    <motion.div
-      className="absolute bottom-3 left-4 text-sm opacity-50"
-      animate={{ 
-        scale: [1, 1.2, 1],
-        y: [0, -5, 0]
-      }}
-      transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-    >
-      ⭐
-    </motion.div>
-    <motion.div
-      className="absolute top-4 right-4 text-sm opacity-40"
-      animate={{ 
-        scale: [1, 1.4, 1],
-        rotate: [0, -90, 0]
-      }}
-      transition={{ duration: 2.5, repeat: Infinity, delay: 1 }}
-    >
-      💫
-    </motion.div>
-  </>
-)
 
 export default function GradeSelector({ 
   grades, 
@@ -205,7 +95,7 @@ export default function GradeSelector({
           <Card
             className={`
               relative overflow-hidden cursor-pointer transition-all duration-300
-              bg-gradient-to-br ${style.gradient} 
+              bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400
               ring-4 ring-white/30 shadow-2xl shadow-purple-500/30
               rounded-3xl p-6 sm:p-8 border-0
             `}
@@ -213,40 +103,43 @@ export default function GradeSelector({
             {/* Декоративный фон */}
             <div className="absolute inset-0 bg-white/10 rounded-3xl" />
             
-            {/* Плавающие звёздочки */}
-            <FloatingStars color={style.color} />
+            {/* Изображение класса */}
+            <div className="flex justify-center mb-4 relative z-10">
+              <motion.div
+                className="relative w-32 h-32 sm:w-40 sm:h-40"
+                animate={{ 
+                  y: [-5, 5, -5],
+                  rotate: [-3, 3, -3]
+                }}
+                transition={{ duration: 4, repeat: Infinity }}
+              >
+                <Image
+                  src={`/images/classes/class-${selectedGrade}.png`}
+                  alt={grade?.shortName || 'Класс'}
+                  fill
+                  className="object-contain drop-shadow-2xl"
+                />
+              </motion.div>
+            </div>
 
-            {/* Основной эмодзи с анимацией */}
-            <motion.div 
-              className="text-6xl sm:text-7xl mb-4 text-center relative z-10"
-              animate={{ 
-                y: [-5, 0, -5],
-                rotate: [-5, 5, -5, 0]
-              }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              {style.emoji}
-            </motion.div>
-
-            {/* Игрушечный эмодзи */}
+            {/* Бейдж */}
             <motion.div
-              className="absolute top-4 right-4 text-3xl opacity-70"
-              animate={{ 
-                scale: [1, 1.2, 1],
-                rotate: [0, 15, -15, 0]
-              }}
+              className="absolute top-4 right-4 px-3 py-1 rounded-full
+                bg-white/20 backdrop-blur-sm text-white text-sm font-medium
+                border border-white/30"
+              animate={{ scale: [1, 1.05, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              {style.toyEmoji}
+              {style.badge}
             </motion.div>
 
             {/* Название класса */}
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-white text-center mb-2 drop-shadow-lg relative z-10">
+            <h3 className="text-3xl sm:text-4xl font-extrabold text-white text-center mb-2 drop-shadow-lg relative z-10">
               {grade?.shortName}
             </h3>
 
             {/* Описание */}
-            <p className="text-base sm:text-lg text-white/90 text-center font-medium relative z-10">
+            <p className="text-lg sm:text-xl text-white/90 text-center font-medium relative z-10">
               {style.description}
             </p>
           </Card>
@@ -260,9 +153,9 @@ export default function GradeSelector({
     <div className="mb-6 space-y-6">
       {/* Заголовок с анимацией */}
       <motion.div 
-        className="flex items-center gap-3 mb-6"
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
+        className="flex items-center justify-center gap-3 mb-8"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
         <motion.div
@@ -284,7 +177,7 @@ export default function GradeSelector({
 
       {/* Сетка всех классов - 3 колонки на мобильных, 4 на планшетах, 6 на десктопе */}
       <motion.div 
-        className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4"
+        className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-5"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -296,49 +189,68 @@ export default function GradeSelector({
             <motion.div
               key={grade.id}
               variants={itemVariants}
-              whileHover={{ scale: 1.05, y: -5 }}
+              whileHover={{ scale: 1.08, y: -8 }}
               whileTap={{ scale: 0.95 }}
             >
               <Card
                 onClick={() => onSelectGrade(grade.id)}
                 className={`
                   relative overflow-hidden cursor-pointer transition-all duration-300
-                  bg-gradient-to-br ${style.color}
-                  hover:shadow-xl hover:shadow-purple-500/20
-                  rounded-2xl sm:rounded-3xl p-4 sm:p-5 border-0
+                  bg-gradient-to-br from-slate-900/90 to-slate-800/90
+                  hover:from-slate-800/90 hover:to-slate-700/90
+                  border-2 border-white/10 hover:border-white/30
+                  rounded-2xl sm:rounded-3xl p-3 sm:p-4
                   aspect-square flex flex-col items-center justify-center
+                  group shadow-lg hover:shadow-2xl hover:shadow-purple-500/20
                 `}
               >
-                {/* Декоративный фон */}
-                <div className="absolute inset-0 bg-white/10 rounded-2xl sm:rounded-3xl" />
+                {/* Градиентное свечение при наведении */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-purple-500/20 via-pink-500/20 to-orange-500/20" />
                 
-                {/* Основной эмодзи */}
-                <motion.div 
-                  className="text-4xl sm:text-5xl mb-2 relative z-10"
-                  whileHover={{ scale: 1.2, rotate: [0, -10, 10, 0] }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {style.emoji}
-                </motion.div>
+                {/* Изображение класса */}
+                <div className="relative w-14 h-14 sm:w-20 sm:h-20 mb-2 sm:mb-3 z-10">
+                  <motion.div
+                    className="w-full h-full"
+                    whileHover={{ 
+                      scale: 1.15, 
+                      rotate: [0, -5, 5, 0],
+                      transition: { duration: 0.3 }
+                    }}
+                  >
+                    <Image
+                      src={`/images/classes/class-${grade.id}.png`}
+                      alt={grade.shortName}
+                      fill
+                      className="object-contain drop-shadow-lg"
+                    />
+                  </motion.div>
+                </div>
 
                 {/* Название класса */}
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-white text-center drop-shadow-lg relative z-10">
+                <h3 className="text-2xl sm:text-3xl font-black text-white text-center drop-shadow-lg relative z-10 mb-1">
                   {grade.shortName}
                 </h3>
 
-                {/* Описание - скрыто на мобильных */}
-                <p className="hidden sm:block text-xs text-white/80 text-center mt-1 relative z-10">
+                {/* Описание */}
+                <p className="text-xs sm:text-sm text-white/70 text-center font-medium relative z-10">
                   {style.description}
                 </p>
 
-                {/* Маленькая звёздочка */}
+                {/* Бейдж снизу */}
                 <motion.div
-                  className="absolute bottom-2 right-2 text-sm opacity-60"
-                  animate={{ scale: [1, 1.3, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, delay: index * 0.1 }}
+                  className="mt-2 px-2 py-0.5 rounded-full text-[10px] sm:text-xs
+                    bg-gradient-to-r from-purple-500/30 to-pink-500/30
+                    text-white/80 font-medium relative z-10 opacity-0 group-hover:opacity-100
+                    transition-opacity duration-300"
+                  initial={{ y: 5 }}
+                  whileHover={{ y: 0 }}
                 >
-                  {style.toyEmoji}
+                  {style.badge}
                 </motion.div>
+
+                {/* Декоративные элементы */}
+                <div className="absolute top-2 left-2 w-2 h-2 rounded-full bg-white/20 group-hover:bg-white/40 transition-colors" />
+                <div className="absolute bottom-2 right-2 w-1.5 h-1.5 rounded-full bg-white/10 group-hover:bg-white/30 transition-colors" />
               </Card>
             </motion.div>
           )
