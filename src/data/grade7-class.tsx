@@ -85,6 +85,35 @@ export const grade7Subjects: Subject[] = [
                 order: 2,
                 estimatedTime: 15
               }
+            ],
+            quiz: [
+              {
+                id: 'alg7-s1-t1-q1',
+                question: 'Реши уравнение: 2x + 5 = 15',
+                options: ['x = 5', 'x = 10', 'x = 7.5', 'x = 4'],
+                correctAnswer: 0,
+                explanation: '2x + 5 = 15 → 2x = 10 → x = 5!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'alg7-s1-t1-q2',
+                question: 'Реши: 5x − 3 = 12',
+                options: ['x = 3', 'x = 5', 'x = 15', 'x = 2'],
+                correctAnswer: 0,
+                explanation: '5x − 3 = 12 → 5x = 15 → x = 3!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'alg7-s1-t1-q3',
+                question: 'Реши: 7x + 14 = 0',
+                options: ['x = 2', 'x = −2', 'x = 7', 'x = −7'],
+                correctAnswer: 1,
+                explanation: '7x + 14 = 0 → 7x = −14 → x = −2!',
+                difficulty: 'easy',
+                points: 10
+              }
             ]
           },
           {
@@ -156,6 +185,35 @@ export const grade7Subjects: Subject[] = [
                 completed: false,
                 order: 2,
                 estimatedTime: 15
+              }
+            ],
+            quiz: [
+              {
+                id: 'alg7-s1-t2-q1',
+                question: 'Реши систему: x + y = 5, x − y = 1',
+                options: ['(3; 2)', '(2; 3)', '(4; 1)', '(1; 4)'],
+                correctAnswer: 0,
+                explanation: 'Сложим: 2x = 6 → x = 3, тогда y = 2!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'alg7-s1-t2-q2',
+                question: 'Сколько решений может иметь система двух линейных уравнений?',
+                options: ['0, 1 или бесконечно много', 'Только 1', 'Только 0', 'Только 2'],
+                correctAnswer: 0,
+                explanation: 'Система может иметь: 1 решение, не иметь решений, или бесконечно много!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'alg7-s1-t2-q3',
+                question: 'Какой метод использует выражение одной переменной через другую?',
+                options: ['Метод сложения', 'Метод подстановки', 'Графический', 'Метод деления'],
+                correctAnswer: 1,
+                explanation: 'Метод подстановки — выражаем одну переменную через другую!',
+                difficulty: 'easy',
+                points: 10
               }
             ]
           }
@@ -251,6 +309,35 @@ export const grade7Subjects: Subject[] = [
                 order: 3,
                 estimatedTime: 10
               }
+            ],
+            quiz: [
+              {
+                id: 'alg7-s2-t1-q1',
+                question: 'Какой график у функции y = 2x + 3?',
+                options: ['Парабола', 'Прямая', 'Гипербола', 'Окружность'],
+                correctAnswer: 1,
+                explanation: 'y = kx + b — линейная функция, её график — прямая линия!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'alg7-s2-t1-q2',
+                question: 'Какая функция линейная?',
+                options: ['y = x²', 'y = kx + b', 'y = x³', 'y = 1/x'],
+                correctAnswer: 1,
+                explanation: 'y = kx + b — общий вид линейной функции!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'alg7-s2-t1-q3',
+                question: 'Если k > 0, прямая:',
+                options: ['Убывает', 'Возрастает', 'Горизонтальная', 'Вертикальная'],
+                correctAnswer: 1,
+                explanation: 'При k > 0 прямая возрастает (идёт вверх слева направо)!',
+                difficulty: 'medium',
+                points: 15
+              }
             ]
           }
         ]
@@ -318,6 +405,35 @@ export const grade7Subjects: Subject[] = [
                 completed: false,
                 order: 2,
                 estimatedTime: 10
+              }
+            ],
+            quiz: [
+              {
+                id: 'alg7-s3-t1-q1',
+                question: 'Вычисли: 2³ · 2⁴',
+                options: ['2⁷ = 128', '2¹² = 4096', '4⁷', '2¹ = 2'],
+                correctAnswer: 0,
+                explanation: 'При умножении степеней показатели складываются: 2³ · 2⁴ = 2⁷ = 128!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'alg7-s3-t1-q2',
+                question: 'Вычисли: 3⁴',
+                options: ['12', '81', '64', '27'],
+                correctAnswer: 1,
+                explanation: '3⁴ = 3·3·3·3 = 81!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'alg7-s3-t1-q3',
+                question: 'Упрости: a³ · a⁴',
+                options: ['a⁷', 'a¹²', 'a¹', 'a⁻¹'],
+                correctAnswer: 0,
+                explanation: 'При умножении: a³ · a⁴ = a⁷!',
+                difficulty: 'easy',
+                points: 10
               }
             ]
           }
@@ -497,6 +613,35 @@ export const grade7Subjects: Subject[] = [
                 order: 1,
                 estimatedTime: 10
               }
+            ],
+            quiz: [
+              {
+                id: 'geom7-s1-t1-q1',
+                question: 'Сколько прямых можно провести через две точки?',
+                options: ['0', '1', '2', 'Бесконечно много'],
+                correctAnswer: 1,
+                explanation: 'Через две точки проходит единственная прямая!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'geom7-s1-t1-q2',
+                question: 'Чем отличается луч от отрезка?',
+                options: ['Луч имеет два конца', 'Луч имеет начало, но не имеет конца', 'Отрезок бесконечен', 'Они одинаковы'],
+                correctAnswer: 1,
+                explanation: 'Луч имеет начало, но не имеет конца. Отрезок имеет начало и конец!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'geom7-s1-t1-q3',
+                question: 'Что имеет начало и конец?',
+                options: ['Прямая', 'Луч', 'Отрезок', 'Плоскость'],
+                correctAnswer: 2,
+                explanation: 'Отрезок ограничен двумя точками — имеет начало и конец!',
+                difficulty: 'easy',
+                points: 10
+              }
             ]
           },
           {
@@ -542,6 +687,35 @@ export const grade7Subjects: Subject[] = [
                 completed: false,
                 order: 1,
                 estimatedTime: 15
+              }
+            ],
+            quiz: [
+              {
+                id: 'geom7-s1-t2-q1',
+                question: 'Какой угол называется тупым?',
+                options: ['Меньше 90°', 'Равен 90°', 'Больше 90°, но меньше 180°', 'Равен 180°'],
+                correctAnswer: 2,
+                explanation: 'Тупой угол: 90° < α < 180°!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'geom7-s1-t2-q2',
+                question: 'Чему равна сумма смежных углов?',
+                options: ['90°', '180°', '360°', 'Зависит от углов'],
+                correctAnswer: 1,
+                explanation: 'Сумма смежных углов всегда равна 180°!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'geom7-s1-t2-q3',
+                question: 'Какое утверждение верно для вертикальных углов?',
+                options: ['Их сумма 180°', 'Они всегда равны', 'Они смежные', 'Их сумма 90°'],
+                correctAnswer: 1,
+                explanation: 'Вертикальные углы всегда равны!',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           }
@@ -606,6 +780,35 @@ export const grade7Subjects: Subject[] = [
                 completed: false,
                 order: 2,
                 estimatedTime: 15
+              }
+            ],
+            quiz: [
+              {
+                id: 'geom7-s2-t1-q1',
+                question: 'Какие элементы нужны для 1 признака равенства?',
+                options: ['Три стороны', 'Две стороны и угол между ними', 'Сторона и два угла', 'Три угла'],
+                correctAnswer: 1,
+                explanation: '1 признак: СУС — две стороны и угол между ними!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'geom7-s2-t1-q2',
+                question: 'Какой признак: сторона и два прилежащих угла?',
+                options: ['Первый', 'Второй', 'Третий', 'Четвёртый'],
+                correctAnswer: 1,
+                explanation: 'Второй признак — УСУ (Угол-Сторона-Угол)!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'geom7-s2-t1-q3',
+                question: 'Как кратко обозначается третий признак?',
+                options: ['СУС', 'УСУ', 'ССС', 'УУУ'],
+                correctAnswer: 2,
+                explanation: 'Третий признак: ССС — три стороны!',
+                difficulty: 'easy',
+                points: 10
               }
             ]
           }
@@ -837,6 +1040,35 @@ export const grade7Subjects: Subject[] = [
                 order: 1,
                 estimatedTime: 10
               }
+            ],
+            quiz: [
+              {
+                id: 'rus7-s1-t1-q1',
+                question: 'Предлог — это...',
+                options: ['Самостоятельная часть речи', 'Служебная часть речи', 'Часть предложения', 'Член предложения'],
+                correctAnswer: 1,
+                explanation: 'Предлог — служебная часть речи!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'rus7-s1-t1-q2',
+                question: 'Какой предлог пространственный?',
+                options: ['после', 'для', 'под', 'из-за'],
+                correctAnswer: 2,
+                explanation: 'Под — пространственный предлог (место)!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'rus7-s1-t1-q3',
+                question: 'Предлог пишется...',
+                options: ['Слитно', 'Раздельно', 'Через дефис', 'Как угодно'],
+                correctAnswer: 1,
+                explanation: 'Предлог всегда пишется раздельно!',
+                difficulty: 'easy',
+                points: 10
+              }
             ]
           },
           {
@@ -874,6 +1106,35 @@ export const grade7Subjects: Subject[] = [
                 completed: false,
                 order: 1,
                 estimatedTime: 15
+              }
+            ],
+            quiz: [
+              {
+                id: 'rus7-s1-t2-q1',
+                question: 'Какой союз сочинительный?',
+                options: ['что', 'если', 'но', 'когда'],
+                correctAnswer: 2,
+                explanation: 'НО — сочинительный противительный союз!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'rus7-s1-t2-q2',
+                question: 'Союз "и" — это...',
+                options: ['Подчинительный', 'Сочинительный', 'Частица', 'Предлог'],
+                correctAnswer: 1,
+                explanation: 'И — сочинительный соединительный союз!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'rus7-s1-t2-q3',
+                question: 'Какой союз подчинительный?',
+                options: ['а', 'но', 'или', 'потому что'],
+                correctAnswer: 3,
+                explanation: 'Потому что — подчинительный союз!',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           },
@@ -914,6 +1175,35 @@ export const grade7Subjects: Subject[] = [
                 completed: false,
                 order: 1,
                 estimatedTime: 15
+              }
+            ],
+            quiz: [
+              {
+                id: 'rus7-s1-t3-q1',
+                question: 'Какая частица формообразующая?',
+                options: ['Не', 'Разве', 'Бы', 'Вот'],
+                correctAnswer: 2,
+                explanation: 'Бы (б) — формообразующая частица, образует условное наклонение!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'rus7-s1-t3-q2',
+                question: 'Какая частица отрицательная?',
+                options: ['БЫ', 'НЕ', 'ЛИ', 'ВОТ'],
+                correctAnswer: 1,
+                explanation: 'НЕ — отрицательная частица!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'rus7-s1-t3-q3',
+                question: 'Частица ЛИ — это...',
+                options: ['Отрицательная', 'Вопросительная', 'Усилительная', 'Указательная'],
+                correctAnswer: 1,
+                explanation: 'ЛИ — вопросительная частица!',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           }
@@ -1122,6 +1412,35 @@ export const grade7Subjects: Subject[] = [
                 order: 2,
                 estimatedTime: 15
               }
+            ],
+            quiz: [
+              {
+                id: 'hist7-s1-t1-q1',
+                question: 'Когда Иван IV принял титул царя?',
+                options: ['1530', '1547', '1552', '1565'],
+                correctAnswer: 1,
+                explanation: 'В 1547 году Иван IV Грозный первым принял титул царя!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'hist7-s1-t1-q2',
+                question: 'Что такое опричнина?',
+                options: ['Налог', 'Реформа', 'Территория и политика Ивана Грозного', 'Войско'],
+                correctAnswer: 2,
+                explanation: 'Опричнина — система мер Ивана Грозного для укрепления личной власти!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'hist7-s1-t1-q3',
+                question: 'Когда пала Казань?',
+                options: ['1547', '1552', '1556', '1584'],
+                correctAnswer: 1,
+                explanation: '1552 год — взятие Казани!',
+                difficulty: 'medium',
+                points: 15
+              }
             ]
           },
           {
@@ -1187,6 +1506,35 @@ export const grade7Subjects: Subject[] = [
                 completed: false,
                 order: 2,
                 estimatedTime: 15
+              }
+            ],
+            quiz: [
+              {
+                id: 'hist7-s1-t2-q1',
+                question: 'Когда закончилось Смутное время?',
+                options: ['1598', '1605', '1612', '1613'],
+                correctAnswer: 3,
+                explanation: '1613 год — избрание Михаила Романова, конец Смуты!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'hist7-s1-t2-q2',
+                question: 'Кто возглавил второе ополчение?',
+                options: ['Борис Годунов', 'Минин и Пожарский', 'Лжедмитрий', 'Иван Грозный'],
+                correctAnswer: 1,
+                explanation: 'Кузьма Минин и Дмитрий Пожарский возглавили второе ополчение!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'hist7-s1-t2-q3',
+                question: 'Какое событие 4 ноября 1612 года?',
+                options: ['Избрание царя', 'Освобождение Москвы', 'Начало Смуты', 'Смерть Годунова'],
+                correctAnswer: 1,
+                explanation: '4 ноября 1612 — освобождение Москвы от поляков!',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           }
@@ -1376,6 +1724,35 @@ export const grade7Subjects: Subject[] = [
                 order: 1,
                 estimatedTime: 15
               }
+            ],
+            quiz: [
+              {
+                id: 'bio7-s1-t1-q1',
+                question: 'Какой орган дыхания у рыб?',
+                options: ['Лёгкие', 'Жабры', 'Трахеи', 'Кожа'],
+                correctAnswer: 1,
+                explanation: 'Рыбы дышат жабрами!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'bio7-s1-t1-q2',
+                question: 'Для чего нужен плавательный пузырь?',
+                options: ['Для дыхания', 'Для плавучести', 'Для переваривания', 'Для размножения'],
+                correctAnswer: 1,
+                explanation: 'Плавательный пузырь помогает рыбе держаться в воде!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'bio7-s1-t1-q3',
+                question: 'Сколько камер в сердце у рыб?',
+                options: ['1', '2', '3', '4'],
+                correctAnswer: 1,
+                explanation: 'У рыб двухкамерное сердце (предсердие и желудочек)!',
+                difficulty: 'medium',
+                points: 15
+              }
             ]
           },
           {
@@ -1445,6 +1822,35 @@ export const grade7Subjects: Subject[] = [
                 completed: false,
                 order: 2,
                 estimatedTime: 10
+              }
+            ],
+            quiz: [
+              {
+                id: 'bio7-s1-t2-q1',
+                question: 'Какое животное относится к пресмыкающимся?',
+                options: ['Лягушка', 'Акула', 'Ящерица', 'Голубь'],
+                correctAnswer: 2,
+                explanation: 'Ящерица — пресмыкающееся (рептилия)!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'bio7-s1-t2-q2',
+                question: 'Чем покрыто тело пресмыкающихся?',
+                options: ['Шерстью', 'Перьями', 'Чешуёй', 'Влажной кожей'],
+                correctAnswer: 2,
+                explanation: 'Рептилии имеют сухую кожу с роговой чешуёй!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'bio7-s1-t2-q3',
+                question: 'Где размножаются земноводные?',
+                options: ['На суше', 'В воде', 'На деревьях', 'В воздухе'],
+                correctAnswer: 1,
+                explanation: 'Земноводные размножаются в воде (головастики)!',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           },
@@ -1517,6 +1923,35 @@ export const grade7Subjects: Subject[] = [
                 completed: false,
                 order: 2,
                 estimatedTime: 15
+              }
+            ],
+            quiz: [
+              {
+                id: 'bio7-s1-t3-q1',
+                question: 'Что объединяет птиц и млекопитающих?',
+                options: ['Перья', 'Шерсть', 'Теплокровность', 'Яйцекладение'],
+                correctAnswer: 2,
+                explanation: 'И птицы, и млекопитающие — теплокровные!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'bio7-s1-t3-q2',
+                question: 'Чем покрыто тело млекопитающих?',
+                options: ['Перьями', 'Шерстью', 'Чешуёй', 'Кожей'],
+                correctAnswer: 1,
+                explanation: 'Млекопитающие покрыты шерстью!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'bio7-s1-t3-q3',
+                question: 'Какая особенность помогает птицам летать?',
+                options: ['Шерсть', 'Полые кости', 'Молочные железы', 'Жабры'],
+                correctAnswer: 1,
+                explanation: 'Полые кости облегчают тело птиц для полёта!',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           }
@@ -1704,6 +2139,35 @@ export const grade7Subjects: Subject[] = [
                 order: 1,
                 estimatedTime: 15
               }
+            ],
+            quiz: [
+              {
+                id: 'phys7-s1-t1-q1',
+                question: 'Чему равна скорость, если путь 100 м пройден за 20 с?',
+                options: ['2 м/с', '5 м/с', '200 м/с', '80 м/с'],
+                correctAnswer: 1,
+                explanation: 'v = S / t = 100 м / 20 с = 5 м/с!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'phys7-s1-t1-q2',
+                question: 'Как перевести 36 км/ч в м/с?',
+                options: ['360 м/с', '10 м/с', '36 м/с', '100 м/с'],
+                correctAnswer: 1,
+                explanation: '36 км/ч = 36 / 3,6 = 10 м/с!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'phys7-s1-t1-q3',
+                question: 'Какой путь пройдёт тело за 2 часа со скоростью 5 м/с?',
+                options: ['10 м', '360 м', '36000 м', '1000 м'],
+                correctAnswer: 2,
+                explanation: 'S = v × t = 5 × 7200 = 36000 м (2 ч = 7200 с)!',
+                difficulty: 'hard',
+                points: 20
+              }
             ]
           }
         ]
@@ -1755,6 +2219,35 @@ export const grade7Subjects: Subject[] = [
                 completed: false,
                 order: 1,
                 estimatedTime: 10
+              }
+            ],
+            quiz: [
+              {
+                id: 'phys7-s2-t1-q1',
+                question: 'Формула давления:',
+                options: ['p = F · S', 'p = F / S', 'p = S / F', 'p = F + S'],
+                correctAnswer: 1,
+                explanation: 'Давление равно отношению силы к площади: p = F / S!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'phys7-s2-t1-q2',
+                question: 'Единица измерения давления:',
+                options: ['Ньютон', 'Джоуль', 'Паскаль', 'Ватт'],
+                correctAnswer: 2,
+                explanation: 'Давление измеряется в Паскалях (Па)!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'phys7-s2-t1-q3',
+                question: 'Почему лыжи не проваливаются в снег?',
+                options: ['Они лёгкие', 'Большая площадь, малое давление', 'Они скользкие', 'Они тёплые'],
+                correctAnswer: 1,
+                explanation: 'Большая площадь лыж уменьшает давление на снег!',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           }

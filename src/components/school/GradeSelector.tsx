@@ -322,7 +322,7 @@ export default function GradeSelector({
                 </motion.div>
 
                 {/* Название класса */}
-                <h3 className="text-base sm:text-lg font-extrabold text-white text-center drop-shadow-lg relative z-10">
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white text-center drop-shadow-lg relative z-10">
                   {grade.shortName}
                 </h3>
 

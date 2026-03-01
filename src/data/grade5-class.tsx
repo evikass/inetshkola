@@ -63,6 +63,15 @@ export const grade5Subjects: Subject[] = [
                 explanation: 'Скобки: 15 + 5 = 20, умножение: 20 × 2 = 40, вычитание: 40 - 10 = 30!',
                 difficulty: 'medium',
                 points: 15
+              },
+              {
+                id: 'math5-s1-t1-q3',
+                question: 'Какое действие выполняется первым: 10 - 2 × 3?',
+                options: ['Вычитание: 10 - 2', 'Умножение: 2 × 3', 'Сложение', 'Деление'],
+                correctAnswer: 1,
+                explanation: 'Умножение выполняется раньше вычитания!',
+                difficulty: 'easy',
+                points: 10
               }
             ],
             lessons: [
@@ -147,6 +156,15 @@ export const grade5Subjects: Subject[] = [
                 options: ['6', '9', '27', '81'],
                 correctAnswer: 2,
                 explanation: '3³ = 3 × 3 × 3 = 27! Куб числа — это число, умноженное само на себя три раза.',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math5-s1-t2-q3',
+                question: 'Как называется число 2 в записи 5²?',
+                options: ['Основание', 'Показатель степени', 'Множитель', 'Слагаемое'],
+                correctAnswer: 1,
+                explanation: '2 — это показатель степени! Он показывает, сколько раз число умножается само на себя.',
                 difficulty: 'medium',
                 points: 15
               }
@@ -264,6 +282,35 @@ export const grade5Subjects: Subject[] = [
                 order: 2,
                 estimatedTime: 10
               }
+            ],
+            quiz: [
+              {
+                id: 'math5-s2-t1-q1',
+                question: 'Сократи дробь: 12/18',
+                options: ['6/9', '4/6', '2/3', '3/4'],
+                correctAnswer: 2,
+                explanation: '12/18 = (12÷6)/(18÷6) = 2/3. НОД(12, 18) = 6.',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math5-s2-t1-q2',
+                question: 'Какая дробь равна 1/2?',
+                options: ['2/5', '3/6', '4/7', '5/9'],
+                correctAnswer: 1,
+                explanation: '3/6 = (3÷3)/(6÷3) = 1/2. Это основное свойство дроби!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'math5-s2-t1-q3',
+                question: 'Какая дробь несократимая?',
+                options: ['4/6', '3/5', '6/9', '8/12'],
+                correctAnswer: 1,
+                explanation: '3/5 — несократимая дробь, НОД(3,5) = 1!',
+                difficulty: 'medium',
+                points: 15
+              }
             ]
           },
           {
@@ -321,6 +368,35 @@ export const grade5Subjects: Subject[] = [
                 completed: false,
                 order: 2,
                 estimatedTime: 15
+              }
+            ],
+            quiz: [
+              {
+                id: 'math5-s2-t2-q1',
+                question: 'Вычисли: 1/4 + 2/4',
+                options: ['1/4', '3/4', '3/8', '1/2'],
+                correctAnswer: 1,
+                explanation: '1/4 + 2/4 = (1+2)/4 = 3/4. При одинаковых знаменателях складываем числители!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'math5-s2-t2-q2',
+                question: 'Чему равен общий знаменатель дробей 1/2 и 1/3?',
+                options: ['2', '3', '6', '5'],
+                correctAnswer: 2,
+                explanation: 'НОК(2,3) = 6 — наименьший общий знаменатель!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math5-s2-t2-q3',
+                question: 'Вычисли: 1/2 + 1/4',
+                options: ['1/6', '2/6', '3/4', '1/4'],
+                correctAnswer: 2,
+                explanation: '1/2 + 1/4 = 2/4 + 1/4 = 3/4!',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           }
@@ -387,6 +463,35 @@ export const grade5Subjects: Subject[] = [
                 completed: false,
                 order: 2,
                 estimatedTime: 10
+              }
+            ],
+            quiz: [
+              {
+                id: 'math5-s3-t1-q1',
+                question: 'Какой треугольник имеет все стороны равные?',
+                options: ['Разносторонний', 'Равнобедренный', 'Равносторонний', 'Прямоугольный'],
+                correctAnswer: 2,
+                explanation: 'Равносторонний треугольник имеет три равные стороны!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'math5-s3-t1-q2',
+                question: 'Чему равна сумма углов треугольника?',
+                options: ['90°', '180°', '360°', '270°'],
+                correctAnswer: 1,
+                explanation: 'Сумма углов любого треугольника = 180°!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'math5-s3-t1-q3',
+                question: 'Какой треугольник имеет один угол 90°?',
+                options: ['Остроугольный', 'Прямоугольный', 'Тупоугольный', 'Равносторонний'],
+                correctAnswer: 1,
+                explanation: 'Прямоугольный треугольник имеет один прямой угол (90°)!',
+                difficulty: 'easy',
+                points: 10
               }
             ]
           }

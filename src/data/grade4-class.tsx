@@ -464,6 +464,35 @@ export const grade4Subjects: Subject[] = [
                 order: 3,
                 estimatedTime: 5
               }
+            ],
+            quiz: [
+              {
+                id: 'rus4-s1-t1-q1',
+                question: 'В каком падеже слово "книге"?',
+                options: ['Именительный', 'Родительный', 'Дательный', 'Предложный'],
+                correctAnswer: 2,
+                explanation: 'Книге — это дательный падеж (кому? чему?)!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'rus4-s1-t1-q2',
+                question: 'Какой вопрос у родительного падежа?',
+                options: ['кто? что?', 'кого? чего?', 'кому? чему?', 'кем? чем?'],
+                correctAnswer: 1,
+                explanation: 'Родительный падеж отвечает на вопросы кого? чего?',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'rus4-s1-t1-q3',
+                question: 'Сколько падежей в русском языке?',
+                options: ['5', '6', '7', '8'],
+                correctAnswer: 1,
+                explanation: 'В русском языке 6 падежей!',
+                difficulty: 'easy',
+                points: 10
+              }
             ]
           },
           {
@@ -523,6 +552,35 @@ export const grade4Subjects: Subject[] = [
                 completed: false,
                 order: 3,
                 estimatedTime: 5
+              }
+            ],
+            quiz: [
+              {
+                id: 'rus4-s1-t2-q1',
+                question: 'Какого склонения слово "ночь"?',
+                options: ['1 склонение', '2 склонение', '3 склонение', 'Не склоняется'],
+                correctAnswer: 2,
+                explanation: 'Ночь — женский род с ь на конце, 3 склонение!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'rus4-s1-t2-q2',
+                question: 'Какого склонения слово "мама"?',
+                options: ['1 склонение', '2 склонение', '3 склонение', 'Не склоняется'],
+                correctAnswer: 0,
+                explanation: 'Мама — женский род с окончанием -а, 1 склонение!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'rus4-s1-t2-q3',
+                question: 'Какого склонения слово "окно"?',
+                options: ['1 склонение', '2 склонение', '3 склонение', 'Не склоняется'],
+                correctAnswer: 1,
+                explanation: 'Окно — средний род с окончанием -о, 2 склонение!',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           }
@@ -595,6 +653,35 @@ export const grade4Subjects: Subject[] = [
                 completed: false,
                 order: 3,
                 estimatedTime: 5
+              }
+            ],
+            quiz: [
+              {
+                id: 'rus4-s2-t1-q1',
+                question: 'Какое спряжение у глагола "читать"?',
+                options: ['I спряжение', 'II спряжение', 'Разноспрягаемый', 'Безличный'],
+                correctAnswer: 0,
+                explanation: 'Читать — I спряжение! Окончания: -ешь, -ет, -ем, -ете, -ут/-ют.',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'rus4-s2-t1-q2',
+                question: 'Какое спряжение у глагола "говорить"?',
+                options: ['I спряжение', 'II спряжение', 'Разноспрягаемый', 'Безличный'],
+                correctAnswer: 1,
+                explanation: 'Говорить — II спряжение! Окончания: -ишь, -ит, -им, -ите, -ат/-ят.',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'rus4-s2-t1-q3',
+                question: 'Какой глагол — исключение I спряжения?',
+                options: ['Гнать', 'Держать', 'Брить', 'Слышать'],
+                correctAnswer: 2,
+                explanation: 'Брить и стелить — исключения I спряжения!',
+                difficulty: 'hard',
+                points: 20
               }
             ]
           }
@@ -709,6 +796,35 @@ export const grade4Subjects: Subject[] = [
                 order: 3,
                 estimatedTime: 5
               }
+            ],
+            quiz: [
+              {
+                id: 'world4-s1-t1-q1',
+                question: 'В каком году произошло Крещение Руси?',
+                options: ['862', '882', '988', '1380'],
+                correctAnswer: 2,
+                explanation: '988 год — князь Владимир крестил Русь!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'world4-s1-t1-q2',
+                question: 'Кто создал первый свод законов "Русская Правда"?',
+                options: ['Рюрик', 'Олег', 'Владимир', 'Ярослав Мудрый'],
+                correctAnswer: 3,
+                explanation: 'Ярослав Мудрый создал "Русскую Правду" — первый свод законов!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'world4-s1-t1-q3',
+                question: 'В каком году образовалось Древнерусское государство?',
+                options: ['862', '882', '988', '1240'],
+                correctAnswer: 1,
+                explanation: '882 год — князь Олег объединил Новгород и Киев!',
+                difficulty: 'medium',
+                points: 15
+              }
             ]
           },
           {
@@ -772,6 +888,35 @@ export const grade4Subjects: Subject[] = [
                 completed: false,
                 order: 3,
                 estimatedTime: 5
+              }
+            ],
+            quiz: [
+              {
+                id: 'world4-s1-t2-q1',
+                question: 'В каком году была Куликовская битва?',
+                options: ['1240', '1380', '1480', '1547'],
+                correctAnswer: 1,
+                explanation: '1380 год — Дмитрий Донской победил ордынцев на Куликовом поле!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'world4-s1-t2-q2',
+                question: 'Кто был первым русским царём?',
+                options: ['Иван III', 'Иван IV Грозный', 'Дмитрий Донской', 'Иван Калита'],
+                correctAnswer: 1,
+                explanation: 'Иван IV Грозный принял титул царя в 1547 году!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'world4-s1-t2-q3',
+                question: 'Когда закончилось монголо-татарское иго?',
+                options: ['1240', '1380', '1480', '1547'],
+                correctAnswer: 2,
+                explanation: '1480 год — Стояние на Угре, конец ига!',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           }
@@ -843,6 +988,35 @@ export const grade4Subjects: Subject[] = [
                 completed: false,
                 order: 3,
                 estimatedTime: 5
+              }
+            ],
+            quiz: [
+              {
+                id: 'world4-s2-t1-q1',
+                question: 'Что такое Красная книга?',
+                options: ['Книга о природе', 'Список редких и исчезающих видов', 'Учебник по биологии', 'Атлас мира'],
+                correctAnswer: 1,
+                explanation: 'Красная книга содержит списки редких и исчезающих животных и растений!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'world4-s2-t1-q2',
+                question: 'Как правильно экономить воду?',
+                options: ['Не мыться вообще', 'Закрывать кран, когда не используешь', 'Использовать только Bottled воду', 'Пить меньше воды'],
+                correctAnswer: 1,
+                explanation: 'Нужно закрывать кран, когда вода не нужна!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'world4-s2-t1-q3',
+                question: 'Какое животное занесено в Красную книгу?',
+                options: ['Домашняя кошка', 'Амурский тигр', 'Корова', 'Собака'],
+                correctAnswer: 1,
+                explanation: 'Амурский тигр — редкое животное, занесённое в Красную книгу!',
+                difficulty: 'easy',
+                points: 10
               }
             ]
           }
@@ -945,6 +1119,35 @@ export const grade4Subjects: Subject[] = [
                 order: 2,
                 estimatedTime: 10
               }
+            ],
+            quiz: [
+              {
+                id: 'lit4-s1-t1-q1',
+                question: 'Кто написал "Сказку о рыбаке и рыбке"?',
+                options: ['Л.Н. Толстой', 'А.С. Пушкин', 'И.А. Крылов', 'Ф.И. Тютчев'],
+                correctAnswer: 1,
+                explanation: 'Александр Сергеевич Пушкин — автор этой сказки!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'lit4-s1-t1-q2',
+                question: 'В каком году родился А.С. Пушкин?',
+                options: ['1799', '1800', '1899', '1700'],
+                correctAnswer: 0,
+                explanation: 'Пушкин родился в 1799 году!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'lit4-s1-t1-q3',
+                question: 'Какая сказка Пушкина о красавице и мачехе?',
+                options: ['Сказка о рыбаке и рыбке', 'Сказка о мёртвой царевне', 'Сказка о золотом петушке', 'Сказка о царе Салтане'],
+                correctAnswer: 1,
+                explanation: '"Сказка о мёртвой царевне и семи богатырях"!',
+                difficulty: 'medium',
+                points: 15
+              }
             ]
           },
           {
@@ -999,6 +1202,35 @@ export const grade4Subjects: Subject[] = [
                 order: 2,
                 estimatedTime: 15
               }
+            ],
+            quiz: [
+              {
+                id: 'lit4-s1-t2-q1',
+                question: 'Какой рассказ Толстого о мальчике, который хотел учиться?',
+                options: ['Акула', 'Прыжок', 'Филипок', 'Котёнок'],
+                correctAnswer: 2,
+                explanation: '"Филипок" — рассказ о мальчике, который хотел учиться!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'lit4-s1-t2-q2',
+                question: 'В каком году родился Л.Н. Толстой?',
+                options: ['1799', '1828', '1899', '1900'],
+                correctAnswer: 1,
+                explanation: 'Лев Николаевич Толстой родился в 1828 году!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'lit4-s1-t2-q3',
+                question: 'Какой рассказ Толстого об отце и сыне на корабле?',
+                options: ['Филипок', 'Котёнок', 'Акула', 'Прыжок'],
+                correctAnswer: 2,
+                explanation: '"Акула" — рассказ о том, как отец спас сына от акулы!',
+                difficulty: 'easy',
+                points: 10
+              }
             ]
           }
         ]
@@ -1039,6 +1271,35 @@ export const grade4Subjects: Subject[] = [
                 completed: false,
                 order: 1,
                 estimatedTime: 15
+              }
+            ],
+            quiz: [
+              {
+                id: 'lit4-s2-t1-q1',
+                question: 'Кто написал стихотворение "Чародейкою Зимою..."?',
+                options: ['А.С. Пушкин', 'Ф.И. Тютчев', 'А.А. Фет', 'Л.Н. Толстой'],
+                correctAnswer: 1,
+                explanation: 'Фёдор Иванович Тютчев — автор этого стихотворения!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'lit4-s2-t1-q2',
+                question: 'О чём писали Тютчев и Фет?',
+                options: ['О городе', 'О природе', 'О войне', 'О технике'],
+                correctAnswer: 1,
+                explanation: 'Тютчев и Фет — поэты природы!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'lit4-s2-t1-q3',
+                question: 'Какой поэт написал много стихов о весне?',
+                options: ['Пушкин', 'Толстой', 'Фет', 'Крылов'],
+                correctAnswer: 2,
+                explanation: 'Афанасий Афанасьевич Фет — автор стихов о весне!',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           }
@@ -1134,6 +1395,35 @@ export const grade4Subjects: Subject[] = [
                 order: 2,
                 estimatedTime: 10
               }
+            ],
+            quiz: [
+              {
+                id: 'eng4-s1-t1-q1',
+                question: 'Выбери правильный перевод: "Я сейчас читаю книгу"',
+                options: ['I read a book', 'I am reading a book', 'I reads a book', 'I reading a book'],
+                correctAnswer: 1,
+                explanation: 'Present Continuous: am/is/are + глагол + -ing!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'eng4-s1-t1-q2',
+                question: 'Какое окончание у глагола в Present Continuous?',
+                options: ['-ed', '-ing', '-s', '-er'],
+                correctAnswer: 1,
+                explanation: 'Present Continuous: am/is/are + глагол + -ing!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'eng4-s1-t1-q3',
+                question: 'Выбери правильный вопрос: "Ты сейчас играешь?"',
+                options: ['Do you play?', 'Are you playing?', 'Is you playing?', 'You are playing?'],
+                correctAnswer: 1,
+                explanation: 'Are you playing? — правильный вопрос в Present Continuous!',
+                difficulty: 'medium',
+                points: 15
+              }
             ]
           },
           {
@@ -1184,6 +1474,35 @@ export const grade4Subjects: Subject[] = [
                 order: 2,
                 estimatedTime: 10
               }
+            ],
+            quiz: [
+              {
+                id: 'eng4-s1-t2-q1',
+                question: 'Что означает модальный глагол "must"?',
+                options: ['Мочь', 'Хотеть', 'Должен', 'Любить'],
+                correctAnswer: 2,
+                explanation: 'Must = должен!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'eng4-s1-t2-q2',
+                question: 'Как перевести "I can swim"?',
+                options: ['Я плаваю', 'Я умею плавать', 'Я должен плавать', 'Я хочу плавать'],
+                correctAnswer: 1,
+                explanation: 'Can = мочь/уметь. I can swim = Я умею плавать!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'eng4-s1-t2-q3',
+                question: 'Какой модальный глагол означает совет?',
+                options: ['Can', 'Must', 'Should', 'May'],
+                correctAnswer: 2,
+                explanation: 'Should = следует (совет)!',
+                difficulty: 'medium',
+                points: 15
+              }
             ]
           }
         ]
@@ -1228,6 +1547,35 @@ export const grade4Subjects: Subject[] = [
                 completed: false,
                 order: 1,
                 estimatedTime: 10
+              }
+            ],
+            quiz: [
+              {
+                id: 'eng4-s2-t1-q1',
+                question: 'Как спросить "Какое у тебя хобби?"',
+                options: ['What do you do?', 'What is your hobby?', 'Where are you?', 'How are you?'],
+                correctAnswer: 1,
+                explanation: 'What is your hobby? = Какое у тебя хобби?',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'eng4-s2-t1-q2',
+                question: 'Как сказать "Мне нравится играть в футбол"?',
+                options: ['I play football', 'I like playing football', 'I must play football', 'I can football'],
+                correctAnswer: 1,
+                explanation: 'I like playing football — мне нравится играть в футбол!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'eng4-s2-t1-q3',
+                question: 'Как переводится "read books"?',
+                options: ['Писать книги', 'Читать книги', 'Купить книги', 'Рисовать книги'],
+                correctAnswer: 1,
+                explanation: 'Read books = читать книги!',
+                difficulty: 'easy',
+                points: 10
               }
             ]
           }
@@ -1320,6 +1668,35 @@ export const grade4Subjects: Subject[] = [
                 order: 2,
                 estimatedTime: 15
               }
+            ],
+            quiz: [
+              {
+                id: 'art4-s1-t1-q1',
+                question: 'Кого называют "певцом русского леса"?',
+                options: ['Левитан', 'Шишкин', 'Репин', 'Серов'],
+                correctAnswer: 1,
+                explanation: 'Ивана Шишкина называют "певцом русского леса"!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'art4-s1-t1-q2',
+                question: 'Кто написал картину "Золотая осень"?',
+                options: ['Шишкин', 'Левитан', 'Репин', 'Суриков'],
+                correctAnswer: 1,
+                explanation: 'Исаак Левитан — автор картины "Золотая осень"!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'art4-s1-t1-q3',
+                question: 'Какие медведи на картине Шишкина?',
+                options: ['Белые', 'Бурые', 'На картине нет медведей', 'Панда'],
+                correctAnswer: 1,
+                explanation: 'На картине "Утро в сосновом лесу" — бурые медведи!',
+                difficulty: 'easy',
+                points: 10
+              }
             ]
           }
         ]
@@ -1364,6 +1741,35 @@ export const grade4Subjects: Subject[] = [
                 completed: false,
                 order: 1,
                 estimatedTime: 15
+              }
+            ],
+            quiz: [
+              {
+                id: 'art4-s2-t1-q1',
+                question: 'Какая особенность русской церковной архитектуры?',
+                options: ['Плоская крыша', 'Луковичные купола', 'Стеклянные стены', 'Металлическая крыша'],
+                correctAnswer: 1,
+                explanation: 'Луковичные купола — характерная особенность русской церковной архитектуры!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'art4-s2-t1-q2',
+                question: 'Где находится Храм Василия Блаженного?',
+                options: ['В Санкт-Петербурге', 'На Красной площади в Москве', 'В Киеве', 'В Новгороде'],
+                correctAnswer: 1,
+                explanation: 'Храм Василия Блаженного находится на Красной площади в Москве!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'art4-s2-t1-q3',
+                question: 'При каком царе построен Храм Василия Блаженного?',
+                options: ['Иван Калита', 'Дмитрий Донской', 'Иван IV Грозный', 'Пётр I'],
+                correctAnswer: 2,
+                explanation: 'Храм построен в XVI веке при Иване Грозном!',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           }
@@ -1456,6 +1862,35 @@ export const grade4Subjects: Subject[] = [
                 order: 2,
                 estimatedTime: 15
               }
+            ],
+            quiz: [
+              {
+                id: 'music4-s1-t1-q1',
+                question: 'Кто автор балета "Щелкунчик"?',
+                options: ['Моцарт', 'Бетховен', 'Чайковский', 'Бах'],
+                correctAnswer: 2,
+                explanation: 'Пётр Ильич Чайковский — автор балета "Щелкунчик"!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'music4-s1-t1-q2',
+                question: 'Сколько пьес в цикле "Времена года" Чайковского?',
+                options: ['4', '6', '12', '24'],
+                correctAnswer: 2,
+                explanation: '12 пьес — по одной на каждый месяц!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'music4-s1-t1-q3',
+                question: 'Какой балет Чайковского о принцессе-лебеди?',
+                options: ['Щелкунчик', 'Лебединое озеро', 'Спящая красавица', 'Золушка'],
+                correctAnswer: 1,
+                explanation: '"Лебединое озеро" — балет о принцессе Одетте!',
+                difficulty: 'easy',
+                points: 10
+              }
             ]
           }
         ]
@@ -1497,6 +1932,35 @@ export const grade4Subjects: Subject[] = [
                 completed: false,
                 order: 1,
                 estimatedTime: 10
+              }
+            ],
+            quiz: [
+              {
+                id: 'music4-s2-t1-q1',
+                question: 'Что такое трёхчастная форма?',
+                options: ['ААА', 'АВ', 'АВА', 'АВС'],
+                correctAnswer: 2,
+                explanation: 'Трёхчастная форма: АВА — первая часть, контрастная, возвращение первой!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'music4-s2-t1-q2',
+                question: 'Какая форма у песни "Припев — Куплет — Припев"?',
+                options: ['Одночастная', 'Двухчастная', 'Трёхчастная', 'Четырёхчастная'],
+                correctAnswer: 2,
+                explanation: 'Это трёхчастная форма (АВА)!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'music4-s2-t1-q3',
+                question: 'Сколько частей в двухчастной форме?',
+                options: ['1', '2', '3', '4'],
+                correctAnswer: 1,
+                explanation: 'Двухчастная форма (АВ) — две разные части!',
+                difficulty: 'easy',
+                points: 10
               }
             ]
           }
@@ -1594,6 +2058,35 @@ export const grade4Subjects: Subject[] = [
                 order: 2,
                 estimatedTime: 10
               }
+            ],
+            quiz: [
+              {
+                id: 'tech4-s1-t1-q1',
+                question: 'Как правильно передавать иглу?',
+                options: ['Тупым концом', 'Острым концом', 'Любым', 'Бросить на стол'],
+                correctAnswer: 0,
+                explanation: 'Иглу нужно передавать тупым концом (ушком), чтобы не уколоть!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'tech4-s1-t1-q2',
+                question: 'Какой шов самый простой?',
+                options: ['Шов назад иголку', 'Шов вперёд иголку', 'Обмёточный шов', 'Петельный шов'],
+                correctAnswer: 1,
+                explanation: 'Шов "вперёд иголку" — самый простой!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'tech4-s1-t1-q3',
+                question: 'Для чего нужен напёрсток?',
+                options: ['Для хранения игл', 'Для защиты пальца', 'Для вышивания', 'Для резки'],
+                correctAnswer: 1,
+                explanation: 'Напёрсток защищает палец от уколов иглой!',
+                difficulty: 'easy',
+                points: 10
+              }
             ]
           }
         ]
@@ -1639,6 +2132,35 @@ export const grade4Subjects: Subject[] = [
                 completed: false,
                 order: 1,
                 estimatedTime: 25
+              }
+            ],
+            quiz: [
+              {
+                id: 'tech4-s2-t1-q1',
+                question: 'Что такое развёртка?',
+                options: ['Готовая модель', 'Чертёж для сборки модели', 'Инструмент', 'Вид клея'],
+                correctAnswer: 1,
+                explanation: 'Развёртка — это плоский чертёж, который при сгибании превращается в объёмную модель!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'tech4-s2-t1-q2',
+                question: 'Из чего делают модели?',
+                options: ['Только из дерева', 'Только из металла', 'Из картона и бумаги', 'Только из пластика'],
+                correctAnswer: 2,
+                explanation: 'Модели делают из картона, бумаги и других материалов!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'tech4-s2-t1-q3',
+                question: 'Какой первый этап изготовления модели?',
+                options: ['Склеивание', 'Выбор объекта', 'Оформление', 'Покраска'],
+                correctAnswer: 1,
+                explanation: 'Сначала нужно выбрать объект для модели!',
+                difficulty: 'easy',
+                points: 10
               }
             ]
           }

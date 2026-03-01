@@ -83,6 +83,35 @@ export const grade8Subjects: Subject[] = [
                 order: 2,
                 estimatedTime: 15
               }
+            ],
+            quiz: [
+              {
+                id: 'alg8-s1-t1-q1',
+                question: 'Вычисли: √144',
+                options: ['11', '12', '13', '14'],
+                correctAnswer: 1,
+                explanation: '√144 = 12, так как 12² = 144!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'alg8-s1-t1-q2',
+                question: 'Упрости: √50',
+                options: ['25√2', '5√2', '10√5', '2√5'],
+                correctAnswer: 1,
+                explanation: '√50 = √(25·2) = 5√2!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'alg8-s1-t1-q3',
+                question: 'Чему равен √0?',
+                options: ['0', '1', 'Не существует', '-1'],
+                correctAnswer: 0,
+                explanation: '√0 = 0, так как 0² = 0!',
+                difficulty: 'easy',
+                points: 10
+              }
             ]
           }
         ]
@@ -180,6 +209,35 @@ export const grade8Subjects: Subject[] = [
                 order: 3,
                 estimatedTime: 10
               }
+            ],
+            quiz: [
+              {
+                id: 'alg8-s2-t1-q1',
+                question: 'Реши: x² - 4x + 3 = 0',
+                options: ['x = 1 и x = 3', 'x = 2 и x = 4', 'x = -1 и x = -3', 'x = 0 и x = 4'],
+                correctAnswer: 0,
+                explanation: 'D = 16 - 12 = 4, x = (4 ± 2)/2, x₁ = 1, x₂ = 3!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'alg8-s2-t1-q2',
+                question: 'Чему равен дискриминант уравнения x² - 5x + 6 = 0?',
+                options: ['1', '25', '6', '11'],
+                correctAnswer: 0,
+                explanation: 'D = b² - 4ac = 25 - 24 = 1!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'alg8-s2-t1-q3',
+                question: 'Сколько корней, если D < 0?',
+                options: ['0', '1', '2', 'Бесконечно много'],
+                correctAnswer: 0,
+                explanation: 'Если D < 0, корней нет!',
+                difficulty: 'easy',
+                points: 10
+              }
             ]
           }
         ]
@@ -231,6 +289,35 @@ export const grade8Subjects: Subject[] = [
                 completed: false,
                 order: 1,
                 estimatedTime: 15
+              }
+            ],
+            quiz: [
+              {
+                id: 'alg8-s3-t1-q1',
+                question: 'Реши неравенство: -3x > 9',
+                options: ['x > -3', 'x < -3', 'x > 3', 'x < 3'],
+                correctAnswer: 1,
+                explanation: 'При делении на -3 знак меняется: x < -3!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'alg8-s3-t1-q2',
+                question: 'Реши: 2x - 4 > 0',
+                options: ['x > 2', 'x < 2', 'x > 4', 'x < 4'],
+                correctAnswer: 0,
+                explanation: '2x > 4, x > 2!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'alg8-s3-t1-q3',
+                question: 'Что происходит со знаком при делении на отрицательное?',
+                options: ['Не меняется', 'Меняется на противоположный', 'Исчезает', 'Удваивается'],
+                correctAnswer: 1,
+                explanation: 'При умножении/делении на отрицательное — знак неравенства меняется!',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           }
@@ -417,6 +504,35 @@ export const grade8Subjects: Subject[] = [
                 order: 1,
                 estimatedTime: 15
               }
+            ],
+            quiz: [
+              {
+                id: 'geom8-s1-t1-q1',
+                question: 'Какое свойство параллелограмма верно?',
+                options: ['Все стороны равны', 'Диагонали равны', 'Диагонали делятся пополам', 'Все углы равны'],
+                correctAnswer: 2,
+                explanation: 'В параллелограмме диагонали точкой пересечения делятся пополам!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'geom8-s1-t1-q2',
+                question: 'Противоположные стороны параллелограмма:',
+                options: ['Перпендикулярны', 'Равны', 'Не равны', 'Параллельны две'],
+                correctAnswer: 1,
+                explanation: 'Противоположные стороны параллелограмма равны!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'geom8-s1-t1-q3',
+                question: 'Сумма углов, прилежащих к одной стороне:',
+                options: ['90°', '180°', '360°', '60°'],
+                correctAnswer: 1,
+                explanation: 'Сумма углов, прилежащих к одной стороне параллелограмма = 180°!',
+                difficulty: 'medium',
+                points: 15
+              }
             ]
           },
           {
@@ -460,6 +576,35 @@ export const grade8Subjects: Subject[] = [
                 order: 1,
                 estimatedTime: 15
               }
+            ],
+            quiz: [
+              {
+                id: 'geom8-s1-t2-q1',
+                question: 'Какой четырёхугольник является и прямоугольником, и ромбом?',
+                options: ['Параллелограмм', 'Трапеция', 'Квадрат', 'Прямоугольник'],
+                correctAnswer: 2,
+                explanation: 'Квадрат обладает свойствами и прямоугольника (прямые углы), и ромба (равные стороны)!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'geom8-s1-t2-q2',
+                question: 'Диагонали ромба:',
+                options: ['Равны', 'Перпендикулярны', 'Параллельны', 'Совпадают'],
+                correctAnswer: 1,
+                explanation: 'Диагонали ромба перпендикулярны!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'geom8-s1-t2-q3',
+                question: 'Площадь квадрата со стороной a:',
+                options: ['a', '2a', 'a²', '4a'],
+                correctAnswer: 2,
+                explanation: 'Площадь квадрата S = a²!',
+                difficulty: 'easy',
+                points: 10
+              }
             ]
           },
           {
@@ -502,6 +647,35 @@ export const grade8Subjects: Subject[] = [
                 completed: false,
                 order: 1,
                 estimatedTime: 15
+              }
+            ],
+            quiz: [
+              {
+                id: 'geom8-s1-t3-q1',
+                question: 'Как найти среднюю линию трапеции?',
+                options: ['Сумма оснований', 'Полусумма оснований', 'Разность оснований', 'Произведение оснований'],
+                correctAnswer: 1,
+                explanation: 'Средняя линия трапеции равна полусумме оснований: m = (a + b)/2!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'geom8-s1-t3-q2',
+                question: 'Трапеция — это...',
+                options: ['Все стороны параллельны', 'Две стороны параллельны', 'Нет параллельных сторон', 'Все стороны равны'],
+                correctAnswer: 1,
+                explanation: 'Трапеция — четырёхугольник с двумя параллельными сторонами (основаниями)!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'geom8-s1-t3-q3',
+                question: 'Площадь трапеции:',
+                options: ['S = a · h', 'S = ½ · (a + b) · h', 'S = a · b', 'S = ½ · a · h'],
+                correctAnswer: 1,
+                explanation: 'S = ½ · (a + b) · h — полусумма оснований на высоту!',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           }
@@ -552,6 +726,35 @@ export const grade8Subjects: Subject[] = [
                 completed: false,
                 order: 1,
                 estimatedTime: 15
+              }
+            ],
+            quiz: [
+              {
+                id: 'geom8-s2-t1-q1',
+                question: 'Что означает подобие треугольников?',
+                options: ['Равные стороны', 'Равные углы и пропорциональные стороны', 'Равные площади', 'Одинаковая высота'],
+                correctAnswer: 1,
+                explanation: 'Подобные треугольники имеют равные углы и пропорциональные стороны!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'geom8-s2-t1-q2',
+                question: 'Первый признак подобия — по:',
+                options: ['Трём сторонам', 'Двум сторонам', 'Двум углам', 'Трём углам'],
+                correctAnswer: 2,
+                explanation: 'Первый признак подобия — по двум углам!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'geom8-s2-t1-q3',
+                question: 'Отношение площадей подобных треугольников равно:',
+                options: ['k', 'k²', 'k³', '2k'],
+                correctAnswer: 1,
+                explanation: 'Отношение площадей подобных фигур равно квадрату коэффициента подобия (k²)!',
+                difficulty: 'hard',
+                points: 20
               }
             ]
           }

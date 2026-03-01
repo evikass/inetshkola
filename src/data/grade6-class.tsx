@@ -103,6 +103,35 @@ export const grade6Subjects: Subject[] = [
                 order: 3,
                 estimatedTime: 10
               }
+            ],
+            quiz: [
+              {
+                id: 'math6-s1-t1-q1',
+                question: 'Какое число больше: -5 или -2?',
+                options: ['-5', '-2', 'Они равны', 'Нельзя сравнить'],
+                correctAnswer: 1,
+                explanation: '-2 правее на координатной прямой, значит оно больше!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math6-s1-t1-q2',
+                question: 'Чему равен модуль числа -7?',
+                options: ['-7', '7', '0', '-14'],
+                correctAnswer: 1,
+                explanation: '|−7| = 7. Модуль всегда положительный!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'math6-s1-t1-q3',
+                question: 'Какое из чисел расположено левее на координатной прямой?',
+                options: ['3', '0', '-2', '-5'],
+                correctAnswer: 3,
+                explanation: '-5 расположено левее всех — оно самое маленькое!',
+                difficulty: 'medium',
+                points: 15
+              }
             ]
           },
           {
@@ -189,6 +218,35 @@ export const grade6Subjects: Subject[] = [
                 order: 3,
                 estimatedTime: 15
               }
+            ],
+            quiz: [
+              {
+                id: 'math6-s1-t2-q1',
+                question: 'Чему равно -7 + (-3)?',
+                options: ['-4', '-10', '10', '4'],
+                correctAnswer: 1,
+                explanation: '-7 + (-3) = -(7 + 3) = -10. При сложении двух отрицательных чисел складываем модули!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math6-s1-t2-q2',
+                question: 'Чему равно -4 × (-5)?',
+                options: ['-20', '-9', '20', '9'],
+                correctAnswer: 2,
+                explanation: '-4 × (-5) = 20. Минус на минус даёт плюс!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math6-s1-t2-q3',
+                question: 'Вычисли: -12 ÷ 4',
+                options: ['3', '-3', '-48', '48'],
+                correctAnswer: 1,
+                explanation: '-12 ÷ 4 = -3. Минус на плюс даёт минус!',
+                difficulty: 'easy',
+                points: 10
+              }
             ]
           }
         ]
@@ -252,6 +310,35 @@ export const grade6Subjects: Subject[] = [
                 order: 2,
                 estimatedTime: 10
               }
+            ],
+            quiz: [
+              {
+                id: 'math6-s2-t1-q1',
+                question: 'Проверь пропорцию: 2/4 = 5/10',
+                options: ['Верна', 'Неверна', 'Нельзя проверить', 'Это не пропорция'],
+                correctAnswer: 0,
+                explanation: '2 × 10 = 4 × 5 = 20. Пропорция верна!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math6-s2-t1-q2',
+                question: 'Найди неизвестный член: x/5 = 12/15',
+                options: ['3', '4', '5', '6'],
+                correctAnswer: 1,
+                explanation: 'x = (5 × 12) / 15 = 60 / 15 = 4!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math6-s2-t1-q3',
+                question: 'Какие члены пропорции 3 : 4 = 6 : 8 называются крайними?',
+                options: ['3 и 4', '4 и 6', '3 и 8', '6 и 8'],
+                correctAnswer: 2,
+                explanation: 'Крайние члены — 3 и 8 (по краям пропорции)!',
+                difficulty: 'easy',
+                points: 10
+              }
             ]
           },
           {
@@ -308,6 +395,35 @@ export const grade6Subjects: Subject[] = [
                 completed: false,
                 order: 2,
                 estimatedTime: 15
+              }
+            ],
+            quiz: [
+              {
+                id: 'math6-s2-t2-q1',
+                question: 'Найди 25% от 80',
+                options: ['20', '25', '40', '15'],
+                correctAnswer: 0,
+                explanation: '25% от 80 = 80 × 0.25 = 20. Или: 80 ÷ 4 = 20 (т.к. 25% = 1/4)!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'math6-s2-t2-q2',
+                question: 'Чему равно 50% от 200?',
+                options: ['50', '100', '150', '250'],
+                correctAnswer: 1,
+                explanation: '50% от 200 = 200 × 0.5 = 100!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'math6-s2-t2-q3',
+                question: 'Найди 15% от 60',
+                options: ['9', '15', '45', '75'],
+                correctAnswer: 0,
+                explanation: '15% от 60 = 60 × 0.15 = 9!',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           }
@@ -513,6 +629,35 @@ export const grade6Subjects: Subject[] = [
                 order: 2,
                 estimatedTime: 15
               }
+            ],
+            quiz: [
+              {
+                id: 'rus6-s1-t1-q1',
+                question: 'Найди причастие: "Читающий книгу ученик сидел у окна"',
+                options: ['читающий', 'книгу', 'ученик', 'окна'],
+                correctAnswer: 0,
+                explanation: 'Читающий — причастие. Отвечает на вопрос "какой?", образовано от глагола "читать".',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'rus6-s1-t1-q2',
+                question: 'Какое причастие страдательное?',
+                options: ['Бегущий', 'Читающий', 'Прочитанный', 'Пишущий'],
+                correctAnswer: 2,
+                explanation: 'Прочитанный — страдательное причастие (книга прочитана).',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'rus6-s1-t1-q3',
+                question: 'Причастие обозначает:',
+                options: ['Действие', 'Признак предмета по действию', 'Признак предмета', 'Количество'],
+                correctAnswer: 1,
+                explanation: 'Причастие — признак по действию!',
+                difficulty: 'medium',
+                points: 15
+              }
             ]
           },
           {
@@ -553,6 +698,35 @@ export const grade6Subjects: Subject[] = [
                 completed: false,
                 order: 1,
                 estimatedTime: 10
+              }
+            ],
+            quiz: [
+              {
+                id: 'rus6-s1-t2-q1',
+                question: 'Найди деепричастие: "Он шёл по улице, напевая песню"',
+                options: ['шёл', 'по улице', 'напевая', 'песню'],
+                correctAnswer: 2,
+                explanation: 'Напевая — деепричастие. Отвечает на вопрос "что делая?", обозначает добавочное действие.',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'rus6-s1-t2-q2',
+                question: 'Деепричастие отвечает на вопросы:',
+                options: ['Какой? Какая?', 'Что делая? Что сделав?', 'Что делать?', 'Как? Где?'],
+                correctAnswer: 1,
+                explanation: 'Деепричастие: что делая? что сделав?',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'rus6-s1-t2-q3',
+                question: 'Деепричастие в предложении является:',
+                options: ['Подлежащим', 'Сказуемым', 'Обстоятельством', 'Дополнением'],
+                correctAnswer: 2,
+                explanation: 'Деепричастие — обстоятельство.',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           }
@@ -627,6 +801,35 @@ export const grade6Subjects: Subject[] = [
                 completed: false,
                 order: 2,
                 estimatedTime: 15
+              }
+            ],
+            quiz: [
+              {
+                id: 'rus6-s2-t1-q1',
+                question: 'Сколько букв Н: стекля_ый?',
+                options: ['Н', 'НН', 'Зависит от контекста', 'Не пишется'],
+                correctAnswer: 1,
+                explanation: 'Стеклянный — исключение! Пишется НН.',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'rus6-s2-t1-q2',
+                question: 'Найди слово-исключение с НН:',
+                options: ['Кожаный', 'Стеклянный', 'Серебряный', 'Глиняный'],
+                correctAnswer: 1,
+                explanation: 'Стеклянный — исключение с НН!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'rus6-s2-t1-q3',
+                question: 'Краткое причастие пишется с:',
+                options: ['Н', 'НН', 'Без Н', 'Зависит'],
+                correctAnswer: 0,
+                explanation: 'Краткое причастие — Н! (Книга прочитана)',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           }
@@ -825,6 +1028,35 @@ export const grade6Subjects: Subject[] = [
                 order: 2,
                 estimatedTime: 10
               }
+            ],
+            quiz: [
+              {
+                id: 'hist6-s1-t1-q1',
+                question: 'Что такое феодальная раздробленность?',
+                options: ['Объединение', 'Распад государства', 'Война', 'Восстание'],
+                correctAnswer: 1,
+                explanation: 'Феодальная раздробленность — распад на отдельные княжества!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'hist6-s1-t1-q2',
+                question: 'Какое княжество было республикой?',
+                options: ['Московское', 'Владимирское', 'Новгородское', 'Галицкое'],
+                correctAnswer: 2,
+                explanation: 'Новгородская земля — республика с вече!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'hist6-s1-t1-q3',
+                question: 'Почему раздробленность ослабила Русь?',
+                options: ['Княжества воевали поодиночке', 'Увеличилась торговля', 'Развилась культура', 'Укрепилась армия'],
+                correctAnswer: 0,
+                explanation: 'Раздробленность означала, что княжества не могли объединиться против врага!',
+                difficulty: 'medium',
+                points: 15
+              }
             ]
           },
           {
@@ -893,6 +1125,35 @@ export const grade6Subjects: Subject[] = [
                 order: 2,
                 estimatedTime: 10
               }
+            ],
+            quiz: [
+              {
+                id: 'hist6-s1-t2-q1',
+                question: 'В каком году Батый напал на Русь?',
+                options: ['1223', '1237', '1240', '1380'],
+                correctAnswer: 1,
+                explanation: '1237 год — начало нашествия Батыя на Русь!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'hist6-s1-t2-q2',
+                question: 'Кто победил на Куликовом поле?',
+                options: ['Иван Калита', 'Дмитрий Донской', 'Иван III', 'Александр Невский'],
+                correctAnswer: 1,
+                explanation: 'Дмитрий Донской победил ордынцев в 1380 году!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'hist6-s1-t2-q3',
+                question: 'Сколько лет длилось ордынское иго?',
+                options: ['100', '150', '240', '300'],
+                correctAnswer: 2,
+                explanation: 'Иго длилось 240 лет (1240-1480)!',
+                difficulty: 'medium',
+                points: 15
+              }
             ]
           }
         ]
@@ -960,6 +1221,35 @@ export const grade6Subjects: Subject[] = [
                 completed: false,
                 order: 2,
                 estimatedTime: 10
+              }
+            ],
+            quiz: [
+              {
+                id: 'hist6-s2-t1-q1',
+                question: 'Когда Куликовская битва?',
+                options: ['1223', '1237', '1380', '1480'],
+                correctAnswer: 2,
+                explanation: '1380 год — Куликовская битва!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'hist6-s2-t1-q2',
+                question: 'Первый московский князь:',
+                options: ['Дмитрий Донской', 'Иван Калита', 'Даниил Александрович', 'Иван III'],
+                correctAnswer: 2,
+                explanation: 'Даниил Александрович — основатель московской династии!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'hist6-s2-t1-q3',
+                question: 'Когда закончилось иго?',
+                options: ['1240', '1380', '1480', '1500'],
+                correctAnswer: 2,
+                explanation: '1480 год — Стояние на Угре, конец ига!',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           }
@@ -1172,6 +1462,35 @@ export const grade6Subjects: Subject[] = [
                 order: 2,
                 estimatedTime: 15
               }
+            ],
+            quiz: [
+              {
+                id: 'bio6-s1-t1-q1',
+                question: 'Какой орган растения выполняет фотосинтез?',
+                options: ['Корень', 'Стебель', 'Лист', 'Цветок'],
+                correctAnswer: 2,
+                explanation: 'Лист — орган фотосинтеза. В хлоропластах листьев происходит образование органических веществ.',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'bio6-s1-t1-q2',
+                question: 'Что выделяется при фотосинтезе?',
+                options: ['Углекислый газ', 'Кислород', 'Азот', 'Водород'],
+                correctAnswer: 1,
+                explanation: 'При фотосинтезе выделяется кислород (O₂). Растения поглощают CO₂ и выделяют O₂.',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'bio6-s1-t1-q3',
+                question: 'Генеративные органы:',
+                options: ['Цветок, плод', 'Корень, стебель, лист', 'Только корень', 'Только листья'],
+                correctAnswer: 0,
+                explanation: 'Генеративные органы — цветок, плод. Они обеспечивают размножение!',
+                difficulty: 'medium',
+                points: 15
+              }
             ]
           },
           {
@@ -1215,6 +1534,35 @@ export const grade6Subjects: Subject[] = [
                 completed: false,
                 order: 1,
                 estimatedTime: 15
+              }
+            ],
+            quiz: [
+              {
+                id: 'bio6-s1-t2-q1',
+                question: 'Где происходит фотосинтез?',
+                options: ['В корне', 'В стебле', 'В листе', 'В цветке'],
+                correctAnswer: 2,
+                explanation: 'Фотосинтез происходит в листьях, в хлоропластах!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'bio6-s1-t2-q2',
+                question: 'Что нужно для фотосинтеза?',
+                options: ['Только вода', 'CO₂, вода, свет', 'Только свет', 'Только CO₂'],
+                correctAnswer: 1,
+                explanation: 'Для фотосинтеза нужны: углекислый газ, вода и свет!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'bio6-s1-t2-q3',
+                question: 'Какой газ выделяется при фотосинтезе?',
+                options: ['Углекислый газ', 'Кислород', 'Азот', 'Водород'],
+                correctAnswer: 1,
+                explanation: 'Кислород (O₂) — побочный продукт фотосинтеза!',
+                difficulty: 'easy',
+                points: 10
               }
             ]
           }
@@ -1268,6 +1616,35 @@ export const grade6Subjects: Subject[] = [
                 completed: false,
                 order: 1,
                 estimatedTime: 15
+              }
+            ],
+            quiz: [
+              {
+                id: 'bio6-s2-t1-q1',
+                question: 'К каким животным относится кальмар?',
+                options: ['Черви', 'Моллюски', 'Членистоногие', 'Кишечнополостные'],
+                correctAnswer: 1,
+                explanation: 'Кальмар — моллюск. Моллюски имеют мягкое тело, многие — раковину.',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'bio6-s2-t1-q2',
+                question: 'Какой % животных — беспозвоночные?',
+                options: ['50%', '75%', '95%', '99%'],
+                correctAnswer: 2,
+                explanation: '95% всех животных — беспозвоночные!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'bio6-s2-t1-q3',
+                question: 'Что характерно для членистоногих?',
+                options: ['Мягкое тело', 'Хитиновый покров', 'Раковина', 'Позвоночник'],
+                correctAnswer: 1,
+                explanation: 'Членистоногие имеют хитиновый покров (внешний скелет)!',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           }
@@ -1470,6 +1847,35 @@ export const grade6Subjects: Subject[] = [
                 order: 2,
                 estimatedTime: 10
               }
+            ],
+            quiz: [
+              {
+                id: 'geo6-s1-t1-q1',
+                question: 'Что показывает масштаб?',
+                options: ['Расстояние', 'Уменьшение на карте', 'Направление', 'Высоту'],
+                correctAnswer: 1,
+                explanation: 'Масштаб показывает, во сколько раз расстояние на карте меньше реального!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'geo6-s1-t1-q2',
+                question: 'Какой масштаб крупнее?',
+                options: ['1:1000', '1:10000', '1:100000', '1:1000000'],
+                correctAnswer: 0,
+                explanation: '1:1000 — крупнее, т.к. показывает меньше уменьшение!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'geo6-s1-t1-q3',
+                question: 'Какой вид карты показывает горы и реки?',
+                options: ['Политическая', 'Физическая', 'Климатическая', 'Экономическая'],
+                correctAnswer: 1,
+                explanation: 'Физическая карта показывает природу: горы, реки, моря!',
+                difficulty: 'easy',
+                points: 10
+              }
             ]
           },
           {
@@ -1537,6 +1943,35 @@ export const grade6Subjects: Subject[] = [
                 completed: false,
                 order: 2,
                 estimatedTime: 10
+              }
+            ],
+            quiz: [
+              {
+                id: 'geo6-s1-t2-q1',
+                question: 'Сколько материков на Земле?',
+                options: ['4', '5', '6', '7'],
+                correctAnswer: 2,
+                explanation: 'На Земле 6 материков!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'geo6-s1-t2-q2',
+                question: 'Какой океан самый большой?',
+                options: ['Атлантический', 'Тихий', 'Индийский', 'Северный Ледовитый'],
+                correctAnswer: 1,
+                explanation: 'Тихий океан — самый большой!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'geo6-s1-t2-q3',
+                question: 'Какой материк самый маленький?',
+                options: ['Евразия', 'Антарктида', 'Австралия', 'Африка'],
+                correctAnswer: 2,
+                explanation: 'Австралия — самый маленький материк!',
+                difficulty: 'easy',
+                points: 10
               }
             ]
           }
@@ -1738,6 +2173,35 @@ export const grade6Subjects: Subject[] = [
                 order: 2,
                 estimatedTime: 10
               }
+            ],
+            quiz: [
+              {
+                id: 'eng6-s1-t1-q1',
+                question: 'Выбери правильную форму: She ___ to school every day.',
+                options: ['go', 'goes', 'going', 'went'],
+                correctAnswer: 1,
+                explanation: 'She goes — в Present Simple к глаголу добавляется -s для he/she/it!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'eng6-s1-t1-q2',
+                question: 'Какое слово-маркер Present Simple?',
+                options: ['now', 'yesterday', 'every day', 'tomorrow'],
+                correctAnswer: 2,
+                explanation: 'Every day — маркер Present Simple (регулярное действие)!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'eng6-s1-t1-q3',
+                question: 'Do you ___ coffee?',
+                options: ['likes', 'like', 'liking', 'liked'],
+                correctAnswer: 1,
+                explanation: 'Do + глагол без окончаний!',
+                difficulty: 'easy',
+                points: 10
+              }
             ]
           },
           {
@@ -1800,6 +2264,35 @@ export const grade6Subjects: Subject[] = [
                 completed: false,
                 order: 2,
                 estimatedTime: 15
+              }
+            ],
+            quiz: [
+              {
+                id: 'eng6-s1-t2-q1',
+                question: 'Past Simple от глагола "play":',
+                options: ['plays', 'playing', 'played', 'play'],
+                correctAnswer: 2,
+                explanation: 'Play → played. Правильный глагол + ed!',
+                difficulty: 'easy',
+                points: 10
+              },
+              {
+                id: 'eng6-s1-t2-q2',
+                question: 'Past Simple от глагола "go":',
+                options: ['goed', 'goes', 'went', 'gone'],
+                correctAnswer: 2,
+                explanation: 'Go → went — неправильный глагол!',
+                difficulty: 'medium',
+                points: 15
+              },
+              {
+                id: 'eng6-s1-t2-q3',
+                question: 'Past Simple от глагола "have":',
+                options: ['haves', 'had', 'haved', 'having'],
+                correctAnswer: 1,
+                explanation: 'Have → had — неправильный глагол!',
+                difficulty: 'medium',
+                points: 15
               }
             ]
           }
