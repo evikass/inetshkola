@@ -35,6 +35,64 @@ export const class0: Grade = {
           completed: false,
           difficulty: 'easy',
           estimatedTime: 15,
+          lessons: [
+            {
+              id: 'prep-writing-t1-l1',
+              title: 'Обводим круги',
+              content: `<div class="kid-lesson">
+                <h2>⭕ Обводим круги</h2>
+                <p>Круг — это фигура без уголков! Давай обведём круги!</p>
+                <div class="activity">Возьми карандаш и обведи круг по пунктиру!</div>
+                <div class="emoji-practice">○ ○ ○ — обведи три круга!</div>
+                <div class="tip">💡 Движение рукой должно быть плавным!</div>
+              </div>`,
+              completed: false,
+              order: 1,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-writing-t1-l2',
+              title: 'Обводим квадраты',
+              content: `<div class="kid-lesson">
+                <h2>⬜ Обводим квадраты</h2>
+                <p>У квадрата 4 равные стороны и 4 угла!</p>
+                <div class="activity">Обведи квадрат по контуру. Смотри на углы!</div>
+                <div class="emoji-practice">□ □ □ — обведи три квадрата!</div>
+                <div class="tip">💡 На углах делай остановку!</div>
+              </div>`,
+              completed: false,
+              order: 2,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-writing-t1-l3',
+              title: 'Обводим треугольники',
+              content: `<div class="kid-lesson">
+                <h2>🔺 Обводим треугольники</h2>
+                <p>У треугольника 3 стороны и 3 угла!</p>
+                <div class="activity">Обведи треугольник по контуру!</div>
+                <div class="emoji-practice">△ △ △ — обведи три треугольника!</div>
+                <div class="tip">💡 Треугольник похож на крышу домика!</div>
+              </div>`,
+              completed: false,
+              order: 3,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-writing-t1-l4',
+              title: 'Обводим узоры',
+              content: `<div class="kid-lesson">
+                <h2>🎨 Обводим узоры</h2>
+                <p>Теперь обведи красивый узор из разных фигур!</p>
+                <div class="activity">Обведи солнышко с лучиками!</div>
+                <div class="emoji-practice">☀️ 🌸 ⭐ — обведи фигуры!</div>
+                <div class="tip">💡 Будь внимателен, не выходи за линию!</div>
+              </div>`,
+              completed: false,
+              order: 4,
+              estimatedTime: 5
+            }
+          ],
           quiz: [
             {
               id: 'prep-writing-t1-q1',
@@ -73,6 +131,64 @@ export const class0: Grade = {
           completed: false,
           difficulty: 'easy',
           estimatedTime: 20,
+          lessons: [
+            {
+              id: 'prep-writing-t2-l1',
+              title: 'Элементы букв: палочки',
+              content: `<div class="kid-lesson">
+                <h2>📏 Палочки</h2>
+                <p>Буквы состоят из палочек: коротких и длинных!</p>
+                <div class="activity">Напиши короткую палочку: |</div>
+                <div class="emoji-practice">| | | — короткие палочки</div>
+                <div class="tip">💡 Палочки должны быть ровными!</div>
+              </div>`,
+              completed: false,
+              order: 1,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-writing-t2-l2',
+              title: 'Элементы букв: крючочки',
+              content: `<div class="kid-lesson">
+                <h2>🪝 Крючочки</h2>
+                <p>Многие буквы имеют крючочки!</p>
+                <div class="activity">Напиши крючочек: J</div>
+                <div class="emoji-practice">J J J — крючочки</div>
+                <div class="tip">💡 Крючочек — это палочка с закруглением!</div>
+              </div>`,
+              completed: false,
+              order: 2,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-writing-t2-l3',
+              title: 'Элементы букв: овалы',
+              content: `<div class="kid-lesson">
+                <h2>⭕ Овалы</h2>
+                <p>Овал — это вытянутый круг. Есть в буквах О, А, Ю!</p>
+                <div class="activity">Напиши овал: О</div>
+                <div class="emoji-practice">О О О — овалы</div>
+                <div class="tip">💡 Овал должен быть закрытым!</div>
+              </div>`,
+              completed: false,
+              order: 3,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-writing-t2-l4',
+              title: 'Собираем буквы',
+              content: `<div class="kid-lesson">
+                <h2>🔤 Собираем буквы</h2>
+                <p>Из палочек, крючочков и овалов получаются буквы!</p>
+                <div class="activity">Напиши букву А: / - \\</div>
+                <div class="emoji-practice">А = палочки + палочка = буква!</div>
+                <div class="tip">💡 Все буквы состоят из элементов!</div>
+              </div>`,
+              completed: false,
+              order: 4,
+              estimatedTime: 5
+            }
+          ],
           quiz: [
             {
               id: 'prep-writing-t2-q1',
@@ -112,6 +228,50 @@ export const class0: Grade = {
           completed: false,
           difficulty: 'easy',
           estimatedTime: 15,
+          lessons: [
+            {
+              id: 'prep-writing-t3-l1',
+              title: 'Пальчиковая гимнастика',
+              content: `<div class="kid-lesson">
+                <h2>👐 Пальчиковая гимнастика</h2>
+                <p>Давай разомнём пальчики перед письмом!</p>
+                <div class="activity">Пощелкай пальчиками! Постучи подушечками!</div>
+                <div class="emoji-practice">👋 Пальчики готовы к работе!</div>
+                <div class="tip">💡 Гимнастика делает пальчики ловкими!</div>
+              </div>`,
+              completed: false,
+              order: 1,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-writing-t3-l2',
+              title: 'Игра с пластилином',
+              content: `<div class="kid-lesson">
+                <h2>🎨 Лепим из пластилина</h2>
+                <p>Лепка делает пальчики сильными и ловкими!</p>
+                <div class="activity">Слепи маленький шарик из пластилина!</div>
+                <div class="emoji-practice">🔴 Слепи шарик, колбаску, лепёшку!</div>
+                <div class="tip">💡 Разминай пластилин пальчиками!</div>
+              </div>`,
+              completed: false,
+              order: 2,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-writing-t3-l3',
+              title: 'Нанизывание бусин',
+              content: `<div class="kid-lesson">
+                <h2>📿 Нанизываем бусины</h2>
+                <p>Нанизывание бусин развивает точность движений!</p>
+                <div class="activity">Нанижи 5 бусин на ниточку!</div>
+                <div class="emoji-practice">🔴🔵🟢🟡🟣 — нанижи бусины!</div>
+                <div class="tip">💡 Будь внимателен, не торопись!</div>
+              </div>`,
+              completed: false,
+              order: 3,
+              estimatedTime: 5
+            }
+          ],
           quiz: [
             {
               id: 'prep-writing-t3-q1',
@@ -151,6 +311,64 @@ export const class0: Grade = {
           completed: false,
           difficulty: 'easy',
           estimatedTime: 15,
+          lessons: [
+            {
+              id: 'prep-writing-t4-l1',
+              title: 'Прямые линии',
+              content: `<div class="kid-lesson">
+                <h2>➖ Прямые линии</h2>
+                <p>Прямые линии бывают горизонтальные и вертикальные!</p>
+                <div class="activity">Нарисуй заборчик: | | | | |</div>
+                <div class="emoji-practice">— — — горизонтальные, | | | вертикальные</div>
+                <div class="tip">💡 Линии должны быть ровными!</div>
+              </div>`,
+              completed: false,
+              order: 1,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-writing-t4-l2',
+              title: 'Наклонные линии',
+              content: `<div class="kid-lesson">
+                <h2>↗️ Наклонные линии</h2>
+                <p>Наклонные линии идут под углом!</p>
+                <div class="activity">Нарисуй: / / / и \\ \\ \\</div>
+                <div class="emoji-practice">/ \\ / \\ — наклонные линии</div>
+                <div class="tip">💡 Из наклонных линий можно сделать X!</div>
+              </div>`,
+              completed: false,
+              order: 2,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-writing-t4-l3',
+              title: 'Волнистые линии',
+              content: `<div class="kid-lesson">
+                <h2>〰️ Волнистые линии</h2>
+                <p>Волнистые линии как море!</p>
+                <div class="activity">Нарисуй волны: ~~~~</div>
+                <div class="emoji-practice">🌊 Волны — это волнистые линии!</div>
+                <div class="tip">💡 Движение рукой плавное, вверх-вниз!</div>
+              </div>`,
+              completed: false,
+              order: 3,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-writing-t4-l4',
+              title: 'Узоры из линий',
+              content: `<div class="kid-lesson">
+                <h2>🎨 Узоры из линий</h2>
+                <p>Из разных линий можно создавать узоры!</p>
+                <div class="activity">Нарисуй лесенку: _ | _ | _ |</div>
+                <div class="emoji-practice">Узор = разные линии вместе!</div>
+                <div class="tip">💡 Узоры готовят руку к буквам!</div>
+              </div>`,
+              completed: false,
+              order: 4,
+              estimatedTime: 5
+            }
+          ],
           quiz: [
             {
               id: 'prep-writing-t4-q1',
@@ -212,6 +430,70 @@ export const class0: Grade = {
           completed: false,
           difficulty: 'easy',
           estimatedTime: 20,
+          lessons: [
+            {
+              id: 'prep-math-t1-l1',
+              title: 'Числа 1, 2, 3',
+              content: `<div class="kid-lesson">
+                <h2>1️⃣2️⃣3️⃣ Числа 1, 2, 3</h2>
+                <p>Один — это один предмет! 🍎</p>
+                <p>Два — это один и ещё один! 🍎🍎</p>
+                <p>Три — это два и ещё один! 🍎🍎🍎</p>
+                <div class="activity">Покажи 1, 2, 3 пальчика!</div>
+                <div class="emoji-practice">1 = ⭐, 2 = ⭐⭐, 3 = ⭐⭐⭐</div>
+                <div class="tip">💡 Считай всё вокруг!</div>
+              </div>`,
+              completed: false,
+              order: 1,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-math-t1-l2',
+              title: 'Числа 4 и 5',
+              content: `<div class="kid-lesson">
+                <h2>4️⃣5️⃣ Числа 4 и 5</h2>
+                <p>Четыре — это три и ещё один! ⬜ (4 угла у квадрата)</p>
+                <p>Пять — это все пальчики на руке! ✋</p>
+                <div class="activity">Посчитай пальчики на одной руке!</div>
+                <div class="emoji-practice">⭐⭐⭐⭐⭐ = 5 звёзд!</div>
+                <div class="tip">💡 Пять пальчиков = одна рука!</div>
+              </div>`,
+              completed: false,
+              order: 2,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-math-t1-l3',
+              title: 'Числа 6, 7, 8',
+              content: `<div class="kid-lesson">
+                <h2>6️⃣7️⃣8️⃣ Числа 6, 7, 8</h2>
+                <p>Шесть — пять и ещё один! 🐞 (6 лапок у жука)</p>
+                <p>Семь — семь дней в неделе! 📅</p>
+                <p>Восемь — восемь лапок у паука! 🕷️</p>
+                <div class="activity">Посчитай от 1 до 8!</div>
+                <div class="emoji-practice">1, 2, 3, 4, 5, 6, 7, 8!</div>
+                <div class="tip">💡 Семь дней: Пн, Вт, Ср, Чт, Пт, Сб, Вс!</div>
+              </div>`,
+              completed: false,
+              order: 3,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-math-t1-l4',
+              title: 'Числа 9 и 10',
+              content: `<div class="kid-lesson">
+                <h2>9️⃣🔟 Числа 9 и 10</h2>
+                <p>Девять — почти десять!</p>
+                <p>Десять — все пальчики на двух руках! 🙌</p>
+                <div class="activity">Посчитай все пальчики!</div>
+                <div class="emoji-practice">👋👋 = 10 пальцев!</div>
+                <div class="tip">💡 Десять — это десяток!</div>
+              </div>`,
+              completed: false,
+              order: 4,
+              estimatedTime: 5
+            }
+          ],
           quiz: [
             {
               id: 'prep-math-t1-q1',
@@ -251,6 +533,57 @@ export const class0: Grade = {
           completed: false,
           difficulty: 'easy',
           estimatedTime: 15,
+          lessons: [
+            {
+              id: 'prep-math-t2-l1',
+              title: 'Цифры 0, 1, 2',
+              content: `<div class="kid-lesson">
+                <h2>0️⃣1️⃣2️⃣ Цифры 0, 1, 2</h2>
+                <p>0 — это кружочек, означает "ничего"!</p>
+                <p>1 — палочка, один предмет!</p>
+                <p>2 — как лебедь с длинной шеей! 🦢</p>
+                <div class="activity">Напиши цифры 0, 1, 2!</div>
+                <div class="emoji-practice">0 — круг, 1 — палка, 2 — лебедь</div>
+                <div class="tip">💡 2 похожа на лебедя!</div>
+              </div>`,
+              completed: false,
+              order: 1,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-math-t2-l2',
+              title: 'Цифры 3, 4, 5',
+              content: `<div class="kid-lesson">
+                <h2>3️⃣4️⃣5️⃣ Цифры 3, 4, 5</h2>
+                <p>3 — как ушки зайчика! 🐰</p>
+                <p>4 — как стульчик! 🪑</p>
+                <p>5 — как крючок!</p>
+                <div class="activity">Напиши цифры 3, 4, 5!</div>
+                <div class="emoji-practice">3 — ушки, 4 — стул, 5 — крюк</div>
+                <div class="tip">💡 3 — ушки, 4 — стул, 5 — крючок!</div>
+              </div>`,
+              completed: false,
+              order: 2,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-math-t2-l3',
+              title: 'Цифры 6, 7, 8, 9',
+              content: `<div class="kid-lesson">
+                <h2>6️⃣7️⃣8️⃣9️⃣ Цифры 6, 7, 8, 9</h2>
+                <p>6 — как замочек!</p>
+                <p>7 — как флажок! 🚩</p>
+                <p>8 — как снеговик! ⛄</p>
+                <p>9 — как шарик на верёвочке!</p>
+                <div class="activity">Напиши цифры 6, 7, 8, 9!</div>
+                <div class="emoji-practice">6 — замок, 7 — флаг, 8 — снеговик, 9 — шарик</div>
+                <div class="tip">💡 8 — два кружочка!</div>
+              </div>`,
+              completed: false,
+              order: 3,
+              estimatedTime: 5
+            }
+          ],
           quiz: [
             {
               id: 'prep-math-t2-q1',
@@ -292,6 +625,50 @@ export const class0: Grade = {
           completed: false,
           difficulty: 'easy',
           estimatedTime: 15,
+          lessons: [
+            {
+              id: 'prep-math-t3-l1',
+              title: 'Больше и меньше',
+              content: `<div class="kid-lesson">
+                <h2>⚖️ Больше и меньше</h2>
+                <p>Больше — это когда предметов много! Меньше — когда мало!</p>
+                <div class="activity">Где больше звёзд? ⭐⭐⭐ или ⭐⭐⭐⭐⭐</div>
+                <div class="emoji-practice">3 < 5 (три меньше пяти)</div>
+                <div class="tip">💡 Знак > открывает рот к большему!</div>
+              </div>`,
+              completed: false,
+              order: 1,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-math-t3-l2',
+              title: 'Равно',
+              content: `<div class="kid-lesson">
+                <h2>＝ Равно</h2>
+                <p>Равно — когда предметов одинаковое количество!</p>
+                <div class="activity">Сделай поровну! ⭐⭐⭐ = ?</div>
+                <div class="emoji-practice">⭐⭐⭐ = 🍎🍎🍎 (3 = 3)</div>
+                <div class="tip">💡 = — две одинаковые палочки!</div>
+              </div>`,
+              completed: false,
+              order: 2,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-math-t3-l3',
+              title: 'Сравниваем числа',
+              content: `<div class="kid-lesson">
+                <h2>🔢 Сравниваем числа</h2>
+                <p>Сравним числа 7 и 4!</p>
+                <div class="activity">Что больше: 7 или 4?</div>
+                <div class="emoji-practice">7 > 4 (семь больше четырёх!)</div>
+                <div class="tip">💡 Чем дальше при счёте, тем больше!</div>
+              </div>`,
+              completed: false,
+              order: 3,
+              estimatedTime: 5
+            }
+          ],
           quiz: [
             {
               id: 'prep-math-t3-q1',
@@ -330,6 +707,50 @@ export const class0: Grade = {
           completed: false,
           difficulty: 'medium',
           estimatedTime: 20,
+          lessons: [
+            {
+              id: 'prep-math-t4-l1',
+              title: 'Найди лишнее',
+              content: `<div class="kid-lesson">
+                <h2>🔍 Найди лишнее</h2>
+                <p>Нужно найти предмет, который не подходит к остальным!</p>
+                <div class="activity">Найди лишнее: 🍎🍐🥕🍌</div>
+                <div class="emoji-practice">🥕 — овощ, остальные фрукты!</div>
+                <div class="tip">💡 Подумай, что объединяет предметы!</div>
+              </div>`,
+              completed: false,
+              order: 1,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-math-t4-l2',
+              title: 'Продолжи ряд',
+              content: `<div class="kid-lesson">
+                <h2>➡️ Продолжи ряд</h2>
+                <p>Найди закономерность и продолжи!</p>
+                <div class="activity">Продолжи: 2, 4, 6, ...?</div>
+                <div class="emoji-practice">2, 4, 6, 8, 10! (чётные числа)</div>
+                <div class="tip">💡 Каждое число на 2 больше!</div>
+              </div>`,
+              completed: false,
+              order: 2,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-math-t4-l3',
+              title: 'Что сначала, что потом?',
+              content: `<div class="kid-lesson">
+                <h2>📅 Порядок</h2>
+                <p>Расставь события по порядку!</p>
+                <div class="activity">Что сначала: утро, вечер, день?</p>
+                <div class="emoji-practice">Утро → День → Вечер → Ночь</div>
+                <div class="tip">💡 Вспомни свой день!</div>
+              </div>`,
+              completed: false,
+              order: 3,
+              estimatedTime: 5
+            }
+          ],
           quiz: [
             {
               id: 'prep-math-t4-q1',
@@ -399,6 +820,64 @@ export const class0: Grade = {
           completed: false,
           difficulty: 'easy',
           estimatedTime: 15,
+          lessons: [
+            {
+              id: 'prep-world-t1-l1',
+              title: 'Зима',
+              content: `<div class="kid-lesson">
+                <h2>❄️ Зима</h2>
+                <p>Зимой холодно, идёт снег! Можно кататься на лыжах и санках!</p>
+                <div class="activity">Что ты делаешь зимой?</div>
+                <div class="emoji-practice">⛄ skiing 🎿 Новый год 🎄</div>
+                <div class="tip">💡 Зима: декабрь, январь, февраль!</div>
+              </div>`,
+              completed: false,
+              order: 1,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-world-t1-l2',
+              title: 'Весна',
+              content: `<div class="kid-lesson">
+                <h2>🌸 Весна</h2>
+                <p>Весной тает снег, солнышко греет теплее, прилетают птицы!</p>
+                <div class="activity">Что происходит весной?</div>
+                <div class="emoji-practice">🌷 цветы, 🐣 птицы, 🌱 ростки</div>
+                <div class="tip">💡 Весна: март, апрель, май!</div>
+              </div>`,
+              completed: false,
+              order: 2,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-world-t1-l3',
+              title: 'Лето',
+              content: `<div class="kid-lesson">
+                <h2>☀️ Лето</h2>
+                <p>Летом тепло и солнечно! Можно купаться и загорать!</p>
+                <div class="activity">Что ты любишь делать летом?</div>
+                <div class="emoji-practice">🏖️ пляж, 🍦 мороженое, ⚽ игры</div>
+                <div class="tip">💡 Лето: июнь, июль, август!</div>
+              </div>`,
+              completed: false,
+              order: 3,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-world-t1-l4',
+              title: 'Осень',
+              content: `<div class="kid-lesson">
+                <h2>🍂 Осень</h2>
+                <p>Осенью листья желтеют и падают, птицы улетают на юг!</p>
+                <div class="activity">Какого цвета листья осенью?</div>
+                <div class="emoji-practice">🍁 жёлтые, 🍂 оранжевые, 🌧️ дожди</div>
+                <div class="tip">💡 Осень: сентябрь, октябрь, ноябрь!</div>
+              </div>`,
+              completed: false,
+              order: 4,
+              estimatedTime: 5
+            }
+          ],
           quiz: [
             {
               id: 'prep-world-t1-q1',
@@ -438,6 +917,50 @@ export const class0: Grade = {
           completed: false,
           difficulty: 'easy',
           estimatedTime: 15,
+          lessons: [
+            {
+              id: 'prep-world-t2-l1',
+              title: 'Кошка',
+              content: `<div class="kid-lesson">
+                <h2>🐱 Кошка</h2>
+                <p>Кошка — пушистый друг! Говорит "мяу" и мурлычет!</p>
+                <div class="activity">Как говорит кошка?</div>
+                <div class="emoji-practice">🐱 Мяу! Мур-мур!</div>
+                <div class="tip">💡 Кошка ловит мышей!</div>
+              </div>`,
+              completed: false,
+              order: 1,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-world-t2-l2',
+              title: 'Собака',
+              content: `<div class="kid-lesson">
+                <h2>🐕 Собака</h2>
+                <p>Собака — верный друг! Лает "гав" и охраняет дом!</p>
+                <div class="activity">Как лает собака?</div>
+                <div class="emoji-practice">🐕 Гав-гав!</div>
+                <div class="tip">💡 Собака — лучший друг человека!</div>
+              </div>`,
+              completed: false,
+              order: 2,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-world-t2-l3',
+              title: 'Другие питомцы',
+              content: `<div class="kid-lesson">
+                <h2>🐾 Другие питомцы</h2>
+                <p>Хомяки, рыбки, попугаи — тоже домашние питомцы!</p>
+                <div class="activity">Каких питомцев ты знаешь?</div>
+                <div class="emoji-practice">🐹 хомяк, 🐟 рыбка, 🦜 попугай</div>
+                <div class="tip">💡 Все питомцы нуждаются в заботе!</div>
+              </div>`,
+              completed: false,
+              order: 3,
+              estimatedTime: 5
+            }
+          ],
           quiz: [
             {
               id: 'prep-world-t2-q1',
@@ -479,6 +1002,50 @@ export const class0: Grade = {
           completed: false,
           difficulty: 'easy',
           estimatedTime: 15,
+          lessons: [
+            {
+              id: 'prep-world-t3-l1',
+              title: 'Опасные предметы',
+              content: `<div class="kid-lesson">
+                <h2>⚠️ Опасные предметы</h2>
+                <p>Некоторые предметы дома могут быть опасны!</p>
+                <div class="activity">Что нельзя трогать?</div>
+                <div class="emoji-practice">🔌 розетки, ✂️ ножницы, 🔥 спички — опасно!</div>
+                <div class="tip">💡 Спрашивай взрослых, если не уверен!</div>
+              </div>`,
+              completed: false,
+              order: 1,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-world-t3-l2',
+              title: 'Незнакомец у двери',
+              content: `<div class="kid-lesson">
+                <h2>🚪 Незнакомец у двери</h2>
+                <p>Никогда не открывай дверь незнакомцам!</p>
+                <div class="activity">Что делать, если кто-то стучит?</div>
+                <div class="emoji-practice">🚫 Не открывай! 👨‍👩‍👧 Позови взрослых!</div>
+                <div class="tip">💡 Даже если говорят, что от мамы!</div>
+              </div>`,
+              completed: false,
+              order: 2,
+              estimatedTime: 5
+            },
+            {
+              id: 'prep-world-t3-l3',
+              title: 'Правила безопасности',
+              content: `<div class="kid-lesson">
+                <h2>✅ Правила безопасности</h2>
+                <p>Запомни главные правила!</p>
+                <div class="activity">Расскажи правило безопасности!</div>
+                <div class="emoji-practice">1. Не трогай розетки 2. Не играй с огнём 3. Не открывай дверь незнакомцам</div>
+                <div class="tip">💡 Безопасность — это важно!</div>
+              </div>`,
+              completed: false,
+              order: 3,
+              estimatedTime: 5
+            }
+          ],
           quiz: [
             {
               id: 'prep-world-t3-q1',
