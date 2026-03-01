@@ -5,6 +5,9 @@ import { Card } from '@/components/ui/card'
 import { GraduationCap, Sparkles, ArrowLeft } from 'lucide-react'
 import type { Grade } from '@/data/types'
 
+// Базовый путь для изображений (для GitHub Pages)
+const basePath = process.env.NODE_ENV === 'production' ? '/inetshkola' : ''
+
 interface GradeSelectorProps {
   grades: Grade[]
   selectedGrade: number | null
@@ -105,7 +108,7 @@ export default function GradeSelector({
             {/* Изображение класса */}
             <div className="flex justify-center mb-4 relative z-10">
               <motion.img
-                src={`/images/classes/class-${selectedGrade}.jpg`}
+                src={`${basePath}/images/classes/class-${selectedGrade}.jpg`}
                 alt={grade?.shortName || 'Класс'}
                 className="w-32 h-32 sm:w-40 sm:h-40 object-contain drop-shadow-2xl"
                 animate={{ 
@@ -203,7 +206,7 @@ export default function GradeSelector({
                 
                 {/* Изображение класса */}
                 <motion.img
-                  src={`/images/classes/class-${grade.id}.jpg`}
+                  src={`${basePath}/images/classes/class-${grade.id}.jpg`}
                   alt={grade.shortName}
                   className="w-14 h-14 sm:w-20 sm:h-20 object-contain drop-shadow-lg mb-2 sm:mb-3 z-10"
                   whileHover={{ 
