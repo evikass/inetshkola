@@ -1,11 +1,8 @@
 'use client'
 
-import { useState } from 'react'
 import { Card } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { ChevronRight, Star, Clock, Play, CheckCircle, BookOpen, Zap } from 'lucide-react'
+import { Star, Clock, CheckCircle, BookOpen, Zap } from 'lucide-react'
 import type { Topic, QuizQuestion } from '@/data/types'
-import KidLessonViewer from './KidLessonViewer'
 
 interface KidTopicCardProps {
   topic: Topic
@@ -22,8 +19,6 @@ export default function KidTopicCard({
   onCompleteTopic,
   onStartQuiz
 }: KidTopicCardProps) {
-  const [showLessons, setShowLessons] = useState(false)
-
   const hasLessons = topic.lessons && topic.lessons.length > 0
   const totalLessons = hasLessons ? topic.lessons!.length : 0
   const hasQuiz = topic.quiz && topic.quiz.length > 0
@@ -50,46 +45,9 @@ export default function KidTopicCard({
     }
   }
 
-  // Открыть уроки
-  const handleOpenLessons = () => {
-    if (hasLessons) {
-      setShowLessons(true)
-    } else {
-      onOpenTopic()
-    }
-  }
-
-  // Закрыть уроки
-  const handleCloseLessons = () => {
-    setShowLessons(false)
-  }
-
-  // Завершить тему
-  const handleCompleteTopic = () => {
-    setShowLessons(false)
-    onCompleteTopic()
-  }
-
-  // Начать тест
-  const handleStartQuiz = () => {
-    if (hasQuiz && onStartQuiz) {
-      setShowLessons(false)
-      onStartQuiz(topic.quiz!, topic.title)
-    }
-  }
-
-  // Если открыты уроки
-  if (showLessons && hasLessons) {
-    return (
-      <KidLessonViewer
-        lessons={topic.lessons!}
-        topicTitle={topic.title}
-        topicQuiz={topic.quiz}
-        onComplete={handleCompleteTopic}
-        onBack={handleCloseLessons}
-        onStartQuiz={hasQuiz ? handleStartQuiz : undefined}
-      />
-    )
+  // Клик по карточке - открываем модальное окно TopicDialog
+  const handleClick = () => {
+    onOpenTopic()
   }
 
   return (
@@ -101,9 +59,9 @@ export default function KidTopicCard({
           : `bg-gradient-to-br ${getDifficultyColor()}`
         }
         rounded-2xl sm:rounded-3xl p-4 sm:p-5
-        hover:scale-102 hover:shadow-xl
+        hover:scale-[1.02] hover:shadow-xl active:scale-[0.98]
       `}
-      onClick={handleOpenLessons}
+      onClick={handleClick}
     >
       {/* Декоративные элементы */}
       <div className="absolute top-2 right-2 text-2xl opacity-20 animate-pulse">
@@ -171,33 +129,32 @@ export default function KidTopicCard({
         </div>
       )}
 
-      {/* Кнопка действия */}
-      <Button
-        className={`
-          w-full rounded-xl py-3 sm:py-4 text-sm sm:text-base font-bold
-          ${isCompleted
-            ? 'bg-white/20 hover:bg-white/30 text-white'
-            : 'bg-white/90 hover:bg-white text-gray-800'
-          }
-        `}
-      >
+      {/* Индикатор статуса */}
+      <div className={`
+        flex items-center justify-center gap-2 py-2 sm:py-3 rounded-xl
+        ${isCompleted 
+          ? 'bg-white/20 text-white' 
+          : 'bg-white/90 text-gray-800'
+        }
+        text-sm sm:text-base font-bold
+      `}>
         {isCompleted ? (
           <>
-            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5" />
             Пройдено! Повторить
           </>
         ) : hasLessons ? (
           <>
-            <Play className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-            Начать обучение
+            <BookOpen className="w-4 h-4 sm:w-5 sm:h-5" />
+            {totalLessons} уроков
           </>
         ) : (
           <>
-            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+            <Zap className="w-4 h-4 sm:w-5 sm:h-5" />
             Изучить тему
           </>
         )}
-      </Button>
+      </div>
 
       {/* Индикатор завершения */}
       {isCompleted && (
@@ -212,7 +169,6 @@ export default function KidTopicCard({
           50% { transform: translateY(-5px); }
         }
         .animate-bounce-slow { animation: bounce-slow 2s ease-in-out infinite; }
-        .hover\:scale-102:hover { transform: scale(1.02); }
       `}</style>
     </Card>
   )

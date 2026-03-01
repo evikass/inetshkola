@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -45,7 +45,7 @@ interface LessonStep {
   emoji: string
 }
 
-function parseContentToSteps(theory: string, examples: string[], topicTitle?: string): LessonStep[] {
+function parseContentToSteps(theory: string, examples: string[], topicTitle?: string, lessons?: import('@/data/types').Lesson[]): LessonStep[] {
   const steps: LessonStep[] = []
 
   // Добавляем введение
@@ -56,48 +56,100 @@ function parseContentToSteps(theory: string, examples: string[], topicTitle?: st
     emoji: '👋'
   })
 
-  // Парсим HTML и создаём простые шаги
-  if (typeof document !== 'undefined') {
-    const tempDiv = document.createElement('div')
-    tempDiv.innerHTML = theory
+  // Если есть уроки, парсим их
+  if (lessons && lessons.length > 0) {
+    lessons.forEach((lesson, index) => {
+      // Парсим контент урока
+      if (typeof document !== 'undefined') {
+        const tempDiv = document.createElement('div')
+        tempDiv.innerHTML = lesson.content
 
-    // Заголовки как подсказки
-    const headings = tempDiv.querySelectorAll('h3, h4')
-    headings.forEach((heading, index) => {
-      const text = heading.textContent || ''
-      if (text.length > 2) {
-        steps.push({
-          type: 'item',
-          title: 'Запомни!',
-          content: text,
-          emoji: ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'][index] || '•'
+        // Заголовки как подсказки
+        const headings = tempDiv.querySelectorAll('h3, h4')
+        headings.forEach((heading, hIndex) => {
+          const text = heading.textContent || ''
+          if (text.length > 2) {
+            steps.push({
+              type: 'item',
+              title: lesson.title,
+              content: text,
+              emoji: ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'][(index + hIndex) % 10] || '•'
+            })
+          }
         })
+
+        // Пункты списка
+        const lists = tempDiv.querySelectorAll('ul li, ol li')
+        lists.forEach((item, lIndex) => {
+          const text = item.textContent || ''
+          if (text.length > 2 && text.length < 200) {
+            steps.push({
+              type: 'item',
+              title: 'Важно!',
+              content: text,
+              emoji: ['🌟', '✨', '⭐', '💫', '🎈'][lIndex % 5] || '⭐'
+            })
+          }
+        })
+
+        // Если из урока ничего не извлекли, добавляем сокращённый контент
+        if (tempDiv.querySelectorAll('h3, h4, ul li, ol li').length === 0) {
+          const plainText = lesson.content.replace(/<[^>]*>/g, ' ').trim().substring(0, 150)
+          if (plainText.length > 10) {
+            steps.push({
+              type: 'item',
+              title: lesson.title,
+              content: plainText,
+              emoji: '📖'
+            })
+          }
+        }
       }
     })
+  } else {
+    // Парсим HTML теории и создаём простые шаги
+    if (typeof document !== 'undefined') {
+      const tempDiv = document.createElement('div')
+      tempDiv.innerHTML = theory
 
-    // Пункты списка
-    const lists = tempDiv.querySelectorAll('ul li, ol li')
-    lists.forEach((item, index) => {
-      const text = item.textContent || ''
-      if (text.length > 2 && text.length < 200) {
-        steps.push({
-          type: 'item',
-          title: 'Важно!',
-          content: text,
-          emoji: ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'][index % 10] || '•'
-        })
-      }
-    })
-  }
+      // Заголовки как подсказки
+      const headings = tempDiv.querySelectorAll('h3, h4')
+      headings.forEach((heading, index) => {
+        const text = heading.textContent || ''
+        if (text.length > 2) {
+          steps.push({
+            type: 'item',
+            title: 'Запомни!',
+            content: text,
+            emoji: ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'][index] || '•'
+          })
+        }
+      })
 
-  // Если шагов мало, добавляем базовые
-  if (steps.length < 3) {
-    steps.push({
-      type: 'item',
-      title: 'Важно!',
-      content: theory.replace(/<[^>]*>/g, ' ').substring(0, 150),
-      emoji: '⭐'
-    })
+      // Пункты списка
+      const lists = tempDiv.querySelectorAll('ul li, ol li')
+      lists.forEach((item, index) => {
+        const text = item.textContent || ''
+        if (text.length > 2 && text.length < 200) {
+          steps.push({
+            type: 'item',
+            title: 'Важно!',
+            content: text,
+            emoji: ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'][index % 10] || '•'
+          })
+        }
+      })
+    }
+
+    // Если шагов мало, добавляем базовые
+    if (steps.length < 3) {
+      steps.push({
+        type: 'item',
+        title: 'Важно!',
+        content: theory.replace(/<[^>]*>/g, ' ').substring(0, 150),
+        emoji: '⭐'
+      })
+    }
   }
 
   // Добавляем примеры
@@ -260,30 +312,22 @@ export default function TopicDialog({
   gradeId = 0
 }: TopicDialogProps) {
   const [currentStep, setCurrentStep] = useState(0)
-  const [steps, setSteps] = useState<LessonStep[]>([])
   const [starsEarned, setStarsEarned] = useState(0)
   const [showQuiz, setShowQuiz] = useState(false)
 
-  // Инициализация шагов при открытии
-  useState(() => {
-    if (topic) {
-      const parsedSteps = parseContentToSteps(topic.theory, topic.examples, topic.title)
-      setSteps(parsedSteps)
-    }
-  })
+  // Вычисляем шаги при изменении темы
+  const steps = useMemo(() => {
+    if (!topic) return []
+    return parseContentToSteps(topic.theory, topic.examples, topic.title, topic.lessons)
+  }, [topic])
 
-  // Сброс при открытии/закрытии
-  useState(() => {
-    if (open) {
-      setCurrentStep(0)
-      setStarsEarned(0)
-      setShowQuiz(false)
-      if (topic) {
-        const parsedSteps = parseContentToSteps(topic.theory, topic.examples, topic.title)
-        setSteps(parsedSteps)
-      }
-    }
-  })
+  // Сброс при закрытии
+  const handleClose = () => {
+    setCurrentStep(0)
+    setStarsEarned(0)
+    setShowQuiz(false)
+    onOpenChange(false)
+  }
 
   if (!topic) return null
 
