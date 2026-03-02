@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { 
   Gamepad2, Calculator, BookOpen, Puzzle, Sparkles,
   ArrowLeft, Star, Trophy, Zap, Brain, Palette, Image,
-  Filter, Landmark, Atom, Languages, Leaf, Cpu, Scale, Hexagon
+  Filter, Landmark, Atom, Languages, Leaf, Cpu, Scale, Hexagon, MapPin
 } from 'lucide-react'
 import MathGame from './MathGame'
 import ReadingGame from './ReadingGame'
@@ -35,6 +35,7 @@ import InformaticsGame from './InformaticsGame'
 import SocialStudiesGame from './SocialStudiesGame'
 import AstronomyGame from './AstronomyGame'
 import GeometryGame from './GeometryGame'
+import GeographyRussiaGame from './GeographyRussiaGame'
 
 interface GamesTabProps {
   gradeId?: number
@@ -44,7 +45,7 @@ interface GamesTabProps {
 type GameType = 'menu' | 'math' | 'reading' | 'memory' | 'counting' | 'alphabet' | 'shapes' | 
   'wordbuilder' | 'numbersequence' | 'colormatch' | 'picturequiz' | 'newgames' | 
   'multiplication' | 'addition' | 'geography' | 'science' | 'spelling' | 'punctuation' | 
-  'history' | 'chemistry' | 'english' | 'biology' | 'physics' | 'literature' | 'informatics' | 'social' | 'astronomy' | 'geometry'
+  'history' | 'chemistry' | 'english' | 'biology' | 'physics' | 'literature' | 'informatics' | 'social' | 'astronomy' | 'geometry' | 'geographyrussia'
 
 type GameCategory = 'all' | 'math' | 'russian' | 'development'
 
@@ -366,6 +367,19 @@ const games = [
     category: 'math' as GameCategory,
     categoryLabel: 'Математика',
     categoryIcon: Hexagon
+  },
+  {
+    id: 'geographyrussia',
+    title: 'География России',
+    description: 'Города, реки и горы!',
+    icon: '🗺️',
+    color: 'from-blue-400 to-indigo-500',
+    difficulty: ['Лёгкий', 'Средний', 'Сложный'],
+    age: '8+',
+    xp: 120,
+    category: 'development' as GameCategory,
+    categoryLabel: 'Развитие',
+    categoryIcon: MapPin
   }
 ]
 
@@ -889,6 +903,17 @@ export default function GamesTab({ gradeId = 0, onExperience }: GamesTabProps) {
           <div>
             <GameHeader />
             <GeometryGame 
+              gradeId={gradeId}
+              onExperience={(xp) => handleGameComplete(xp, 0)}
+            />
+          </div>
+        )
+      
+      case 'geographyrussia':
+        return (
+          <div>
+            <GameHeader />
+            <GeographyRussiaGame 
               gradeId={gradeId}
               onExperience={(xp) => handleGameComplete(xp, 0)}
             />
