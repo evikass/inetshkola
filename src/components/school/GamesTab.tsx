@@ -36,6 +36,7 @@ import SocialStudiesGame from './SocialStudiesGame'
 import AstronomyGame from './AstronomyGame'
 import GeometryGame from './GeometryGame'
 import GeographyRussiaGame from './GeographyRussiaGame'
+import ArtGame from './ArtGame'
 
 interface GamesTabProps {
   gradeId?: number
@@ -45,7 +46,7 @@ interface GamesTabProps {
 type GameType = 'menu' | 'math' | 'reading' | 'memory' | 'counting' | 'alphabet' | 'shapes' | 
   'wordbuilder' | 'numbersequence' | 'colormatch' | 'picturequiz' | 'newgames' | 
   'multiplication' | 'addition' | 'geography' | 'science' | 'spelling' | 'punctuation' | 
-  'history' | 'chemistry' | 'english' | 'biology' | 'physics' | 'literature' | 'informatics' | 'social' | 'astronomy' | 'geometry' | 'geographyrussia'
+  'history' | 'chemistry' | 'english' | 'biology' | 'physics' | 'literature' | 'informatics' | 'social' | 'astronomy' | 'geometry' | 'geographyrussia' | 'art'
 
 type GameCategory = 'all' | 'math' | 'russian' | 'development'
 
@@ -380,6 +381,19 @@ const games = [
     category: 'development' as GameCategory,
     categoryLabel: 'Развитие',
     categoryIcon: MapPin
+  },
+  {
+    id: 'art',
+    title: 'Искусство',
+    description: 'Живопись, музыка, театр!',
+    icon: '🎨',
+    color: 'from-purple-400 to-pink-500',
+    difficulty: ['Лёгкий', 'Средний', 'Сложный'],
+    age: '8+',
+    xp: 125,
+    category: 'development' as GameCategory,
+    categoryLabel: 'Развитие',
+    categoryIcon: Palette
   }
 ]
 
@@ -914,6 +928,17 @@ export default function GamesTab({ gradeId = 0, onExperience }: GamesTabProps) {
           <div>
             <GameHeader />
             <GeographyRussiaGame 
+              gradeId={gradeId}
+              onExperience={(xp) => handleGameComplete(xp, 0)}
+            />
+          </div>
+        )
+      
+      case 'art':
+        return (
+          <div>
+            <GameHeader />
+            <ArtGame 
               gradeId={gradeId}
               onExperience={(xp) => handleGameComplete(xp, 0)}
             />
