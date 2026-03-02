@@ -20,6 +20,8 @@ interface TopicDialogProps {
   onComplete: () => void
   onOpenQuiz?: () => void
   gradeId?: number
+  isQuizPassed?: boolean
+  onQuizComplete?: () => void
 }
 
 // Эмодзи для разных типов контента
@@ -309,7 +311,9 @@ export default function TopicDialog({
   subject,
   onComplete,
   onOpenQuiz,
-  gradeId = 0
+  gradeId = 0,
+  isQuizPassed = false,
+  onQuizComplete
 }: TopicDialogProps) {
   const [currentStep, setCurrentStep] = useState(0)
   const [starsEarned, setStarsEarned] = useState(0)
@@ -335,6 +339,11 @@ export default function TopicDialog({
   const hasTopicQuiz = topic.quiz && topic.quiz.length > 0
   const hasSubjectQuiz = subject?.quiz && subject.quiz.length > 0
   
+  // Кнопка "Отметить как изученное" активна только если:
+  // - нет теста по теме ИЛИ
+  // - тест по теме пройден (isQuizPassed = true)
+  const canMarkAsStudied = !hasTopicQuiz || isQuizPassed
+  
   const progress = steps.length > 0 ? ((currentStep + 1) / steps.length) * 100 : 0
   const currentStepData = steps[currentStep]
   const emojis = getEmojis(topic.id)
@@ -359,6 +368,13 @@ export default function TopicDialog({
     setCurrentStep(0)
     setStarsEarned(0)
     setShowQuiz(false)
+  }
+
+  const handleQuizComplete = () => {
+    // Вызываем callback для отметки прохождения теста
+    onQuizComplete?.()
+    // Завершаем урок
+    handleComplete()
   }
 
   const handleStartTopicQuiz = () => {
@@ -393,7 +409,7 @@ export default function TopicDialog({
             {showQuiz && hasTopicQuiz ? (
               <MiniQuiz
                 questions={topic.quiz!}
-                onComplete={handleComplete}
+                onComplete={handleQuizComplete}
               />
             ) : showQuiz && hasSubjectQuiz && onOpenQuiz ? (
               <div className="text-center space-y-4 py-6">
@@ -450,10 +466,15 @@ export default function TopicDialog({
                       
                       <Button
                         onClick={handleComplete}
-                        className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-2xl py-4 text-lg font-bold"
+                        disabled={!canMarkAsStudied}
+                        className={`w-full rounded-2xl py-4 text-lg font-bold ${
+                          canMarkAsStudied 
+                            ? 'bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white'
+                            : 'bg-gray-500/50 text-gray-300 cursor-not-allowed'
+                        }`}
                       >
                         <CheckCircle className="w-5 h-5 mr-2" />
-                        Завершить урок
+                        {canMarkAsStudied ? 'Завершить урок' : 'Сначала пройди тест'}
                       </Button>
                     </div>
                   </div>
@@ -575,10 +596,11 @@ export default function TopicDialog({
           
           <Button
             onClick={handleComplete}
-            className="bg-gradient-to-r from-green-600 to-emerald-600"
+            disabled={!canMarkAsStudied}
+            className={`${canMarkAsStudied ? 'bg-gradient-to-r from-green-600 to-emerald-600' : 'bg-gray-500/50 text-gray-400 cursor-not-allowed'}`}
           >
             <CheckCircle className="w-4 h-4 mr-2" />
-            Отметить как изученное
+            {canMarkAsStudied ? 'Отметить как изученное' : 'Сначала пройди тест'}
           </Button>
         </div>
 
@@ -587,8 +609,17 @@ export default function TopicDialog({
           <div className="absolute inset-0 bg-slate-900 flex items-center justify-center p-4 z-10">
             <MiniQuiz
               questions={topic.quiz!}
-              onComplete={handleComplete}
+              onComplete={handleQuizComplete}
             />
+          </div>
+        )}
+        
+        {/* Подсказка если тест не пройден */}
+        {!canMarkAsStudied && !showQuiz && (
+          <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-3 text-center">
+            <p className="text-yellow-300 text-sm">
+              ⚠️ Сначала пройди тест по уроку, чтобы отметить его как изученное
+            </p>
           </div>
         )}
       </DialogContent>

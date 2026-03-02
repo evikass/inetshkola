@@ -81,3 +81,21 @@ export {
   MultiProgress, 
   StepProgress 
 } from './ProgressBar'
+
+// Educational Games
+export { default as MultiplicationTableGame } from './MultiplicationTableGame'
+export { default as AdditionSubtractionGame } from './AdditionSubtractionGame'
+export { default as GeographyQuiz } from './GeographyQuiz'
+export { default as ScienceExperiments } from './ScienceExperiments'
+export { default as SpellingGame } from './SpellingGame'
+export { default as PunctuationGame } from './PunctuationGame'
+export { default as HistoryGame } from './HistoryGame'
+export { default as ChemistryGame } from './ChemistryGame'
+export { default as EnglishGame } from './EnglishGame'
+export { default as BiologyGame } from './BiologyGame'
+export { default as PhysicsGame } from './PhysicsGame'
+export { default as LiteratureGame } from './LiteratureGame'
+export { default as InformaticsGame } from './InformaticsGame'
+export { default as SocialStudiesGame } from './SocialStudiesGame'
+export { default as AstronomyGame } from './AstronomyGame'
+export { default as GeometryGame } from './GeometryGame'

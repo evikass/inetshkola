@@ -41,7 +41,7 @@ function SchoolApp() {
   const { 
     completedTopics, completeTopic, completeQuiz, addExperience,
     isFirstVisit, setFirstVisit, celebrationData, hideCelebration,
-    userStats
+    userStats, topicQuizPassed, passTopicQuiz
   } = useSchool()
   
   const [activeTab, setActiveTab] = useState('learn')
@@ -71,6 +71,16 @@ function SchoolApp() {
   const handleCompleteTopic = () => {
     if (selectedTopic) {
       completeTopic(selectedTopic.id)
+    }
+  }
+
+  // Проверяем, пройден ли тест по текущей теме
+  const isCurrentTopicQuizPassed = selectedTopic ? topicQuizPassed.includes(selectedTopic.id) : false
+
+  // Обработчик завершения теста по теме (для активации кнопки "Отметить как изученное")
+  const handleTopicQuizComplete = () => {
+    if (selectedTopic) {
+      passTopicQuiz(selectedTopic.id)
     }
   }
 
@@ -300,6 +310,8 @@ function SchoolApp() {
           }
         }}
         gradeId={selectedGrade || 0}
+        isQuizPassed={isCurrentTopicQuizPassed}
+        onQuizComplete={handleTopicQuizComplete}
       />
 
       {/* Quiz Dialog - поддерживает тесты по предмету и по теме */}

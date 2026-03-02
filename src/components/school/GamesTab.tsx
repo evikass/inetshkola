@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { 
   Gamepad2, Calculator, BookOpen, Puzzle, Sparkles,
   ArrowLeft, Star, Trophy, Zap, Brain, Palette, Image,
-  Filter
+  Filter, Landmark, Atom, Languages, Leaf, Cpu, Scale, Hexagon
 } from 'lucide-react'
 import MathGame from './MathGame'
 import ReadingGame from './ReadingGame'
@@ -19,6 +19,22 @@ import {
   PictureQuiz, 
   NewGamesSelector 
 } from './NewGames'
+import MultiplicationTableGame from './MultiplicationTableGame'
+import AdditionSubtractionGame from './AdditionSubtractionGame'
+import GeographyQuiz from './GeographyQuiz'
+import ScienceExperiments from './ScienceExperiments'
+import SpellingGame from './SpellingGame'
+import PunctuationGame from './PunctuationGame'
+import HistoryGame from './HistoryGame'
+import ChemistryGame from './ChemistryGame'
+import EnglishGame from './EnglishGame'
+import BiologyGame from './BiologyGame'
+import PhysicsGame from './PhysicsGame'
+import LiteratureGame from './LiteratureGame'
+import InformaticsGame from './InformaticsGame'
+import SocialStudiesGame from './SocialStudiesGame'
+import AstronomyGame from './AstronomyGame'
+import GeometryGame from './GeometryGame'
 
 interface GamesTabProps {
   gradeId?: number
@@ -26,7 +42,9 @@ interface GamesTabProps {
 }
 
 type GameType = 'menu' | 'math' | 'reading' | 'memory' | 'counting' | 'alphabet' | 'shapes' | 
-  'wordbuilder' | 'numbersequence' | 'colormatch' | 'picturequiz' | 'newgames'
+  'wordbuilder' | 'numbersequence' | 'colormatch' | 'picturequiz' | 'newgames' | 
+  'multiplication' | 'addition' | 'geography' | 'science' | 'spelling' | 'punctuation' | 
+  'history' | 'chemistry' | 'english' | 'biology' | 'physics' | 'literature' | 'informatics' | 'social' | 'astronomy' | 'geometry'
 
 type GameCategory = 'all' | 'math' | 'russian' | 'development'
 
@@ -166,6 +184,188 @@ const games = [
     category: 'development' as GameCategory,
     categoryLabel: 'Развитие',
     categoryIcon: Image
+  },
+  {
+    id: 'geography',
+    title: 'География',
+    description: 'Проверь знания о мире!',
+    icon: '🌍',
+    color: 'from-teal-400 to-cyan-500',
+    difficulty: ['Лёгкий', 'Сложный'],
+    age: '7+',
+    xp: 70,
+    category: 'development' as GameCategory,
+    categoryLabel: 'Развитие',
+    categoryIcon: Brain
+  },
+  {
+    id: 'history',
+    title: 'История России',
+    description: 'Даты и события истории!',
+    icon: '🏛️',
+    color: 'from-amber-500 to-orange-600',
+    difficulty: ['Лёгкий', 'Средний', 'Сложный'],
+    age: '9+',
+    xp: 85,
+    category: 'development' as GameCategory,
+    categoryLabel: 'Развитие',
+    categoryIcon: Landmark
+  },
+  {
+    id: 'chemistry',
+    title: 'Периодическая таблица',
+    description: 'Изучи химические элементы!',
+    icon: '⚗️',
+    color: 'from-emerald-500 to-teal-600',
+    difficulty: ['Лёгкий', 'Средний', 'Сложный'],
+    age: '10+',
+    xp: 90,
+    category: 'development' as GameCategory,
+    categoryLabel: 'Развитие',
+    categoryIcon: Atom
+  },
+  {
+    id: 'science',
+    title: 'Опыты',
+    description: 'Виртуальная лаборатория!',
+    icon: '🔬',
+    color: 'from-green-400 to-emerald-500',
+    difficulty: ['Химия', 'Физика', 'Биология'],
+    age: '6+',
+    xp: 60,
+    category: 'development' as GameCategory,
+    categoryLabel: 'Развитие',
+    categoryIcon: Brain
+  },
+  {
+    id: 'spelling',
+    title: 'Орфография',
+    description: 'Изучи правила правописания!',
+    icon: '✏️',
+    color: 'from-rose-500 to-pink-600',
+    difficulty: ['Лёгкий', 'Средний', 'Сложный'],
+    age: '7+',
+    xp: 75,
+    category: 'russian' as GameCategory,
+    categoryLabel: 'Русский язык',
+    categoryIcon: BookOpen
+  },
+  {
+    id: 'punctuation',
+    title: 'Пунктуация',
+    description: 'Расставь знаки препинания!',
+    icon: '📝',
+    color: 'from-indigo-500 to-violet-600',
+    difficulty: ['Лёгкий', 'Средний', 'Сложный'],
+    age: '8+',
+    xp: 80,
+    category: 'russian' as GameCategory,
+    categoryLabel: 'Русский язык',
+    categoryIcon: BookOpen
+  },
+  {
+    id: 'english',
+    title: 'Английский язык',
+    description: 'Изучи английские слова!',
+    icon: '🇬🇧',
+    color: 'from-cyan-400 to-blue-500',
+    difficulty: ['Базовый', 'Средний', 'Продвинутый'],
+    age: '6+',
+    xp: 90,
+    category: 'development' as GameCategory,
+    categoryLabel: 'Развитие',
+    categoryIcon: Languages
+  },
+  {
+    id: 'biology',
+    title: 'Биология',
+    description: 'Проверь знания о живой природе!',
+    icon: '🧬',
+    color: 'from-green-400 to-emerald-500',
+    difficulty: ['Лёгкий', 'Средний', 'Сложный'],
+    age: '7+',
+    xp: 100,
+    category: 'development' as GameCategory,
+    categoryLabel: 'Развитие',
+    categoryIcon: Leaf
+  },
+  {
+    id: 'physics',
+    title: 'Физика',
+    description: 'Законы природы!',
+    icon: '⚡',
+    color: 'from-cyan-400 to-blue-500',
+    difficulty: ['Лёгкий', 'Средний', 'Сложный'],
+    age: '9+',
+    xp: 120,
+    category: 'development' as GameCategory,
+    categoryLabel: 'Развитие',
+    categoryIcon: Atom
+  },
+  {
+    id: 'literature',
+    title: 'Литература',
+    description: 'Русская и мировая литература!',
+    icon: '📚',
+    color: 'from-purple-400 to-pink-500',
+    difficulty: ['Лёгкий', 'Средний', 'Сложный'],
+    age: '8+',
+    xp: 95,
+    category: 'russian' as GameCategory,
+    categoryLabel: 'Русский язык',
+    categoryIcon: BookOpen
+  },
+  {
+    id: 'informatics',
+    title: 'Информатика',
+    description: 'Компьютеры и программирование!',
+    icon: '💻',
+    color: 'from-green-400 to-emerald-500',
+    difficulty: ['Лёгкий', 'Средний', 'Сложный'],
+    age: '7+',
+    xp: 100,
+    category: 'development' as GameCategory,
+    categoryLabel: 'Развитие',
+    categoryIcon: Cpu
+  },
+  {
+    id: 'social',
+    title: 'Обществознание',
+    description: 'Общество, право, экономика!',
+    icon: '📜',
+    color: 'from-red-400 to-rose-500',
+    difficulty: ['Лёгкий', 'Средний', 'Сложный'],
+    age: '9+',
+    xp: 110,
+    category: 'development' as GameCategory,
+    categoryLabel: 'Развитие',
+    categoryIcon: Scale
+  },
+  {
+    id: 'astronomy',
+    title: 'Астрономия',
+    description: 'Путешествие по космосу!',
+    icon: '🌌',
+    color: 'from-indigo-400 to-purple-500',
+    difficulty: ['Лёгкий', 'Средний', 'Сложный'],
+    age: '7+',
+    xp: 105,
+    category: 'development' as GameCategory,
+    categoryLabel: 'Развитие',
+    categoryIcon: Sparkles
+  },
+  {
+    id: 'geometry',
+    title: 'Геометрия',
+    description: 'Фигуры, углы и формулы!',
+    icon: '📐',
+    color: 'from-blue-400 to-cyan-500',
+    difficulty: ['Лёгкий', 'Средний', 'Сложный'],
+    age: '7+',
+    xp: 115,
+    category: 'math' as GameCategory,
+    categoryLabel: 'Математика',
+    categoryIcon: Hexagon
   }
 ]
 
@@ -529,6 +729,170 @@ export default function GamesTab({ gradeId = 0, onExperience }: GamesTabProps) {
             onBack={() => setCurrentGame('menu')}
             onComplete={(stars, xp) => handleGameComplete(xp, stars * 10)}
           />
+        )
+      
+      case 'multiplication':
+        return (
+          <MultiplicationTableGame 
+            onBack={() => setCurrentGame('menu')}
+            onComplete={(stars, xp) => handleGameComplete(xp, stars * 10)}
+          />
+        )
+      
+      case 'addition':
+        return (
+          <AdditionSubtractionGame 
+            onBack={() => setCurrentGame('menu')}
+            onComplete={(stars, xp) => handleGameComplete(xp, stars * 10)}
+          />
+        )
+      
+      case 'geography':
+        return (
+          <GeographyQuiz 
+            onBack={() => setCurrentGame('menu')}
+            onComplete={(stars, xp) => handleGameComplete(xp, stars * 10)}
+          />
+        )
+      
+      case 'science':
+        return (
+          <ScienceExperiments 
+            onBack={() => setCurrentGame('menu')}
+            onComplete={(stars, xp) => handleGameComplete(xp, stars * 10)}
+          />
+        )
+      
+      case 'spelling':
+        return (
+          <div>
+            <GameHeader />
+            <SpellingGame 
+              gradeId={gradeId}
+              onExperience={(xp) => handleGameComplete(xp, 0)}
+            />
+          </div>
+        )
+      
+      case 'punctuation':
+        return (
+          <div>
+            <GameHeader />
+            <PunctuationGame 
+              gradeId={gradeId}
+              onExperience={(xp) => handleGameComplete(xp, 0)}
+            />
+          </div>
+        )
+      
+      case 'history':
+        return (
+          <div>
+            <GameHeader />
+            <HistoryGame 
+              gradeId={gradeId}
+              onExperience={(xp) => handleGameComplete(xp, 0)}
+            />
+          </div>
+        )
+      
+      case 'chemistry':
+        return (
+          <div>
+            <GameHeader />
+            <ChemistryGame 
+              gradeId={gradeId}
+              onExperience={(xp) => handleGameComplete(xp, 0)}
+            />
+          </div>
+        )
+      
+      case 'english':
+        return (
+          <div>
+            <GameHeader />
+            <EnglishGame 
+              gradeId={gradeId}
+              onExperience={(xp) => handleGameComplete(xp, 0)}
+            />
+          </div>
+        )
+      
+      case 'biology':
+        return (
+          <div>
+            <GameHeader />
+            <BiologyGame 
+              gradeId={gradeId}
+              onExperience={(xp) => handleGameComplete(xp, 0)}
+            />
+          </div>
+        )
+      
+      case 'physics':
+        return (
+          <div>
+            <GameHeader />
+            <PhysicsGame 
+              gradeId={gradeId}
+              onExperience={(xp) => handleGameComplete(xp, 0)}
+            />
+          </div>
+        )
+      
+      case 'literature':
+        return (
+          <div>
+            <GameHeader />
+            <LiteratureGame 
+              gradeId={gradeId}
+              onExperience={(xp) => handleGameComplete(xp, 0)}
+            />
+          </div>
+        )
+      
+      case 'informatics':
+        return (
+          <div>
+            <GameHeader />
+            <InformaticsGame 
+              gradeId={gradeId}
+              onExperience={(xp) => handleGameComplete(xp, 0)}
+            />
+          </div>
+        )
+      
+      case 'social':
+        return (
+          <div>
+            <GameHeader />
+            <SocialStudiesGame 
+              gradeId={gradeId}
+              onExperience={(xp) => handleGameComplete(xp, 0)}
+            />
+          </div>
+        )
+      
+      case 'astronomy':
+        return (
+          <div>
+            <GameHeader />
+            <AstronomyGame 
+              gradeId={gradeId}
+              onExperience={(xp) => handleGameComplete(xp, 0)}
+            />
+          </div>
+        )
+      
+      case 'geometry':
+        return (
+          <div>
+            <GameHeader />
+            <GeometryGame 
+              gradeId={gradeId}
+              onExperience={(xp) => handleGameComplete(xp, 0)}
+            />
+          </div>
         )
       
       default:

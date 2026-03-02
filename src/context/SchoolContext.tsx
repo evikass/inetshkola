@@ -27,6 +27,11 @@ interface SchoolContextType {
   completedTopics: string[]
   setCompletedTopics: (topics: string[]) => void
   
+  // Passed topic quizzes (for "mark as studied" feature)
+  topicQuizPassed: string[]
+  setTopicQuizPassed: (topics: string[]) => void
+  passTopicQuiz: (topicId: string) => void
+  
   // Quiz state
   quizResults: Record<string, { correct: number; total: number }>
   setQuizResults: (results: Record<string, { correct: number; total: number }>) => void
@@ -81,6 +86,7 @@ export function SchoolProvider({ children }: { children: ReactNode }) {
   const [achievements, setAchievements] = useState<Achievement[]>(ACHIEVEMENTS)
   const [dailyTasks, setDailyTasks] = useState<DailyTask[]>(DAILY_TASKS)
   const [completedTopics, setCompletedTopics] = useState<string[]>([])
+  const [topicQuizPassed, setTopicQuizPassed] = useState<string[]>([])
   const [quizResults, setQuizResults] = useState<Record<string, { correct: number; total: number }>>({})
   const [isFirstVisit, setIsFirstVisit] = useState(true)
   const [celebrationData, setCelebrationData] = useState<{
@@ -99,6 +105,7 @@ export function SchoolProvider({ children }: { children: ReactNode }) {
     const savedTasks = localStorage.getItem('school-daily-tasks')
     const savedTopics = localStorage.getItem('school-completed-topics')
     const savedQuizResults = localStorage.getItem('school-quiz-results')
+    const savedTopicQuizPassed = localStorage.getItem('school-topic-quiz-passed')
     const savedFirstVisit = localStorage.getItem('school-first-visit')
 
     if (savedStats) {
@@ -141,6 +148,14 @@ export function SchoolProvider({ children }: { children: ReactNode }) {
       }
     }
 
+    if (savedTopicQuizPassed) {
+      try {
+        setTopicQuizPassed(JSON.parse(savedTopicQuizPassed))
+      } catch (e) {
+        console.error('Error loading topic quiz passed:', e)
+      }
+    }
+
     if (savedFirstVisit !== null) {
       setIsFirstVisit(savedFirstVisit === 'true')
     }
@@ -166,6 +181,10 @@ export function SchoolProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     localStorage.setItem('school-quiz-results', JSON.stringify(quizResults))
   }, [quizResults])
+
+  useEffect(() => {
+    localStorage.setItem('school-topic-quiz-passed', JSON.stringify(topicQuizPassed))
+  }, [topicQuizPassed])
 
   // Check streak on mount
   useEffect(() => {
@@ -254,6 +273,11 @@ export function SchoolProvider({ children }: { children: ReactNode }) {
     
     addExperience(15)
   }, [completedTopics, addExperience])
+
+  const passTopicQuiz = useCallback((topicId: string) => {
+    if (topicQuizPassed.includes(topicId)) return
+    setTopicQuizPassed(prev => [...prev, topicId])
+  }, [topicQuizPassed])
 
   const completeQuiz = useCallback((subjectId: string, correct: number, total: number) => {
     setQuizResults(prev => ({
@@ -412,6 +436,9 @@ export function SchoolProvider({ children }: { children: ReactNode }) {
       setDailyTasks,
       completedTopics,
       setCompletedTopics,
+      topicQuizPassed,
+      setTopicQuizPassed,
+      passTopicQuiz,
       quizResults,
       setQuizResults,
       celebrationData,
