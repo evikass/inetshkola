@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { 
-  Lightbulb, ChevronLeft, ChevronRight, RotateCCard, 
+  Lightbulb, ChevronLeft, ChevronRight, RotateCcw, 
   Brain, Atom, Landmark, Globe, BookOpen, Leaf,
   Sparkles, Star, ThumbsUp
 } from 'lucide-react'
@@ -310,7 +310,7 @@ export default function DailyFacts({ onScore }: DailyFactsProps) {
               size="sm"
               onClick={reshuffle}
             >
-              <RotateCCard className="w-4 h-4" />
+              <RotateCcw className="w-4 h-4" />
             </Button>
           </div>
           
