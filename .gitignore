@@ -15,7 +15,7 @@ node_modules
 
 # next.js
 /.next/
-/out/
+# /out/  # раскомментировано для GitHub Pages
 
 # production
 /build
