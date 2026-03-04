@@ -336,7 +336,7 @@ function SchoolApp() {
       
       {/* Версия сайта */}
       <div className="fixed bottom-0 right-0 z-40 p-2 text-[10px] text-gray-600 bg-black/30 rounded-tl">
-        v20260305.1
+        v20260305.2
       </div>
     </div>
   )
