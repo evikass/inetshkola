@@ -5,12 +5,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Progress } from '@/components/ui/progress'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { 
   BookOpen, CheckCircle, ChevronRight, ChevronLeft, Zap,
-  Star, PartyPopper, Lightbulb, Play, Video
+  Star, PartyPopper, Lightbulb, Video, Info, Sparkles
 } from 'lucide-react'
 import type { Topic, Subject, QuizQuestion } from '@/data/types'
-import KidFriendlyQuiz from './KidFriendlyQuiz'
 import InteractiveLesson from './InteractiveLesson'
 import { sampleLessons } from '@/data/sample-lessons'
 
@@ -305,6 +305,270 @@ function MiniQuiz({
   )
 }
 
+// Генерация интересных фактов (вынесено в отдельную функцию)
+function generateInterestingFacts(topic: Topic | null, subjectName: string): string[] {
+  if (!topic) return []
+  
+  const facts: string[] = []
+  const title = topic.title.toLowerCase()
+  
+  // Математика
+  if (title.includes('сло') || title.includes('сумм') || title.includes('сложен')) {
+    facts.push('🔢 Самое большое число в мире — гуголплекс. Его невозможно записать на бумаге!')
+    facts.push('🧮 Древние римляне использовали абак для сложения — это был первый «калькулятор» более 2000 лет назад!')
+    facts.push('➕ Ноль был изобретён в Индии около V века нашей эры.')
+  }
+  if (title.includes('вычит') || title.includes('разност')) {
+    facts.push('➖ Древние египтяне использовали вычитание для расчёта налогов ещё 4000 лет назад!')
+    facts.push('📐 Отрицательные числа впервые появились в Китае во II веке до н.э.')
+  }
+  if (title.includes('умн') || title.includes('произведен')) {
+    facts.push('✖️ Таблица умножения появилась более 4000 лет назад в Древнем Вавилоне!')
+    facts.push('🌟 Умножение на 9: сумма цифр результата всегда равна 9 (9×7=63, 6+3=9)!')
+  }
+  if (title.includes('делен') || title.includes('делим')) {
+    facts.push('➗ При делении на ноль получается бесконечность!')
+    facts.push('🔢 Дроби использовали ещё древние египтяне для измерения земли.')
+  }
+  if (title.includes('дроб')) {
+    facts.push('🥧 Число π — бесконечная дробь, вычисленная до 50 триллионов знаков!')
+    facts.push('📊 Дроби впервые появились в Древнем Египте около 1800 года до н.э.')
+  }
+  if (title.includes('уравнен')) {
+    facts.push('⚖️ Алгебра происходит от арабского слова «аль-джабр» — «восстановление»!')
+    facts.push('📜 Первые уравнения решали в Древнем Вавилоне почти 4000 лет назад.')
+  }
+  if (title.includes('геометр') || title.includes('фигур') || title.includes('треугольн')) {
+    facts.push('📐 Геометрия означает «измерение земли»!')
+    facts.push('🔺 Сумма углов любого треугольника всегда равна 180°!')
+  }
+  
+  // Русский язык
+  if (subjectName.includes('русск') || title.includes('букв') || title.includes('звук')) {
+    facts.push('🔤 В русском языке 33 буквы. Буква «Ё» появилась только в 1783 году.')
+    facts.push('📝 Самое длинное слово — «превысокомногорассмотрительствующий» (35 букв)!')
+    facts.push('📚 Русский язык — один из 6 официальных языков ООН.')
+  }
+  if (title.includes('существ') || title.includes('имя')) {
+    facts.push('📛 Существительные составляют около 40% всех слов в русском языке!')
+    facts.push('🏛️ Самое длинное существительное — «высокопревосходительство».')
+  }
+  if (title.includes('глагол') || title.includes('сказуем')) {
+    facts.push('🏃 Глагол — самая «активная» часть речи!')
+    facts.push('⏰ Глаголы имеют 3 времени: прошлое, настоящее и будущее.')
+  }
+  if (title.includes('прилагат') || title.includes('определен')) {
+    facts.push('🎨 Прилагательные делают речь яркой и образной!')
+    facts.push('🌈 Прилагательные изменяются по родам, числам и падежам.')
+  }
+  if (title.includes('предл') || title.includes('синтаксис')) {
+    facts.push('📝 Самое длинное предложение в литературе содержит 1288 слов!')
+    facts.push('📚 В русском языке 6 членов предложения.')
+  }
+  
+  // Окружающий мир
+  if (subjectName.includes('окруж') || title.includes('природ') || title.includes('мир')) {
+    facts.push('🌍 Земля вращается вокруг Солнца со скоростью 107 000 км/ч!')
+    facts.push('🌊 Океаны занимают 71% поверхности Земли!')
+    facts.push('🦕 Динозавры вымерли 66 миллионов лет назад, но птицы — их потомки!')
+  }
+  if (title.includes('растен') || title.includes('цвет')) {
+    facts.push('🌸 Самый большой цветок — раффлезия, диаметр до 1 метра!')
+    facts.push('🌱 Одно большое дерево обеспечивает кислородом 4 человека!')
+    facts.push('🌻 Подсолнух всегда поворачивается к солнцу.')
+  }
+  if (title.includes('животн') || title.includes('звер')) {
+    facts.push('🐘 Слоны — единственные животные, которые не могут прыгать!')
+    facts.push('🐬 Дельфины спят с одним открытым глазом!')
+    facts.push('🦈 Акулы живут на Земле 400 миллионов лет!')
+  }
+  if (title.includes('косм') || title.includes('звезд') || title.includes('планет')) {
+    facts.push('🌌 Во Вселенной больше звёзд, чем песчинок на Земле!')
+    facts.push('🌑 Следы астронавтов на Луне останутся на миллионы лет!')
+    facts.push('☀️ Свет от Солнца идёт до Земли 8 минут 20 секунд!')
+  }
+  if (title.includes('вод') || title.includes('рек') || title.includes('озёр')) {
+    facts.push('💧 Вода существует в трёх состояниях!')
+    facts.push('🌊 Самая длинная река — Нил, 6650 километров!')
+  }
+  
+  // История
+  if (subjectName.includes('истор')) {
+    facts.push('📜 Письменность существует более 5000 лет!')
+    facts.push('🏺 Древние греки изобрели демократию около 2500 лет назад!')
+    facts.push('🗡️ Рыцари на самом деле воевали друг с другом, а не с драконами!')
+  }
+  
+  // Если фактов не нашлось, добавляем общие
+  if (facts.length === 0) {
+    facts.push('🔍 Учёные каждый день делают новые открытия!')
+    facts.push('📚 Человек, который знает много фактов, называется эрудитом!')
+    facts.push('⭐ Знания — это сокровище, которое всегда с тобой!')
+    facts.push('🧠 Мозг может запомнить информацию, равную 3 миллионам часов видео!')
+  }
+  
+  return facts.slice(0, 4)
+}
+
+// Генерация подробной информации (вынесено в отдельную функцию)
+function generateDetailedInfo(topic: Topic | null, subjectName: string): string {
+  if (!topic) return ''
+  
+  const title = topic.title.toLowerCase()
+  let info = ''
+  
+  // Математика
+  if (title.includes('сло') || title.includes('сумм') || title.includes('сложен')) {
+    info = `<h3>📐 Подробнее о сложении</h3>
+    <p><strong>Определение:</strong> Сложение — это математическая операция объединения чисел.</p>
+    <p><strong>Компоненты:</strong> слагаемое + слагаемое = сумма</p>
+    <p><strong>Свойства:</strong></p>
+    <ul>
+      <li>Переместительное: a + b = b + a</li>
+      <li>Сочетательное: (a + b) + c = a + (b + c)</li>
+      <li>Свойство нуля: a + 0 = a</li>
+    </ul>
+    <p><strong>Применение:</strong> подсчёт денег, расчёт времени, измерение расстояний.</p>`
+  } else if (title.includes('вычит') || title.includes('разност')) {
+    info = `<h3>📐 Подробнее о вычитании</h3>
+    <p><strong>Определение:</strong> Вычитание — операция, обратная сложению.</p>
+    <p><strong>Компоненты:</strong> уменьшаемое - вычитаемое = разность</p>
+    <p><strong>Правила:</strong></p>
+    <ul>
+      <li>a - 0 = a</li>
+      <li>a - a = 0</li>
+    </ul>
+    <p><strong>Применение:</strong> расчёт сдачи, определение остатка.</p>`
+  } else if (title.includes('умн') || title.includes('произведен')) {
+    info = `<h3>✖️ Подробнее об умножении</h3>
+    <p><strong>Определение:</strong> Умножение — увеличение числа в несколько раз.</p>
+    <p><strong>Компоненты:</strong> множитель × множитель = произведение</p>
+    <p><strong>Свойства:</strong></p>
+    <ul>
+      <li>Переместительное: a × b = b × a</li>
+      <li>Сочетательное: (a × b) × c = a × (b × c)</li>
+      <li>Распределительное: a × (b + c) = a × b + a × c</li>
+    </ul>
+    <p><strong>Применение:</strong> расчёт площади, покупка товаров.</p>`
+  } else if (title.includes('делен') || title.includes('делим')) {
+    info = `<h3>➗ Подробнее о делении</h3>
+    <p><strong>Определение:</strong> Деление — разбивка числа на равные части.</p>
+    <p><strong>Компоненты:</strong> делимое ÷ делитель = частное</p>
+    <p><strong>Правила:</strong></p>
+    <ul>
+      <li>На ноль делить нельзя!</li>
+      <li>a ÷ 1 = a</li>
+      <li>a ÷ a = 1</li>
+    </ul>
+    <p><strong>Применение:</strong> разделение поровну, расчёт скорости.</p>`
+  } else if (title.includes('дроб')) {
+    info = `<h3>📊 Подробнее о дробях</h3>
+    <p><strong>Определение:</strong> Дробь — число из равных частей единицы.</p>
+    <p><strong>Структура:</strong> числитель/знаменатель</p>
+    <p><strong>Виды:</strong></p>
+    <ul>
+      <li>Правильные: числитель < знаменатель</li>
+      <li>Неправильные: числитель ≥ знаменатель</li>
+      <li>Смешанные: целая + дробная часть</li>
+    </ul>
+    <p><strong>Применение:</strong> измерение, рецепты, проценты.</p>`
+  } else if (title.includes('уравнен')) {
+    info = `<h3>⚖️ Подробнее об уравнениях</h3>
+    <p><strong>Определение:</strong> Уравнение — равенство с неизвестной.</p>
+    <p><strong>Корень уравнения</strong> — значение, делающее равенство верным.</p>
+    <p><strong>Правила:</strong></p>
+    <ul>
+      <li>При переносе через «=» меняется знак</li>
+      <li>Обе части можно умножать/делить на одно число</li>
+      <li>Всегда делай проверку!</li>
+    </ul>`
+  }
+  // Русский язык
+  else if (title.includes('существ') || title.includes('имя существ')) {
+    info = `<h3>📛 Подробнее об имени существительном</h3>
+    <p><strong>Определение:</strong> Часть речи, обозначающая предмет.</p>
+    <p><strong>Вопросы:</strong> кто? что?</p>
+    <p><strong>Признаки:</strong></p>
+    <ul>
+      <li>Постоянные: одушевлённость, род, склонение</li>
+      <li>Непостоянные: падеж, число</li>
+    </ul>
+    <p><strong>Рода:</strong> мужской, женский, средний</p>
+    <p><strong>Падежи:</strong> Именительный, Родительный, Дательный, Винительный, Творительный, Предложный</p>`
+  } else if (title.includes('глагол')) {
+    info = `<h3>🏃 Подробнее о глаголе</h3>
+    <p><strong>Определение:</strong> Часть речи, обозначающая действие.</p>
+    <p><strong>Вопросы:</strong> что делать? что сделать?</p>
+    <p><strong>Признаки:</strong></p>
+    <ul>
+      <li>Вид: совершенный и несовершенный</li>
+      <li>Время: настоящее, прошедшее, будущее</li>
+      <li>Наклонение: изъявительное, условное, повелительное</li>
+      <li>Спряжение: I и II</li>
+    </ul>
+    <p><strong>В предложении</strong> — сказуемое.</p>`
+  } else if (title.includes('прилагат')) {
+    info = `<h3>🎨 Подробнее об имени прилагательном</h3>
+    <p><strong>Определение:</strong> Часть речи, обозначающая признак предмета.</p>
+    <p><strong>Вопросы:</strong> какой? чей?</p>
+    <p><strong>Разряды:</strong></p>
+    <ul>
+      <li>Качественные: большой, красивый</li>
+      <li>Относительные: деревянный, летний</li>
+      <li>Притяжательные: мамин, лисий</li>
+    </ul>
+    <p><strong>Изменяется:</strong> по родам, числам, падежам.</p>
+    <p><strong>В предложении</strong> — определение.</p>`
+  } else if (title.includes('предл') && subjectName.includes('русск')) {
+    info = `<h3>📝 Подробнее о предложении</h3>
+    <p><strong>Определение:</strong> Слово или слова, выражающие мысль.</p>
+    <p><strong>Главные члены:</strong> подлежащее и сказуемое</p>
+    <p><strong>Виды:</strong></p>
+    <ul>
+      <li>По цели: повествовательные, вопросительные, побудительные</li>
+      <li>По интонации: невосклицательные и восклицательные</li>
+      <li>По членам: распространённые и нераспространённые</li>
+    </ul>`
+  }
+  // Окружающий мир
+  else if (title.includes('растен')) {
+    info = `<h3>🌿 Подробнее о растениях</h3>
+    <p><strong>Определение:</strong> Живые организмы, создающие органические вещества.</p>
+    <p><strong>Органы:</strong> корень, стебель, листья, цветок, плод с семенами.</p>
+    <p><strong>Значение:</strong></p>
+    <ul>
+      <li>Выделяют кислород</li>
+      <li>Пища для животных и людей</li>
+      <li>Круговорот воды в природе</li>
+      <li>Сырьё для промышленности</li>
+    </ul>`
+  } else if (title.includes('животн') || title.includes('звер')) {
+    info = `<h3>🐾 Подробнее о животных</h3>
+    <p><strong>Определение:</strong> Живые организмы, питающиеся готовыми веществами.</p>
+    <p><strong>Группы:</strong></p>
+    <ul>
+      <li>Млекопитающие: кормят молоком</li>
+      <li>Птицы: перья, яйца</li>
+      <li>Рыбы: вода, жабры</li>
+      <li>Насекомые: шесть ног</li>
+      <li>Земноводные: вода и суша</li>
+      <li>Пресмыкающиеся: сухая кожа</li>
+    </ul>`
+  } else if (title.includes('косм') || title.includes('планет')) {
+    info = `<h3>🌌 Подробнее о космосе</h3>
+    <p><strong>Солнечная система:</strong> Солнце и небесные тела вокруг него.</p>
+    <p><strong>Планеты:</strong> Меркурий, Венера, Земля, Марс, Юпитер, Сатурн, Уран, Нептун.</p>
+    <p><strong>Интересные факты:</strong></p>
+    <ul>
+      <li>Солнце — ближайшая к Земле звезда</li>
+      <li>Луна — спутник Земли</li>
+      <li>Первый космонавт — Юрий Гагарин (1961)</li>
+    </ul>`
+  }
+  
+  return info
+}
+
 export default function TopicDialog({ 
   open, 
   onOpenChange, 
@@ -319,17 +583,16 @@ export default function TopicDialog({
   const [starsEarned, setStarsEarned] = useState(0)
   const [showQuiz, setShowQuiz] = useState(false)
   const [showVideoLesson, setShowVideoLesson] = useState(false)
+  const [quizCompleted, setQuizCompleted] = useState(false)
 
-  // Вычисляем шаги при изменении темы
+  // Все useMemo ДО условных return
   const steps = useMemo(() => {
     if (!topic) return []
     return parseContentToSteps(topic.theory, topic.examples, topic.title, topic.lessons)
   }, [topic])
 
-  // Find matching video lesson - must be before any early returns
   const videoLesson = useMemo(() => {
     if (!hasVideoLesson || !topic) return null
-    // Try to find a lesson matching the topic
     const matchingLesson = sampleLessons.find(lesson => 
       topic.title.toLowerCase().includes(lesson.title.toLowerCase()) ||
       lesson.title.toLowerCase().includes(topic.title.toLowerCase())
@@ -337,15 +600,17 @@ export default function TopicDialog({
     return matchingLesson
   }, [hasVideoLesson, topic])
 
-  // Сброс при закрытии
-  const handleClose = () => {
-    setCurrentStep(0)
-    setStarsEarned(0)
-    setShowQuiz(false)
-    onOpenChange(false)
-  }
+  const subjectName = subject?.name?.toLowerCase() || ''
+  
+  const interestingFacts = useMemo(() => {
+    return generateInterestingFacts(topic, subjectName)
+  }, [topic, subjectName])
 
-  // Early return after all hooks
+  const detailedInfo = useMemo(() => {
+    return generateDetailedInfo(topic, subjectName)
+  }, [topic, subjectName])
+
+  // Early return после всех хуков
   if (!topic) return null
 
   const useKidMode = gradeId <= 2
@@ -372,9 +637,14 @@ export default function TopicDialog({
   const handleComplete = () => {
     onComplete()
     onOpenChange(false)
-    // Сброс
     setCurrentStep(0)
     setStarsEarned(0)
+    setShowQuiz(false)
+    setQuizCompleted(false)
+  }
+
+  const handleQuizComplete = () => {
+    setQuizCompleted(true)
     setShowQuiz(false)
   }
 
@@ -382,7 +652,6 @@ export default function TopicDialog({
     setShowQuiz(true)
   }
 
-  // Handle video lesson progress
   const handleVideoProgress = (progress: number) => {
     console.log('Video lesson progress:', progress)
   }
@@ -408,7 +677,7 @@ export default function TopicDialog({
     )
   }
 
-  // Детский режим - модальное окно с шагами
+  // Детский режим
   if (useKidMode) {
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
@@ -480,7 +749,6 @@ export default function TopicDialog({
 
                     {/* Кнопки */}
                     <div className="space-y-2 pt-4">
-                      {/* Кнопка теста */}
                       {(hasTopicQuiz || hasSubjectQuiz) && (
                         <Button
                           onClick={handleStartTopicQuiz}
@@ -567,31 +835,88 @@ export default function TopicDialog({
           </DialogDescription>
         </DialogHeader>
         
-        <ScrollArea className="h-[50vh]">
-          <div className="space-y-4 pr-4">
-            <div 
-              className="prose prose-invert prose-sm max-w-none"
-              dangerouslySetInnerHTML={{ __html: topic.theory }}
-            />
-            
-            {topic.examples.length > 0 && (
-              <div className="space-y-2">
-                <h4 className="text-white font-medium">Примеры:</h4>
-                <ul className="space-y-1">
-                  {topic.examples.map((example, i) => (
-                    <li key={i} className="flex items-center gap-2 text-gray-300">
-                      <ChevronRight className="w-4 h-4 text-purple-400" />
-                      {example}
-                    </li>
-                  ))}
-                </ul>
+        <Tabs defaultValue="lesson" className="flex-1 flex flex-col min-h-0">
+          <TabsList className="bg-slate-800/50 border border-white/10">
+            <TabsTrigger value="lesson" className="data-[state=active]:bg-purple-600">
+              <BookOpen className="w-4 h-4 mr-1" />
+              Урок
+            </TabsTrigger>
+            <TabsTrigger value="details" className="data-[state=active]:bg-blue-600">
+              <Info className="w-4 h-4 mr-1" />
+              Подробнее
+            </TabsTrigger>
+            <TabsTrigger value="facts" className="data-[state=active]:bg-amber-600">
+              <Sparkles className="w-4 h-4 mr-1" />
+              Факты
+            </TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="lesson" className="flex-1 min-h-0 overflow-hidden">
+            <ScrollArea className="h-[40vh]">
+              <div className="space-y-4 pr-4">
+                <div 
+                  className="prose prose-invert prose-sm max-w-none"
+                  dangerouslySetInnerHTML={{ __html: topic.theory }}
+                />
+                
+                {topic.examples.length > 0 && (
+                  <div className="space-y-2">
+                    <h4 className="text-white font-medium">Примеры:</h4>
+                    <ul className="space-y-1">
+                      {topic.examples.map((example, i) => (
+                        <li key={i} className="flex items-center gap-2 text-gray-300">
+                          <ChevronRight className="w-4 h-4 text-purple-400" />
+                          {example}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        </ScrollArea>
+            </ScrollArea>
+          </TabsContent>
+          
+          <TabsContent value="details" className="flex-1 min-h-0 overflow-hidden">
+            <ScrollArea className="h-[40vh]">
+              <div className="space-y-4 pr-4">
+                {detailedInfo ? (
+                  <div 
+                    className="prose prose-invert prose-sm max-w-none"
+                    dangerouslySetInnerHTML={{ __html: detailedInfo }}
+                  />
+                ) : (
+                  <div className="space-y-4">
+                    <div className="bg-slate-800/50 rounded-lg p-4 border border-white/10">
+                      <h4 className="text-purple-400 font-medium mb-2">📚 Дополнительные материалы</h4>
+                      <p className="text-gray-300">{topic.description}</p>
+                    </div>
+                    <div 
+                      className="prose prose-invert prose-sm max-w-none"
+                      dangerouslySetInnerHTML={{ __html: topic.theory }}
+                    />
+                  </div>
+                )}
+              </div>
+            </ScrollArea>
+          </TabsContent>
+          
+          <TabsContent value="facts" className="flex-1 min-h-0 overflow-hidden">
+            <ScrollArea className="h-[40vh]">
+              <div className="space-y-3 pr-4">
+                {interestingFacts.map((fact, index) => (
+                  <div 
+                    key={index}
+                    className="bg-gradient-to-r from-amber-900/30 to-orange-900/30 rounded-lg p-4 border border-amber-500/20"
+                  >
+                    <p className="text-white/90">{fact}</p>
+                  </div>
+                ))}
+              </div>
+            </ScrollArea>
+          </TabsContent>
+        </Tabs>
         
         <div className="flex flex-col sm:flex-row gap-2 p-4 border-t border-white/10">
-          {/* Кнопка Видеоурок */}
           {videoLesson && (
             <Button
               onClick={() => setShowVideoLesson(true)}
@@ -602,7 +927,6 @@ export default function TopicDialog({
             </Button>
           )}
           
-          {/* Кнопка Тест по теме */}
           {hasTopicQuiz && (
             <Button
               onClick={() => setShowQuiz(true)}
@@ -613,7 +937,6 @@ export default function TopicDialog({
             </Button>
           )}
           
-          {/* Кнопка Тест по предмету */}
           {!hasTopicQuiz && hasSubjectQuiz && onOpenQuiz && (
             <Button
               onClick={() => {
@@ -629,19 +952,21 @@ export default function TopicDialog({
           
           <Button
             onClick={handleComplete}
-            className="bg-gradient-to-r from-green-600 to-emerald-600"
+            className={quizCompleted 
+              ? "bg-gradient-to-r from-green-600 to-emerald-600" 
+              : "bg-gradient-to-r from-gray-600 to-slate-600 hover:from-gray-500 hover:to-slate-500"
+            }
           >
             <CheckCircle className="w-4 h-4 mr-2" />
-            Отметить как изученное
+            {quizCompleted ? 'Пройдено' : 'Не пройдено'}
           </Button>
         </div>
 
-        {/* Мини-тест внутри диалога */}
         {showQuiz && hasTopicQuiz && (
           <div className="absolute inset-0 bg-slate-900 flex items-center justify-center p-4 z-10">
             <MiniQuiz
               questions={topic.quiz!}
-              onComplete={handleComplete}
+              onComplete={handleQuizComplete}
             />
           </div>
         )}
