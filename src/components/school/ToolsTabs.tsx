@@ -6,13 +6,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { 
   Layers3, Timer, FileText, BookOpen, Calendar, Bot, Shield,
-  Gamepad2, ArrowLeft, Sparkles
+  Gamepad2, ArrowLeft, Sparkles, Keyboard, Calculator, Lightbulb
 } from 'lucide-react'
 import { 
   Flashcards, StudyTimer, Notes, FormulaReference, 
   Schedule, AITeacher, ParentDashboard,
   CountingGame, AlphabetGame, MemoryGame, ShapeGame,
-  MultiplicationGame, SpellingGame
+  MultiplicationGame, SpellingGame, TypingTrainer, 
+  FormulaCalculator, DailyFacts
 } from '@/components/school'
 
 interface ToolsTabsProps {
@@ -410,6 +411,18 @@ export default function ToolsTabs({ onExperience, gradeId = 0 }: ToolsTabsProps)
           <Shield className="w-4 h-4 mr-1.5" />
           Родителям
         </TabsTrigger>
+        <TabsTrigger value="typing" className="data-[state=active]:bg-purple-600 h-8 text-sm">
+          <Keyboard className="w-4 h-4 mr-1.5" />
+          Печать
+        </TabsTrigger>
+        <TabsTrigger value="calc" className="data-[state=active]:bg-purple-600 h-8 text-sm">
+          <Calculator className="w-4 h-4 mr-1.5" />
+          Калькулятор
+        </TabsTrigger>
+        <TabsTrigger value="facts" className="data-[state=active]:bg-purple-600 h-8 text-sm">
+          <Lightbulb className="w-4 h-4 mr-1.5" />
+          Факты
+        </TabsTrigger>
       </TabsList>
 
       <TabsContent value="flashcards">
@@ -503,6 +516,27 @@ export default function ToolsTabs({ onExperience, gradeId = 0 }: ToolsTabsProps)
 
       <TabsContent value="parent">
         <ParentDashboard />
+      </TabsContent>
+
+      <TabsContent value="typing">
+        <TypingTrainer 
+          gradeId={gradeId}
+          onScore={(points) => onExperience(points)}
+        />
+      </TabsContent>
+
+      <TabsContent value="calc">
+        <FormulaCalculator 
+          gradeId={gradeId}
+          onScore={(points) => onExperience(points)}
+        />
+      </TabsContent>
+
+      <TabsContent value="facts">
+        <DailyFacts 
+          gradeId={gradeId}
+          onScore={(points) => onExperience(points)}
+        />
       </TabsContent>
     </Tabs>
   )

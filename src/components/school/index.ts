@@ -191,3 +191,12 @@ export { default as MotivationalQuotes } from './MotivationalQuotes'
 
 // Sound Control
 export { default as SoundControl } from './SoundControl'
+
+// Typing Trainer
+export { default as TypingTrainer } from './TypingTrainer'
+
+// Formula Calculator
+export { default as FormulaCalculator } from './FormulaCalculator'
+
+// Daily Facts
+export { default as DailyFacts } from './DailyFacts'
