@@ -224,6 +224,12 @@ export default function ToolsTabs({ onExperience, gradeId = 0 }: ToolsTabsProps)
           </Card>
         </div>
 
+        {/* Факты дня - для всех классов */}
+        <DailyFacts 
+          gradeId={gradeId}
+          onScore={(points) => onExperience(points)}
+        />
+
         <style jsx>{`
           @keyframes bounce-slow {
             0%, 100% { transform: translateY(0); }
@@ -368,6 +374,18 @@ export default function ToolsTabs({ onExperience, gradeId = 0 }: ToolsTabsProps)
           </Card>
         </div>
 
+        {/* Калькулятор формул для 3-4 классов */}
+        <FormulaCalculator 
+          gradeId={gradeId}
+          onScore={(points) => onExperience(points)}
+        />
+
+        {/* Факты дня */}
+        <DailyFacts 
+          gradeId={gradeId}
+          onScore={(points) => onExperience(points)}
+        />
+
         <style jsx>{`
           @keyframes bounce-slow {
             0%, 100% { transform: translateY(0); }
@@ -382,46 +400,46 @@ export default function ToolsTabs({ onExperience, gradeId = 0 }: ToolsTabsProps)
   // Обычный режим для старших классов
   return (
     <Tabs defaultValue="flashcards" className="w-full">
-      <TabsList className="bg-white/5 border border-white/10 mb-4 h-10 flex flex-wrap">
-        <TabsTrigger value="flashcards" className="data-[state=active]:bg-purple-600 h-8 text-sm">
-          <Layers3 className="w-4 h-4 mr-1.5" />
-          Карточки
+      <TabsList className="bg-white/5 border border-white/10 mb-4 h-10 flex flex-wrap overflow-x-auto gap-1">
+        <TabsTrigger value="flashcards" className="data-[state=active]:bg-purple-600 h-8 text-xs sm:text-sm shrink-0">
+          <Layers3 className="w-4 h-4 sm:mr-1.5" />
+          <span className="hidden sm:inline">Карточки</span>
         </TabsTrigger>
-        <TabsTrigger value="timer" className="data-[state=active]:bg-purple-600 h-8 text-sm">
-          <Timer className="w-4 h-4 mr-1.5" />
-          Таймер
+        <TabsTrigger value="timer" className="data-[state=active]:bg-purple-600 h-8 text-xs sm:text-sm shrink-0">
+          <Timer className="w-4 h-4 sm:mr-1.5" />
+          <span className="hidden sm:inline">Таймер</span>
         </TabsTrigger>
-        <TabsTrigger value="notes" className="data-[state=active]:bg-purple-600 h-8 text-sm">
-          <FileText className="w-4 h-4 mr-1.5" />
-          Заметки
+        <TabsTrigger value="notes" className="data-[state=active]:bg-purple-600 h-8 text-xs sm:text-sm shrink-0">
+          <FileText className="w-4 h-4 sm:mr-1.5" />
+          <span className="hidden sm:inline">Заметки</span>
         </TabsTrigger>
-        <TabsTrigger value="formulas" className="data-[state=active]:bg-purple-600 h-8 text-sm">
-          <BookOpen className="w-4 h-4 mr-1.5" />
-          Формулы
+        <TabsTrigger value="formulas" className="data-[state=active]:bg-purple-600 h-8 text-xs sm:text-sm shrink-0">
+          <BookOpen className="w-4 h-4 sm:mr-1.5" />
+          <span className="hidden sm:inline">Формулы</span>
         </TabsTrigger>
-        <TabsTrigger value="schedule" className="data-[state=active]:bg-purple-600 h-8 text-sm">
-          <Calendar className="w-4 h-4 mr-1.5" />
-          Расписание
+        <TabsTrigger value="schedule" className="data-[state=active]:bg-purple-600 h-8 text-xs sm:text-sm shrink-0">
+          <Calendar className="w-4 h-4 sm:mr-1.5" />
+          <span className="hidden sm:inline">Расписание</span>
         </TabsTrigger>
-        <TabsTrigger value="aiteacher" className="data-[state=active]:bg-purple-600 h-8 text-sm">
-          <Bot className="w-4 h-4 mr-1.5" />
-          Учитель
+        <TabsTrigger value="aiteacher" className="data-[state=active]:bg-purple-600 h-8 text-xs sm:text-sm shrink-0">
+          <Bot className="w-4 h-4 sm:mr-1.5" />
+          <span className="hidden sm:inline">Учитель</span>
         </TabsTrigger>
-        <TabsTrigger value="parent" className="data-[state=active]:bg-purple-600 h-8 text-sm">
-          <Shield className="w-4 h-4 mr-1.5" />
-          Родителям
+        <TabsTrigger value="typing" className="data-[state=active]:bg-purple-600 h-8 text-xs sm:text-sm shrink-0 bg-purple-500/20">
+          <Keyboard className="w-4 h-4 sm:mr-1.5" />
+          <span className="hidden sm:inline">Печать</span>
         </TabsTrigger>
-        <TabsTrigger value="typing" className="data-[state=active]:bg-purple-600 h-8 text-sm">
-          <Keyboard className="w-4 h-4 mr-1.5" />
-          Печать
+        <TabsTrigger value="calc" className="data-[state=active]:bg-purple-600 h-8 text-xs sm:text-sm shrink-0 bg-blue-500/20">
+          <Calculator className="w-4 h-4 sm:mr-1.5" />
+          <span className="hidden sm:inline">Калькулятор</span>
         </TabsTrigger>
-        <TabsTrigger value="calc" className="data-[state=active]:bg-purple-600 h-8 text-sm">
-          <Calculator className="w-4 h-4 mr-1.5" />
-          Калькулятор
+        <TabsTrigger value="facts" className="data-[state=active]:bg-purple-600 h-8 text-xs sm:text-sm shrink-0 bg-yellow-500/20">
+          <Lightbulb className="w-4 h-4 sm:mr-1.5" />
+          <span className="hidden sm:inline">Факты</span>
         </TabsTrigger>
-        <TabsTrigger value="facts" className="data-[state=active]:bg-purple-600 h-8 text-sm">
-          <Lightbulb className="w-4 h-4 mr-1.5" />
-          Факты
+        <TabsTrigger value="parent" className="data-[state=active]:bg-purple-600 h-8 text-xs sm:text-sm shrink-0">
+          <Shield className="w-4 h-4 sm:mr-1.5" />
+          <span className="hidden sm:inline">Родителям</span>
         </TabsTrigger>
       </TabsList>
 
