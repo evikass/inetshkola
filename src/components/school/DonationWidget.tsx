@@ -40,14 +40,15 @@ export default function DonationWidget() {
       {/* Плавающая кнопка */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 left-4 z-50 w-10 h-10 rounded-full bg-gradient-to-br from-pink-600/80 to-rose-700/80 backdrop-blur-sm border border-white/20 shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
+        className="fixed bottom-20 left-4 z-50 w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-rose-600 backdrop-blur-sm border-2 border-white/30 shadow-lg shadow-pink-500/30 flex items-center justify-center hover:scale-110 transition-transform"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1 }}
+        title="Поддержать проект"
       >
-        <Heart className="w-4 h-4 text-white" />
+        <Heart className="w-5 h-5 text-white" />
       </motion.button>
 
       {/* Модальное окно */}
