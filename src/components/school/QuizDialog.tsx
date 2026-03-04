@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { CheckCircle, XCircle, Zap, Baby, GraduationCap } from 'lucide-react'
 import type { QuizQuestion } from '@/data/types'
 import KidFriendlyQuiz from './KidFriendlyQuiz'
+import { useSound } from '@/hooks/useSound'
 
 interface QuizDialogProps {
   open: boolean
@@ -32,6 +33,7 @@ function QuizContent({
   const [showResult, setShowResult] = useState(false)
   const [correctCount, setCorrectCount] = useState(0)
   const [isComplete, setIsComplete] = useState(false)
+  const { playCorrect, playWrong, playSuccess } = useSound()
 
   const currentQuestion = questions[currentIndex]
 
@@ -42,6 +44,9 @@ function QuizContent({
     
     if (index === currentQuestion.correctAnswer) {
       setCorrectCount(prev => prev + 1)
+      playCorrect()
+    } else {
+      playWrong()
     }
   }
 
@@ -52,6 +57,7 @@ function QuizContent({
       setShowResult(false)
     } else {
       setIsComplete(true)
+      playSuccess()
       onComplete(correctCount, questions.length)
     }
   }

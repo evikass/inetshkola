@@ -8,20 +8,31 @@ import { Button } from '@/components/ui/button'
 export default function DonationWidget() {
   const [isOpen, setIsOpen] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [copiedPhone, setCopiedPhone] = useState(false)
   const [selectedMethod, setSelectedMethod] = useState<'card' | 'transfer' | 'international'>('card')
 
   const bankAccount = '40817810127008641225'
+  const phoneNumber = '+79991234567' // Номер телефона для СБП
   
   // URL для генерации QR кода через публичный API
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(bankAccount)}&bgcolor=1e293b&color=ffffff&margin=1`
   
   // Прямая ссылка на Сбербанк Онлайн для перевода
   const sberbankUrl = `https://online.sberbank.ru/CSAFront/async/page/onBilling.do?BILLING_NUMBER=${bankAccount}`
+  
+  // СБП QR код по номеру телефона
+  const sbpQrUrl = `https://qr.nspk.ru/${phoneNumber.replace('+', '')}`
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(bankAccount)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
+  }
+  
+  const copyPhoneToClipboard = () => {
+    navigator.clipboard.writeText(phoneNumber)
+    setCopiedPhone(true)
+    setTimeout(() => setCopiedPhone(false), 2000)
   }
 
   return (
@@ -154,19 +165,36 @@ export default function DonationWidget() {
                       </div>
                     </div>
                     
+                    {/* Номер телефона для СБП */}
+                    <div className="p-4 bg-white/5 rounded-xl border border-white/10">
+                      <p className="text-sm text-gray-400 mb-2">Номер телефона для СБП / Озон Банка:</p>
+                      <div className="flex items-center gap-2">
+                        <code className="flex-1 text-base font-mono text-white bg-white/5 px-3 py-2 rounded-lg">
+                          {phoneNumber}
+                        </code>
+                        <Button
+                          onClick={copyPhoneToClipboard}
+                          size="sm"
+                          variant="outline"
+                          className="shrink-0 border-white/20 text-white hover:bg-white/10"
+                        >
+                          {copiedPhone ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                        </Button>
+                      </div>
+                    </div>
+                    
                     {/* Кнопки банков */}
                     <div className="space-y-2">
                       <p className="text-sm text-gray-400 text-center">Быстрый перевод через банк:</p>
                       <div className="grid grid-cols-2 gap-2">
-                        <a
-                          href="https://qr.nspk.ru/"
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        <button
+                          onClick={copyPhoneToClipboard}
                           className="flex items-center justify-center gap-2 py-2.5 px-3 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white rounded-xl font-medium transition-all text-sm"
                         >
                           <span className="text-lg">💜</span>
                           СБП
-                        </a>
+                          {copiedPhone && <Check className="w-3 h-3 text-green-300" />}
+                        </button>
                         <a
                           href={sberbankUrl}
                           target="_blank"
@@ -194,16 +222,29 @@ export default function DonationWidget() {
                           <span className="text-lg">🔴</span>
                           Альфа
                         </a>
+                        <button
+                          onClick={copyPhoneToClipboard}
+                          className="flex items-center justify-center gap-2 py-2.5 px-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-400 hover:to-blue-500 text-white rounded-xl font-medium transition-all text-sm"
+                        >
+                          <span className="text-lg">🔵</span>
+                          Озон Банк
+                          {copiedPhone && <Check className="w-3 h-3 text-green-300" />}
+                        </button>
                         <a
                           href="https://raiffeisen.ru/"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-2 py-2.5 px-3 bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-500 hover:to-yellow-600 text-black rounded-xl font-medium transition-all text-sm col-span-2"
+                          className="flex items-center justify-center gap-2 py-2.5 px-3 bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-500 hover:to-yellow-600 text-black rounded-xl font-medium transition-all text-sm"
                         >
                           <span className="text-lg">🟨</span>
                           Райффайзен
                         </a>
                       </div>
+                      
+                      {/* Подсказка для СБП */}
+                      <p className="text-xs text-gray-500 text-center mt-2">
+                        💡 СБП и Озон Банк — скопируйте номер телефона и вставьте в приложении
+                      </p>
                     </div>
                     
                     <p className="text-xs text-gray-500 text-center">

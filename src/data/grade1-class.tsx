@@ -2383,5 +2383,343 @@ export const grade1Subjects: Subject[] = [
         points: 10
       }
     ]
+  },
+
+  // ==================== ИЗО ====================
+  {
+    id: 'art1',
+    title: 'ИЗО',
+    icon: <Palette className="w-5 h-5" />,
+    color: 'text-pink-400',
+    gradient: 'from-pink-500 to-rose-500',
+    description: 'Изобразительное искусство',
+    sections: [
+      {
+        id: 'art1-s1',
+        title: 'Рисование',
+        description: 'Учимся рисовать',
+        order: 1,
+        topics: [
+          {
+            id: 'art1-s1-t1',
+            title: 'Цвета радуги',
+            description: 'Учим цвета',
+            theory: `<h3>🌈 Цвета радуги</h3>
+            <p>В радуге 7 цветов: красный, оранжевый, жёлтый, зелёный, голубой, синий, фиолетовый.</p>
+            <h4>Запоминалка:</h4>
+            <p>"Каждый Охотник Желает Знать, Где Сидит Фазан"</p>`,
+            examples: ['Назови цвета радуги', 'Какой цвет первый?'],
+            completed: false,
+            difficulty: 'easy',
+            estimatedTime: 20,
+            lessons: [
+              {
+                id: 'art1-s1-t1-l1',
+                title: 'Красный, оранжевый, жёлтый',
+                content: `<div class="kid-lesson">
+                  <h2>🔴🟠🟡 Тёплые цвета</h2>
+                  <p>Красный — как огонь! 🔥</p>
+                  <p>Оранжевый — как апельсин! 🍊</p>
+                  <p>Жёлтый — как солнышко! ☀️</p>
+                  <div class="activity">Найди предметы этих цветов!</div>
+                  <div class="emoji-practice">🍅🥕🍋 — красный, оранжевый, жёлтый</div>
+                  <div class="tip">💡 Это тёплые цвета!</div>
+                </div>`,
+                completed: false,
+                order: 1,
+                estimatedTime: 5
+              },
+              {
+                id: 'art1-s1-t1-l2',
+                title: 'Зелёный, голубой, синий',
+                content: `<div class="kid-lesson">
+                  <h2>🟢🔵 Холодные цвета</h2>
+                  <p>Зелёный — как трава! 🌿</p>
+                  <p>Голубой — как небо! ☁️</p>
+                  <p>Синий — как море! 🌊</p>
+                  <div class="activity">Найди предметы этих цветов!</div>
+                  <div class="emoji-practice">🌳🧤🧢 — зелёный, голубой, синий</div>
+                  <div class="tip">💡 Это холодные цвета!</div>
+                </div>`,
+                completed: false,
+                order: 2,
+                estimatedTime: 5
+              },
+              {
+                id: 'art1-s1-t1-l3',
+                title: 'Фиолетовый',
+                content: `<div class="kid-lesson">
+                  <h2>🟣 Фиолетовый</h2>
+                  <p>Фиолетовый — как фиалка! 💜</p>
+                  <p>Последний цвет радуги!</p>
+                  <div class="activity">Найди фиолетовые предметы!</div>
+                  <div class="emoji-practice">🍇🍆 — фиолетовые</div>
+                  <div class="tip">💡 Фиолетовый = красный + синий!</div>
+                </div>`,
+                completed: false,
+                order: 3,
+                estimatedTime: 5
+              }
+            ]
+          },
+          {
+            id: 'art1-s1-t2',
+            title: 'Линии и штрихи',
+            description: 'Учимся проводить линии',
+            theory: `<h3>Линии</h3>
+            <h4>Виды линий:</h4>
+            <ul>
+              <li>Прямая — _______</li>
+              <li>Волнистая — ~~~~~~</li>
+              <li>Зигзаг — /\\/\\/\\/\\</li>
+              <li>Спираль — @@@@@</li>
+            </ul>`,
+            examples: ['Нарисуй прямую линию', 'Нарисуй волну'],
+            completed: false,
+            difficulty: 'easy',
+            estimatedTime: 15,
+            lessons: [
+              {
+                id: 'art1-s1-t2-l1',
+                title: 'Прямые линии',
+                content: `<div class="kid-lesson">
+                  <h2>➖ Прямые линии</h2>
+                  <p>Прямая линия — самая простая!</p>
+                  <div class="activity">Нарисуй заборчик из прямых линий!</div>
+                  <div class="emoji-practice">||||| — забор</div>
+                  <div class="tip">💡 Веди линию слева направо!</div>
+                </div>`,
+                completed: false,
+                order: 1,
+                estimatedTime: 5
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    quiz: [
+      {
+        id: 'art1-q1',
+        question: 'Сколько цветов в радуге?',
+        options: ['5', '6', '7', '8'],
+        correctAnswer: 2,
+        explanation: 'В радуге 7 цветов!',
+        difficulty: 'easy',
+        points: 10
+      },
+      {
+        id: 'art1-q2',
+        question: 'Какой цвет первый в радуге?',
+        options: ['Оранжевый', 'Красный', 'Жёлтый', 'Синий'],
+        correctAnswer: 1,
+        explanation: 'Первый цвет радуги — красный!',
+        difficulty: 'easy',
+        points: 10
+      }
+    ]
+  },
+
+  // ==================== МУЗЫКА ====================
+  {
+    id: 'music1',
+    title: 'Музыка',
+    icon: <Music className="w-5 h-5" />,
+    color: 'text-violet-400',
+    gradient: 'from-violet-500 to-purple-500',
+    description: 'Мир музыки',
+    sections: [
+      {
+        id: 'music1-s1',
+        title: 'Музыкальные инструменты',
+        description: 'Знакомство с инструментами',
+        order: 1,
+        topics: [
+          {
+            id: 'music1-s1-t1',
+            title: 'Народные инструменты',
+            description: 'Русские народные инструменты',
+            theory: `<h3>Народные инструменты</h3>
+            <h4>Балалайка</h4>
+            <p>Треугольный инструмент с тремя струнами</p>
+            <h4>Гармонь</h4>
+            <p>Душа русской песни!</p>
+            <h4>Баян</h4>
+            <p>Похож на гармонь, но больше</p>
+            <h4>Дудочка</h4>
+            <p>Деревянная флейта</p>`,
+            examples: ['Как выглядит балалайка?', 'Какой инструмент самый любимый?'],
+            completed: false,
+            difficulty: 'easy',
+            estimatedTime: 20,
+            lessons: [
+              {
+                id: 'music1-s1-t1-l1',
+                title: 'Балалайка',
+                content: `<div class="kid-lesson">
+                  <h2>🎸 Балалайка</h2>
+                  <p>Русский народный инструмент!</p>
+                  <h3>Особенности:</h3>
+                  <ul>
+                    <li>Треугольная форма</li>
+                    <li>3 струны</li>
+                    <li>Звенящий звук</li>
+                  </ul>
+                  <div class="activity">Послушай балалайку!</div>
+                  <div class="tip">💡 Балалайка — символ России!</div>
+                </div>`,
+                completed: false,
+                order: 1,
+                estimatedTime: 5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'music1-s2',
+        title: 'Пение',
+        description: 'Учимся петь',
+        order: 2,
+        topics: [
+          {
+            id: 'music1-s2-t1',
+            title: 'Детские песни',
+            description: 'Любимые песни',
+            theory: `<h3>Детские песни</h3>
+            <h4>Любимые песни:</h4>
+            <ul>
+              <li>"В лесу родилась ёлочка"</li>
+              <li>"Пусть бегут неуклюже"</li>
+              <li>"Чунга-чанга"</li>
+              <li>"Облака"</li>
+            </ul>`,
+            examples: ['Спой любимую песню', 'Угадай мелодию'],
+            completed: false,
+            difficulty: 'easy',
+            estimatedTime: 15
+          }
+        ]
+      }
+    ],
+    quiz: [
+      {
+        id: 'music1-q1',
+        question: 'Сколько струн у балалайки?',
+        options: ['2', '3', '4', '5'],
+        correctAnswer: 1,
+        explanation: 'У балалайки 3 струны!',
+        difficulty: 'medium',
+        points: 15
+      },
+      {
+        id: 'music1-q2',
+        question: 'Какой формы балалайка?',
+        options: ['Круглая', 'Треугольная', 'Квадратная', 'Овальная'],
+        correctAnswer: 1,
+        explanation: 'Балалайка треугольной формы!',
+        difficulty: 'easy',
+        points: 10
+      }
+    ]
+  },
+
+  // ==================== ФИЗКУЛЬТУРА ====================
+  {
+    id: 'pe1',
+    title: 'Физкультура',
+    icon: <Dumbbell className="w-5 h-5" />,
+    color: 'text-orange-400',
+    gradient: 'from-orange-500 to-amber-500',
+    description: 'Будь сильным и здоровым!',
+    sections: [
+      {
+        id: 'pe1-s1',
+        title: 'Упражнения',
+        description: 'Зарядка и игры',
+        order: 1,
+        topics: [
+          {
+            id: 'pe1-s1-t1',
+            title: 'Утренняя зарядка',
+            description: 'Начни день с упражнения!',
+            theory: `<h3>Утренняя зарядка</h3>
+            <h4>Упражнения:</h4>
+            <ol>
+              <li>Потягивания — проснись!</li>
+              <li>Наклоны головы — разогрей шею</li>
+              <li>Махи руками — разогрей плечи</li>
+              <li>Приседания — укрепи ноги</li>
+              <li>Прыжки — разогрейся!</li>
+            </ol>`,
+            examples: ['Сделай 10 приседаний', 'Попрыгай на месте'],
+            completed: false,
+            difficulty: 'easy',
+            estimatedTime: 15,
+            lessons: [
+              {
+                id: 'pe1-s1-t1-l1',
+                title: 'Зарядка',
+                content: `<div class="kid-lesson">
+                  <h2>💪 Утренняя зарядка</h2>
+                  <p>Зарядка помогает проснуться!</p>
+                  <h3>Комплекс:</h3>
+                  <ol>
+                    <li>Потянись! 🙆</li>
+                    <li>Покрути головой!</li>
+                    <li>Помашись руками! 💪</li>
+                    <li>Поприседай! 🏋️</li>
+                    <li>Попрыгай! 🤸</li>
+                  </ol>
+                  <div class="activity">Сделай зарядку сейчас!</div>
+                  <div class="tip">💡 Заряжайся энергией каждое утро!</div>
+                </div>`,
+                completed: false,
+                order: 1,
+                estimatedTime: 10
+              }
+            ]
+          },
+          {
+            id: 'pe1-s1-t2',
+            title: 'Подвижные игры',
+            description: 'Игры с друзьями',
+            theory: `<h3>Подвижные игры</h3>
+            <h4>Популярные игры:</h4>
+            <ul>
+              <li>Прятки</li>
+              <li>Догонялки</li>
+              <li>Вышибалы</li>
+              <li>Классики</li>
+              <li>Резиночка</li>
+            </ul>`,
+            examples: ['Поиграй в прятки', 'Сыграй в вышибалы'],
+            completed: false,
+            difficulty: 'easy',
+            estimatedTime: 30
+          }
+        ]
+      }
+    ],
+    quiz: [
+      {
+        id: 'pe1-q1',
+        question: 'Зачем нужна зарядка?',
+        options: ['Чтобы устать', 'Чтобы проснуться и зарядиться энергией', 'Чтобы заснуть', 'Не нужна'],
+        correctAnswer: 1,
+        explanation: 'Зарядка помогает проснуться и получить заряд бодрости!',
+        difficulty: 'easy',
+        points: 10
+      },
+      {
+        id: 'pe2-q2',
+        question: 'Сколько приседаний полезно делать?',
+        options: ['0', '10-15', '100', '1000'],
+        correctAnswer: 1,
+        explanation: '10-15 приседаний — полезная нагрузка для начала!',
+        difficulty: 'easy',
+        points: 10
+      }
+    ]
   }
 ]

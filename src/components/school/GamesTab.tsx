@@ -29,6 +29,9 @@ import HistoryGame from './HistoryGame'
 import ChemistryGame from './ChemistryGame'
 import EnglishGame from './EnglishGame'
 import BiologyGame from './BiologyGame'
+import WordPuzzleGame from './WordPuzzleGame'
+import NumberQuestGame from './NumberQuestGame'
+import ScienceLab from './ScienceLab'
 
 interface GamesTabProps {
   gradeId?: number
@@ -37,7 +40,8 @@ interface GamesTabProps {
 
 type GameType = 'menu' | 'math' | 'reading' | 'memory' | 'counting' | 'alphabet' | 'shapes' | 
   'wordbuilder' | 'numbersequence' | 'colormatch' | 'picturequiz' | 'newgames' | 
-  'multiplication' | 'addition' | 'geography' | 'science' | 'spelling' | 'punctuation' | 'history' | 'chemistry' | 'english' | 'biology'
+  'multiplication' | 'addition' | 'geography' | 'science' | 'spelling' | 'punctuation' | 
+  'history' | 'chemistry' | 'english' | 'biology' | 'wordpuzzle' | 'numberquest' | 'sciencelab'
 
 type GameCategory = 'all' | 'math' | 'russian' | 'development'
 
@@ -307,6 +311,46 @@ const games = [
     category: 'development' as GameCategory,
     categoryLabel: 'Развитие',
     categoryIcon: Leaf
+  },
+  // Новые приключенческие игры
+  {
+    id: 'wordpuzzle',
+    title: 'Словесная головоломка',
+    description: 'Собери слово из разбросанных букв!',
+    icon: '🧩',
+    color: 'from-purple-500 to-pink-600',
+    difficulty: ['Лёгкий', 'Средний', 'Сложный'],
+    age: '6+',
+    xp: 70,
+    category: 'russian' as GameCategory,
+    categoryLabel: 'Русский язык',
+    categoryIcon: Puzzle
+  },
+  {
+    id: 'numberquest',
+    title: 'Числовой квест',
+    description: 'Победи монстров решая примеры!',
+    icon: '⚔️',
+    color: 'from-red-500 to-orange-600',
+    difficulty: ['Лёгкий', 'Средний', 'Сложный'],
+    age: '7+',
+    xp: 80,
+    category: 'math' as GameCategory,
+    categoryLabel: 'Математика',
+    categoryIcon: Calculator
+  },
+  {
+    id: 'sciencelab',
+    title: 'Научная лаборатория',
+    description: 'Проведи виртуальные эксперименты!',
+    icon: '🔬',
+    color: 'from-emerald-500 to-teal-600',
+    difficulty: ['Физика', 'Химия', 'Биология'],
+    age: '8+',
+    xp: 90,
+    category: 'development' as GameCategory,
+    categoryLabel: 'Развитие',
+    categoryIcon: Atom
   }
 ]
 
@@ -767,6 +811,39 @@ export default function GamesTab({ gradeId = 0, onExperience }: GamesTabProps) {
             <BiologyGame 
               gradeId={gradeId}
               onExperience={(xp) => handleGameComplete(xp, 0)}
+            />
+          </div>
+        )
+      
+      case 'wordpuzzle':
+        return (
+          <div>
+            <GameHeader />
+            <WordPuzzleGame 
+              gradeId={gradeId}
+              onScore={(points) => handleGameComplete(points, points)}
+            />
+          </div>
+        )
+      
+      case 'numberquest':
+        return (
+          <div>
+            <GameHeader />
+            <NumberQuestGame 
+              gradeId={gradeId}
+              onScore={(points) => handleGameComplete(points, points)}
+            />
+          </div>
+        )
+      
+      case 'sciencelab':
+        return (
+          <div>
+            <GameHeader />
+            <ScienceLab 
+              gradeId={gradeId}
+              onScore={(points) => handleGameComplete(points, points)}
             />
           </div>
         )

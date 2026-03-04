@@ -10,7 +10,8 @@ import {
   QuizDialog, ToolsTabs, ProgressTab, AchievementsTab,
   FloatingNav, WelcomeScreen, RewardCelebration, AIVoiceTeacher,
   FriendsSystem, MarathonsCompetitions, SiteHeader,
-  DailyChallengeWidget, WeeklyGoalsWidget, FloatingDonationButton
+  DailyChallengeWidget, WeeklyGoalsWidget, FloatingDonationButton,
+  DailyQuestsWidget, MotivationalQuotes, ExamPrep, SoundControl
 } from '@/components/school'
 import { schoolData } from '@/data/school-data'
 import type { Subject, Topic, QuizQuestion } from '@/data/types'
@@ -164,25 +165,54 @@ function SchoolApp() {
           <TabsContent value="learn" className="space-y-4">
             {/* Компактные виджеты - только на главном экране */}
             {selectedGrade === null && (
-              <div className="grid sm:grid-cols-2 gap-3">
-                <DailyChallengeWidget
-                  completedTopics={userStats.topicsCompleted}
-                  quizzesCompleted={userStats.quizzesCompleted}
-                  gamesPlayed={userStats.gamesPlayed || 0}
-                  studyTime={userStats.totalStudyTime}
-                  perfectQuizzes={userStats.perfectQuizzes}
-                  onNavigate={() => {}}
-                  onClaim={(xp) => addExperience(xp)}
-                />
-                <WeeklyGoalsWidget
-                  completedTopics={userStats.topicsCompleted}
-                  quizzesCompleted={userStats.quizzesCompleted}
-                  gamesPlayed={userStats.gamesPlayed || 0}
-                  studyTime={userStats.totalStudyTime}
-                  perfectQuizzes={userStats.perfectQuizzes}
-                  streak={userStats.streak}
-                  onClaim={(xp) => addExperience(xp)}
-                />
+              <div className="space-y-3">
+                {/* Заголовок с настройками звука */}
+                <div className="flex items-center justify-end">
+                  <SoundControl compact />
+                </div>
+                
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <DailyChallengeWidget
+                    completedTopics={userStats.topicsCompleted}
+                    quizzesCompleted={userStats.quizzesCompleted}
+                    gamesPlayed={userStats.gamesPlayed || 0}
+                    studyTime={userStats.totalStudyTime}
+                    perfectQuizzes={userStats.perfectQuizzes}
+                    onNavigate={() => {}}
+                    onClaim={(xp) => addExperience(xp)}
+                  />
+                  <WeeklyGoalsWidget
+                    completedTopics={userStats.topicsCompleted}
+                    quizzesCompleted={userStats.quizzesCompleted}
+                    gamesPlayed={userStats.gamesPlayed || 0}
+                    studyTime={userStats.totalStudyTime}
+                    perfectQuizzes={userStats.perfectQuizzes}
+                    streak={userStats.streak}
+                    onClaim={(xp) => addExperience(xp)}
+                  />
+                </div>
+                
+                {/* Ежедневные квесты и мотивация */}
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <DailyQuestsWidget
+                    completedTopics={userStats.topicsCompleted}
+                    quizzesCompleted={userStats.quizzesCompleted}
+                    gamesPlayed={userStats.gamesPlayed || 0}
+                    studyTime={userStats.totalStudyTime}
+                    perfectQuizzes={userStats.perfectQuizzes}
+                    streak={userStats.streak}
+                    onClaim={(xp) => addExperience(xp)}
+                  />
+                  <MotivationalQuotes compact />
+                </div>
+                
+                {/* Подготовка к ОГЭ/ЕГЭ для старших классов */}
+                {(selectedGrade === null || selectedGrade >= 9) && (
+                  <ExamPrep 
+                    gradeId={selectedGrade || 9}
+                    onScore={(xp) => addExperience(xp)}
+                  />
+                )}
               </div>
             )}
             

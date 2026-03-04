@@ -174,3 +174,20 @@ export { default as WeeklyGoalsWidget } from './WeeklyGoalsWidget'
 
 // Donation Widget
 export { default as DonationWidget, FloatingDonationButton } from './DonationWidget'
+
+// New Games
+export { default as WordPuzzleGame } from './WordPuzzleGame'
+export { default as NumberQuestGame } from './NumberQuestGame'
+export { default as ScienceLab } from './ScienceLab'
+
+// Daily Quests
+export { default as DailyQuestsWidget } from './DailyQuestsWidget'
+
+// Exam Prep
+export { default as ExamPrep } from './ExamPrep'
+
+// Motivational Quotes
+export { default as MotivationalQuotes } from './MotivationalQuotes'
+
+// Sound Control
+export { default as SoundControl } from './SoundControl'
