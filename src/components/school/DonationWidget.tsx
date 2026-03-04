@@ -66,7 +66,7 @@ export default function DonationWidget() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-md bg-slate-900/95 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl overflow-hidden"
+              className="w-full max-w-md max-h-[90vh] overflow-y-auto bg-slate-900/95 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl"
             >
               {/* Заголовок */}
               <div className="relative p-6 bg-gradient-to-r from-pink-600/20 to-rose-600/20 border-b border-white/10">

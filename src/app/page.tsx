@@ -333,6 +333,11 @@ function SchoolApp() {
       
       {/* Плавающая кнопка поддержки проекта */}
       <FloatingDonationButton />
+      
+      {/* Версия сайта */}
+      <div className="fixed bottom-0 right-0 z-40 p-2 text-[10px] text-gray-600 bg-black/30 rounded-tl">
+        v20260304.2
+      </div>
     </div>
   )
 }
