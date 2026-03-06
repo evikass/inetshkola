@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 90">
+  <defs>
+    <linearGradient id="lBg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A855F7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EC4899;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="120" height="90" fill="url(#lBg4)" rx="10"/>
+  
+  <!-- Letter A with arrows showing writing direction -->
+  <text x="60" y="55" font-family="Arial" font-size="50" font-weight="bold" fill="white" text-anchor="middle">А</text>
+  
+  <!-- Direction arrows -->
+  <path d="M40 30 L30 55" stroke="#FDE68A" stroke-width="2" stroke-dasharray="4,2"/>
+  <polygon points="30,55 25,48 35,48" fill="#FDE68A"/>
+  
+  <path d="M80 30 L90 55" stroke="#FDE68A" stroke-width="2" stroke-dasharray="4,2"/>
+  <polygon points="90,55 85,48 95,48" fill="#FDE68A"/>
+  
+  <!-- Horizontal line -->
+  <line x1="45" y1="45" x2="75" y2="45" stroke="#FDE68A" stroke-width="3"/>
+  
+  <!-- Numbered steps -->
+  <circle cx="15" cy="20" r="10" fill="#FDE68A"/>
+  <text x="15" y="25" font-family="Arial" font-size="12" font-weight="bold" fill="#7C3AED" text-anchor="middle">1</text>
+  
+  <circle cx="105" cy="20" r="10" fill="#FDE68A"/>
+  <text x="105" y="25" font-family="Arial" font-size="12" font-weight="bold" fill="#7C3AED" text-anchor="middle">2</text>
+  
+  <circle cx="60" cy="80" r="10" fill="#FDE68A"/>
+  <text x="60" y="85" font-family="Arial" font-size="12" font-weight="bold" fill="#7C3AED" text-anchor="middle">3</text>
+</svg>

@@ -1,0 +1,26 @@
+{
+  "name": "ИНЕТШКОЛА",
+  "short_name": "ИНЕТШКОЛА",
+  "description": "Интерактивная образовательная платформа для школьников 0-11 классов. Изучай предметы, проходи тесты, играй в обучающие игры!",
+  "start_url": "/inetshkola/",
+  "display": "standalone",
+  "background_color": "#1e1b4b",
+  "theme_color": "#7c3aed",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/inetshkola/icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/inetshkola/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["education", "kids"],
+  "lang": "ru",
+  "scope": "/inetshkola/"
+}
