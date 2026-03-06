@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d9ff"/>
+      <stop offset="100%" style="stop-color:#0077ff"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#bg1)"/>
+  
+  <!-- Atom model -->
+  <g transform="translate(200, 130)">
+    <!-- Orbits -->
+    <ellipse cx="0" cy="0" rx="70" ry="25" fill="none" stroke="#00d9ff" stroke-width="1.5" opacity="0.5" transform="rotate(-30)"/>
+    <ellipse cx="0" cy="0" rx="70" ry="25" fill="none" stroke="#00d9ff" stroke-width="1.5" opacity="0.5" transform="rotate(30)"/>
+    <ellipse cx="0" cy="0" rx="70" ry="25" fill="none" stroke="#00d9ff" stroke-width="1.5" opacity="0.5" transform="rotate(90)"/>
+    
+    <!-- Nucleus -->
+    <circle cx="0" cy="0" r="15" fill="#ff6b6b"/>
+    <circle cx="-5" cy="-3" r="6" fill="#ff8e8e"/>
+    <circle cx="5" cy="3" r="6" fill="#ff4757"/>
+    
+    <!-- Electrons -->
+    <circle cx="60" cy="-15" r="6" fill="#00d9ff">
+      <animate attributeName="cx" values="60;-60;-60;60;60" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="-15;-15;15;15;-15" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="-60" cy="15" r="6" fill="#00d9ff">
+      <animate attributeName="cx" values="-60;60;60;-60;-60" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="15;15;-15;-15;15" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="0" cy="-50" r="6" fill="#00d9ff">
+      <animate attributeName="cx" values="0;0;0;0;0" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="-50;50;50;-50;-50" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Text -->
+  <text x="200" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#ffffff">ФИЗИКА</text>
+  <text x="200" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#888">Наука о природе</text>
+  
+  <!-- Decorative elements -->
+  <circle cx="50" cy="50" r="3" fill="#00d9ff" opacity="0.6"/>
+  <circle cx="350" cy="80" r="4" fill="#ff6b6b" opacity="0.6"/>
+  <circle cx="80" cy="250" r="2" fill="#00ff88" opacity="0.6"/>
+</svg>

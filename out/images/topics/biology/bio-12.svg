@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#fdf4ff"/>
+  
+  <!-- Title -->
+  <text x="200" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#475569">Генетика 🧬</text>
+  
+  <!-- DNA double helix -->
+  <g transform="translate(50, 50)">
+    <path d="M0 0 Q30 20 0 40 Q-30 60 0 80 Q30 100 0 120 Q-30 140 0 160 Q30 180 0 200" 
+          stroke="#8b5cf6" stroke-width="4" fill="none"/>
+    <path d="M50 0 Q20 20 50 40 Q80 60 50 80 Q20 100 50 120 Q80 140 50 160 Q20 180 50 200" 
+          stroke="#ec4899" stroke-width="4" fill="none"/>
+    
+    <!-- Base pairs -->
+    <line x1="10" y1="10" x2="40" y2="10" stroke="#fbbf24" stroke-width="3"/>
+    <line x1="5" y1="30" x2="45" y2="30" stroke="#22c55e" stroke-width="3"/>
+    <line x1="5" y1="50" x2="45" y2="50" stroke="#fbbf24" stroke-width="3"/>
+    <line x1="10" y1="70" x2="40" y2="70" stroke="#22c55e" stroke-width="3"/>
+    <line x1="5" y1="90" x2="45" y2="90" stroke="#fbbf24" stroke-width="3"/>
+    <line x1="5" y1="110" x2="45" y2="110" stroke="#22c55e" stroke-width="3"/>
+    <line x1="10" y1="130" x2="40" y2="130" stroke="#fbbf24" stroke-width="3"/>
+    <line x1="5" y1="150" x2="45" y2="150" stroke="#22c55e" stroke-width="3"/>
+    <line x1="5" y1="170" x2="45" y2="170" stroke="#fbbf24" stroke-width="3"/>
+    <line x1="10" y1="190" x2="40" y2="190" stroke="#22c55e" stroke-width="3"/>
+    
+    <!-- Base labels -->
+    <text x="25" y="8" font-family="Arial, sans-serif" font-size="7" fill="#78350f">A-T</text>
+    <text x="25" y="48" font-family="Arial, sans-serif" font-size="7" fill="#78350f">A-T</text>
+    <text x="25" y="88" font-family="Arial, sans-serif" font-size="7" fill="#78350f">A-T</text>
+    <text x="25" y="128" font-family="Arial, sans-serif" font-size="7" fill="#166534">G-C</text>
+    <text x="25" y="168" font-family="Arial, sans-serif" font-size="7" fill="#78350f">A-T</text>
+  </g>
+  
+  <!-- Punnett square -->
+  <g transform="translate(200, 45)">
+    <text x="70" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#86198f">Скрещивание Aa × Aa</text>
+    
+    <!-- Grid -->
+    <rect x="20" y="15" width="120" height="120" fill="white" stroke="#d946ef" stroke-width="2"/>
+    <line x1="60" y1="15" x2="60" y2="135" stroke="#d946ef" stroke-width="1"/>
+    <line x1="100" y1="15" x2="100" y2="135" stroke="#d946ef" stroke-width="1"/>
+    <line x1="20" y1="55" x2="140" y2="55" stroke="#d946ef" stroke-width="1"/>
+    <line x1="20" y1="95" x2="140" y2="95" stroke="#d946ef" stroke-width="1"/>
+    
+    <!-- Parent alleles -->
+    <text x="40" y="10" font-family="Arial, sans-serif" font-size="10" fill="#7c3aed">A</text>
+    <text x="80" y="10" font-family="Arial, sans-serif" font-size="10" fill="#7c3aed">a</text>
+    <text x="8" y="38" font-family="Arial, sans-serif" font-size="10" fill="#ec4899">A</text>
+    <text x="8" y="78" font-family="Arial, sans-serif" font-size="10" fill="#ec4899">a</text>
+    
+    <!-- Offspring -->
+    <text x="40" y="38" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#166534">AA</text>
+    <text x="80" y="38" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#166534">Aa</text>
+    <text x="40" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#166534">Aa</text>
+    <text x="80" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#dc2626">aa</text>
+    
+    <!-- Ratios -->
+    <text x="70" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#64748b">1 AA : 2 Aa : 1 aa</text>
+    <text x="70" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#64748b">3 : 1 (фенотип)</text>
+  </g>
+  
+  <!-- Mendel's laws -->
+  <g transform="translate(20, 175)">
+    <rect x="0" y="0" width="175" height="75" rx="8" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+    <text x="87" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#166534">Законы Менделя:</text>
+    <text x="10" y="35" font-family="Arial, sans-serif" font-size="9" fill="#15803d">1. Единообразие гибридов F₁</text>
+    <text x="10" y="50" font-family="Arial, sans-serif" font-size="9" fill="#15803d">2. Расщепление признаков</text>
+    <text x="10" y="65" font-family="Arial, sans-serif" font-size="9" fill="#15803d">3. Независимое наследование</text>
+  </g>
+  
+  <!-- Key terms -->
+  <g transform="translate(205, 175)">
+    <rect x="0" y="0" width="175" height="75" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+    <text x="87" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#92400e">Термины:</text>
+    <text x="10" y="35" font-family="Arial, sans-serif" font-size="9" fill="#b45309">Доминантный — подавляет (A)</text>
+    <text x="10" y="50" font-family="Arial, sans-serif" font-size="9" fill="#b45309">Рецессивный — подавляется (a)</text>
+    <text x="10" y="65" font-family="Arial, sans-serif" font-size="9" fill="#b45309">Генотип vs Фенотип</text>
+  </g>
+  
+  <!-- Bottom -->
+  <rect x="20" y="260" width="360" height="30" rx="8" fill="#fae8ff" stroke="#d946ef" stroke-width="2"/>
+  <text x="200" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#86198f">
+    💡 Грегор Мендель — "отец генетики" (1865)
+  </text>
+</svg>
