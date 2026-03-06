@@ -1799,6 +1799,9 @@ export const grade5Subjects: Subject[] = [
                 id: 'bio5-s1-t1-l1',
                 title: 'Что такое биология',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-18.svg" alt="Биология как наука" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🌿 Биология</h2>
                   <p>Биология — наука о живой природе.</p>
                   <h3>Разделы биологии:</h3>
@@ -1819,6 +1822,9 @@ export const grade5Subjects: Subject[] = [
                 id: 'bio5-s1-t1-l2',
                 title: 'Признаки живого',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-19.svg" alt="Признаки живого" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🧬 Признаки живого</h2>
                   <h3>Живые организмы:</h3>
                   <ol>
@@ -1861,6 +1867,9 @@ export const grade5Subjects: Subject[] = [
                 id: 'bio5-s1-t2-l1',
                 title: 'Открытие клетки',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-20.svg" alt="Методы биологии" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🔬 Открытие клетки</h2>
                   <p>В 1665 году Роберт Гук рассмотрел срез пробки под микроскопом.</p>
                   <p>Он увидел маленькие ячейки и назвал их "клетками".</p>
@@ -1880,6 +1889,9 @@ export const grade5Subjects: Subject[] = [
                 id: 'bio5-s1-t2-l2',
                 title: 'Строение клетки',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-21.svg" alt="Клеточное строение" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🔬 Строение клетки</h2>
                   <h3>Основные части:</h3>
                   <ul>

@@ -2315,7 +2315,7 @@ export const grade11Subjects: Subject[] = [
                 title: 'Свойства спиртов',
                 content: `<div class="lesson">
                   <div style="text-align: center; margin-bottom: 1rem;">
-                    <img src="/inetshkola/images/topics/chemistry/chem-15.svg" alt="Органическая химия" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                    <img src="/inetshkola/images/topics/chemistry/chem-18.svg" alt="Спирты" style="max-width: 100%; height: auto; border-radius: 12px;" />
                   </div>
                   <h2>🧪 Спирты</h2>
                   <h3>Этанол C₂H₅OH:</h3>
@@ -2521,6 +2521,10 @@ export const grade11Subjects: Subject[] = [
                 id: 'bio11-s1-t1-l1',
                 title: 'Рудименты и атавизмы',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-37.svg" alt="Рудименты и атавизмы" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🦴 Рудименты</h2>
                   <h3>Определение:</h3>
                   <p>Органы, утратившие функцию</p>
@@ -2571,6 +2575,10 @@ export const grade11Subjects: Subject[] = [
                 id: 'bio11-s2-t1-l1',
                 title: 'Пищевые цепи',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-30.svg" alt="Экосистема" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🌿 Пищевые цепи</h2>
                   <h3>Пример:</h3>
                   <p>Растение → Травоядное → Хищник</p>

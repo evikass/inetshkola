@@ -2021,7 +2021,7 @@ export const grade8Subjects: Subject[] = [
                 title: 'Четыре типа реакций',
                 content: `<div class="lesson">
                   <div style="text-align: center; margin-bottom: 1rem;">
-                    <img src="/inetshkola/images/topics/chemistry/chem-05.svg" alt="Типы реакций" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                    <img src="/inetshkola/images/topics/chemistry/chem-16.svg" alt="Реакция соединения" style="max-width: 100%; height: auto; border-radius: 12px;" />
                   </div>
                   <h2>⚗️ Типы реакций</h2>
                   <h3>1. Соединение: A + B → AB</h3>
@@ -2719,6 +2719,10 @@ export const grade8Subjects: Subject[] = [
                 id: 'bio8-s1-t1-l1',
                 title: 'Строение скелета',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-08.svg" alt="Биология" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🦴 Скелет человека</h2>
                   <h3>Отделы:</h3>
                   <ul>
@@ -2766,6 +2770,10 @@ export const grade8Subjects: Subject[] = [
                 id: 'bio8-s1-t2-l1',
                 title: 'Строение сердца',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-09.svg" alt="Биология" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>❤️ Сердце человека</h2>
                   <h3>Строение:</h3>
                   <ul>
@@ -2786,6 +2794,10 @@ export const grade8Subjects: Subject[] = [
                 id: 'bio8-s1-t2-l2',
                 title: 'Круги кровообращения',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-35.svg" alt="Круги кровообращения" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🔄 Круги кровообращения</h2>
                   <h3>Большой круг:</h3>
                   <p>Левый желудочек → аорта → органы → вены → правое предсердие</p>
@@ -2837,6 +2849,10 @@ export const grade8Subjects: Subject[] = [
                 id: 'bio8-s2-t1-l1',
                 title: 'Нейрон',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-10.svg" alt="Биология" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🧠 Нейрон</h2>
                   <h3>Строение:</h3>
                   <ul>

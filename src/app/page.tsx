@@ -312,7 +312,7 @@ function SchoolApp() {
       {/* Фиксированная версия в правом нижнем углу */}
       <div className="fixed bottom-16 right-2 sm:bottom-4 sm:right-4 z-[60]">
         <span className="text-xs text-white/40 font-mono bg-black/30 px-2 py-1 rounded backdrop-blur-sm">
-          v0.4.20
+          v0.4.22
         </span>
       </div>
     </div>

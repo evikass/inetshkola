@@ -2270,6 +2270,10 @@ export const grade7Subjects: Subject[] = [
                 id: 'bio7-s1-t1-l1',
                 title: 'Строение рыб',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-06.svg" alt="Биология" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🐟 Класс Рыбы</h2>
                   <h3>Внешнее строение:</h3>
                   <ul>
@@ -2353,6 +2357,10 @@ export const grade7Subjects: Subject[] = [
                 id: 'bio7-s1-t2-l1',
                 title: 'Земноводные',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-07.svg" alt="Биология" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🐸 Класс Земноводные</h2>
                   <h3>Особенности:</h3>
                   <ul>
@@ -2373,6 +2381,9 @@ export const grade7Subjects: Subject[] = [
                 id: 'bio7-s1-t2-l2',
                 title: 'Пресмыкающиеся',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-34.svg" alt="Пресмыкающиеся" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🦎 Класс Пресмыкающиеся</h2>
                   <h3>Особенности:</h3>
                   <ul>
@@ -2449,6 +2460,10 @@ export const grade7Subjects: Subject[] = [
                 id: 'bio7-s1-t3-l1',
                 title: 'Птицы',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-13.svg" alt="Биология" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🐦 Класс Птицы</h2>
                   <h3>Приспособления к полёту:</h3>
                   <ul>
@@ -2470,6 +2485,10 @@ export const grade7Subjects: Subject[] = [
                 id: 'bio7-s1-t3-l2',
                 title: 'Млекопитающие',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-14.svg" alt="Биология" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🦁 Класс Млекопитающие</h2>
                   <h3>Характерные признаки:</h3>
                   <ul>
@@ -5021,6 +5040,10 @@ export const grade7Subjects: Subject[] = [
                 id: 'bio7-s1-t1-l1',
                 title: 'Животные',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-41.svg" alt="Царство животных" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🦁 Царство животных</h2>
                   <h3>Признаки животных:</h3>
                   <ul>

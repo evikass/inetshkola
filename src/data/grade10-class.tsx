@@ -2124,7 +2124,7 @@ export const grade10Subjects: Subject[] = [
                 title: 'Свойства спиртов',
                 content: `<div class="lesson">
                   <div style="text-align: center; margin-bottom: 1rem;">
-                    <img src="/inetshkola/images/topics/chemistry/chem-15.svg" alt="Органические соединения" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                    <img src="/inetshkola/images/topics/chemistry/chem-18.svg" alt="Спирты" style="max-width: 100%; height: auto; border-radius: 12px;" />
                   </div>
                   <h2>🍷 Спирты</h2>
                   <h3>Этанол:</h3>
@@ -2177,7 +2177,7 @@ export const grade10Subjects: Subject[] = [
                 title: 'Альдегиды',
                 content: `<div class="lesson">
                   <div style="text-align: center; margin-bottom: 1rem;">
-                    <img src="/inetshkola/images/topics/chemistry/chem-15.svg" alt="Органические соединения" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                    <img src="/inetshkola/images/topics/chemistry/chem-19.svg" alt="Альдегиды" style="max-width: 100%; height: auto; border-radius: 12px;" />
                   </div>
                   <h2>⚗️ Альдегиды</h2>
                   <h3>Реакция "серебряного зеркала":</h3>
@@ -2234,7 +2234,7 @@ export const grade10Subjects: Subject[] = [
                 title: 'Глюкоза',
                 content: `<div class="lesson">
                   <div style="text-align: center; margin-bottom: 1rem;">
-                    <img src="/inetshkola/images/topics/chemistry/chem-04.svg" alt="Молекулы" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                    <img src="/inetshkola/images/topics/chemistry/chem-20.svg" alt="Углеводы" style="max-width: 100%; height: auto; border-radius: 12px;" />
                   </div>
                   <h2>🍬 Глюкоза</h2>
                   <h3>Формула:</h3>
@@ -2372,6 +2372,10 @@ export const grade10Subjects: Subject[] = [
                 id: 'bio10-s1-t1-l1',
                 title: 'Органеллы',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-38.svg" alt="Органеллы клетки" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🔬 Органеллы клетки</h2>
                   <h3>Митохондрии:</h3>
                   <p>АТФ — энергия клетки</p>
@@ -2422,6 +2426,10 @@ export const grade10Subjects: Subject[] = [
                 id: 'bio10-s2-t1-l1',
                 title: 'Решение задач',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-17.svg" alt="Биология" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🧬 Генетические задачи</h2>
                   <h3>Алгоритм:</h3>
                   <ol>
@@ -2475,6 +2483,10 @@ export const grade10Subjects: Subject[] = [
                 id: 'bio10-s3-t1-l1',
                 title: 'Естественный отбор',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-28.svg" alt="Естественный отбор" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🌿 Естественный отбор</h2>
                   <h3>Суть:</h3>
                   <p>Выживают и размножаются наиболее приспособленные</p>
@@ -2517,6 +2529,10 @@ export const grade10Subjects: Subject[] = [
                 id: 'bio10-s3-t2-l1',
                 title: 'Изоляция',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-39.svg" alt="Изоляция" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🏝️ Изоляция</h2>
                   <h3>Типы:</h3>
                   <ul>
@@ -2569,6 +2585,10 @@ export const grade10Subjects: Subject[] = [
                 id: 'bio10-s4-t1-l1',
                 title: 'Биотические связи',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-40.svg" alt="Биотические факторы" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🦠 Биотические факторы</h2>
                   <h3>Хищничество:</h3>
                   <p>Волк и заяц — "гонка вооружений"</p>
@@ -2609,6 +2629,10 @@ export const grade10Subjects: Subject[] = [
                 id: 'bio10-s4-t2-l1',
                 title: 'Пищевые цепи',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-36.svg" alt="Пищевые цепи" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🔗 Пищевые цепи</h2>
                   <h3>Пример:</h3>
                   <p>Фитопланктон → Зоопланктон → Рыба → Тюлень → Белый медведь</p>

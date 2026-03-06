@@ -3329,6 +3329,10 @@ export const grade9Subjects: Subject[] = [
                 id: 'bio9-s1-t1-l1',
                 title: 'Органоиды клетки',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-11.svg" alt="Биология" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🔬 Клетка</h2>
                   <h3>Основные органоиды:</h3>
                   <ul>
@@ -3383,6 +3387,10 @@ export const grade9Subjects: Subject[] = [
                 id: 'bio9-s2-t1-l1',
                 title: 'Естественный отбор',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-12.svg" alt="Биология" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🧬 Эволюция</h2>
                   <h3>Главный механизм:</h3>
                   <p><b>Естественный отбор</b> — выживают наиболее приспособленные</p>
@@ -3438,6 +3446,10 @@ export const grade9Subjects: Subject[] = [
                 id: 'bio9-s3-t1-l1',
                 title: 'Типы экологических факторов',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-16.svg" alt="Биология" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
+                  
                   <h2>🌿 Экологические факторы</h2>
                   <h3>Абиотические:</h3>
                   <p>Температура, свет, вода, почва</p>
@@ -3635,7 +3647,7 @@ export const grade9Subjects: Subject[] = [
                 title: 'Типы реакций',
                 content: `<div class="lesson">
                   <div style="text-align: center; margin-bottom: 1rem;">
-                    <img src="/inetshkola/images/topics/chemistry/chem-05.svg" alt="Типы реакций" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                    <img src="/inetshkola/images/topics/chemistry/chem-17.svg" alt="Реакция разложения" style="max-width: 100%; height: auto; border-radius: 12px;" />
                   </div>
                   <h2>⚗️ Химические реакции</h2>
                   <h3>Соединение:</h3>

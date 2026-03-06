@@ -1824,6 +1824,9 @@ export const grade6Subjects: Subject[] = [
                 id: 'bio6-s1-t1-l1',
                 title: 'Вегетативные органы',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-25.svg" alt="Цветковое растение" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🌱 Вегетативные органы</h2>
                   <h3>Корень:</h3>
                   <ul>
@@ -1852,6 +1855,9 @@ export const grade6Subjects: Subject[] = [
                 id: 'bio6-s1-t1-l2',
                 title: 'Генеративные органы',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-23.svg" alt="Грибы" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🌸 Генеративные органы</h2>
                   <h3>Цветок:</h3>
                   <p>Орган семенного размножения</p>
@@ -1924,6 +1930,9 @@ export const grade6Subjects: Subject[] = [
                 id: 'bio6-s1-t2-l1',
                 title: 'Что такое фотосинтез',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-26.svg" alt="Фотосинтез" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>☀️ Фотосинтез</h2>
                   <p>Фотосинтез — процесс превращения света в энергию химических связей.</p>
                   <h3>Что нужно:</h3>
@@ -2006,6 +2015,9 @@ export const grade6Subjects: Subject[] = [
                 id: 'bio6-s2-t1-l1',
                 title: 'Многообразие беспозвоночных',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/biology/bio-27.svg" alt="Разнообразие животных" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🐌 Беспозвоночные</h2>
                   <p>Беспозвоночные — животные без позвоночника.</p>
                   <h3>Типы:</h3>
