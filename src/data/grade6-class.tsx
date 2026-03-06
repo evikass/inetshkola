@@ -2229,6 +2229,9 @@ export const grade6Subjects: Subject[] = [
                 id: 'geo6-s1-t1-l1',
                 title: 'Что такое карта',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/geography/geo-04.svg" alt="Географическая карта" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🗺️ Географическая карта</h2>
                   <p>Карта — это уменьшенное изображение Земли на бумаге!</p>
                   <h3>Виды карт:</h3>
@@ -2249,6 +2252,9 @@ export const grade6Subjects: Subject[] = [
                 id: 'geo6-s1-t1-l2',
                 title: 'Масштаб',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/geography/geo-04.svg" alt="Масштаб карты" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>📏 Масштаб</h2>
                   <p>Масштаб показывает уменьшение расстояния на карте!</p>
                   <h3>Виды записи:</h3>
@@ -2326,6 +2332,9 @@ export const grade6Subjects: Subject[] = [
                 id: 'geo6-s1-t2-l1',
                 title: 'Материки',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/geography/geo-05.svg" alt="Материки" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🌍 Материки</h2>
                   <p>Материк — это большой участок суши, окружённый водой!</p>
                   <h3>Шесть материков:</h3>
@@ -2347,6 +2356,9 @@ export const grade6Subjects: Subject[] = [
                 id: 'geo6-s1-t2-l2',
                 title: 'Океаны',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/geography/geo-06.svg" alt="Океаны" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🌊 Океаны</h2>
                   <p>Океан — огромная часть Мирового океана.</p>
                   <h3>Четыре океана:</h3>

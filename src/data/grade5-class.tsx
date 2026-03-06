@@ -2077,6 +2077,9 @@ export const grade5Subjects: Subject[] = [
                 id: 'geo5-s1-t1-l1',
                 title: 'Что такое география',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/geography/geo-01.svg" alt="География" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🌍 География</h2>
                   <p>География — это наука о Земле!</p>
                   <h3>Что изучает:</h3>
@@ -2119,6 +2122,9 @@ export const grade5Subjects: Subject[] = [
                 id: 'geo5-s1-t2-l1',
                 title: 'Земля в космосе',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/geography/geo-02.svg" alt="Земля в космосе" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🌍 Земля — планета</h2>
                   <p>Земля — третья планета от Солнца!</p>
                   <h3>Соседи Земли:</h3>
@@ -2142,6 +2148,9 @@ export const grade5Subjects: Subject[] = [
                 id: 'geo5-s1-t2-l2',
                 title: 'Движения Земли',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/geography/geo-03.svg" alt="Движения Земли" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🔄 Движения Земли</h2>
                   <h3>Вращение вокруг оси:</h3>
                   <p>Земля вращается за 24 часа = 1 сутки</p>

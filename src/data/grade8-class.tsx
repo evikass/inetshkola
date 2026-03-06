@@ -4299,6 +4299,9 @@ export const grade8Subjects: Subject[] = [
                 id: 'geo8-s1-t1-l1',
                 title: 'Факторы климата',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/geography/geo-08.svg" alt="Климатообразующие факторы" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🌍 Климатообразующие факторы</h2>
                   <h3>Широта:</h3>
                   <p>Чем севернее — тем холоднее (угол солнца меньше).</p>
@@ -4377,6 +4380,9 @@ export const grade8Subjects: Subject[] = [
                 id: 'geo8-s2-t1-l1',
                 title: 'Природные зоны',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/geography/geo-09.svg" alt="Природные зоны" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🌲 Природные зоны</h2>
                   <h3>Тайга:</h3>
                   <p>Хвойные леса. Ель, сосна, лиственница.</p>

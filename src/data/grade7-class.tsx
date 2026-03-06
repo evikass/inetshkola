@@ -3398,6 +3398,9 @@ export const grade7Subjects: Subject[] = [
                 id: 'geo7-s1-t1-l1',
                 title: 'Шесть материков',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/geography/geo-05.svg" alt="Материки" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🌍 Материки</h2>
                   <h3>По размеру (от большого к малому):</h3>
                   <ol>
@@ -3530,6 +3533,9 @@ export const grade7Subjects: Subject[] = [
                 id: 'geo7-s2-t1-l1',
                 title: 'Население мира',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/geography/geo-07.svg" alt="Население мира" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🌍 Население Земли</h2>
                   <h3>Численность:</h3>
                   <p>Более 8 млрд человек</p>
@@ -4923,6 +4929,9 @@ export const grade7Subjects: Subject[] = [
                 id: 'geo7-s1-t1-l1',
                 title: 'Океаны',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/geography/geo-06.svg" alt="Океаны" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🌊 Океаны Земли</h2>
                   <h3>Четыре океана:</h3>
                   <ul>
