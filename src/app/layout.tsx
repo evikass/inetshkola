@@ -53,7 +53,10 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/inetshkola/icon.png",
+    icon: [
+      { url: "/inetshkola/favicon.png", type: "image/png" },
+      { url: "/inetshkola/icon.png", type: "image/png" },
+    ],
     apple: "/inetshkola/icon.png",
   },
   manifest: "/inetshkola/manifest.json",
@@ -93,6 +96,8 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="icon" href="/inetshkola/favicon.png" type="image/png" />
+        <link rel="shortcut icon" href="/inetshkola/favicon.png" type="image/png" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
