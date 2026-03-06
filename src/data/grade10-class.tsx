@@ -310,6 +310,9 @@ export const grade10Subjects: Subject[] = [
                 id: 'lit10-s1-t1-l1',
                 title: 'Образ Онегина',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/literature/lit-05.svg" alt="Пушкин" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>📖 Евгений Онегин</h2>
                   <h3>Характеристика героя:</h3>
                   <ul>
@@ -330,6 +333,9 @@ export const grade10Subjects: Subject[] = [
                 id: 'lit10-s1-t1-l2',
                 title: 'Образ Татьяны',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/literature/lit-05.svg" alt="Пушкин" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>💕 Татьяна Ларина</h2>
                   <h3>"Милый идеал" Пушкина:</h3>
                   <ul>
@@ -380,6 +386,9 @@ export const grade10Subjects: Subject[] = [
                 id: 'lit10-s1-t2-l1',
                 title: 'Любовная лирика',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/literature/lit-05.svg" alt="Пушкин" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>💝 Любовная лирика Пушкина</h2>
                   <h3>"Я вас любил...":</h3>
                   <p>Безответная любовь, благородство</p>

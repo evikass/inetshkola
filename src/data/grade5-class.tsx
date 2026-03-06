@@ -2816,6 +2816,9 @@ export const grade5Subjects: Subject[] = [
                 id: 'lit5-s1-t1-l1',
                 title: 'Что такое сказка',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/literature/lit-02.svg" alt="Сказка" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>📚 Сказка</h2>
                   <p>Сказка — это художественный рассказ о вымышленных событиях.</p>
                   <h3>Признаки сказки:</h3>
@@ -2837,6 +2840,9 @@ export const grade5Subjects: Subject[] = [
                 id: 'lit5-s1-t1-l2',
                 title: 'Виды сказок',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/literature/lit-02.svg" alt="Виды сказок" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>📖 Виды сказок</h2>
                   <h3>Волшебные:</h3>
                   <p>Чудесные превращения, волшебные предметы</p>
@@ -2878,6 +2884,9 @@ export const grade5Subjects: Subject[] = [
                 id: 'lit5-s1-t2-l1',
                 title: 'Загадки',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/literature/lit-07.svg" alt="Загадки" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>❓ Загадки</h2>
                   <p>Загадка — это краткое описание предмета, которое нужно отгадать.</p>
                   <h3>Примеры:</h3>
@@ -2899,6 +2908,9 @@ export const grade5Subjects: Subject[] = [
                 id: 'lit5-s1-t2-l2',
                 title: 'Пословицы и поговорки',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/literature/lit-04.svg" alt="Пословицы" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>📝 Пословицы и поговорки</h2>
                   <h3>Пословица:</h3>
                   <p>Краткое мудрое изречение с поучительным смыслом</p>
@@ -2948,6 +2960,9 @@ export const grade5Subjects: Subject[] = [
                 id: 'lit5-s2-t1-l1',
                 title: 'Что такое басня',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/literature/lit-03.svg" alt="Басня" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🎭 Басня</h2>
                   <p>Басня — это короткий поучительный рассказ в стихах.</p>
                   <h3>Особенности:</h3>

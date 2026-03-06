@@ -571,6 +571,9 @@ export const grade11Subjects: Subject[] = [
                 id: 'lit11-s1-t1-l1',
                 title: 'Символизм',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/literature/lit-01.svg" alt="Серебряный век" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🌙 Символизм</h2>
                   <h3>Основные идеи:</h3>
                   <ul>
@@ -591,6 +594,9 @@ export const grade11Subjects: Subject[] = [
                 id: 'lit11-s1-t1-l2',
                 title: 'Акмеизм',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/literature/lit-01.svg" alt="Акмеизм" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🌟 Акмеизм</h2>
                   <h3>Основные идеи:</h3>
                   <ul>

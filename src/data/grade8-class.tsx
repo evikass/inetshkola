@@ -3106,6 +3106,9 @@ export const grade8Subjects: Subject[] = [
                 id: 'lit8-s1-t1-l1',
                 title: 'Образ Гринёва',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/literature/lit-05.svg" alt="Пушкин" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>⚔️ Пётр Гринёв</h2>
                   <p>Главный герой — молодой дворянин, отправленный на службу.</p>
                   <h3>Качества:</h3>

@@ -3083,6 +3083,9 @@ export const grade6Subjects: Subject[] = [
                 id: 'lit6-s1-t1-l1',
                 title: 'Боги Олимпа',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/literature/lit-01.svg" alt="Мифы" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>🏛️ Боги Древней Греции</h2>
                   <p>Древние греки верили в множество богов.</p>
                   <h3>12 богов Олимпа:</h3>
@@ -3104,6 +3107,9 @@ export const grade6Subjects: Subject[] = [
                 id: 'lit6-s1-t1-l2',
                 title: 'Герои Греции',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/literature/lit-08.svg" alt="Герои" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>⚔️ Герои мифов</h2>
                   <h3>Геракл:</h3>
                   <p>Совершил 12 подвигов, самый сильный герой</p>
@@ -3152,6 +3158,9 @@ export const grade6Subjects: Subject[] = [
                 id: 'lit6-s2-t1-l1',
                 title: 'Что такое летопись',
                 content: `<div class="lesson">
+                  <div style="text-align: center; margin-bottom: 1rem;">
+                    <img src="/inetshkola/images/topics/literature/lit-08.svg" alt="Летопись" style="max-width: 100%; height: auto; border-radius: 12px;" />
+                  </div>
                   <h2>📜 Летопись</h2>
                   <p>Летопись — это запись событий по годам.</p>
                   <h3>Особенности:</h3>
