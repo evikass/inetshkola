@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">
+  <defs>
+    <linearGradient id="worldBg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#22C55E;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#14B8A6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="150" fill="url(#worldBg2)" rx="15"/>
+  
+  <!-- Sky section -->
+  <rect x="0" y="0" width="200" height="50" fill="#7DD3FC" rx="15"/>
+  
+  <!-- Sun -->
+  <circle cx="170" cy="30" r="20" fill="#FCD34D"/>
+  
+  <!-- Cloud -->
+  <ellipse cx="50" cy="25" rx="25" ry="15" fill="white"/>
+  <ellipse cx="70" cy="25" rx="20" ry="12" fill="white"/>
+  
+  <!-- Trees -->
+  <g transform="translate(20, 50)">
+    <rect x="15" y="30" width="8" height="25" fill="#92400E"/>
+    <polygon points="19,0 0,35 38,35" fill="#16A34A"/>
+  </g>
+  
+  <g transform="translate(55, 55)">
+    <rect x="12" y="25" width="6" height="20" fill="#92400E"/>
+    <polygon points="15,0 0,28 30,28" fill="#22C55E"/>
+  </g>
+  
+  <!-- Flowers -->
+  <circle cx="100" cy="95" r="8" fill="#F472B6"/>
+  <circle cx="100" cy="95" r="4" fill="#FDE047"/>
+  <line x1="100" y1="103" x2="100" y2="130" stroke="#22C55E" stroke-width="2"/>
+  
+  <circle cx="120" cy="100" r="6" fill="#C084FC"/>
+  <circle cx="120" cy="100" r="3" fill="#FDE047"/>
+  <line x1="120" y1="106" x2="120" y2="130" stroke="#22C55E" stroke-width="2"/>
+  
+  <!-- River -->
+  <path d="M0 130 Q50 125 100 135 Q150 145 200 130" fill="#38BDF8" stroke="#0EA5E9" stroke-width="2"/>
+  
+  <!-- Mountains in background -->
+  <polygon points="140,50 180,20 220,50" fill="#4ADE80"/>
+  
+  <!-- Butterfly -->
+  <g transform="translate(145, 85)">
+    <ellipse cx="0" cy="0" rx="12" ry="8" fill="#E879F9" transform="rotate(-20)"/>
+    <ellipse cx="0" cy="0" rx="12" ry="8" fill="#E879F9" transform="rotate(20)"/>
+    <ellipse cx="0" cy="10" rx="8" ry="6" fill="#F0ABFC" transform="rotate(-20)"/>
+    <ellipse cx="0" cy="10" rx="8" ry="6" fill="#F0ABFC" transform="rotate(20)"/>
+  </g>
+</svg>

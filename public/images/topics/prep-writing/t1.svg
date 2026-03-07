@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A855F7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EC4899;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="150" fill="url(#bg1)" rx="15"/>
+  
+  <!-- Dotted circle to trace -->
+  <circle cx="70" cy="75" r="35" fill="none" stroke="#FEF3C7" stroke-width="4" stroke-dasharray="8,4"/>
+  <circle cx="70" cy="75" r="30" fill="#FDE68A" opacity="0.3"/>
+  
+  <!-- Pencil tracing -->
+  <g transform="translate(95, 45) rotate(45)">
+    <rect x="0" y="0" width="8" height="40" fill="#FCD34D" rx="2"/>
+    <polygon points="4,40 0,55 8,55" fill="#FBBF24"/>
+    <rect x="0" y="0" width="8" height="8" fill="#EC4899" rx="2"/>
+  </g>
+  
+  <!-- Traced shapes -->
+  <circle cx="150" cy="45" r="15" fill="none" stroke="white" stroke-width="3"/>
+  <rect x="130" y="85" width="30" height="30" fill="none" stroke="white" stroke-width="3" rx="2"/>
+  
+  <!-- Check mark -->
+  <path d="M160 65 L170 75 L185 55" stroke="#4ADE80" stroke-width="4" fill="none" stroke-linecap="round"/>
+</svg>
