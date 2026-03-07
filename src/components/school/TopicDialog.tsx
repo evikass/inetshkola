@@ -7,12 +7,14 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { Progress } from '@/components/ui/progress'
 import { 
   BookOpen, CheckCircle, ChevronRight, ChevronLeft, Zap,
-  Star, PartyPopper, Lightbulb, Play, Video
+  Star, PartyPopper, Lightbulb, Play, Video, BookMarked
 } from 'lucide-react'
 import type { Topic, Subject, QuizQuestion } from '@/data/types'
 import KidFriendlyQuiz from './KidFriendlyQuiz'
 import InteractiveLesson from './InteractiveLesson'
 import { sampleLessons } from '@/data/sample-lessons'
+import FolkloreTextModal from './FolkloreTextModal'
+import { getFolkloreText } from '@/data/folklore-texts'
 
 interface TopicDialogProps {
   open: boolean
@@ -319,6 +321,13 @@ export default function TopicDialog({
   const [starsEarned, setStarsEarned] = useState(0)
   const [showQuiz, setShowQuiz] = useState(false)
   const [showVideoLesson, setShowVideoLesson] = useState(false)
+  const [folkloreTextId, setFolkloreTextId] = useState<string | null>(null)
+
+  // Получаем текст сказки/былины
+  const selectedFolkloreText = useMemo(() => {
+    if (!folkloreTextId) return null
+    return getFolkloreText(folkloreTextId) || null
+  }, [folkloreTextId])
 
   // Вычисляем шаги при изменении темы
   const steps = useMemo(() => {
@@ -661,5 +670,261 @@ export default function TopicDialog({
         )}
       </DialogContent>
     </Dialog>
+  )
+  
+  // Добавляем модальное окно для полных текстов
+  return (
+    <>
+      {useKidMode ? (
+        <Dialog open={open} onOpenChange={onOpenChange}>
+          <DialogContent className="bg-gradient-to-br from-purple-900 via-pink-900 to-orange-900 border-white/20 text-white max-w-2xl max-h-[85vh] overflow-hidden rounded-3xl">
+            {/* Шапка */}
+            <div className="flex items-center justify-between p-4 border-b border-white/10">
+              <div className="flex items-center gap-2">
+                <Star className="w-6 h-6 text-yellow-400 fill-yellow-400 animate-pulse" />
+                <span className="font-bold text-lg">{topic.title}</span>
+              </div>
+              <Button
+                variant="ghost"
+                onClick={() => onOpenChange(false)}
+                className="text-white/60 hover:text-white"
+              >
+                ✕
+              </Button>
+            </div>
+
+            {/* Контент */}
+            <ScrollArea className="h-[50vh]">
+              <div className="p-4">
+                {showQuiz && hasTopicQuiz ? (
+                  <MiniQuiz
+                    questions={topic.quiz!}
+                    onComplete={handleComplete}
+                  />
+                ) : (
+                  <div className="space-y-4">
+                    {/* Отображаем уроки, если есть */}
+                    {topic.lessons && topic.lessons.length > 0 ? (
+                      <div className="space-y-6">
+                        {topic.lessons.map((lesson, index) => (
+                          <div key={lesson.id || index}>
+                            <div 
+                              className="kid-lesson"
+                              dangerouslySetInnerHTML={{ __html: lesson.content }}
+                            />
+                            {/* Кнопка "Читать полностью" для урока со сказкой */}
+                            {lesson.folkloreTextId && (
+                              <Button
+                                onClick={() => setFolkloreTextId(lesson.folkloreTextId!)}
+                                className="mt-4 w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-2xl py-3"
+                              >
+                                <BookMarked className="w-5 h-5 mr-2" />
+                                📖 Читать полный текст
+                              </Button>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <>
+                        <div 
+                          className="kid-lesson"
+                          dangerouslySetInnerHTML={{ __html: topic.theory }}
+                        />
+                        {/* Кнопка "Читать полностью" для темы со сказкой */}
+                        {topic.folkloreTextId && (
+                          <Button
+                            onClick={() => setFolkloreTextId(topic.folkloreTextId!)}
+                            className="mt-4 w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-2xl py-3"
+                          >
+                            <BookMarked className="w-5 h-5 mr-2" />
+                            📖 Читать полный текст
+                          </Button>
+                        )}
+                      </>
+                    )}
+                    
+                    {/* Примеры */}
+                    {topic.examples.length > 0 && (
+                      <div className="bg-white/10 rounded-2xl p-4">
+                        <h4 className="text-lg font-bold text-yellow-300 mb-2">💡 Примеры:</h4>
+                        <ul className="space-y-2">
+                          {topic.examples.map((example, i) => (
+                            <li key={i} className="flex items-start gap-2 text-white/90">
+                              <ChevronRight className="w-5 h-5 text-pink-400 mt-0.5 shrink-0" />
+                              {example}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </ScrollArea>
+            
+            {/* Кнопки внизу */}
+            {!showQuiz && (
+              <div className="p-4 border-t border-white/10 space-y-2">
+                {/* Кнопка теста */}
+                {hasTopicQuiz && (
+                  <Button
+                    onClick={handleStartTopicQuiz}
+                    className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white rounded-2xl py-4 text-lg font-bold"
+                  >
+                    <Zap className="w-5 h-5 mr-2" />
+                    Тест 🎯
+                  </Button>
+                )}
+                
+                <Button
+                  onClick={handleComplete}
+                  className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-2xl py-4 text-lg font-bold"
+                >
+                  <CheckCircle className="w-5 h-5 mr-2" />
+                  Завершить урок ⭐
+                </Button>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
+      ) : (
+        <Dialog open={open} onOpenChange={onOpenChange}>
+          <DialogContent className="bg-slate-900 border-white/10 text-white max-w-2xl max-h-[80vh] overflow-hidden">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-purple-400" />
+                {topic.title}
+              </DialogTitle>
+              <DialogDescription className="text-gray-400">
+                {topic.description}
+              </DialogDescription>
+            </DialogHeader>
+            
+            <ScrollArea className="h-[50vh]">
+              <div className="space-y-4 pr-4">
+                {/* Отображаем уроки, если есть */}
+                {topic.lessons && topic.lessons.length > 0 ? (
+                  <div className="space-y-6">
+                    {topic.lessons.map((lesson, index) => (
+                      <div key={lesson.id || index}>
+                        <div 
+                          className="lesson-content prose prose-invert prose-sm max-w-none"
+                          dangerouslySetInnerHTML={{ __html: lesson.content }}
+                        />
+                        {/* Кнопка "Читать полностью" для урока со сказкой */}
+                        {lesson.folkloreTextId && (
+                          <Button
+                            onClick={() => setFolkloreTextId(lesson.folkloreTextId!)}
+                            className="mt-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white"
+                          >
+                            <BookMarked className="w-4 h-4 mr-2" />
+                            Читать полный текст
+                          </Button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <>
+                    <div 
+                      className="lesson-content prose prose-invert prose-sm max-w-none"
+                      dangerouslySetInnerHTML={{ __html: topic.theory }}
+                    />
+                    {/* Кнопка "Читать полностью" для темы со сказкой */}
+                    {topic.folkloreTextId && (
+                      <Button
+                        onClick={() => setFolkloreTextId(topic.folkloreTextId!)}
+                        className="mt-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white"
+                      >
+                        <BookMarked className="w-4 h-4 mr-2" />
+                        Читать полный текст
+                      </Button>
+                    )}
+                  </>
+                )}
+                
+                {topic.examples.length > 0 && (
+                  <div className="space-y-2">
+                    <h4 className="text-white font-medium">Примеры:</h4>
+                    <ul className="space-y-1">
+                      {topic.examples.map((example, i) => (
+                        <li key={i} className="flex items-center gap-2 text-gray-300">
+                          <ChevronRight className="w-4 h-4 text-purple-400" />
+                          {example}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </ScrollArea>
+            
+            <div className="flex flex-col sm:flex-row gap-2 p-4 border-t border-white/10">
+              {/* Кнопка Видеоурок */}
+              {videoLesson && (
+                <Button
+                  onClick={() => setShowVideoLesson(true)}
+                  className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white"
+                >
+                  <Video className="w-4 h-4 mr-2" />
+                  Видеоурок
+                </Button>
+              )}
+              
+              {/* Кнопка Тест по теме */}
+              {hasTopicQuiz && (
+                <Button
+                  onClick={() => setShowQuiz(true)}
+                  className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white"
+                >
+                  <Zap className="w-4 h-4 mr-2" />
+                  Тест по уроку ({topic.quiz?.length})
+                </Button>
+              )}
+              
+              {/* Кнопка Тест по предмету */}
+              {!hasTopicQuiz && hasSubjectQuiz && onOpenQuiz && (
+                <Button
+                  onClick={() => {
+                    onOpenChange(false)
+                    onOpenQuiz()
+                  }}
+                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
+                >
+                  <Zap className="w-4 h-4 mr-2" />
+                  Тест
+                </Button>
+              )}
+              
+              <Button
+                onClick={handleComplete}
+                className="bg-gradient-to-r from-green-600 to-emerald-600"
+              >
+                <CheckCircle className="w-4 h-4 mr-2" />
+                Отметить как изученное
+              </Button>
+            </div>
+
+            {/* Мини-тест внутри диалога */}
+            {showQuiz && hasTopicQuiz && (
+              <div className="absolute inset-0 bg-slate-900 flex items-center justify-center p-4 z-10">
+                <MiniQuiz
+                  questions={topic.quiz!}
+                  onComplete={handleComplete}
+                />
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
+      )}
+      
+      {/* Модальное окно для полных текстов сказок/былин */}
+      <FolkloreTextModal
+        open={!!folkloreTextId}
+        onOpenChange={(open) => !open && setFolkloreTextId(null)}
+        text={selectedFolkloreText}
+      />
+    </>
   )
 }

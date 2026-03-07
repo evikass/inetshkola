@@ -26,6 +26,7 @@ export interface Lesson {
   completed?: boolean
   order: number
   estimatedTime?: number       // Минуты
+  folkloreTextId?: string      // ID полного текста сказки/былины
 }
 
 // ==================== УРОВЕНЬ 4: ТЕМА (Topic) ====================
@@ -41,6 +42,7 @@ export interface Topic {
   lessons?: Lesson[]           // Новое: уроки внутри темы
   quiz?: QuizQuestion[]        // Тест по теме
   image?: string               // Путь к изображению
+  folkloreTextId?: string      // ID полного текста сказки/былины
 }
 
 // ==================== УРОВЕНЬ 3: РАЗДЕЛ (Section) ====================
