@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f8fafc"/>
+  
+  <!-- Ionic bond illustration -->
+  <g transform="translate(40, 50)">
+    <text x="70" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#475569">Ионная связь</text>
+    
+    <!-- Na atom -->
+    <circle cx="30" cy="50" r="25" fill="#ef4444"/>
+    <text x="30" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">Na</text>
+    
+    <!-- Arrow showing electron transfer -->
+    <path d="M60 50 L100 50" stroke="#fbbf24" stroke-width="2" marker-end="url(#earrow1)"/>
+    <circle cx="80" cy="50" r="6" fill="#fbbf24"/>
+    <text x="80" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#d97706">e⁻</text>
+    
+    <!-- Cl atom -->
+    <circle cx="130" cy="50" r="30" fill="#22c55e"/>
+    <text x="130" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">Cl</text>
+    
+    <!-- Result -->
+    <path d="M70 90 L70 110" stroke="#94a3b8" stroke-width="1"/>
+    
+    <!-- Na+ ion -->
+    <circle cx="30" cy="140" r="25" fill="#ef4444" opacity="0.7"/>
+    <text x="30" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">Na⁺</text>
+    
+    <!-- Bond line -->
+    <line x1="55" y1="140" x2="100" y2="140" stroke="#64748b" stroke-width="2" stroke-dasharray="3,2"/>
+    
+    <!-- Cl- ion -->
+    <circle cx="130" cy="140" r="30" fill="#22c55e" opacity="0.7"/>
+    <text x="130" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">Cl⁻</text>
+  </g>
+  
+  <!-- Covalent bond illustration -->
+  <g transform="translate(210, 50)">
+    <text x="90" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#475569">Ковалентная связь</text>
+    
+    <!-- H atoms sharing electrons -->
+    <circle cx="40" cy="50" r="20" fill="#3b82f6"/>
+    <text x="40" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">H</text>
+    
+    <!-- Shared electron pair -->
+    <circle cx="60" cy="45" r="6" fill="#fbbf24"/>
+    <circle cx="60" cy="55" r="6" fill="#fbbf24"/>
+    
+    <circle cx="80" cy="50" r="20" fill="#3b82f6"/>
+    <text x="80" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">H</text>
+    
+    <!-- Result -->
+    <path d="M70 90 L70 110" stroke="#94a3b8" stroke-width="1"/>
+    
+    <!-- H2 molecule -->
+    <circle cx="40" cy="140" r="20" fill="#3b82f6" opacity="0.7"/>
+    <text x="40" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">H</text>
+    <line x1="60" y1="140" x2="80" y2="140" stroke="#64748b" stroke-width="4"/>
+    <circle cx="80" cy="140" r="20" fill="#3b82f6" opacity="0.7"/>
+    <text x="80" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">H</text>
+    <text x="120" y="145" font-family="Arial, sans-serif" font-size="12" fill="#475569">H₂</text>
+  </g>
+  
+  <!-- Legend -->
+  <g transform="translate(40, 220)">
+    <circle cx="10" cy="10" r="8" fill="#fbbf24"/>
+    <text x="25" y="14" font-family="Arial, sans-serif" font-size="10" fill="#475569">электрон</text>
+    
+    <rect x="100" y="2" width="30" height="16" fill="#64748b"/>
+    <text x="140" y="14" font-family="Arial, sans-serif" font-size="10" fill="#475569">химическая связь</text>
+  </g>
+  
+  <defs>
+    <marker id="earrow1" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#fbbf24"/>
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="200" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#475569">Типы химических связей</text>
+</svg>

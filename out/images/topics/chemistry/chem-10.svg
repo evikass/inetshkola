@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="anodeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ef4444"/>
+      <stop offset="100%" style="stop-color:#b91c1c"/>
+    </linearGradient>
+    <linearGradient id="cathodeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="electrolyteGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#a78bfa"/>
+      <stop offset="100%" style="stop-color:#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f8fafc"/>
+  
+  <!-- Battery container -->
+  <rect x="80" y="60" width="240" height="150" rx="10" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/>
+  
+  <!-- Electrolyte solution -->
+  <rect x="100" y="80" width="200" height="110" fill="url(#electrolyteGrad)" opacity="0.3" rx="5"/>
+  
+  <!-- Anode (-) -->
+  <rect x="110" y="90" width="30" height="90" rx="5" fill="url(#anodeGrad)"/>
+  <text x="125" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white" transform="rotate(-90, 125, 140)">анод</text>
+  <text x="70" y="135" font-family="Arial, sans-serif" font-size="16" fill="#ef4444">−</text>
+  
+  <!-- Cathode (+) -->
+  <rect x="260" y="90" width="30" height="90" rx="5" fill="url(#cathodeGrad)"/>
+  <text x="275" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white" transform="rotate(-90, 275, 140)">катод</text>
+  <text x="310" y="135" font-family="Arial, sans-serif" font-size="16" fill="#3b82f6">+</text>
+  
+  <!-- Wire with electron flow -->
+  <path d="M125 90 L125 50 L275 50 L275 90" fill="none" stroke="#64748b" stroke-width="3"/>
+  <circle cx="160" cy="50" r="6" fill="#fbbf24"/>
+  <circle cx="200" cy="50" r="6" fill="#fbbf24"/>
+  <circle cx="240" cy="50" r="6" fill="#fbbf24"/>
+  <text x="200" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#d97706">e⁻</text>
+  
+  <!-- Ions in solution -->
+  <circle cx="160" cy="120" r="8" fill="#ef4444" opacity="0.8"/>
+  <text x="160" y="123" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">+</text>
+  
+  <circle cx="200" cy="150" r="8" fill="#ef4444" opacity="0.8"/>
+  <text x="200" y="153" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">+</text>
+  
+  <circle cx="230" cy="130" r="8" fill="#3b82f6" opacity="0.8"/>
+  <text x="230" y="133" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">−</text>
+  
+  <circle cx="190" cy="170" r="8" fill="#3b82f6" opacity="0.8"/>
+  <text x="190" y="173" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">−</text>
+  
+  <!-- Ion movement arrows -->
+  <path d="M175 120 L145 120" stroke="#ef4444" stroke-width="1.5" marker-end="url(#redarrow)"/>
+  <path d="M215 130 L250 130" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#bluearrow)"/>
+  <defs>
+    <marker id="redarrow" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#ef4444"/>
+    </marker>
+    <marker id="bluearrow" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#3b82f6"/>
+    </marker>
+  </defs>
+  
+  <!-- Labels -->
+  <text x="200" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#475569">Гальванический элемент</text>
+  <text x="100" y="270" font-family="Arial, sans-serif" font-size="11" fill="#64748b">Zn → Zn²⁺ + 2e⁻</text>
+  <text x="250" y="270" font-family="Arial, sans-serif" font-size="11" fill="#64748b">Cu²⁺ + 2e⁻ → Cu</text>
+</svg>
