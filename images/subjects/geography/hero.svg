@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="geoBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0EA5E9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0284C7;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#geoBg)" rx="20"/>
+  
+  <!-- Decorative circles -->
+  <circle cx="50" cy="50" r="30" fill="#38BDF8" opacity="0.4"/>
+  <circle cx="350" cy="250" r="40" fill="#7DD3FC" opacity="0.4"/>
+  
+  <!-- Globe -->
+  <circle cx="200" cy="130" r="80" fill="#0EA5E9"/>
+  <ellipse cx="200" cy="130" rx="30" ry="80" fill="none" stroke="#38BDF8" stroke-width="3"/>
+  <line x1="120" y1="130" x2="280" y2="130" stroke="#38BDF8" stroke-width="3"/>
+  <line x1="200" y1="50" x2="200" y2="210" stroke="#38BDF8" stroke-width="3"/>
+  <!-- Continents simplified -->
+  <ellipse cx="160" cy="100" rx="25" ry="30" fill="#22C55E"/>
+  <ellipse cx="230" cy="90" rx="20" ry="25" fill="#22C55E"/>
+  <ellipse cx="250" cy="150" rx="30" ry="20" fill="#22C55E"/>
+  <ellipse cx="170" cy="170" rx="20" ry="15" fill="#22C55E"/>
+  <ellipse cx="140" cy="130" rx="15" ry="25" fill="#22C55E"/>
+  
+  <!-- Compass -->
+  <g transform="translate(50, 160)">
+    <circle cx="40" cy="40" r="35" fill="#FEF3C7" stroke="#92400E" stroke-width="3"/>
+    <circle cx="40" cy="40" r="30" fill="#FFFBEB"/>
+    <polygon points="40,10 45,40 40,35 35,40" fill="#EF4444"/>
+    <polygon points="40,70 35,40 40,45 45,40" fill="#1F2937"/>
+    <circle cx="40" cy="40" r="5" fill="#92400E"/>
+    <text x="35" y="20" font-family="Arial Black" font-size="10" fill="#1F2937">N</text>
+    <text x="35" y="72" font-family="Arial Black" font-size="10" fill="#1F2937">S</text>
+    <text x="10" y="45" font-family="Arial Black" font-size="10" fill="#1F2937">W</text>
+    <text x="62" y="45" font-family="Arial Black" font-size="10" fill="#1F2937">E</text>
+  </g>
+  
+  <!-- Map with pin -->
+  <g transform="translate(280, 160)">
+    <rect x="0" y="0" width="100" height="80" fill="#FEF3C7" rx="3"/>
+    <!-- Map lines -->
+    <path d="M0,20 Q30,10 50,25 Q70,40 100,30" fill="none" stroke="#9CA3AF" stroke-width="2"/>
+    <path d="M0,50 Q40,60 60,45 Q80,30 100,50" fill="none" stroke="#9CA3AF" stroke-width="2"/>
+    <path d="M20,0 Q25,30 20,80" fill="none" stroke="#D1D5DB" stroke-width="1"/>
+    <path d="M50,0 Q55,30 50,80" fill="none" stroke="#D1D5DB" stroke-width="1"/>
+    <path d="M80,0 Q85,30 80,80" fill="none" stroke="#D1D5DB" stroke-width="1"/>
+    <!-- Pin -->
+    <ellipse cx="45" cy="55" rx="8" ry="4" fill="#1F2937" opacity="0.3"/>
+    <path d="M45,20 Q30,20 30,35 Q30,50 45,60 Q60,50 60,35 Q60,20 45,20" fill="#EF4444"/>
+    <circle cx="45" cy="35" r="8" fill="#FFFFFF"/>
+  </g>
+  
+  <!-- Mountains -->
+  <g transform="translate(30, 220)">
+    <polygon points="0,50 30,0 60,50" fill="#6B7280"/>
+    <polygon points="20,50 50,10 80,50" fill="#9CA3AF"/>
+    <polygon points="50,50 80,5 110,50" fill="#6B7280"/>
+    <!-- Snow caps -->
+    <polygon points="30,0 25,10 35,10" fill="#FFFFFF"/>
+    <polygon points="80,5 75,15 85,15" fill="#FFFFFF"/>
+  </g>
+  
+  <!-- Airplane -->
+  <g transform="translate(280, 50)">
+    <ellipse cx="30" cy="15" rx="30" ry="8" fill="#FFFFFF"/>
+    <polygon points="0,15 -10,10 -10,20" fill="#E5E7EB"/>
+    <polygon points="25,15 35,0 45,15" fill="#E5E7EB"/>
+    <polygon points="20,15 30,25 40,15" fill="#E5E7EB"/>
+    <circle cx="50" cy="15" r="3" fill="#3B82F6"/>
+  </g>
+  
+  <!-- Clouds -->
+  <g fill="#FFFFFF" opacity="0.8">
+    <ellipse cx="100" cy="40" rx="20" ry="12"/>
+    <ellipse cx="120" cy="35" rx="15" ry="10"/>
+    <ellipse cx="85" cy="38" rx="12" ry="8"/>
+    
+    <ellipse cx="350" cy="100" rx="18" ry="10"/>
+    <ellipse cx="365" cy="95" rx="12" ry="8"/>
+  </g>
+  
+  <!-- Trees -->
+  <g fill="#166534">
+    <polygon points="300,270 315,230 330,270"/>
+    <rect x="311" y="270" width="8" height="10" fill="#78350F"/>
+  </g>
+  <g fill="#15803D">
+    <polygon points="330,275 345,235 360,275"/>
+    <rect x="341" y="275" width="8" height="10" fill="#78350F"/>
+  </g>
+  
+  <!-- Stars -->
+  <polygon points="250,50 253,56 260,56 255,60 257,67 250,63 243,67 245,60 240,56 247,56" fill="#FCD34D"/>
+  <polygon points="150,250 153,256 160,256 155,260 157,267 150,263 143,267 145,260 140,256 147,256" fill="#FBBF24"/>
+</svg>
