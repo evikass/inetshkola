@@ -6,13 +6,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { 
   Layers3, Timer, FileText, BookOpen, Calendar, Bot, Shield,
-  Gamepad2, ArrowLeft, Sparkles
+  Gamepad2, ArrowLeft, Sparkles, Atom
 } from 'lucide-react'
 import { 
   Flashcards, StudyTimer, Notes, FormulaReference, 
   Schedule, AITeacher, ParentDashboard,
   CountingGame, AlphabetGame, MemoryGame, ShapeGame,
-  MultiplicationGame, SpellingGame
+  MultiplicationGame, SpellingGame, MoleculeViewer
 } from '@/components/school'
 
 interface ToolsTabsProps {
@@ -27,6 +27,7 @@ export default function ToolsTabs({ onExperience, gradeId = 0 }: ToolsTabsProps)
   const [showShapeGame, setShowShapeGame] = useState(false)
   const [showMultiplicationGame, setShowMultiplicationGame] = useState(false)
   const [showSpellingGame, setShowSpellingGame] = useState(false)
+  const [showMoleculeViewer, setShowMoleculeViewer] = useState(false)
 
   // Режимы: детский (0-2), начальный (3-4), старший (5+)
   const useKidMode = gradeId <= 2
@@ -41,6 +42,7 @@ export default function ToolsTabs({ onExperience, gradeId = 0 }: ToolsTabsProps)
     setShowShapeGame(false)
     setShowMultiplicationGame(false)
     setShowSpellingGame(false)
+    setShowMoleculeViewer(false)
   }
 
   // Если открыта игра "Счёт"
@@ -100,6 +102,13 @@ export default function ToolsTabs({ onExperience, gradeId = 0 }: ToolsTabsProps)
         onBack={() => setShowSpellingGame(false)}
         onComplete={handleGameComplete}
       />
+    )
+  }
+
+  // Если открыт 3D визуализатор молекул
+  if (showMoleculeViewer) {
+    return (
+      <MoleculeViewer onBack={() => setShowMoleculeViewer(false)} />
     )
   }
 
@@ -410,6 +419,10 @@ export default function ToolsTabs({ onExperience, gradeId = 0 }: ToolsTabsProps)
           <Shield className="w-4 h-4 mr-1.5" />
           Родителям
         </TabsTrigger>
+        <TabsTrigger value="molecules" className="data-[state=active]:bg-purple-600 h-8 text-sm">
+          <Atom className="w-4 h-4 mr-1.5" />
+          3D Молекулы
+        </TabsTrigger>
       </TabsList>
 
       <TabsContent value="flashcards">
@@ -503,6 +516,10 @@ export default function ToolsTabs({ onExperience, gradeId = 0 }: ToolsTabsProps)
 
       <TabsContent value="parent">
         <ParentDashboard />
+      </TabsContent>
+
+      <TabsContent value="molecules">
+        <MoleculeViewer />
       </TabsContent>
     </Tabs>
   )
