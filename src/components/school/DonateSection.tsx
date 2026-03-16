@@ -70,11 +70,11 @@ const paymentMethods = [
 
 // Быстрые ссылки на банки
 const bankLinks = [
-  { name: 'СБП', emoji: '💜', color: 'from-purple-600 to-purple-700', url: 'https://qr.nspk.ru/' },
+  { name: 'СБП', emoji: '💜', color: 'from-purple-600 to-purple-700', url: 'https://pay.ozon.ru/?phoneNumber=79091327232' },
   { name: 'Сбер', emoji: '🟢', color: 'from-green-600 to-green-700', url: 'https://online.sberbank.ru/CSAFront/async/page/onBilling.do?BILLING_NUMBER=40817810127008641225' },
-  { name: 'Тинькофф', emoji: '🟡', color: 'from-yellow-500 to-yellow-600', url: 'https://www.tinkoff.ru/payments/' },
-  { name: 'Альфа', emoji: '🔴', color: 'from-red-600 to-red-700', url: 'https://mobile.alfabank.ru/' },
-  { name: 'Райффайзен', emoji: '🟨', color: 'from-yellow-600 to-yellow-700', url: 'https://raiffeisen.ru/' },
+  { name: 'Тинькофф', emoji: '🟡', color: 'from-yellow-500 to-yellow-600', url: 'https://www.tinkoff.ru/rk/ykass' },
+  { name: 'Альфа', emoji: '🔴', color: 'from-red-600 to-red-700', url: 'https://alfaonline.alfabank.ru/' },
+  { name: 'Райффайзен', emoji: '🟨', color: 'from-yellow-600 to-yellow-700', url: 'https://connect.raiffeisen.ru/' },
 ]
 
 // Международные переводы
