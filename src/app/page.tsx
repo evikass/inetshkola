@@ -10,7 +10,7 @@ import {
   QuizDialog, ToolsTabs, ProgressTab, AchievementsTab,
   FloatingNav, WelcomeScreen, RewardCelebration, AIVoiceTeacher,
   FriendsSystem, MarathonsCompetitions, SiteHeader,
-  DailyChallengeWidget, WeeklyGoalsWidget, DonationWidget, DonateSection
+  DailyChallengeWidget, WeeklyGoalsWidget, DonateSection
 } from '@/components/school'
 import { schoolData } from '@/data/school-data'
 import type { Subject, Topic, QuizQuestion } from '@/data/types'
@@ -269,8 +269,7 @@ function SchoolApp() {
         </Tabs>
       </div>
 
-      {/* Плавающий виджет донатов */}
-      <DonationWidget />
+
 
       {/* Topic Dialog */}
       <TopicDialog

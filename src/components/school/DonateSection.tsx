@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button'
 import { 
   Heart, Coffee, Sparkles, Gift, X, Copy, Check, 
-  CreditCard, Smartphone, ExternalLink
+  CreditCard, Smartphone, ExternalLink, QrCode, Globe, Building2
 } from 'lucide-react'
 
 interface DonationOption {
@@ -68,10 +68,30 @@ const paymentMethods = [
   }
 ]
 
+// Быстрые ссылки на банки
+const bankLinks = [
+  { name: 'СБП', emoji: '💜', color: 'from-purple-600 to-purple-700', url: 'https://qr.nspk.ru/' },
+  { name: 'Сбер', emoji: '🟢', color: 'from-green-600 to-green-700', url: 'https://online.sberbank.ru/CSAFront/async/page/onBilling.do?BILLING_NUMBER=40817810127008641225' },
+  { name: 'Тинькофф', emoji: '🟡', color: 'from-yellow-500 to-yellow-600', url: 'https://www.tinkoff.ru/payments/' },
+  { name: 'Альфа', emoji: '🔴', color: 'from-red-600 to-red-700', url: 'https://mobile.alfabank.ru/' },
+  { name: 'Райффайзен', emoji: '🟨', color: 'from-yellow-600 to-yellow-700', url: 'https://raiffeisen.ru/' },
+]
+
+// Международные переводы
+const internationalServices = [
+  { name: 'KoronaPay', url: 'https://koronapay.com/' },
+  { name: 'CONTACT', url: 'https://www.contact-sys.com/' },
+  { name: 'Unistream', url: 'https://unistream.ru/' },
+]
+
 export default function DonateSection() {
   const [selectedOption, setSelectedOption] = useState<DonationOption | null>(null)
   const [showPaymentModal, setShowPaymentModal] = useState(false)
   const [copiedId, setCopiedId] = useState<string | null>(null)
+  const [selectedMethod, setSelectedMethod] = useState<'card' | 'transfer' | 'international'>('card')
+
+  const bankAccount = '40817810127008641225'
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(bankAccount)}&bgcolor=1e293b&color=ffffff&margin=1`
 
   const handleSelectDonation = (option: DonationOption) => {
     setSelectedOption(option)
@@ -176,20 +196,195 @@ export default function DonateSection() {
                 </CardContent>
               </Card>
             </motion.div>
-
-            {/* Thank you message */}
-            <motion.div 
-              className="text-center pt-2"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-              <p className="text-sm text-gray-400">
-                Спасибо за вашу поддержку! 💖
-              </p>
-            </motion.div>
           </CardContent>
         </Card>
+
+        {/* QR Code Section */}
+        <Card className="bg-white/5 border-white/10">
+          <CardHeader>
+            <CardTitle className="text-white flex items-center gap-2 text-base">
+              <QrCode className="w-5 h-5 text-purple-400" />
+              Быстрый перевод по QR
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col items-center p-4 bg-slate-800/50 rounded-xl border border-white/10">
+              <p className="text-sm text-gray-400 mb-3">Отсканируйте в приложении банка</p>
+              <div className="p-2 bg-slate-900 rounded-xl">
+                <img 
+                  src={qrCodeUrl} 
+                  alt="QR код для перевода" 
+                  className="w-36 h-36"
+                  loading="lazy"
+                />
+              </div>
+              <p className="text-xs text-gray-500 mt-2">QR содержит номер счёта</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Quick Bank Links */}
+        <Card className="bg-white/5 border-white/10">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-white flex items-center gap-2 text-base">
+              <Building2 className="w-5 h-5 text-green-400" />
+              Быстрый перевод через банк
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-3 gap-2">
+              {bankLinks.map((bank) => (
+                <a
+                  key={bank.name}
+                  href={bank.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center justify-center gap-1.5 py-2.5 px-2 bg-gradient-to-r ${bank.color} hover:brightness-110 text-white rounded-xl font-medium transition-all text-sm`}
+                >
+                  <span className="text-base">{bank.emoji}</span>
+                  <span>{bank.name}</span>
+                </a>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* International Transfers */}
+        <Card className="bg-white/5 border-white/10">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-white flex items-center gap-2 text-base">
+              <Globe className="w-5 h-5 text-blue-400" />
+              Переводы из-за рубежа
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-3 gap-2 mb-3">
+              {internationalServices.map((service) => (
+                <a
+                  key={service.name}
+                  href={service.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 bg-white/5 hover:bg-white/10 rounded-lg text-center text-sm text-gray-300 hover:text-white transition-colors border border-white/10"
+                >
+                  {service.name}
+                </a>
+              ))}
+            </div>
+            <div className="p-3 bg-white/5 rounded-lg border border-white/10">
+              <p className="text-sm font-medium text-white mb-1">SWIFT перевод</p>
+              <p className="text-xs text-gray-400">
+                Через банки, работающие с РФ. Реквизиты по запросу.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Payment Details */}
+        <Card className="bg-white/5 border-white/10">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-white flex items-center gap-2 text-base">
+              <CreditCard className="w-5 h-5 text-amber-400" />
+              Реквизиты для перевода
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {/* Card number */}
+            <div className="p-3 bg-white/5 rounded-xl border border-white/10">
+              <p className="text-xs text-gray-400 mb-1">Номер карты:</p>
+              <div className="flex items-center gap-2">
+                <code className="flex-1 text-sm font-mono text-white">2202 2080 6819 7913</code>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-8 w-8 p-0"
+                  onClick={() => handleCopy('2202 2080 6819 7913', 'card')}
+                >
+                  {copiedId === 'card' ? (
+                    <Check className="w-4 h-4 text-green-400" />
+                  ) : (
+                    <Copy className="w-4 h-4 text-gray-400" />
+                  )}
+                </Button>
+              </div>
+              <p className="text-xs text-gray-500 mt-1">Получатель: Кассин Евгений Юрьевич</p>
+            </div>
+
+            {/* Phone */}
+            <div className="p-3 bg-white/5 rounded-xl border border-white/10">
+              <p className="text-xs text-gray-400 mb-1">СБП (по телефону):</p>
+              <div className="flex items-center gap-2">
+                <code className="flex-1 text-sm font-mono text-white">+7 (909) 132-72-32</code>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-8 w-8 p-0"
+                  onClick={() => handleCopy('+79091327232', 'phone')}
+                >
+                  {copiedId === 'phone' ? (
+                    <Check className="w-4 h-4 text-green-400" />
+                  ) : (
+                    <Copy className="w-4 h-4 text-gray-400" />
+                  )}
+                </Button>
+              </div>
+            </div>
+
+            {/* Account */}
+            <div className="p-3 bg-white/5 rounded-xl border border-white/10">
+              <p className="text-xs text-gray-400 mb-1">Номер счёта Сбербанка:</p>
+              <div className="flex items-center gap-2">
+                <code className="flex-1 text-xs font-mono text-white break-all">40817 810 1270 0864 1225</code>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-8 w-8 p-0 shrink-0"
+                  onClick={() => handleCopy('40817810127008641225', 'account')}
+                >
+                  {copiedId === 'account' ? (
+                    <Check className="w-4 h-4 text-green-400" />
+                  ) : (
+                    <Copy className="w-4 h-4 text-gray-400" />
+                  )}
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Boosty */}
+        <a 
+          href="https://boosty.to/inetshkola" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="block"
+        >
+          <Card className="bg-gradient-to-r from-orange-500/20 to-red-500/20 border-orange-500/30 hover:border-orange-400/50 transition-colors cursor-pointer">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-orange-500/30 rounded-lg">
+                  <ExternalLink className="w-5 h-5 text-orange-400" />
+                </div>
+                <div>
+                  <p className="font-medium text-white">Поддержать на Boosty</p>
+                  <p className="text-sm text-gray-400">Платформа для постоянной поддержки</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </a>
+
+        {/* Thank you message */}
+        <motion.div 
+          className="text-center pt-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          <p className="text-sm text-gray-400">
+            Спасибо за вашу поддержку! 💖
+          </p>
+        </motion.div>
       </div>
 
       {/* Payment Modal */}
