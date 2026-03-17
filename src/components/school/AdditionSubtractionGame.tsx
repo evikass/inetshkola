@@ -621,6 +621,15 @@ export default function AdditionSubtractionGame({ onBack, onComplete }: Addition
                 <Trophy className="w-5 h-5 mr-2" />
                 Забрать награду
               </Button>
+
+              <Button
+                variant="outline"
+                onClick={onBack}
+                className="border-gray-300 text-gray-600 hover:bg-gray-100 rounded-2xl py-4 text-lg"
+              >
+                <ArrowLeft className="w-5 h-5 mr-2" />
+                Назад к играм
+              </Button>
             </motion.div>
           </div>
         </Card>
@@ -632,6 +641,18 @@ export default function AdditionSubtractionGame({ onBack, onComplete }: Addition
   if (!isPlaying) {
     return (
       <Card className="bg-gradient-to-br from-purple-600/20 to-pink-600/20 border-purple-500/30 rounded-3xl p-6 sm:p-8">
+        {/* Кнопка назад */}
+        <div className="mb-4">
+          <Button
+            variant="ghost"
+            onClick={onBack}
+            className="text-white/70 hover:text-white hover:bg-white/10"
+          >
+            <ArrowLeft className="w-5 h-5 mr-2" />
+            Назад к играм
+          </Button>
+        </div>
+        
         <motion.div
           className="text-center space-y-6"
           initial={{ opacity: 0, y: 20 }}
