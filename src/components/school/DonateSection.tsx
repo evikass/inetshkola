@@ -64,7 +64,7 @@ const paymentMethods = [
     info: 'Платформа поддержки',
     cardNumber: null,
     recipient: 'ИНЕТШКОЛА',
-    link: 'https://boosty.to/inetshkola'
+    link: 'https://boosty.to/evikass/donate'
   }
 ]
 
