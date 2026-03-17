@@ -637,9 +637,14 @@ export default function SpellingGame({ onExperience, gradeId = 1 }: SpellingGame
               className="text-3xl sm:text-4xl font-bold text-white py-4 px-6 bg-white/10 rounded-xl inline-block"
               animate={showResult ? { scale: [1, 1.05, 1] } : {}}
             >
-              {currentWord.word.replace('_', (
-                <span className="text-rose-400 border-b-2 border-rose-400 px-1">?</span>
-              ) as any)}
+              {currentWord.word.split('_').map((part, i, arr) => (
+                <span key={i}>
+                  {part}
+                  {i < arr.length - 1 && (
+                    <span className="text-rose-400 border-b-2 border-rose-400 px-1">_</span>
+                  )}
+                </span>
+              ))}
             </motion.div>
           </div>
           
