@@ -150,7 +150,7 @@ export function CountingGame({ onBack, onComplete }: KidMiniGameProps) {
   }
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-blue-500 to-purple-600 z-50 overflow-hidden">
+    <div className="fixed inset-0 bg-gradient-to-br from-blue-500 to-purple-600 z-50 overflow-auto flex flex-col">
       {/* Декоративные элементы */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(10)].map((_, i) => (
@@ -169,7 +169,7 @@ export function CountingGame({ onBack, onComplete }: KidMiniGameProps) {
       </div>
 
       {/* Шапка */}
-      <div className="relative z-10 p-4 sm:p-6">
+      <div className="relative z-10 p-4 sm:p-6 shrink-0">
         <div className="flex items-center justify-between mb-4">
           <Button
             onClick={onBack}
@@ -192,7 +192,7 @@ export function CountingGame({ onBack, onComplete }: KidMiniGameProps) {
       </div>
 
       {/* Основной контент */}
-      <div className="relative z-10 flex-1 flex items-center justify-center p-4 sm:p-8">
+      <div className="relative z-10 flex-1 flex items-center justify-center p-4 sm:p-8 pb-24">
         <Card className="w-full max-w-lg bg-white/95 rounded-3xl shadow-2xl overflow-hidden">
           {/* Заголовок */}
           <div className="bg-gradient-to-r from-yellow-400 to-orange-500 p-4 sm:p-6 text-center">
@@ -451,7 +451,7 @@ export function AlphabetGame({ onBack, onComplete }: KidMiniGameProps) {
   }
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-pink-500 to-purple-600 z-50 overflow-hidden">
+    <div className="fixed inset-0 bg-gradient-to-br from-pink-500 to-purple-600 z-50 overflow-auto flex flex-col">
       {/* Декоративные элементы */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {['🔤', '📖', '✏️', '📝', '📚'].map((emoji, i) => (
@@ -470,7 +470,7 @@ export function AlphabetGame({ onBack, onComplete }: KidMiniGameProps) {
       </div>
 
       {/* Шапка */}
-      <div className="relative z-10 p-4 sm:p-6">
+      <div className="relative z-10 p-4 sm:p-6 shrink-0">
         <div className="flex items-center justify-between mb-4">
           <Button
             onClick={onBack}
@@ -493,7 +493,7 @@ export function AlphabetGame({ onBack, onComplete }: KidMiniGameProps) {
       </div>
 
       {/* Основной контент */}
-      <div className="relative z-10 flex-1 flex items-center justify-center p-4 sm:p-8">
+      <div className="relative z-10 flex-1 flex items-center justify-center p-4 sm:p-8 pb-24">
         <Card className="w-full max-w-lg bg-white/95 rounded-3xl shadow-2xl overflow-hidden">
           {/* Буква */}
           <div className="bg-gradient-to-r from-pink-400 to-purple-500 p-6 sm:p-8 text-center">
@@ -706,9 +706,9 @@ export function MemoryGame({ onBack, onComplete }: KidMiniGameProps) {
   }
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-cyan-500 to-blue-600 z-50 overflow-hidden">
+    <div className="fixed inset-0 bg-gradient-to-br from-cyan-500 to-blue-600 z-50 overflow-auto flex flex-col">
       {/* Шапка */}
-      <div className="relative z-10 p-4 sm:p-6">
+      <div className="relative z-10 p-4 sm:p-6 shrink-0">
         <div className="flex items-center justify-between mb-4">
           <Button
             onClick={onBack}
@@ -731,7 +731,7 @@ export function MemoryGame({ onBack, onComplete }: KidMiniGameProps) {
       </div>
 
       {/* Игровое поле */}
-      <div className="relative z-10 flex-1 flex items-center justify-center p-4">
+      <div className="relative z-10 flex-1 flex items-center justify-center p-4 pb-24">
         <Card className="w-full max-w-md bg-white/95 rounded-3xl shadow-2xl overflow-hidden p-4 sm:p-6">
           <div className="text-center mb-4">
             <h2 className="text-2xl font-bold text-gray-800">
@@ -913,9 +913,9 @@ export function ShapeGame({ onBack, onComplete }: KidMiniGameProps) {
   }
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-orange-500 to-red-600 z-50 overflow-hidden">
+    <div className="fixed inset-0 bg-gradient-to-br from-orange-500 to-red-600 z-50 overflow-auto flex flex-col">
       {/* Шапка */}
-      <div className="relative z-10 p-4 sm:p-6">
+      <div className="relative z-10 p-4 sm:p-6 shrink-0">
         <div className="flex items-center justify-between mb-4">
           <Button
             onClick={onBack}
@@ -938,7 +938,7 @@ export function ShapeGame({ onBack, onComplete }: KidMiniGameProps) {
       </div>
 
       {/* Основной контент */}
-      <div className="relative z-10 flex-1 flex items-center justify-center p-4 sm:p-8">
+      <div className="relative z-10 flex-1 flex items-center justify-center p-4 sm:p-8 pb-24">
         <Card className="w-full max-w-lg bg-white/95 rounded-3xl shadow-2xl overflow-hidden">
           {/* Задание */}
           <div className="bg-gradient-to-r from-orange-400 to-red-500 p-4 sm:p-6 text-center">
