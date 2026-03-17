@@ -354,7 +354,7 @@ export default function DonateSection() {
 
         {/* Boosty */}
         <a 
-          href="https://boosty.to/inetshkola" 
+          href="https://boosty.to/evikass/donate" 
           target="_blank" 
           rel="noopener noreferrer"
           className="block"
