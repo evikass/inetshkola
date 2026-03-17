@@ -340,14 +340,14 @@ export default function GamesTab({ gradeId = 0, onExperience }: GamesTabProps) {
 
   // Рендер меню игр
   const renderMenu = () => (
-    <div className="space-y-4 sm:space-y-6 p-3 sm:p-4 rounded-2xl bg-gradient-to-br from-purple-200 via-violet-300 to-fuchsia-200 dark:from-purple-800/40 dark:via-violet-800/40 dark:to-fuchsia-800/40">
+    <div className="space-y-4 sm:space-y-6 p-3 sm:p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
       {/* Заголовок */}
       <motion.div 
         className="text-center"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <h2 className={`font-bold mb-1 sm:mb-2 ${isKidMode ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'}`}>
+        <h2 className={`font-bold mb-1 sm:mb-2 text-white ${isKidMode ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'}`}>
           {isKidMode ? (
             <>
               <span className="text-3xl sm:text-4xl mr-2">🎮</span>
@@ -398,7 +398,7 @@ export default function GamesTab({ gradeId = 0, onExperience }: GamesTabProps) {
               className={`flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all touch-manipulation ${
                 isSelected
                   ? `bg-gradient-to-r ${category.color} text-white shadow-lg`
-                  : 'bg-purple-800/40 text-purple-200 hover:bg-purple-700/50 border border-purple-500/30'
+                  : 'bg-white/10 text-gray-300 hover:bg-white/20 border border-white/10'
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -421,10 +421,10 @@ export default function GamesTab({ gradeId = 0, onExperience }: GamesTabProps) {
             transition={{ delay: index * 0.05 }}
           >
             <Card
-              className={`cursor-pointer overflow-hidden group touch-manipulation bg-purple-900/40 backdrop-blur-sm ${
+              className={`cursor-pointer overflow-hidden group touch-manipulation bg-white/5 backdrop-blur-sm ${
                 isKidMode
-                  ? 'border-2 border-purple-400/30 hover:border-purple-400/60'
-                  : 'border-purple-500/20 hover:border-purple-500/40'
+                  ? 'border-2 border-white/20 hover:border-white/40'
+                  : 'border-white/10 hover:border-white/20'
               } transition-all duration-300 hover:shadow-xl`}
               onClick={() => setCurrentGame(game.id as GameType)}
             >
@@ -447,13 +447,13 @@ export default function GamesTab({ gradeId = 0, onExperience }: GamesTabProps) {
               
               <CardContent className="p-2 sm:p-4">
                 <div className="flex items-center gap-1 sm:gap-2 mb-0.5 sm:mb-1">
-                  <game.categoryIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-purple-300" />
-                  <span className="text-[10px] sm:text-xs text-purple-300">{game.categoryLabel}</span>
+                  <game.categoryIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-gray-400" />
+                  <span className="text-[10px] sm:text-xs text-gray-400">{game.categoryLabel}</span>
                 </div>
                 <h3 className={`font-bold mb-0.5 sm:mb-1 text-sm sm:text-base text-white ${isKidMode ? 'sm:text-xl' : ''}`}>
                   {game.title}
                 </h3>
-                <p className="text-purple-200/70 text-xs sm:text-sm mb-1.5 sm:mb-3 line-clamp-1">{game.description}</p>
+                <p className="text-gray-400 text-xs sm:text-sm mb-1.5 sm:mb-3 line-clamp-1">{game.description}</p>
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-0.5 sm:gap-1">
@@ -461,7 +461,7 @@ export default function GamesTab({ gradeId = 0, onExperience }: GamesTabProps) {
                     <span className="text-[10px] sm:text-sm text-yellow-400">+{game.xp} XP</span>
                   </div>
                   <div className="flex items-center gap-0.5 sm:gap-1">
-                    <span className="text-[10px] sm:text-xs bg-purple-700/50 text-purple-200 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full">
+                    <span className="text-[10px] sm:text-xs bg-white/10 text-gray-300 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full">
                       {game.age}
                     </span>
                   </div>
@@ -479,9 +479,9 @@ export default function GamesTab({ gradeId = 0, onExperience }: GamesTabProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          <Card className="bg-gradient-to-br from-pink-500/20 to-purple-500/20 border-2 border-pink-300/30">
+          <Card className="bg-gradient-to-br from-pink-500/20 to-purple-500/20 border-pink-500/30">
             <CardHeader className="p-3 sm:p-6">
-              <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+              <CardTitle className="flex items-center gap-2 text-lg sm:text-xl text-white">
                 <span className="text-xl sm:text-2xl">🎈</span>
                 Игры для малышей
               </CardTitle>
@@ -527,9 +527,9 @@ export default function GamesTab({ gradeId = 0, onExperience }: GamesTabProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
         >
-          <Card className="bg-gradient-to-br from-indigo-500/20 to-purple-500/20 border-2 border-indigo-300/30">
+          <Card className="bg-gradient-to-br from-indigo-500/20 to-purple-500/20 border-indigo-500/30">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-white">
                 <Sparkles className="w-6 h-6 text-yellow-400" />
                 Новые игры
                 <span className="text-xs bg-gradient-to-r from-yellow-400 to-orange-400 text-black px-2 py-1 rounded-full ml-2">
@@ -777,7 +777,7 @@ export default function GamesTab({ gradeId = 0, onExperience }: GamesTabProps) {
   }
 
   return (
-    <div className="p-2 sm:p-4 rounded-2xl bg-gradient-to-br from-purple-200 via-violet-300 to-fuchsia-200 dark:from-purple-800/40 dark:via-violet-800/40 dark:to-fuchsia-800/40 min-h-[60vh]">
+    <div className="p-2 sm:p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 min-h-[60vh]">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentGame}
