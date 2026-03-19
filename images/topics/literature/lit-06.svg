@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8EAF6"/>
+      <stop offset="100%" style="stop-color:#C5CAE9"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg6)" rx="20"/>
+  
+  <!-- Mountains (Caucasus theme) -->
+  <g transform="translate(0, 200)">
+    <polygon points="0,200 200,50 400,200" fill="#5C6BC0"/>
+    <polygon points="150,200 400,20 650,200" fill="#7986CB"/>
+    <polygon points="400,200 600,80 800,200" fill="#9FA8DA"/>
+    <!-- Snow caps -->
+    <polygon points="350,50 400,20 450,50 420,50 400,35 380,50" fill="white"/>
+    <polygon points="180,80 200,50 220,80" fill="white"/>
+    <polygon points="580,100 600,80 620,100" fill="white"/>
+  </g>
+  
+  <!-- Lermontov portrait -->
+  <g transform="translate(60, 80)">
+    <rect x="0" y="0" width="150" height="180" fill="#3F51B5" rx="5"/>
+    <rect x="8" y="8" width="134" height="164" fill="#FFFEF9"/>
+    <!-- Face silhouette -->
+    <ellipse cx="75" cy="55" rx="30" ry="40" fill="#4E342E"/>
+    <!-- Hair -->
+    <ellipse cx="75" cy="35" rx="35" ry="25" fill="#3E2723"/>
+    <!-- Collar/uniform -->
+    <path d="M40 90 L75 110 L110 90 L110 150 L40 150 Z" fill="#1A237E"/>
+    <ellipse cx="75" cy="115" rx="8" ry="8" fill="#FFD700"/>
+  </g>
+  
+  <!-- Horse (for "Mtsyri" and cavalry themes) -->
+  <g transform="translate(550, 280)">
+    <!-- Body -->
+    <ellipse cx="0" cy="30" rx="60" ry="35" fill="#5D4037"/>
+    <!-- Neck -->
+    <path d="M-50 20 Q-70 0 -60 -40 Q-50 -50 -40 -40 Q-35 -20 -45 10" fill="#5D4037"/>
+    <!-- Head -->
+    <ellipse cx="-65" cy="-45" rx="25" ry="18" fill="#6D4C41"/>
+    <!-- Ear -->
+    <polygon points="-55,-60 -50,-50 -60,-50" fill="#5D4037"/>
+    <!-- Eye -->
+    <circle cx="-55" cy="-45" r="4" fill="white"/>
+    <circle cx="-55" cy="-45" r="2" fill="#1A1A1A"/>
+    <!-- Mane -->
+    <path d="M-45 -20 Q-55 -30 -45 -45 Q-35 -35 -40 -20" fill="#3E2723"/>
+    <!-- Legs -->
+    <rect x="-35" y="60" width="12" height="45" fill="#5D4037" rx="3"/>
+    <rect x="10" y="60" width="12" height="45" fill="#5D4037" rx="3"/>
+    <rect x="-55" y="55" width="12" height="40" fill="#5D4037" rx="3"/>
+    <rect x="35" y="55" width="12" height="40" fill="#5D4037" rx="3"/>
+    <!-- Tail -->
+    <path d="M55 25 Q80 30 75 60 Q70 70 60 55" stroke="#3E2723" stroke-width="8" fill="none"/>
+  </g>
+  
+  <!-- Dagger/sword (for "Song about Tsar Ivan") -->
+  <g transform="translate(450, 120) rotate(-20)">
+    <rect x="0" y="0" width="15" height="120" fill="#B0BEC5"/>
+    <rect x="-5" y="110" width="25" height="30" fill="#795548"/>
+    <rect x="0" y="0" width="15" height="120" fill="url(#bladeGrad)"/>
+    <defs>
+      <linearGradient id="bladeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#ECEFF1"/>
+        <stop offset="50%" style="stop-color:#B0BEC5"/>
+        <stop offset="100%" style="stop-color:#78909C"/>
+      </linearGradient>
+    </defs>
+  </g>
+  
+  <!-- Eagle (symbol of freedom) -->
+  <g transform="translate(350, 80)">
+    <!-- Body -->
+    <ellipse cx="0" cy="20" rx="25" ry="20" fill="#5D4037"/>
+    <!-- Head -->
+    <circle cx="0" cy="-5" r="15" fill="#6D4C41"/>
+    <!-- Beak -->
+    <polygon points="10,-8 25,-5 10,0" fill="#FF9800"/>
+    <!-- Eye -->
+    <circle cx="5" cy="-8" r="3" fill="#FFD700"/>
+    <!-- Wings spread -->
+    <path d="M-20 15 Q-60 -10 -90 20 Q-60 25 -25 30" fill="#795548"/>
+    <path d="M20 15 Q60 -10 90 20 Q60 25 25 30" fill="#795548"/>
+  </g>
+  
+  <!-- Cloud/fog for "The Demon" -->
+  <g transform="translate(620, 100)" opacity="0.6">
+    <ellipse cx="0" cy="0" rx="40" ry="25" fill="#90A4AE"/>
+    <ellipse cx="30" cy="10" rx="35" ry="20" fill="#B0BEC5"/>
+    <ellipse cx="-25" cy="15" rx="30" ry="18" fill="#CFD8DC"/>
+  </g>
+  
+  <!-- Title -->
+  <rect x="280" y="430" width="240" height="50" fill="rgba(63,81,181,0.9)" rx="10"/>
+  <text x="400" y="462" text-anchor="middle" font-family="Georgia, serif" font-size="22" font-weight="bold" fill="white">М.Ю. Лермонтов</text>
+</svg>

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a192f"/>
+      <stop offset="100%" style="stop-color:#112240"/>
+    </linearGradient>
+    <linearGradient id="line1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#64ffda"/>
+      <stop offset="100%" style="stop-color:#00bfa5"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg3)"/>
+  
+  <!-- Coordinate axes -->
+  <g stroke="#64ffda" stroke-width="2" opacity="0.8">
+    <line x1="100" y1="400" x2="700" y2="400"/>
+    <line x1="200" y1="50" x2="200" y2="450"/>
+    <!-- Arrows -->
+    <polygon points="700,400 680,390 680,410" fill="#64ffda"/>
+    <polygon points="200,50 190,70 210,70" fill="#64ffda"/>
+  </g>
+  
+  <!-- Axis labels -->
+  <text x="720" y="405" font-family="Georgia, serif" font-size="24" fill="#64ffda">x</text>
+  <text x="205" y="45" font-family="Georgia, serif" font-size="24" fill="#64ffda">y</text>
+  <text x="185" y="420" font-family="Georgia, serif" font-size="18" fill="#64ffda" opacity="0.7">0</text>
+  
+  <!-- Grid -->
+  <g stroke="#64ffda" stroke-opacity="0.1" stroke-width="1">
+    <line x1="300" y1="50" x2="300" y2="450"/>
+    <line x1="400" y1="50" x2="400" y2="450"/>
+    <line x1="500" y1="50" x2="500" y2="450"/>
+    <line x1="600" y1="50" x2="600" y2="450"/>
+    <line x1="100" y1="150" x2="700" y2="150"/>
+    <line x1="100" y1="250" x2="700" y2="250"/>
+    <line x1="100" y1="350" x2="700" y2="350"/>
+  </g>
+  
+  <!-- Linear function graph y = kx + b -->
+  <line x1="100" y1="320" x2="650" y2="100" stroke="url(#line1)" stroke-width="4"/>
+  
+  <!-- Points on line -->
+  <circle cx="200" cy="280" r="8" fill="#64ffda"/>
+  <circle cx="400" cy="200" r="8" fill="#64ffda"/>
+  <circle cx="550" cy="140" r="8" fill="#64ffda"/>
+  
+  <!-- Function formula -->
+  <text x="550" y="320" text-anchor="middle" font-family="Georgia, serif" font-size="42" font-weight="bold" fill="#64ffda">y = kx + b</text>
+  
+  <!-- k and b labels -->
+  <text x="550" y="370" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#ffffff" opacity="0.7">k — угловой коэффициент</text>
+  <text x="550" y="400" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#ffffff" opacity="0.7">b — пересечение с OY</text>
+  
+  <!-- b point indicator -->
+  <circle cx="200" cy="280" r="12" fill="none" stroke="#64ffda" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="230" y="310" font-family="Georgia, serif" font-size="18" fill="#64ffda">b</text>
+  
+  <!-- Title -->
+  <text x="400" y="480" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="bold" fill="#ffffff">Линейная функция</text>
+</svg>

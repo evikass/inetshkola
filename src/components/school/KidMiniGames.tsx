@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Star, Trophy, RotateCcw, ArrowLeft, Sparkles } from 'lucide-react'
+import { useSound } from '@/hooks/useSound'
 
 interface KidMiniGameProps {
   onBack: () => void
@@ -24,6 +25,7 @@ export function CountingGame({ onBack, onComplete }: KidMiniGameProps) {
   const [score, setScore] = useState(0)
   const [stars, setStars] = useState(0)
   const [gameComplete, setGameComplete] = useState(false)
+  const { playSuccess, playError, playWin } = useSound({ volume: 0.3 })
 
   // Генерация нового задания
   const generateQuestion = useCallback(() => {
@@ -61,6 +63,7 @@ export function CountingGame({ onBack, onComplete }: KidMiniGameProps) {
     if (correct) {
       setScore(prev => prev + 1)
       setStars(prev => prev + 1)
+      playSuccess()
 
       // Вибрация успеха
       if (navigator.vibrate) {
@@ -71,11 +74,13 @@ export function CountingGame({ onBack, onComplete }: KidMiniGameProps) {
       setTimeout(() => {
         if (level >= 5) {
           setGameComplete(true)
+          playWin()
         } else {
           setLevel(prev => prev + 1)
         }
       }, 1500)
     } else {
+      playError()
       // Вибрация ошибки
       if (navigator.vibrate) {
         navigator.vibrate(200)
@@ -291,6 +296,7 @@ export function AlphabetGame({ onBack, onComplete }: KidMiniGameProps) {
   const [stars, setStars] = useState(0)
   const [round, setRound] = useState(1)
   const [gameComplete, setGameComplete] = useState(false)
+  const { playSuccess, playError, playWin } = useSound({ volume: 0.3 })
 
   // Буквы и слова
   const letterWords: Record<string, string[]> = {
@@ -365,6 +371,7 @@ export function AlphabetGame({ onBack, onComplete }: KidMiniGameProps) {
     if (correct) {
       setScore(prev => prev + 1)
       setStars(prev => prev + 1)
+      playSuccess()
 
       if (navigator.vibrate) {
         navigator.vibrate([100, 50, 100])
@@ -373,12 +380,14 @@ export function AlphabetGame({ onBack, onComplete }: KidMiniGameProps) {
       setTimeout(() => {
         if (round >= 5) {
           setGameComplete(true)
+          playWin()
         } else {
           setRound(prev => prev + 1)
           generateQuestion()
         }
       }, 1500)
     } else {
+      playError()
       if (navigator.vibrate) {
         navigator.vibrate(200)
       }
@@ -569,6 +578,7 @@ export function AlphabetGame({ onBack, onComplete }: KidMiniGameProps) {
 // Игра "Найди пару" (Memory Game)
 export function MemoryGame({ onBack, onComplete }: KidMiniGameProps) {
   const emojis = ['🍎', '🍊', '🍋', '🍇', '🍓', '🌟', '🎈', '🦋']
+  const { playSuccess, playError, playWin } = useSound({ volume: 0.3 })
 
   // Инициализация игры через useState с функцией
   const createInitialCards = () => {
@@ -615,6 +625,7 @@ export function MemoryGame({ onBack, onComplete }: KidMiniGameProps) {
       const [first, second] = newFlipped
       if (cards[first].emoji === cards[second].emoji) {
         // Найдена пара!
+        playSuccess()
         setTimeout(() => {
           const matchedCards = [...cards]
           matchedCards[first].matched = true
@@ -631,11 +642,15 @@ export function MemoryGame({ onBack, onComplete }: KidMiniGameProps) {
 
           // Проверяем завершение
           if (matchedCards.every(c => c.matched)) {
-            setTimeout(() => setGameComplete(true), 500)
+            setTimeout(() => {
+              setGameComplete(true)
+              playWin()
+            }, 500)
           }
         }, 500)
       } else {
         // Не совпали
+        playError()
         setTimeout(() => {
           const resetCards = [...cards]
           resetCards[first].flipped = false
@@ -781,6 +796,8 @@ export function ShapeGame({ onBack, onComplete }: KidMiniGameProps) {
     { emoji: '🔵', name: 'Овал' }
   ]
 
+  const { playSuccess, playError, playWin } = useSound({ volume: 0.3 })
+
   // Инициализация первого вопроса
   const createInitialQuestion = () => {
     const target = allShapes[Math.floor(Math.random() * allShapes.length)]
@@ -829,6 +846,7 @@ export function ShapeGame({ onBack, onComplete }: KidMiniGameProps) {
 
     if (correct) {
       setStars(prev => prev + 1)
+      playSuccess()
 
       if (navigator.vibrate) {
         navigator.vibrate([100, 50, 100])
@@ -837,12 +855,14 @@ export function ShapeGame({ onBack, onComplete }: KidMiniGameProps) {
       setTimeout(() => {
         if (round >= 5) {
           setGameComplete(true)
+          playWin()
         } else {
           setRound(prev => prev + 1)
           generateQuestion()
         }
       }, 1500)
     } else {
+      playError()
       if (navigator.vibrate) {
         navigator.vibrate(200)
       }

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="acidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ef4444"/>
+      <stop offset="100%" style="stop-color:#dc2626"/>
+    </linearGradient>
+    <linearGradient id="neutralGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#22c55e"/>
+      <stop offset="100%" style="stop-color:#16a34a"/>
+    </linearGradient>
+    <linearGradient id="baseGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#2563eb"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f8fafc"/>
+  
+  <!-- pH Scale -->
+  <rect x="40" y="100" width="320" height="30" rx="15" fill="#e2e8f0"/>
+  <rect x="40" y="100" width="50" height="30" rx="15" fill="url(#acidGrad)"/>
+  <rect x="90" y="100" width="50" height="30" fill="#f97316"/>
+  <rect x="140" y="100" width="50" height="30" fill="#eab308"/>
+  <rect x="190" y="100" width="20" height="30" fill="url(#neutralGrad)"/>
+  <rect x="210" y="100" width="50" height="30" fill="#84cc16"/>
+  <rect x="260" y="100" width="50" height="30" fill="#14b8a6"/>
+  <rect x="310" y="100" width="50" height="30" rx="15" fill="url(#baseGrad)"/>
+  
+  <!-- pH Numbers -->
+  <text x="55" y="155" font-family="Arial, sans-serif" font-size="11" fill="#475569">0</text>
+  <text x="105" y="155" font-family="Arial, sans-serif" font-size="11" fill="#475569">2</text>
+  <text x="155" y="155" font-family="Arial, sans-serif" font-size="11" fill="#475569">4</text>
+  <text x="195" y="155" font-family="Arial, sans-serif" font-size="11" fill="#475569">6</text>
+  <text x="205" y="155" font-family="Arial, sans-serif" font-size="11" fill="#475569">7</text>
+  <text x="275" y="155" font-family="Arial, sans-serif" font-size="11" fill="#475569">10</text>
+  <text x="325" y="155" font-family="Arial, sans-serif" font-size="11" fill="#475569">12</text>
+  <text x="355" y="155" font-family="Arial, sans-serif" font-size="11" fill="#475569">14</text>
+  
+  <!-- Labels -->
+  <text x="65" y="180" font-family="Arial, sans-serif" font-size="14" fill="#dc2626">Кислота</text>
+  <text x="185" y="180" font-family="Arial, sans-serif" font-size="14" fill="#16a34a">Нейтр.</text>
+  <text x="305" y="180" font-family="Arial, sans-serif" font-size="14" fill="#2563eb">Щёлочь</text>
+  
+  <!-- Test tubes with colors -->
+  <g transform="translate(60, 200)">
+    <!-- Acid tube -->
+    <rect x="0" y="0" width="30" height="60" rx="15" fill="#ef4444" opacity="0.8"/>
+    <text x="15" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#475569">HCl</text>
+  </g>
+  <g transform="translate(120, 200)">
+    <rect x="0" y="0" width="30" height="60" rx="15" fill="#eab308" opacity="0.8"/>
+    <text x="15" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#475569">Лимон</text>
+  </g>
+  <g transform="translate(180, 200)">
+    <rect x="0" y="0" width="30" height="60" rx="15" fill="#22c55e" opacity="0.8"/>
+    <text x="15" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#475569">Вода</text>
+  </g>
+  <g transform="translate(240, 200)">
+    <rect x="0" y="0" width="30" height="60" rx="15" fill="#14b8a6" opacity="0.8"/>
+    <text x="15" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#475569">Сода</text>
+  </g>
+  <g transform="translate(300, 200)">
+    <rect x="0" y="0" width="30" height="60" rx="15" fill="#3b82f6" opacity="0.8"/>
+    <text x="15" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#475569">NaOH</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="200" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#475569">Шкала pH</text>
+  <text x="200" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#64748b">кислотность и щёлочность</text>
+</svg>

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bg7" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2c3e50"/>
+      <stop offset="100%" style="stop-color:#34495e"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#bg7)" rx="12"/>
+  
+  <!-- World map silhouette -->
+  <ellipse cx="200" cy="130" rx="160" ry="80" fill="#1a252f" opacity="0.5"/>
+  
+  <!-- Stylized continents -->
+  <ellipse cx="120" cy="100" rx="40" ry="30" fill="#3498db" opacity="0.6"/>
+  <ellipse cx="250" cy="90" rx="60" ry="35" fill="#3498db" opacity="0.6"/>
+  <ellipse cx="180" cy="150" rx="25" ry="30" fill="#3498db" opacity="0.6"/>
+  <ellipse cx="320" cy="150" rx="20" ry="15" fill="#3498db" opacity="0.6"/>
+  
+  <!-- People icons - diverse population -->
+  <!-- Person 1 -->
+  <circle cx="80" cy="80" r="12" fill="#ffdab9"/>
+  <ellipse cx="80" cy="110" rx="10" ry="15" fill="#e74c3c"/>
+  
+  <!-- Person 2 -->
+  <circle cx="130" cy="70" r="12" fill="#deb887"/>
+  <ellipse cx="130" cy="100" rx="10" ry="15" fill="#3498db"/>
+  
+  <!-- Person 3 -->
+  <circle cx="180" cy="60" r="12" fill="#ffdab9"/>
+  <ellipse cx="180" cy="90" rx="10" ry="15" fill="#2ecc71"/>
+  
+  <!-- Person 4 -->
+  <circle cx="230" cy="70" r="12" fill="#8b4513"/>
+  <ellipse cx="230" cy="100" rx="10" ry="15" fill="#9b59b6"/>
+  
+  <!-- Person 5 -->
+  <circle cx="280" cy="80" r="12" fill="#deb887"/>
+  <ellipse cx="280" cy="110" rx="10" ry="15" fill="#f39c12"/>
+  
+  <!-- Person 6 -->
+  <circle cx="330" cy="90" r="12" fill="#ffdab9"/>
+  <ellipse cx="330" cy="120" rx="10" ry="15" fill="#1abc9c"/>
+  
+  <!-- City skyline -->
+  <rect x="50" y="180" width="20" height="50" fill="#7f8c8d"/>
+  <rect x="75" y="170" width="25" height="60" fill="#95a5a6"/>
+  <rect x="105" y="185" width="15" height="45" fill="#7f8c8d"/>
+  <rect x="125" y="160" width="30" height="70" fill="#bdc3c7"/>
+  <rect x="160" y="175" width="20" height="55" fill="#95a5a6"/>
+  <rect x="185" y="165" width="25" height="65" fill="#7f8c8d"/>
+  <rect x="215" y="180" width="20" height="50" fill="#95a5a6"/>
+  <rect x="240" y="155" width="35" height="75" fill="#bdc3c7"/>
+  <rect x="280" y="175" width="20" height="55" fill="#7f8c8d"/>
+  <rect x="305" y="185" width="25" height="45" fill="#95a5a6"/>
+  <rect x="335" y="170" width="20" height="60" fill="#7f8c8d"/>
+  
+  <!-- Windows on buildings -->
+  <rect x="80" y="180" width="5" height="5" fill="#ffd700"/>
+  <rect x="90" y="180" width="5" height="5" fill="#ffd700"/>
+  <rect x="80" y="190" width="5" height="5" fill="#ffd700"/>
+  <rect x="90" y="200" width="5" height="5" fill="#ffd700"/>
+  
+  <rect x="135" y="170" width="5" height="5" fill="#ffd700"/>
+  <rect x="145" y="185" width="5" height="5" fill="#ffd700"/>
+  <rect x="135" y="200" width="5" height="5" fill="#ffd700"/>
+  <rect x="145" y="215" width="5" height="5" fill="#ffd700"/>
+  
+  <rect x="250" y="165" width="6" height="6" fill="#ffd700"/>
+  <rect x="260" y="180" width="6" height="6" fill="#ffd700"/>
+  <rect x="250" y="195" width="6" height="6" fill="#ffd700"/>
+  
+  <!-- Statistics icon -->
+  <rect x="30" y="240" width="15" height="40" fill="#e74c3c"/>
+  <rect x="50" y="255" width="15" height="25" fill="#f39c12"/>
+  <rect x="70" y="245" width="15" height="35" fill="#2ecc71"/>
+  
+  <!-- Population counter -->
+  <rect x="280" y="240" width="100" height="40" fill="#1a252f" rx="5"/>
+  <text x="330" y="255" text-anchor="middle" font-size="10" fill="#95a5a6">Население:</text>
+  <text x="330" y="272" text-anchor="middle" font-size="14" fill="#3498db" font-weight="bold">8 млрд+</text>
+  
+  <!-- Text label -->
+  <text x="200" y="25" text-anchor="middle" font-size="18" fill="#ffffff" font-weight="bold">Население мира</text>
+</svg>

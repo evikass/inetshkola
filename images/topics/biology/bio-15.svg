@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f0fdf4"/>
+  
+  <!-- Title -->
+  <text x="200" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#475569">Бактерии и грибы 🍄</text>
+  
+  <!-- Bacteria -->
+  <g transform="translate(20, 50)">
+    <rect x="0" y="0" width="170" height="130" rx="10" fill="#e0f2fe" stroke="#0ea5e9" stroke-width="2"/>
+    <text x="85" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#0369a1">Бактерии</text>
+    
+    <!-- Cocci -->
+    <circle cx="40" cy="50" r="12" fill="#60a5fa" stroke="#3b82f6" stroke-width="2"/>
+    <circle cx="65" cy="50" r="12" fill="#60a5fa" stroke="#3b82f6" stroke-width="2"/>
+    <circle cx="52" cy="70" r="12" fill="#60a5fa" stroke="#3b82f6" stroke-width="2"/>
+    <text x="100" y="60" font-family="Arial, sans-serif" font-size="8" fill="#0284c7">Кокки</text>
+    
+    <!-- Bacillus -->
+    <rect x="25" y="90" width="40" height="15" rx="7" fill="#60a5fa" stroke="#3b82f6" stroke-width="2"/>
+    <text x="100" y="100" font-family="Arial, sans-serif" font-size="8" fill="#0284c7">Палочки</text>
+    
+    <!-- Spirillum -->
+    <path d="M30 120 Q50 115 70 120 Q90 125 110 120" stroke="#3b82f6" stroke-width="4" fill="none"/>
+    <text x="140" y="120" font-family="Arial, sans-serif" font-size="8" fill="#0284c7">Спириллы</text>
+  </g>
+  
+  <!-- Fungi -->
+  <g transform="translate(210, 50)">
+    <rect x="0" y="0" width="170" height="130" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+    <text x="85" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#92400e">Грибы</text>
+    
+    <!-- Mushroom 1 -->
+    <ellipse cx="50" cy="55" rx="20" ry="12" fill="#fbbf24"/>
+    <rect x="40" y="55" width="20" height="35" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+    <text x="50" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#78350f">Шляпка</text>
+    
+    <!-- Mushroom 2 -->
+    <ellipse cx="110" cy="50" rx="18" ry="15" fill="#f97316"/>
+    <rect x="102" y="50" width="16" height="40" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+    <text x="110" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#78350f">Ножка</text>
+    
+    <!-- Spores -->
+    <g fill="#fbbf24" opacity="0.6">
+      <circle cx="140" cy="40" r="3"/>
+      <circle cx="150" cy="50" r="3"/>
+      <circle cx="145" cy="60" r="3"/>
+    </g>
+    <text x="150" y="75" font-family="Arial, sans-serif" font-size="7" fill="#92400e">Споры</text>
+  </g>
+  
+  <!-- Comparison -->
+  <rect x="20" y="195" width="360" height="90" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+  <g font-family="Arial, sans-serif" font-size="10">
+    <text x="105" y="215" text-anchor="middle" fill="#0369a1" font-weight="bold">Бактерии</text>
+    <text x="295" y="215" text-anchor="middle" fill="#92400e" font-weight="bold">Грибы</text>
+    <line x1="200" y1="205" x2="200" y2="275" stroke="#cbd5e1" stroke-width="1"/>
+    
+    <text x="30" y="235" fill="#475569">Ядро:</text>
+    <text x="105" y="235" text-anchor="middle" fill="#0284c7">без ядра (прокариоты)</text>
+    <text x="295" y="235" text-anchor="middle" fill="#b45309">с ядром (эукариоты)</text>
+    
+    <text x="30" y="255" fill="#475569">Размножение:</text>
+    <text x="105" y="255" text-anchor="middle" fill="#0284c7">деление клетки</text>
+    <text x="295" y="255" text-anchor="middle" fill="#b45309">спорами</text>
+    
+    <text x="30" y="275" fill="#475569">Значение:</text>
+    <text x="105" y="275" text-anchor="middle" fill="#0284c7">разложение, брожение</text>
+    <text x="295" y="275" text-anchor="middle" fill="#b45309">разложение, питание</text>
+  </g>
+</svg>

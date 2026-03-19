@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5E6D3"/>
+      <stop offset="100%" style="stop-color:#E8D4B8"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg1)" rx="20"/>
+  
+  <!-- Open book in center -->
+  <g transform="translate(250, 150)">
+    <!-- Left page -->
+    <path d="M150 0 Q75 10 0 30 L0 180 Q75 160 150 150 Z" fill="#FFFEF9" stroke="#8B4513" stroke-width="2"/>
+    <!-- Right page -->
+    <path d="M150 0 Q225 10 300 30 L300 180 Q225 160 150 150 Z" fill="#FFFEF9" stroke="#8B4513" stroke-width="2"/>
+    <!-- Spine -->
+    <rect x="145" y="0" width="10" height="150" fill="#8B4513" rx="2"/>
+    
+    <!-- Text lines on left page -->
+    <g stroke="#333" stroke-width="1.5" opacity="0.5">
+      <line x1="20" y1="50" x2="130" y2="50"/>
+      <line x1="25" y1="70" x2="125" y2="70"/>
+      <line x1="30" y1="90" x2="120" y2="90"/>
+      <line x1="25" y1="110" x2="115" y2="110"/>
+      <line x1="20" y1="130" x2="100" y2="130"/>
+    </g>
+    
+    <!-- Text lines on right page -->
+    <g stroke="#333" stroke-width="1.5" opacity="0.5">
+      <line x1="170" y1="50" x2="280" y2="50"/>
+      <line x1="175" y1="70" x2="275" y2="70"/>
+      <line x1="180" y1="90" x2="270" y2="90"/>
+      <line x1="175" y1="110" x2="265" y2="110"/>
+      <line x1="170" y1="130" x2="250" y2="130"/>
+    </g>
+  </g>
+  
+  <!-- Floating letters and symbols -->
+  <text x="80" y="100" font-family="Georgia, serif" font-size="40" fill="#8B4513" opacity="0.6">А</text>
+  <text x="720" y="80" font-family="Georgia, serif" font-size="35" fill="#8B4513" opacity="0.5">Б</text>
+  <text x="100" y="400" font-family="Georgia, serif" font-size="30" fill="#8B4513" opacity="0.4">В</text>
+  <text x="680" y="420" font-family="Georgia, serif" font-size="38" fill="#8B4513" opacity="0.5">Г</text>
+  
+  <!-- Quill pen -->
+  <g transform="translate(620, 180) rotate(30)">
+    <path d="M0 0 L20 80 L10 75 L5 85 L0 0" fill="#4A3728"/>
+    <path d="M0 0 L-5 10 L15 85 L10 75 L0 0" fill="#5D4037"/>
+    <ellipse cx="0" cy="0" rx="8" ry="5" fill="#1A1A1A"/>
+  </g>
+  
+  <!-- Inkwell -->
+  <g transform="translate(600, 280)">
+    <ellipse cx="0" cy="0" rx="25" ry="10" fill="#2C2C2C"/>
+    <rect x="-25" y="0" width="50" height="35" fill="#1A1A1A" rx="3"/>
+    <ellipse cx="0" cy="35" rx="25" ry="8" fill="#2C2C2C"/>
+    <ellipse cx="0" cy="5" rx="15" ry="5" fill="#0D47A1"/>
+  </g>
+  
+  <!-- Decorative stars/sparkles -->
+  <g fill="#DAA520" opacity="0.6">
+    <polygon points="50,200 55,215 70,215 58,225 63,240 50,230 37,240 42,225 30,215 45,215"/>
+    <polygon points="750,300 753,310 763,310 755,317 758,327 750,320 742,327 745,317 737,310 747,310" transform="scale(0.8)"/>
+  </g>
+  
+  <!-- Title -->
+  <rect x="280" y="400" width="240" height="60" fill="rgba(139,69,19,0.9)" rx="10"/>
+  <text x="400" y="440" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="bold" fill="#FFFEF9">Литература</text>
+</svg>
