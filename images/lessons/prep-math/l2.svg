@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 90">
+  <defs>
+    <linearGradient id="lBg5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06B6D4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="120" height="90" fill="url(#lBg5)" rx="10"/>
+  
+  <!-- Hand with fingers -->
+  <g transform="translate(25, 15)">
+    <!-- Palm -->
+    <ellipse cx="35" cy="50" rx="25" ry="20" fill="#FDE68A"/>
+    
+    <!-- Fingers -->
+    <rect x="5" y="15" width="10" height="30" rx="5" fill="#FDE68A"/>
+    <rect x="18" y="5" width="10" height="38" rx="5" fill="#FDE68A"/>
+    <rect x="31" y="0" width="10" height="40" rx="5" fill="#FDE68A"/>
+    <rect x="44" y="8" width="10" height="35" rx="5" fill="#FDE68A"/>
+    <rect x="57" y="25" width="10" height="25" rx="5" fill="#FDE68A"/>
+    
+    <!-- Finger lines -->
+    <line x1="10" y1="30" x2="10" y2="38" stroke="#F59E0B" stroke-width="1"/>
+    <line x1="23" y1="20" x2="23" y2="32" stroke="#F59E0B" stroke-width="1"/>
+    <line x1="36" y1="15" x2="36" y2="30" stroke="#F59E0B" stroke-width="1"/>
+    <line x1="49" y1="20" x2="49" y2="32" stroke="#F59E0B" stroke-width="1"/>
+  </g>
+  
+  <!-- Numbers 1-5 -->
+  <text x="30" y="85" font-family="Arial" font-size="12" font-weight="bold" fill="white">1</text>
+  <text x="45" y="85" font-family="Arial" font-size="12" font-weight="bold" fill="white">2</text>
+  <text x="60" y="85" font-family="Arial" font-size="12" font-weight="bold" fill="white">3</text>
+  <text x="75" y="85" font-family="Arial" font-size="12" font-weight="bold" fill="white">4</text>
+  <text x="90" y="85" font-family="Arial" font-size="12" font-weight="bold" fill="white">5</text>
+  
+  <!-- Stars -->
+  <text x="100" y="25" font-size="14">⭐</text>
+  <text x="105" y="45" font-size="14">✨</text>
+</svg>

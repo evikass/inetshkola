@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bg16" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="400" height="300" fill="url(#bg16)"/>
+  
+  <!-- Magnet -->
+  <g transform="translate(120, 100)">
+    <rect x="0" y="0" width="160" height="40" rx="5" fill="#7f8c8d"/>
+    <rect x="0" y="0" width="80" height="40" rx="5" fill="#e74c3c"/>
+    <rect x="80" y="0" width="80" height="40" rx="5" fill="#3498db"/>
+    <text x="40" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#fff">N</text>
+    <text x="120" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#fff">S</text>
+  </g>
+  
+  <!-- Field lines -->
+  <g transform="translate(200, 120)" opacity="0.7">
+    <!-- Upper curves -->
+    <path d="M-80,0 Q-60,-50 0,-50 Q60,-50 80,0" fill="none" stroke="#9b59b6" stroke-width="2">
+      <animate attributeName="stroke-dasharray" values="0,200;200,0" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <path d="M-70,0 Q-50,-35 0,-35 Q50,-35 70,0" fill="none" stroke="#8e44ad" stroke-width="2">
+      <animate attributeName="stroke-dasharray" values="0,150;150,0" dur="2s" repeatCount="indefinite"/>
+    </path>
+    
+    <!-- Lower curves -->
+    <path d="M-80,0 Q-60,50 0,50 Q60,50 80,0" fill="none" stroke="#9b59b6" stroke-width="2">
+      <animate attributeName="stroke-dasharray" values="0,200;200,0" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <path d="M-70,0 Q-50,35 0,35 Q50,35 70,0" fill="none" stroke="#8e44ad" stroke-width="2">
+      <animate attributeName="stroke-dasharray" values="0,150;150,0" dur="2s" repeatCount="indefinite"/>
+    </path>
+    
+    <!-- Arrows on lines -->
+    <polygon points="0,-50 -5,-42 5,-42" fill="#9b59b6"/>
+    <polygon points="0,50 5,42 -5,42" fill="#9b59b6"/>
+  </g>
+  
+  <!-- Compass needle -->
+  <g transform="translate(200, 200)">
+    <circle cx="0" cy="0" r="25" fill="#2c3e50" stroke="#f1c40f" stroke-width="2"/>
+    <polygon points="0,-20 -5,5 0,-5 5,5" fill="#e74c3c">
+      <animateTransform attributeName="transform" type="rotate" values="0;5;-5;0" dur="2s" repeatCount="indefinite"/>
+    </polygon>
+    <polygon points="0,20 -5,-5 0,5 5,-5" fill="#3498db">
+      <animateTransform attributeName="transform" type="rotate" values="0;5;-5;0" dur="2s" repeatCount="indefinite"/>
+    </polygon>
+    <circle cx="0" cy="0" r="4" fill="#f1c40f"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="200" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#ffffff">МАГНИТНОЕ ПОЛЕ</text>
+  <text x="200" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#888">Линии выходят из N и входят в S</text>
+</svg>

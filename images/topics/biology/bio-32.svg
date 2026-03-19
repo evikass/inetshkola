@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250">
+  <defs>
+    <linearGradient id="bg32" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8f5e9"/>
+      <stop offset="100%" style="stop-color:#c8e6c9"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="250" fill="url(#bg32)" rx="20"/>
+  <text x="200" y="30" font-family="Arial" font-size="18" font-weight="bold" fill="#1b5e20" text-anchor="middle">Молекулярная биология</text>
+  <!-- ДНК большая -->
+  <g transform="translate(50, 50)">
+    <path d="M0 0 Q30 25 0 50 Q-30 75 0 100 Q30 125 0 150" stroke="#2196f3" stroke-width="6" fill="none"/>
+    <path d="M50 0 Q20 25 50 50 Q80 75 50 100 Q20 125 50 150" stroke="#1565c0" stroke-width="6" fill="none"/>
+    <!-- Нуклеотидные пары -->
+    <rect x="5" y="15" width="40" height="8" fill="#ef5350" rx="2"/>
+    <rect x="5" y="40" width="40" height="8" fill="#4caf50" rx="2"/>
+    <rect x="5" y="65" width="40" height="8" fill="#ffeb3b" rx="2"/>
+    <rect x="5" y="90" width="40" height="8" fill="#9c27b0" rx="2"/>
+    <rect x="5" y="115" width="40" height="8" fill="#ef5350" rx="2"/>
+    <rect x="5" y="140" width="40" height="8" fill="#4caf50" rx="2"/>
+  </g>
+  <!-- Подписи нуклеотидов -->
+  <text x="95" y="75" font-family="Arial" font-size="10" fill="#c62828">A</text>
+  <text x="95" y="100" font-family="Arial" font-size="10" fill="#2e7d32">G</text>
+  <text x="95" y="125" font-family="Arial" font-size="10" fill="#f9a825">T</text>
+  <text x="95" y="150" font-family="Arial" font-size="10" fill="#7b1fa2">C</text>
+  <!-- РНК -->
+  <g transform="translate(180, 60)">
+    <path d="M0 0 Q20 20 0 40 Q-20 60 0 80 Q20 100 0 120" stroke="#ff9800" stroke-width="5" fill="none"/>
+    <!-- Рибонуклеотиды -->
+    <circle cx="5" cy="10" r="6" fill="#e91e63"/>
+    <circle cx="-5" cy="35" r="6" fill="#4caf50"/>
+    <circle cx="5" cy="60" r="6" fill="#2196f3"/>
+    <circle cx="-5" cy="85" r="6" fill="#ffc107"/>
+    <circle cx="5" cy="110" r="6" fill="#e91e63"/>
+  </g>
+  <text x="210" y="200" font-family="Arial" font-size="11" fill="#e65100" text-anchor="middle">РНК</text>
+  <!-- Белок -->
+  <g transform="translate(280, 70)">
+    <ellipse cx="30" cy="30" rx="25" ry="20" fill="#7986cb"/>
+    <ellipse cx="50" cy="60" rx="20" ry="25" fill="#5c6bc0"/>
+    <ellipse cx="40" cy="100" rx="25" ry="18" fill="#3f51b5"/>
+    <!-- Альфа-спирали -->
+    <path d="M20 20 Q30 10 40 20 Q50 30 40 40" stroke="#e8eaf6" stroke-width="2" fill="none"/>
+    <path d="M35 80 Q45 70 55 80" stroke="#c5cae9" stroke-width="2" fill="none"/>
+  </g>
+  <text x="330" y="200" font-family="Arial" font-size="11" fill="#303f9f" text-anchor="middle">Белок</text>
+  <!-- Центральная догма -->
+  <path d="M130 220 L180 220" stroke="#1b5e20" stroke-width="2" marker-end="url(#arr32)"/>
+  <path d="M240 220 L290 220" stroke="#1b5e20" stroke-width="2" marker-end="url(#arr32)"/>
+  <text x="155" y="235" font-family="Arial" font-size="9" fill="#2e7d32">транскрипция</text>
+  <text x="265" y="235" font-family="Arial" font-size="9" fill="#2e7d32">трансляция</text>
+  <text x="100" y="220" font-family="Arial" font-size="11" fill="#1565c0" text-anchor="middle">ДНК</text>
+  <defs>
+    <marker id="arr32" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#1b5e20"/>
+    </marker>
+  </defs>
+</svg>

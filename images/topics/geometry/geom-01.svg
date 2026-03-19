@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bggeom" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6a1b9a"/>
+      <stop offset="100%" style="stop-color:#8e24aa"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bggeom)"/>
+  
+  <!-- Треугольник -->
+  <polygon points="150,350 250,150 350,350" fill="none" stroke="#ce93d8" stroke-width="3"/>
+  <circle cx="250" cy="280" r="4" fill="#ffffff"/>
+  
+  <!-- Квадрат -->
+  <rect x="420" y="180" width="150" height="150" fill="none" stroke="#e1bee7" stroke-width="3" transform="rotate(15 495 255)"/>
+  
+  <!-- Круг -->
+  <circle cx="650" cy="280" r="70" fill="none" stroke="#ba68c8" stroke-width="3"/>
+  <line x1="650" y1="280" x2="720" y2="280" stroke="#ffffff" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="680" y="260" font-family="Georgia, serif" font-size="14" fill="#ffffff" opacity="0.7">r</text>
+  
+  <!-- Угол -->
+  <path d="M 100 420 L 200 420 L 180 380" fill="none" stroke="#ffffff" stroke-width="2"/>
+  <path d="M 180 420 A 20 20 0 0 1 190 400" fill="none" stroke="#ce93d8" stroke-width="2"/>
+  <text x="190" y="410" font-family="Georgia, serif" font-size="16" fill="#ce93d8">α</text>
+  
+  <!-- Формула Пифагора -->
+  <text x="400" y="150" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#ffffff" opacity="0.8">a² + b² = c²</text>
+  
+  <!-- Декоративные элементы -->
+  <circle cx="700" cy="100" r="25" fill="#ce93d8" opacity="0.2"/>
+  <polygon points="80,100 100,60 120,100" fill="#e1bee7" opacity="0.3"/>
+  
+  <text x="400" y="480" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="bold" fill="#ffffff">Геометрия</text>
+</svg>
