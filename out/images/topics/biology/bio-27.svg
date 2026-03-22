@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250">
+  <defs>
+    <linearGradient id="bg27" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e1f5fe"/>
+      <stop offset="100%" style="stop-color:#b3e5fc"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="250" fill="url(#bg27)" rx="20"/>
+  <text x="200" y="30" font-family="Arial" font-size="18" font-weight="bold" fill="#01579b" text-anchor="middle">Разнообразие животных</text>
+  <!-- Млекопитающее - кошка силуэт -->
+  <ellipse cx="70" cy="100" rx="35" ry="25" fill="#8d6e63"/>
+  <circle cx="50" cy="85" r="15" fill="#8d6e63"/>
+  <polygon points="40,75 35,60 45,70" fill="#8d6e63"/>
+  <polygon points="55,70 60,55 50,65" fill="#8d6e63"/>
+  <ellipse cx="90" cy="120" rx="8" ry="5" fill="#a1887f"/>
+  <text x="70" y="145" font-family="Arial" font-size="10" fill="#5d4037" text-anchor="middle">Млекопит.</text>
+  <!-- Птица -->
+  <ellipse cx="160" cy="100" rx="25" ry="18" fill="#42a5f5"/>
+  <circle cx="145" cy="90" r="10" fill="#1e88e5"/>
+  <polygon points="135,90 120,88 135,92" fill="#ff9800"/>
+  <path d="M175 95 Q195 85 210 90 Q200 95 185 100" fill="#90caf9"/>
+  <line x1="155" y1="118" x2="150" y2="135" stroke="#ff9800" stroke-width="2"/>
+  <line x1="165" y1="118" x2="160" y2="135" stroke="#ff9800" stroke-width="2"/>
+  <text x="165" y="150" font-family="Arial" font-size="10" fill="#1565c0" text-anchor="middle">Птицы</text>
+  <!-- Рыба -->
+  <ellipse cx="280" cy="100" rx="40" ry="20" fill="#26c6da"/>
+  <polygon points="320,100 345,85 345,115" fill="#00acc1"/>
+  <circle cx="255" cy="95" r="5" fill="#fff"/>
+  <circle cx="255" cy="95" r="2" fill="#000"/>
+  <path d="M280 80 Q285 70 280 85" fill="#00838f"/>
+  <text x="280" y="145" font-family="Arial" font-size="10" fill="#00838f" text-anchor="middle">Рыбы</text>
+  <!-- Насекомое - бабочка -->
+  <ellipse cx="350" cy="100" rx="15" ry="10" fill="#ec407a"/>
+  <ellipse cx="335" cy="85" rx="18" ry="15" fill="#f48fb1"/>
+  <ellipse cx="365" cy="85" rx="18" ry="15" fill="#f48fb1"/>
+  <line x1="350" y1="70" x2="345" y2="55" stroke="#ad1457" stroke-width="2"/>
+  <line x1="350" y1="70" x2="355" y2="55" stroke="#ad1457" stroke-width="2"/>
+  <text x="350" y="145" font-family="Arial" font-size="10" fill="#c2185b" text-anchor="middle">Насекомые</text>
+  <!-- Земноводное - лягушка -->
+  <ellipse cx="100" cy="200" rx="30" ry="20" fill="#66bb6a"/>
+  <circle cx="85" cy="185" r="8" fill="#81c784"/>
+  <circle cx="115" cy="185" r="8" fill="#81c784"/>
+  <circle cx="85" cy="183" r="3" fill="#000"/>
+  <circle cx="115" cy="183" r="3" fill="#000"/>
+  <path d="M70 210 L55 235" stroke="#4caf50" stroke-width="4"/>
+  <path d="M130 210 L145 235" stroke="#4caf50" stroke-width="4"/>
+  <text x="100" y="240" font-family="Arial" font-size="10" fill="#2e7d32" text-anchor="middle">Земноводные</text>
+  <!-- Пресмыкающееся - ящерица -->
+  <ellipse cx="220" cy="200" rx="25" ry="12" fill="#795548"/>
+  <circle cx="195" cy="195" r="8" fill="#8d6e63"/>
+  <path d="M245 200 Q260 195 275 200 Q290 205 300 195" stroke="#5d4037" stroke-width="3" fill="none"/>
+  <path d="M180 200 L165 195" stroke="#5d4037" stroke-width="2"/>
+  <path d="M180 200 L165 205" stroke="#5d4037" stroke-width="2"/>
+  <text x="220" y="240" font-family="Arial" font-size="10" fill="#4e342e" text-anchor="middle">Пресмыкающиеся</text>
+  <!-- Моллюск - улитка -->
+  <ellipse cx="340" cy="210" rx="25" ry="15" fill="#bcaaa4"/>
+  <circle cx="340" cy="200" r="18" fill="#8d6e63"/>
+  <path d="M340 195 Q345 190 340 200 Q335 205 340 200" stroke="#5d4037" stroke-width="1" fill="none"/>
+  <line x1="320" y1="215" x2="310" y2="200" stroke="#a1887f" stroke-width="2"/>
+  <circle cx="308" cy="198" r="3" fill="#000"/>
+  <text x="340" y="240" font-family="Arial" font-size="10" fill="#5d4037" text-anchor="middle">Моллюски</text>
+</svg>

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f8fafc"/>
+  
+  <!-- Title -->
+  <text x="200" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#475569">Признаки живого</text>
+  
+  <!-- 1. Breathing -->
+  <g transform="translate(30, 45)">
+    <rect x="0" y="0" width="70" height="70" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+    <ellipse cx="35" cy="30" rx="20" ry="15" fill="#3b82f6"/>
+    <path d="M20 45 L25 35 L35 45 L45 35 L50 45" stroke="#60a5fa" stroke-width="2" fill="none"/>
+    <text x="35" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#1e40af">Дыхание</text>
+  </g>
+  
+  <!-- 2. Nutrition -->
+  <g transform="translate(110, 45)">
+    <rect x="0" y="0" width="70" height="70" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="35" cy="28" r="12" fill="#f59e0b"/>
+    <rect x="25" y="42" width="20" height="12" rx="2" fill="#fbbf24"/>
+    <text x="35" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#92400e">Питание</text>
+  </g>
+  
+  <!-- 3. Growth -->
+  <g transform="translate(190, 45)">
+    <rect x="0" y="0" width="70" height="70" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="2"/>
+    <rect x="10" y="45" width="8" height="15" fill="#22c55e"/>
+    <rect x="30" y="35" width="10" height="25" fill="#22c55e"/>
+    <rect x="52" y="25" width="12" height="35" fill="#22c55e"/>
+    <path d="M50 20 L58 25 L50 30" fill="#16a34a"/>
+    <text x="35" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#166534">Рост</text>
+  </g>
+  
+  <!-- 4. Reproduction -->
+  <g transform="translate(270, 45)">
+    <rect x="0" y="0" width="70" height="70" rx="10" fill="#fce7f3" stroke="#ec4899" stroke-width="2"/>
+    <circle cx="25" cy="30" r="10" fill="#ec4899"/>
+    <circle cx="45" cy="30" r="10" fill="#f472b6"/>
+    <circle cx="35" cy="48" r="8" fill="#f9a8d4"/>
+    <text x="35" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#9d174d">Размножение</text>
+  </g>
+  
+  <!-- 5. Response -->
+  <g transform="translate(70, 130)">
+    <rect x="0" y="0" width="70" height="70" rx="10" fill="#f3e8ff" stroke="#a855f7" stroke-width="2"/>
+    <circle cx="35" cy="25" r="12" fill="#a855f7"/>
+    <path d="M15 35 L25 45 L35 35 L45 45 L55 35" stroke="#c084fc" stroke-width="3" fill="none"/>
+    <path d="M30 50 L40 50" stroke="#a855f7" stroke-width="2"/>
+    <text x="35" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6b21a8">Реакция</text>
+  </g>
+  
+  <!-- 6. Excretion -->
+  <g transform="translate(150, 130)">
+    <rect x="0" y="0" width="70" height="70" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+    <ellipse cx="35" cy="30" rx="18" ry="12" fill="#ef4444"/>
+    <circle cx="20" cy="45" r="5" fill="#fca5a5"/>
+    <circle cx="50" cy="45" r="5" fill="#fca5a5"/>
+    <path d="M25 50 L20 55 M45 50 L50 55" stroke="#ef4444" stroke-width="2"/>
+    <text x="35" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#b91c1c">Выделение</text>
+  </g>
+  
+  <!-- 7. Movement -->
+  <g transform="translate(230, 130)">
+    <rect x="0" y="0" width="70" height="70" rx="10" fill="#e0f2fe" stroke="#0ea5e9" stroke-width="2"/>
+    <circle cx="25" cy="25" r="8" fill="#0ea5e9"/>
+    <line x1="25" y1="33" x2="25" y2="48" stroke="#0ea5e9" stroke-width="3"/>
+    <circle cx="45" cy="30" r="8" fill="#38bdf8"/>
+    <line x1="45" y1="38" x2="45" y2="53" stroke="#38bdf8" stroke-width="3"/>
+    <path d="M20 48 L30 48 M40 53 L50 53" stroke="#0ea5e9" stroke-width="2"/>
+    <text x="35" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#0369a1">Движение</text>
+  </g>
+  
+  <!-- Living vs Non-living comparison -->
+  <rect x="30" y="215" width="150" height="70" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="2"/>
+  <text x="105" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#166534">Живое ✓</text>
+  <text x="105" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#15803d">Растёт, дышит, размножается</text>
+  <text x="105" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#15803d">Реагирует на среду</text>
+  
+  <rect x="220" y="215" width="150" height="70" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+  <text x="295" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#475569">Неживое ✗</text>
+  <text x="295" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#64748b">Камень не растёт</text>
+  <text x="295" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#64748b">Не дышит и не размножается</text>
+</svg>

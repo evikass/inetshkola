@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f5f3ff"/>
+  
+  <!-- Title -->
+  <text x="200" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#475569">Нервная система 🧠</text>
+  
+  <!-- Brain -->
+  <g transform="translate(120, 40)">
+    <ellipse cx="80" cy="40" rx="60" ry="40" fill="#c4b5fd" stroke="#8b5cf6" stroke-width="3"/>
+    <path d="M30 40 Q50 20 80 30 Q110 20 130 40" stroke="#a78bfa" stroke-width="2" fill="none"/>
+    <path d="M40 50 Q60 35 80 45 Q100 35 120 50" stroke="#a78bfa" stroke-width="2" fill="none"/>
+    <text x="80" y="48" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#6d28d9">Головной мозг</text>
+  </g>
+  
+  <!-- Spinal cord -->
+  <g transform="translate(185, 85)">
+    <rect x="0" y="0" width="30" height="100" rx="5" fill="#ddd6fe" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="15" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6d28d9" transform="rotate(90, 15, 55)">Спинной мозг</text>
+  </g>
+  
+  <!-- Nerves -->
+  <g stroke="#a78bfa" stroke-width="2" fill="none">
+    <!-- Left nerves -->
+    <path d="M185 100 L150 130 L120 160"/>
+    <path d="M185 130 L160 170 L140 200"/>
+    <path d="M185 160 L170 200 L160 230"/>
+    
+    <!-- Right nerves -->
+    <path d="M215 100 L250 130 L280 160"/>
+    <path d="M215 130 L240 170 L260 200"/>
+    <path d="M215 160 L230 200 L240 230"/>
+  </g>
+  
+  <!-- Neuron detail -->
+  <g transform="translate(20, 130)">
+    <rect x="0" y="0" width="100" height="80" rx="8" fill="white" stroke="#c4b5fd" stroke-width="2"/>
+    <text x="50" y="15" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6d28d9">Нейрон:</text>
+    
+    <!-- Cell body -->
+    <circle cx="50" cy="40" r="12" fill="#ddd6fe" stroke="#8b5cf6" stroke-width="1"/>
+    <text x="50" y="43" text-anchor="middle" font-family="Arial, sans-serif" font-size="6" fill="#6d28d9">тело</text>
+    
+    <!-- Dendrites -->
+    <line x1="38" y1="32" x2="20" y2="25" stroke="#a78bfa" stroke-width="2"/>
+    <line x1="38" y1="40" x2="18" y2="40" stroke="#a78bfa" stroke-width="2"/>
+    <line x1="38" y1="48" x2="22" y2="55" stroke="#a78bfa" stroke-width="2"/>
+    <text x="15" y="32" font-family="Arial, sans-serif" font-size="6" fill="#7c3aed">дендриты</text>
+    
+    <!-- Axon -->
+    <line x1="62" y1="40" x2="90" y2="40" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="75" y="55" font-family="Arial, sans-serif" font-size="6" fill="#7c3aed">аксон</text>
+  </g>
+  
+  <!-- Reflex arc -->
+  <g transform="translate(280, 130)">
+    <rect x="0" y="0" width="100" height="80" rx="8" fill="white" stroke="#c4b5fd" stroke-width="2"/>
+    <text x="50" y="15" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6d28d9">Рефлекс:</text>
+    <text x="50" y="32" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#7c3aed">Стимул →</text>
+    <text x="50" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#7c3aed">Нерв →</text>
+    <text x="50" y="58" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#7c3aed">Мозг →</text>
+    <text x="50" y="71" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#7c3aed">Реакция</text>
+  </g>
+  
+  <!-- CNS vs PNS -->
+  <rect x="20" y="250" width="175" height="40" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="107" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#5b21b6">ЦНС: головной + спинной мозг</text>
+  <text x="107" y="283" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7c3aed">Центральная нервная система</text>
+  
+  <rect x="205" y="250" width="175" height="40" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="292" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#92400e">ПНС: нервы и ганглии</text>
+  <text x="292" y="283" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#b45309">Периферическая нервная система</text>
+</svg>

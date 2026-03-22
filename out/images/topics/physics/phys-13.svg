@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bg13" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="400" height="300" fill="url(#bg13)"/>
+  
+  <!-- Newton's Laws visualization -->
+  
+  <!-- 1st Law - Inertia -->
+  <g transform="translate(80, 100)">
+    <rect x="0" y="40" width="80" height="10" fill="#7f8c8d"/>
+    <circle cx="30" cy="30" r="15" fill="#3498db"/>
+    <line x1="60" y1="30" x2="80" y2="30" stroke="#2ecc71" stroke-width="2"/>
+    <polygon points="80,30 72,25 72,35" fill="#2ecc71"/>
+    <text x="40" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#3498db">I закон</text>
+    <text x="40" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#888">Инерция</text>
+  </g>
+  
+  <!-- 2nd Law - F=ma -->
+  <g transform="translate(180, 100)">
+    <circle cx="30" cy="30" r="15" fill="#e74c3c"/>
+    <line x1="45" y1="30" x2="75" y2="30" stroke="#f1c40f" stroke-width="3"/>
+    <polygon points="75,30 65,25 65,35" fill="#f1c40f"/>
+    <text x="60" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#f1c40f">F</text>
+    <text x="30" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#fff">m</text>
+    <text x="90" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c">a</text>
+    <text x="40" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c">II закон</text>
+    <text x="40" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#fff">F = ma</text>
+  </g>
+  
+  <!-- 3rd Law - Action/Reaction -->
+  <g transform="translate(300, 100)">
+    <circle cx="0" cy="30" r="15" fill="#9b59b6"/>
+    <circle cx="60" cy="30" r="15" fill="#8e44ad"/>
+    <line x1="15" y1="30" x2="45" y2="30" stroke="#e74c3c" stroke-width="3"/>
+    <polygon points="15,30 25,25 25,35" fill="#e74c3c"/>
+    <polygon points="45,30 35,25 35,35" fill="#3498db"/>
+    <text x="30" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">F₁ = -F₂</text>
+    <text x="30" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#9b59b6">III закон</text>
+    <text x="30" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#888">Действие = противодействие</text>
+  </g>
+  
+  <!-- Apple (Newton reference) -->
+  <g transform="translate(60, 180)">
+    <circle cx="0" cy="0" r="12" fill="#c0392b"/>
+    <ellipse cx="-3" cy="-3" rx="3" ry="2" fill="#e74c3c" opacity="0.5"/>
+    <line x1="0" y1="-12" x2="5" y2="-20" stroke="#27ae60" stroke-width="2"/>
+    <ellipse cx="8" cy="-20" rx="6" ry="3" fill="#27ae60"/>
+    <animate attributeName="transform" attributeType="XML" type="translate" values="60,180;60,220;60,180" dur="3s" repeatCount="indefinite"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="200" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#ffffff">ЗАКОНЫ НЬЮТОНА</text>
+  <text x="200" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#888">Основа классической механики</text>
+</svg>

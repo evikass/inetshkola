@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="sciBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0D9488;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#38BDF8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7DD3FC;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#sciBg)" rx="20"/>
+  
+  <!-- Sky area -->
+  <ellipse cx="200" cy="100" rx="150" ry="80" fill="url(#skyGrad)" opacity="0.8"/>
+  
+  <!-- Sun -->
+  <circle cx="300" cy="70" r="30" fill="#FCD34D"/>
+  <g stroke="#FCD34D" stroke-width="3">
+    <line x1="300" y1="30" x2="300" y2="15"/>
+    <line x1="300" y1="110" x2="300" y2="125"/>
+    <line x1="260" y1="70" x2="245" y2="70"/>
+    <line x1="340" y1="70" x2="355" y2="70"/>
+    <line x1="272" y1="42" x2="262" y2="32"/>
+    <line x1="328" y1="98" x2="338" y2="108"/>
+    <line x1="272" y1="98" x2="262" y2="108"/>
+    <line x1="328" y1="42" x2="338" y2="32"/>
+  </g>
+  
+  <!-- Clouds -->
+  <g fill="#FFFFFF" opacity="0.9">
+    <ellipse cx="100" cy="60" rx="25" ry="15"/>
+    <ellipse cx="125" cy="55" rx="20" ry="12"/>
+    <ellipse cx="80" cy="55" rx="18" ry="10"/>
+    
+    <ellipse cx="220" cy="45" rx="20" ry="12"/>
+    <ellipse cx="240" cy="40" rx="15" ry="10"/>
+  </g>
+  
+  <!-- Mountains -->
+  <polygon points="50,180 120,100 190,180" fill="#6EE7B7"/>
+  <polygon points="130,180 200,90 270,180" fill="#34D399"/>
+  <polygon points="210,180 280,110 350,180" fill="#6EE7B7"/>
+  
+  <!-- Trees -->
+  <g fill="#166534">
+    <polygon points="60,180 75,130 90,180"/>
+    <rect x="72" y="180" width="6" height="15" fill="#78350F"/>
+  </g>
+  <g fill="#15803D">
+    <polygon points="320,180 340,120 360,180"/>
+    <rect x="334" y="180" width="6" height="15" fill="#78350F"/>
+  </g>
+  
+  <!-- River -->
+  <path d="M0 200 Q100 190 200 210 Q300 230 400 200" fill="#22D3EE" opacity="0.7"/>
+  <path d="M0 210 Q100 200 200 220 Q300 240 400 210" fill="#06B6D4" opacity="0.5"/>
+  
+  <!-- Animals -->
+  <!-- Bird -->
+  <g transform="translate(150, 80)">
+    <ellipse cx="0" cy="0" rx="12" ry="8" fill="#EF4444"/>
+    <circle cx="-8" cy="-3" r="5" fill="#EF4444"/>
+    <polygon points="-15,-3 -20,-1 -15,0" fill="#F97316"/>
+    <circle cx="-10" cy="-4" r="1.5" fill="#1F2937"/>
+    <path d="M5,-5 Q15,-15 10,-5" fill="#3B82F6" stroke="#3B82F6"/>
+  </g>
+  
+  <!-- Butterfly -->
+  <g transform="translate(80, 150)">
+    <ellipse cx="0" cy="0" rx="2" ry="8" fill="#1F2937"/>
+    <ellipse cx="-8" cy="-3" rx="8" ry="6" fill="#F472B6" opacity="0.8"/>
+    <ellipse cx="8" cy="-3" rx="8" ry="6" fill="#F472B6" opacity="0.8"/>
+    <ellipse cx="-6" cy="5" rx="6" ry="4" fill="#EC4899" opacity="0.8"/>
+    <ellipse cx="6" cy="5" rx="6" ry="4" fill="#EC4899" opacity="0.8"/>
+  </g>
+  
+  <!-- Flower -->
+  <g transform="translate(350, 160)">
+    <circle cx="0" cy="0" r="8" fill="#FBBF24"/>
+    <circle cx="-10" cy="0" r="6" fill="#FB7185"/>
+    <circle cx="10" cy="0" r="6" fill="#FB7185"/>
+    <circle cx="0" cy="-10" r="6" fill="#FB7185"/>
+    <circle cx="0" cy="10" r="6" fill="#FB7185"/>
+    <line x1="0" y1="18" x2="0" y2="40" stroke="#22C55E" stroke-width="3"/>
+    <ellipse cx="-8" cy="30" rx="6" ry="3" fill="#22C55E"/>
+  </g>
+  
+  <!-- Ground -->
+  <rect x="0" y="230" width="400" height="70" fill="#166534" opacity="0.3"/>
+  
+  <!-- Globe icon -->
+  <circle cx="50" cy="260" r="25" fill="#3B82F6" stroke="#1D4ED8" stroke-width="2"/>
+  <ellipse cx="50" cy="260" rx="10" ry="25" fill="none" stroke="#60A5FA" stroke-width="2"/>
+  <line x1="25" y1="260" x2="75" y2="260" stroke="#60A5FA" stroke-width="2"/>
+  <line x1="50" y1="235" x2="50" y2="285" stroke="#60A5FA" stroke-width="2"/>
+  
+  <!-- Leaf icon -->
+  <path d="M350 250 Q370 230 380 260 Q390 290 350 280 Q340 260 350 250" fill="#22C55E"/>
+  <path d="M350 250 Q360 260 365 275" fill="none" stroke="#166534" stroke-width="2"/>
+</svg>
