@@ -837,6 +837,22 @@ const ElementModal: React.FC<{ element: Element; onClose: () => void }> = ({ ele
           </div>
         </div>
 
+        {/* 3D Модель атома и информация о частицах */}
+        <div className="border-b border-white/10">
+          <div className="flex items-center justify-center gap-2 p-3 bg-gradient-to-r from-purple-600/20 to-pink-600/20">
+            <Atom className="w-5 h-5 text-purple-400" />
+            <span className="text-sm font-medium text-purple-300">3D Модель атома {element.name}</span>
+          </div>
+          <div className="grid md:grid-cols-2 gap-0">
+            {/* 3D Визуализация */}
+            <div className="h-56 w-full bg-gradient-to-b from-slate-800 to-slate-900 border-r border-white/10">
+              <AtomModel3D atomicNumber={element.atomicNumber} />
+            </div>
+            {/* Информация о частицах */}
+            <ParticleInfo element={element} />
+          </div>
+        </div>
+
         {/* Содержимое */}
         <div className="p-6 space-y-4">
           {/* Открытие */}
@@ -889,22 +905,6 @@ const ElementModal: React.FC<{ element: Element; onClose: () => void }> = ({ ele
               </div>
             </div>
           )}
-        </div>
-
-        {/* 3D Модель атома и информация о частицах */}
-        <div className="border-t border-white/10">
-          <div className="flex items-center justify-center gap-2 p-3 bg-gradient-to-r from-purple-600/20 to-pink-600/20">
-            <Atom className="w-5 h-5 text-purple-400" />
-            <span className="text-sm font-medium text-purple-300">3D Модель атома {element.name}</span>
-          </div>
-          <div className="grid md:grid-cols-2 gap-0">
-            {/* 3D Визуализация */}
-            <div className="h-56 w-full bg-gradient-to-b from-slate-800 to-slate-900 border-r border-white/10">
-              <AtomModel3D atomicNumber={element.atomicNumber} />
-            </div>
-            {/* Информация о частицах */}
-            <ParticleInfo element={element} />
-          </div>
         </div>
       </motion.div>
     </motion.div>
