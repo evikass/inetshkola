@@ -151,46 +151,153 @@ const reactions: Reaction[] = [
 
 // ====================== 3D КОМПОНЕНТЫ ======================
 
+// Реалистичные пузырьки
+function Bubble({ startPos, speed, size }: { startPos: [number, number, number], speed: number, size: number }) {
+  const meshRef = useRef<THREE.Mesh>(null)
+  const offset = useRef(Math.random() * 100)
+  
+  useFrame(({ clock }) => {
+    if (meshRef.current) {
+      const t = clock.getElapsedTime() * speed + offset.current
+      // Подъём снизу вверх
+      meshRef.current.position.y = startPos[1] + (t % 1.2)
+      // Лёгкое покачивание
+      meshRef.current.position.x = startPos[0] + Math.sin(t * 3) * 0.03
+      meshRef.current.position.z = startPos[2] + Math.cos(t * 2) * 0.03
+      // Рост пузырька при подъёме
+      const scale = 1 + (t % 1.2) * 0.3
+      meshRef.current.scale.setScalar(scale)
+    }
+  })
+
+  return (
+    <mesh ref={meshRef} position={startPos}>
+      <sphereGeometry args={[size, 12, 12]} />
+      <meshStandardMaterial 
+        color="#ffffff" 
+        transparent 
+        opacity={0.7}
+        emissive="#aaddff"
+        emissiveIntensity={0.3}
+      />
+    </mesh>
+  )
+}
+
+// Частицы осадка падающие вниз
+function PrecipitateParticle({ startPos, delay, color }: { startPos: [number, number, number], delay: number, color: string }) {
+  const meshRef = useRef<THREE.Mesh>(null)
+  const settled = useRef(false)
+  const settledY = useRef(-0.52)
+  
+  useFrame(({ clock }) => {
+    if (meshRef.current && !settled.current) {
+      const t = clock.getElapsedTime() - delay
+      if (t > 0) {
+        // Падение с ускорением
+        const fall = t * t * 2
+        meshRef.current.position.y = startPos[1] - fall
+        // Случайное смещение при падении
+        meshRef.current.position.x = startPos[0] + Math.sin(t * 5) * 0.02
+        
+        if (meshRef.current.position.y <= settledY.current) {
+          meshRef.current.position.y = settledY.current + Math.random() * 0.02
+          settled.current = true
+        }
+      }
+    }
+  })
+
+  return (
+    <mesh ref={meshRef} position={startPos}>
+      <sphereGeometry args={[0.02 + Math.random() * 0.015, 8, 8]} />
+      <meshStandardMaterial color={color} />
+    </mesh>
+  )
+}
+
+// Пена на поверхности
+function Foam({ active, color }: { active: boolean, color: string }) {
+  const foamRef = useRef<THREE.Group>(null)
+  
+  useFrame(({ clock }) => {
+    if (foamRef.current && active) {
+      const t = clock.getElapsedTime()
+      foamRef.current.children.forEach((child, i) => {
+        // Пена слегка двигается
+        child.position.x = Math.sin(t + i) * 0.15
+        child.position.z = Math.cos(t * 0.8 + i) * 0.15
+        child.scale.setScalar(1 + Math.sin(t * 2 + i) * 0.1)
+      })
+    }
+  })
+
+  if (!active) return null
+
+  return (
+    <group ref={foamRef} position={[0, 0.05, 0]}>
+      {[...Array(15)].map((_, i) => (
+        <mesh key={i} position={[Math.sin(i * 0.7) * 0.2, 0, Math.cos(i * 0.9) * 0.2]}>
+          <sphereGeometry args={[0.03 + Math.random() * 0.02, 8, 8]} />
+          <meshStandardMaterial 
+            color={color}
+            transparent
+            opacity={0.8}
+          />
+        </mesh>
+      ))}
+    </group>
+  )
+}
+
 // Колба
-function Flask3D({ position, liquidColor, liquidLevel, bubbles, precipitate, precipitateColor }: {
+function Flask3D({ position, liquidColor, liquidLevel, bubbles, precipitate, precipitateColor, isReacting }: {
   position: [number, number, number]
   liquidColor?: string
   liquidLevel?: number
   bubbles?: boolean
   precipitate?: boolean
   precipitateColor?: string
+  isReacting?: boolean
 }) {
-  const bubblesRef = useRef<THREE.Group>(null)
+  // Генерация пузырьков
+  const bubbleData = useMemo(() => 
+    [...Array(25)].map((_, i) => ({
+      startPos: [
+        (Math.random() - 0.5) * 0.3,
+        -0.5,
+        (Math.random() - 0.5) * 0.25
+      ] as [number, number, number],
+      speed: 0.3 + Math.random() * 0.4,
+      size: 0.02 + Math.random() * 0.025,
+      delay: Math.random() * 2
+    })), 
+    []
+  )
   
-  useFrame(({ clock }) => {
-    if (bubblesRef.current && bubbles) {
-      bubblesRef.current.children.forEach((child, i) => {
-        const t = clock.getElapsedTime() + i * 0.3
-        child.position.y = -0.5 + ((t * 0.5 + i * 0.15) % 0.9) * 0.8
-      })
-    }
-  })
+  // Генерация частиц осадка
+  const precipitateData = useMemo(() => 
+    [...Array(30)].map((_, i) => ({
+      startPos: [
+        (Math.random() - 0.5) * 0.25,
+        -0.1 + Math.random() * 0.2,
+        (Math.random() - 0.5) * 0.2
+      ] as [number, number, number],
+      delay: i * 0.05
+    })),
+    []
+  )
 
   return (
     <group position={position}>
-      {/* Основа колбы - стекло с обводкой */}
+      {/* Основа колбы - стекло */}
       <mesh position={[0, -0.3, 0]}>
         <cylinderGeometry args={[0.42, 0.32, 0.6, 32]} />
         <meshStandardMaterial 
           color="#88ccff" 
           transparent 
-          opacity={0.5}
+          opacity={0.4}
           roughness={0.1}
-        />
-      </mesh>
-      
-      {/* Внутренность колбы */}
-      <mesh position={[0, -0.3, 0]}>
-        <cylinderGeometry args={[0.38, 0.28, 0.58, 32]} />
-        <meshStandardMaterial 
-          color="#ffffff" 
-          transparent 
-          opacity={0.15}
         />
       </mesh>
       
@@ -200,54 +307,55 @@ function Flask3D({ position, liquidColor, liquidLevel, bubbles, precipitate, pre
         <meshStandardMaterial 
           color="#88ccff" 
           transparent 
-          opacity={0.5}
+          opacity={0.4}
           roughness={0.1}
         />
       </mesh>
       
-      {/* Жидкость - более яркая */}
+      {/* Жидкость */}
       {liquidColor && (
         <mesh position={[0, -0.3 + (liquidLevel || 0.3) / 2 - 0.15, 0]}>
-          <cylinderGeometry args={[0.35, 0.25, liquidLevel || 0.3, 32]} />
+          <cylinderGeometry args={[0.36, 0.26, liquidLevel || 0.3, 32]} />
           <meshStandardMaterial 
             color={liquidColor}
             transparent 
-            opacity={0.95}
-            emissive={liquidColor}
-            emissiveIntensity={0.8}
+            opacity={0.9}
           />
         </mesh>
       )}
       
-      {/* Осадок - более заметный */}
+      {/* Пена при активной реакции */}
+      <Foam active={isReacting && bubbles} color={liquidColor || '#ffffff'} />
+      
+      {/* Осадок - слой на дне */}
       {precipitate && precipitateColor && (
-        <mesh position={[0, -0.55, 0]}>
-          <cylinderGeometry args={[0.28, 0.28, 0.15, 32]} />
+        <mesh position={[0, -0.56, 0]}>
+          <cylinderGeometry args={[0.28, 0.28, 0.12, 32]} />
           <meshStandardMaterial 
             color={precipitateColor} 
-            emissive={precipitateColor}
-            emissiveIntensity={0.6}
           />
         </mesh>
       )}
       
-      {/* Пузырьки - больше и ярче */}
-      {bubbles && (
-        <group ref={bubblesRef}>
-          {[...Array(20)].map((_, i) => (
-            <mesh key={i} position={[Math.sin(i * 1.5) * 0.2, -0.5 + i * 0.05, Math.cos(i * 1.5) * 0.2]}>
-              <sphereGeometry args={[0.04 + Math.random() * 0.03, 12, 12]} />
-              <meshStandardMaterial 
-                color="#ffffff" 
-                transparent 
-                opacity={0.9}
-                emissive="#ffffff"
-                emissiveIntensity={0.5}
-              />
-            </mesh>
-          ))}
-        </group>
-      )}
+      {/* Падающие частицы осадка */}
+      {precipitate && precipitateColor && precipitateData.map((p, i) => (
+        <PrecipitateParticle 
+          key={i} 
+          startPos={p.startPos} 
+          delay={p.delay}
+          color={precipitateColor}
+        />
+      ))}
+      
+      {/* Пузырьки газа */}
+      {bubbles && bubbleData.map((b, i) => (
+        <Bubble
+          key={i}
+          startPos={b.startPos}
+          speed={b.speed}
+          size={b.size}
+        />
+      ))}
     </group>
   )
 }
@@ -509,13 +617,15 @@ function LaboratoryScene({
   reaction,
   flaskLiquid,
   showPrecipitate,
-  precipitateColor
+  precipitateColor,
+  isReacting
 }: { 
   selectedSubstances: Substance[]
   reaction: Reaction | null
   flaskLiquid: string | null
   showPrecipitate: boolean
   precipitateColor: string | null
+  isReacting: boolean
 }) {
   return (
     <>
@@ -539,6 +649,7 @@ function LaboratoryScene({
         bubbles={reaction?.effects.bubbles || false}
         precipitate={showPrecipitate}
         precipitateColor={precipitateColor || undefined}
+        isReacting={isReacting}
       />
       
       {/* Пробирки с веществами */}
@@ -682,8 +793,11 @@ export default function VirtualLaboratory() {
         setShowResult(true)
       }
       
-      setIsReacting(false)
-    }, 1500)
+      // Оставляем isReacting=true ещё 3 секунды для анимации
+      setTimeout(() => {
+        setIsReacting(false)
+      }, 3000)
+    }, 800)
   }, [selectedSubstances, findReaction])
 
   const resetExperiment = useCallback(() => {
@@ -736,6 +850,7 @@ export default function VirtualLaboratory() {
               flaskLiquid={flaskLiquid}
               showPrecipitate={showPrecipitate}
               precipitateColor={precipitateColor}
+              isReacting={isReacting}
             />
           </Canvas>
           
