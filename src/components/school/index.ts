@@ -183,3 +183,8 @@ export { PeriodicTableMemoryGame } from './PeriodicTableMemoryGame'
 
 // Periodic Table Guess Game
 export { PeriodicTableGuessGame } from './PeriodicTableGuessGame'
+
+// 3D Molecule Viewer
+export { default as MoleculeViewer } from './MoleculeViewer'
+export { default as MoleculeModal } from './MoleculeModal'
+export { default as ChemicalFormula } from './ChemicalFormula'
