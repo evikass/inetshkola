@@ -508,6 +508,9 @@ const getElectronShells = (atomicNumber: number): number[] => {
   return shells;
 };
 
+// Названия оболочек
+const shellNames = ['K', 'L', 'M', 'N', 'O', 'P', 'Q'];
+
 // Цвета для оболочек
 const shellColors = [
   '#FF6B6B', // красный
@@ -546,48 +549,78 @@ const OrbitRing: React.FC<{ radius: number; color: string }> = ({ radius, color 
   return (
     <mesh rotation={[Math.PI / 2, 0, 0]}>
       <ringGeometry args={[radius - 0.02, radius + 0.02, 64]} />
-      <meshBasicMaterial color={color} transparent opacity={0.2} side={THREE.DoubleSide} />
+      <meshBasicMaterial color={color} transparent opacity={0.3} side={THREE.DoubleSide} />
     </mesh>
   );
 };
 
+// Функция создания позиций частиц в ядре (упаковка в сферу)
+const generateNucleusPositions = (protonCount: number, neutronCount: number, nucleusSize: number) => {
+  const positions: { pos: [number, number, number]; type: 'proton' | 'neutron' }[] = [];
+  const totalParticles = Math.min(protonCount + neutronCount, 20); // Визуально ограничиваем для производительности
+  const particleRadius = nucleusSize * 0.25;
+  
+  // Алгоритм упаковки частиц в сферу
+  for (let i = 0; i < totalParticles; i++) {
+    const phi = Math.acos(-1 + (2 * i + 1) / totalParticles);
+    const theta = Math.sqrt(totalParticles * Math.PI) * phi;
+    const r = nucleusSize * 0.6 * Math.cbrt((i + 1) / totalParticles);
+    
+    const x = r * Math.sin(phi) * Math.cos(theta);
+    const y = r * Math.sin(phi) * Math.sin(theta);
+    const z = r * Math.cos(phi);
+    
+    positions.push({
+      pos: [x, y, z],
+      type: i < protonCount ? 'proton' : 'neutron'
+    });
+  }
+  
+  return positions;
+};
+
 // Ядро атома - внутри Canvas
-const Nucleus: React.FC<{ atomicNumber: number }> = ({ atomicNumber }) => {
-  const nucleusRef = useRef<THREE.Mesh>(null);
-  const nucleusSize = 0.3 + Math.min(atomicNumber * 0.01, 0.3);
+const Nucleus: React.FC<{ protons: number; neutrons: number }> = ({ protons, neutrons }) => {
+  const groupRef = useRef<THREE.Group>(null);
+  const totalNucleons = protons + neutrons;
+  const nucleusSize = 0.25 + Math.min(totalNucleons * 0.008, 0.4);
+  
+  const particles = useMemo(() => 
+    generateNucleusPositions(protons, neutrons, nucleusSize),
+    [protons, neutrons, nucleusSize]
+  );
   
   useFrame(({ clock }) => {
-    if (nucleusRef.current) {
-      nucleusRef.current.rotation.y = clock.getElapsedTime() * 0.5;
-      nucleusRef.current.rotation.x = Math.sin(clock.getElapsedTime() * 0.3) * 0.2;
+    if (groupRef.current) {
+      groupRef.current.rotation.y = clock.getElapsedTime() * 0.3;
+      groupRef.current.rotation.x = Math.sin(clock.getElapsedTime() * 0.2) * 0.3;
     }
   });
   
   return (
-    <group>
-      <mesh ref={nucleusRef} position={[0, 0, 0]}>
+    <group ref={groupRef}>
+      {/* Полупрозрачное ядро-основа */}
+      <mesh position={[0, 0, 0]}>
         <sphereGeometry args={[nucleusSize, 32, 32]} />
-        <MeshDistortMaterial 
+        <meshStandardMaterial 
           color="#FF6B6B" 
-          attach="material" 
-          distort={0.3} 
-          speed={2}
-          roughness={0.2}
-          metalness={0.8}
+          transparent 
+          opacity={0.3}
+          roughness={0.5}
         />
       </mesh>
       
-      {/* Протоны и нейтроны */}
-      {atomicNumber > 1 && (
-        <>
-          <Sphere position={[0.1, 0.1, 0.1]} args={[nucleusSize * 0.3, 16, 16]}>
-            <meshStandardMaterial color="#FF4444" emissive="#FF4444" emissiveIntensity={0.3} />
-          </Sphere>
-          <Sphere position={[-0.1, -0.05, 0.05]} args={[nucleusSize * 0.25, 16, 16]}>
-            <meshStandardMaterial color="#4444FF" emissive="#4444FF" emissiveIntensity={0.3} />
-          </Sphere>
-        </>
-      )}
+      {/* Протоны (красные) и нейтроны (синие) */}
+      {particles.map((particle, i) => (
+        <mesh key={i} position={particle.pos}>
+          <sphereGeometry args={[nucleusSize * 0.2, 12, 12]} />
+          <meshStandardMaterial 
+            color={particle.type === 'proton' ? '#FF4444' : '#4444FF'} 
+            emissive={particle.type === 'proton' ? '#FF4444' : '#4444FF'}
+            emissiveIntensity={0.3}
+          />
+        </mesh>
+      ))}
     </group>
   );
 };
@@ -636,7 +669,7 @@ const AtomScene: React.FC<{ atomicNumber: number }> = ({ atomicNumber }) => {
       <pointLight position={[10, 10, 10]} intensity={1} />
       <pointLight position={[-10, -10, -10]} intensity={0.5} color="#4ECDC4" />
       
-      <Nucleus atomicNumber={atomicNumber} />
+      <Nucleus protons={atomicNumber} neutrons={Math.round(atomicNumber * 1.35)} />
       
       {orbits}
       {electrons}
@@ -652,6 +685,98 @@ const AtomScene: React.FC<{ atomicNumber: number }> = ({ atomicNumber }) => {
         maxPolarAngle={Math.PI * 3 / 4}
       />
     </>
+  );
+};
+
+// Компонент информации о частицах
+const ParticleInfo: React.FC<{ element: Element }> = ({ element }) => {
+  const shells = getElectronShells(element.atomicNumber);
+  // Нейтроны ≈ масса - протоны (округляем массу)
+  const massNumber = Math.round(parseFloat(element.mass.replace(/[()]/g, '')) || element.atomicNumber);
+  const neutrons = massNumber - element.atomicNumber;
+  const protons = element.atomicNumber;
+  const electrons = element.atomicNumber;
+  
+  return (
+    <div className="grid grid-cols-2 gap-4 p-4 bg-slate-800/50">
+      {/* Ядро */}
+      <div className="col-span-2 grid grid-cols-2 gap-3">
+        {/* Протоны */}
+        <div className="flex items-center gap-3 p-3 bg-red-500/10 rounded-xl border border-red-500/20">
+          <div className="flex flex-wrap gap-1">
+            {Array.from({ length: Math.min(protons, 10) }).map((_, i) => (
+              <div key={i} className="w-3 h-3 rounded-full bg-red-500 shadow-lg shadow-red-500/50" />
+            ))}
+            {protons > 10 && <span className="text-xs text-red-400">+{protons - 10}</span>}
+          </div>
+          <div>
+            <div className="text-xs text-red-300">Протоны (p⁺)</div>
+            <div className="text-xl font-bold text-red-400">{protons}</div>
+          </div>
+        </div>
+        
+        {/* Нейтроны */}
+        <div className="flex items-center gap-3 p-3 bg-blue-500/10 rounded-xl border border-blue-500/20">
+          <div className="flex flex-wrap gap-1">
+            {Array.from({ length: Math.min(neutrons, 10) }).map((_, i) => (
+              <div key={i} className="w-3 h-3 rounded-full bg-blue-500 shadow-lg shadow-blue-500/50" />
+            ))}
+            {neutrons > 10 && <span className="text-xs text-blue-400">+{neutrons - 10}</span>}
+          </div>
+          <div>
+            <div className="text-xs text-blue-300">Нейтроны (n⁰)</div>
+            <div className="text-xl font-bold text-blue-400">{neutrons}</div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Электроны по оболочкам */}
+      <div className="col-span-2">
+        <div className="flex items-center gap-2 mb-2">
+          <div className="w-4 h-4 rounded-full bg-gradient-to-r from-cyan-400 to-purple-400" />
+          <span className="text-sm text-gray-300">Электроны (e⁻): {electrons}</span>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {shells.map((count, index) => (
+            <div 
+              key={index}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg border"
+              style={{ 
+                backgroundColor: `${shellColors[index]}20`,
+                borderColor: `${shellColors[index]}50`
+              }}
+            >
+              <span 
+                className="text-sm font-medium"
+                style={{ color: shellColors[index] }}
+              >
+                {shellNames[index]}
+              </span>
+              <div className="flex gap-0.5">
+                {Array.from({ length: Math.min(count, 8) }).map((_, i) => (
+                  <div 
+                    key={i} 
+                    className="w-2 h-2 rounded-full"
+                    style={{ backgroundColor: shellColors[index] }}
+                  />
+                ))}
+                {count > 8 && (
+                  <span className="text-xs" style={{ color: shellColors[index] }}>
+                    +{count - 8}
+                  </span>
+                )}
+              </div>
+              <span 
+                className="text-sm font-bold"
+                style={{ color: shellColors[index] }}
+              >
+                {count}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -766,15 +891,19 @@ const ElementModal: React.FC<{ element: Element; onClose: () => void }> = ({ ele
           )}
         </div>
 
-        {/* 3D Модель атома */}
+        {/* 3D Модель атома и информация о частицах */}
         <div className="border-t border-white/10">
           <div className="flex items-center justify-center gap-2 p-3 bg-gradient-to-r from-purple-600/20 to-pink-600/20">
             <Atom className="w-5 h-5 text-purple-400" />
-            <span className="text-sm font-medium text-purple-300">3D Модель атома</span>
-            <span className="text-xs text-gray-400">({element.atomicNumber} электрон{element.atomicNumber > 4 ? 'ов' : element.atomicNumber > 1 ? 'а' : ''})</span>
+            <span className="text-sm font-medium text-purple-300">3D Модель атома {element.name}</span>
           </div>
-          <div className="h-64 w-full bg-gradient-to-b from-slate-800 to-slate-900">
-            <AtomModel3D atomicNumber={element.atomicNumber} />
+          <div className="grid md:grid-cols-2 gap-0">
+            {/* 3D Визуализация */}
+            <div className="h-56 w-full bg-gradient-to-b from-slate-800 to-slate-900 border-r border-white/10">
+              <AtomModel3D atomicNumber={element.atomicNumber} />
+            </div>
+            {/* Информация о частицах */}
+            <ParticleInfo element={element} />
           </div>
         </div>
       </motion.div>
