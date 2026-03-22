@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bgm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3c72"/>
+      <stop offset="100%" style="stop-color:#2a5298"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bgm)"/>
+  
+  <!-- Numbers -->
+  <text x="150" y="200" font-family="Georgia, serif" font-size="120" font-weight="bold" fill="#f7d354" opacity="0.9">1</text>
+  <text x="300" y="250" font-family="Georgia, serif" font-size="100" font-weight="bold" fill="#7dcfb6" opacity="0.85">2</text>
+  <text x="450" y="180" font-family="Georgia, serif" font-size="130" font-weight="bold" fill="#ff6b6b" opacity="0.9">3</text>
+  <text x="580" y="280" font-family="Georgia, serif" font-size="90" font-weight="bold" fill="#4ecdc4" opacity="0.8">4</text>
+  <text x="680" y="200" font-family="Georgia, serif" font-size="100" font-weight="bold" fill="#ffe66d" opacity="0.85">5</text>
+  
+  <!-- Math symbols -->
+  <text x="200" y="380" font-family="Georgia, serif" font-size="60" font-weight="bold" fill="#ffffff" opacity="0.7">+</text>
+  <text x="350" y="400" font-family="Georgia, serif" font-size="60" font-weight="bold" fill="#ffffff" opacity="0.6">−</text>
+  <text x="500" y="380" font-family="Georgia, serif" font-size="60" font-weight="bold" fill="#ffffff" opacity="0.7">×</text>
+  <text x="620" y="400" font-family="Georgia, serif" font-size="60" font-weight="bold" fill="#ffffff" opacity="0.6">÷</text>
+  
+  <!-- Decorative shapes -->
+  <circle cx="100" cy="100" r="40" fill="#f7d354" opacity="0.2"/>
+  <circle cx="700" cy="420" r="50" fill="#4ecdc4" opacity="0.15"/>
+  <rect x="50" y="380" width="60" height="60" rx="8" fill="#ff6b6b" opacity="0.2" transform="rotate(15 80 410)"/>
+  
+  <text x="400" y="480" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="bold" fill="#ffffff">Математика</text>
+</svg>
