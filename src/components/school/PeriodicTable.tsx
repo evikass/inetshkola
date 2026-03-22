@@ -1,7 +1,10 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Atom, FlaskConical, Lightbulb, Calendar, User } from 'lucide-react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Sphere, OrbitControls, Float, MeshDistortMaterial } from '@react-three/drei';
+import * as THREE from 'three';
 
 // ====================== ТИПЫ ======================
 interface Element {
@@ -489,6 +492,168 @@ const getBlockColor = (block: Element['block']) => {
   }
 };
 
+// ====================== 3D МОДЕЛЬ АТОМА ======================
+// Распределение электронов по оболочкам
+const getElectronShells = (atomicNumber: number): number[] => {
+  const shells: number[] = [];
+  const maxElectrons = [2, 8, 18, 32, 32, 18, 8]; // Максимальное количество электронов на каждой оболочке
+  let remaining = atomicNumber;
+  
+  for (let i = 0; i < maxElectrons.length && remaining > 0; i++) {
+    const electrons = Math.min(remaining, maxElectrons[i]);
+    shells.push(electrons);
+    remaining -= electrons;
+  }
+  
+  return shells;
+};
+
+// Цвета для оболочек
+const shellColors = [
+  '#FF6B6B', // красный
+  '#4ECDC4', // бирюзовый
+  '#45B7D1', // голубой
+  '#96CEB4', // зелёный
+  '#FFEAA7', // жёлтый
+  '#DDA0DD', // сливовый
+  '#98D8C8', // мятный
+];
+
+// Компонент электрона
+const Electron: React.FC<{ orbit: number; angle: number; speed: number; color: string; index: number }> = ({ orbit, angle, speed, color, index }) => {
+  const ref = useRef<THREE.Mesh>(null);
+  const orbitRadius = orbit * 0.8 + 1.2;
+  
+  useFrame(({ clock }) => {
+    if (ref.current) {
+      const t = clock.getElapsedTime() * speed + angle + (index * Math.PI * 2 / 8);
+      ref.current.position.x = Math.cos(t) * orbitRadius;
+      ref.current.position.z = Math.sin(t) * orbitRadius;
+      // Добавляем наклон орбиты
+      ref.current.position.y = Math.sin(t * 2 + orbit) * 0.3;
+    }
+  });
+  
+  return (
+    <mesh ref={ref}>
+      <sphereGeometry args={[0.12, 16, 16]} />
+      <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.5} />
+    </mesh>
+  );
+};
+
+// Компонент орбиты
+const OrbitRing: React.FC<{ radius: number; color: string }> = ({ radius, color }) => {
+  return (
+    <mesh rotation={[Math.PI / 2, 0, 0]}>
+      <ringGeometry args={[radius - 0.02, radius + 0.02, 64]} />
+      <meshBasicMaterial color={color} transparent opacity={0.2} side={THREE.DoubleSide} />
+    </mesh>
+  );
+};
+
+// Главный компонент 3D атома
+const AtomModel3D: React.FC<{ atomicNumber: number }> = ({ atomicNumber }) => {
+  const shells = useMemo(() => getElectronShells(atomicNumber), [atomicNumber]);
+  const nucleusRef = useRef<THREE.Mesh>(null);
+  
+  // Вращение ядра
+  useFrame(({ clock }) => {
+    if (nucleusRef.current) {
+      nucleusRef.current.rotation.y = clock.getElapsedTime() * 0.5;
+      nucleusRef.current.rotation.x = Math.sin(clock.getElapsedTime() * 0.3) * 0.2;
+    }
+  });
+  
+  // Создаём электроны
+  const electrons = useMemo(() => {
+    const result: JSX.Element[] = [];
+    shells.forEach((count, shellIndex) => {
+      for (let i = 0; i < count; i++) {
+        const angle = (i / count) * Math.PI * 2;
+        const speed = 1 + (shellIndex * 0.2);
+        const color = shellColors[shellIndex % shellColors.length];
+        result.push(
+          <Electron 
+            key={`${shellIndex}-${i}`} 
+            orbit={shellIndex} 
+            angle={angle} 
+            speed={speed} 
+            color={color}
+            index={i}
+          />
+        );
+      }
+    });
+    return result;
+  }, [shells]);
+  
+  // Создаём орбиты
+  const orbits = useMemo(() => {
+    return shells.map((_, index) => (
+      <OrbitRing 
+        key={index} 
+        radius={index * 0.8 + 1.2} 
+        color={shellColors[index % shellColors.length]} 
+      />
+    ));
+  }, [shells]);
+  
+  // Размер ядра зависит от атомного номера
+  const nucleusSize = 0.3 + Math.min(atomicNumber * 0.01, 0.3);
+  
+  return (
+    <Canvas camera={{ position: [0, 3, 6], fov: 50 }}>
+      <ambientLight intensity={0.5} />
+      <pointLight position={[10, 10, 10]} intensity={1} />
+      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#4ECDC4" />
+      
+      {/* Ядро атома */}
+      <mesh ref={nucleusRef} position={[0, 0, 0]}>
+        <sphereGeometry args={[nucleusSize, 32, 32]} />
+        <MeshDistortMaterial 
+          color="#FF6B6B" 
+          attach="material" 
+          distort={0.3} 
+          speed={2}
+          roughness={0.2}
+          metalness={0.8}
+        />
+      </mesh>
+      
+      {/* Протоны и нейтроны внутри ядра (визуальный эффект) */}
+      {atomicNumber > 1 && (
+        <>
+          <Sphere position={[0.1, 0.1, 0.1]} args={[nucleusSize * 0.3, 16, 16]}>
+            <meshStandardMaterial color="#FF4444" emissive="#FF4444" emissiveIntensity={0.3} />
+          </Sphere>
+          <Sphere position={[-0.1, -0.05, 0.05]} args={[nucleusSize * 0.25, 16, 16]}>
+            <meshStandardMaterial color="#4444FF" emissive="#4444FF" emissiveIntensity={0.3} />
+          </Sphere>
+        </>
+      )}
+      
+      {/* Орбиты */}
+      {orbits}
+      
+      {/* Электроны */}
+      {electrons}
+      
+      {/* Свечение вокруг атома */}
+      <pointLight position={[0, 0, 0]} intensity={0.5} color="#FF6B6B" distance={3} />
+      
+      <OrbitControls 
+        enableZoom={false} 
+        enablePan={false} 
+        autoRotate 
+        autoRotateSpeed={0.5}
+        minPolarAngle={Math.PI / 4}
+        maxPolarAngle={Math.PI * 3 / 4}
+      />
+    </Canvas>
+  );
+};
+
 // ====================== МОДАЛЬНОЕ ОКНО ЭЛЕМЕНТА ======================
 const ElementModal: React.FC<{ element: Element; onClose: () => void }> = ({ element, onClose }) => {
   return (
@@ -591,16 +756,15 @@ const ElementModal: React.FC<{ element: Element; onClose: () => void }> = ({ ele
           )}
         </div>
 
-        {/* Атом */}
-        <div className="p-6 bg-gradient-to-r from-slate-700/50 to-slate-800/50 border-t border-white/10">
-          <div className="flex items-center justify-center gap-4">
-            <Atom className="w-8 h-8 text-purple-400" />
-            <div className="text-center">
-              <p className="text-sm text-gray-400">Электронная конфигурация</p>
-              <p className="text-lg font-mono text-white">
-                {element.atomicNumber} электрон{element.atomicNumber > 4 ? 'ов' : element.atomicNumber > 1 ? 'а' : ''}
-              </p>
-            </div>
+        {/* 3D Модель атома */}
+        <div className="border-t border-white/10">
+          <div className="flex items-center justify-center gap-2 p-3 bg-gradient-to-r from-purple-600/20 to-pink-600/20">
+            <Atom className="w-5 h-5 text-purple-400" />
+            <span className="text-sm font-medium text-purple-300">3D Модель атома</span>
+            <span className="text-xs text-gray-400">({element.atomicNumber} электрон{element.atomicNumber > 4 ? 'ов' : element.atomicNumber > 1 ? 'а' : ''})</span>
+          </div>
+          <div className="h-64 w-full bg-gradient-to-b from-slate-800 to-slate-900">
+            <AtomModel3D atomicNumber={element.atomicNumber} />
           </div>
         </div>
       </motion.div>
