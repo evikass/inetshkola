@@ -393,15 +393,18 @@ function SubstanceContainer({ substance, onClick, selected }: {
 function LabTable() {
   return (
     <group>
-      {/* Основная поверхность стола */}
-      <mesh position={[0, -0.95, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      {/* Стол - одна сплошная поверхность */}
+      <mesh position={[0, -0.9, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[8, 4]} />
-        <meshStandardMaterial color="#e8e4e0" />
+        <meshStandardMaterial 
+          color="#d4c8bc" 
+          side={THREE.DoubleSide}
+        />
       </mesh>
-      {/* Край стола */}
-      <mesh position={[0, -1, 0]}>
-        <boxGeometry args={[8, 0.1, 4]} />
-        <meshStandardMaterial color="#8B4513" />
+      {/* Тёмная подставка под столом */}
+      <mesh position={[0, -1.05, 0]}>
+        <boxGeometry args={[8, 0.2, 4]} />
+        <meshStandardMaterial color="#5c4033" />
       </mesh>
     </group>
   )
@@ -516,17 +519,14 @@ function LaboratoryScene({
 }) {
   return (
     <>
-      {/* Улучшенное освещение */}
-      <ambientLight intensity={0.7} />
-      <directionalLight position={[5, 10, 5]} intensity={1} castShadow />
-      <pointLight position={[5, 5, 5]} intensity={0.6} />
-      <pointLight position={[-5, 5, -5]} intensity={0.5} color="#ffffff" />
-      <pointLight position={[0, 3, 0]} intensity={0.4} color="#ffffee" />
+      {/* Простое освещение */}
+      <ambientLight intensity={0.8} />
+      <directionalLight position={[3, 5, 3]} intensity={0.8} />
       
       <LabTable />
       
       {/* Подставка для пробирок */}
-      <mesh position={[-1.2, -0.85, -0.8]}>
+      <mesh position={[-1.2, -0.83, -0.8]}>
         <boxGeometry args={[1.5, 0.1, 0.4]} />
         <meshStandardMaterial color="#5c4033" />
       </mesh>
