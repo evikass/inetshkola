@@ -519,7 +519,7 @@ const shellColors = [
   '#98D8C8', // мятный
 ];
 
-// Компонент электрона
+// Компонент электрона - внутри Canvas
 const Electron: React.FC<{ orbit: number; angle: number; speed: number; color: string; index: number }> = ({ orbit, angle, speed, color, index }) => {
   const ref = useRef<THREE.Mesh>(null);
   const orbitRadius = orbit * 0.8 + 1.2;
@@ -529,7 +529,6 @@ const Electron: React.FC<{ orbit: number; angle: number; speed: number; color: s
       const t = clock.getElapsedTime() * speed + angle + (index * Math.PI * 2 / 8);
       ref.current.position.x = Math.cos(t) * orbitRadius;
       ref.current.position.z = Math.sin(t) * orbitRadius;
-      // Добавляем наклон орбиты
       ref.current.position.y = Math.sin(t * 2 + orbit) * 0.3;
     }
   });
@@ -542,7 +541,7 @@ const Electron: React.FC<{ orbit: number; angle: number; speed: number; color: s
   );
 };
 
-// Компонент орбиты
+// Компонент орбиты - внутри Canvas
 const OrbitRing: React.FC<{ radius: number; color: string }> = ({ radius, color }) => {
   return (
     <mesh rotation={[Math.PI / 2, 0, 0]}>
@@ -552,18 +551,50 @@ const OrbitRing: React.FC<{ radius: number; color: string }> = ({ radius, color 
   );
 };
 
-// Главный компонент 3D атома
-const AtomModel3D: React.FC<{ atomicNumber: number }> = ({ atomicNumber }) => {
-  const shells = useMemo(() => getElectronShells(atomicNumber), [atomicNumber]);
+// Ядро атома - внутри Canvas
+const Nucleus: React.FC<{ atomicNumber: number }> = ({ atomicNumber }) => {
   const nucleusRef = useRef<THREE.Mesh>(null);
+  const nucleusSize = 0.3 + Math.min(atomicNumber * 0.01, 0.3);
   
-  // Вращение ядра
   useFrame(({ clock }) => {
     if (nucleusRef.current) {
       nucleusRef.current.rotation.y = clock.getElapsedTime() * 0.5;
       nucleusRef.current.rotation.x = Math.sin(clock.getElapsedTime() * 0.3) * 0.2;
     }
   });
+  
+  return (
+    <group>
+      <mesh ref={nucleusRef} position={[0, 0, 0]}>
+        <sphereGeometry args={[nucleusSize, 32, 32]} />
+        <MeshDistortMaterial 
+          color="#FF6B6B" 
+          attach="material" 
+          distort={0.3} 
+          speed={2}
+          roughness={0.2}
+          metalness={0.8}
+        />
+      </mesh>
+      
+      {/* Протоны и нейтроны */}
+      {atomicNumber > 1 && (
+        <>
+          <Sphere position={[0.1, 0.1, 0.1]} args={[nucleusSize * 0.3, 16, 16]}>
+            <meshStandardMaterial color="#FF4444" emissive="#FF4444" emissiveIntensity={0.3} />
+          </Sphere>
+          <Sphere position={[-0.1, -0.05, 0.05]} args={[nucleusSize * 0.25, 16, 16]}>
+            <meshStandardMaterial color="#4444FF" emissive="#4444FF" emissiveIntensity={0.3} />
+          </Sphere>
+        </>
+      )}
+    </group>
+  );
+};
+
+// Сцена атома - рендерится внутри Canvas
+const AtomScene: React.FC<{ atomicNumber: number }> = ({ atomicNumber }) => {
+  const shells = useMemo(() => getElectronShells(atomicNumber), [atomicNumber]);
   
   // Создаём электроны
   const electrons = useMemo(() => {
@@ -599,47 +630,17 @@ const AtomModel3D: React.FC<{ atomicNumber: number }> = ({ atomicNumber }) => {
     ));
   }, [shells]);
   
-  // Размер ядра зависит от атомного номера
-  const nucleusSize = 0.3 + Math.min(atomicNumber * 0.01, 0.3);
-  
   return (
-    <Canvas camera={{ position: [0, 3, 6], fov: 50 }}>
+    <>
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} intensity={1} />
       <pointLight position={[-10, -10, -10]} intensity={0.5} color="#4ECDC4" />
       
-      {/* Ядро атома */}
-      <mesh ref={nucleusRef} position={[0, 0, 0]}>
-        <sphereGeometry args={[nucleusSize, 32, 32]} />
-        <MeshDistortMaterial 
-          color="#FF6B6B" 
-          attach="material" 
-          distort={0.3} 
-          speed={2}
-          roughness={0.2}
-          metalness={0.8}
-        />
-      </mesh>
+      <Nucleus atomicNumber={atomicNumber} />
       
-      {/* Протоны и нейтроны внутри ядра (визуальный эффект) */}
-      {atomicNumber > 1 && (
-        <>
-          <Sphere position={[0.1, 0.1, 0.1]} args={[nucleusSize * 0.3, 16, 16]}>
-            <meshStandardMaterial color="#FF4444" emissive="#FF4444" emissiveIntensity={0.3} />
-          </Sphere>
-          <Sphere position={[-0.1, -0.05, 0.05]} args={[nucleusSize * 0.25, 16, 16]}>
-            <meshStandardMaterial color="#4444FF" emissive="#4444FF" emissiveIntensity={0.3} />
-          </Sphere>
-        </>
-      )}
-      
-      {/* Орбиты */}
       {orbits}
-      
-      {/* Электроны */}
       {electrons}
       
-      {/* Свечение вокруг атома */}
       <pointLight position={[0, 0, 0]} intensity={0.5} color="#FF6B6B" distance={3} />
       
       <OrbitControls 
@@ -650,6 +651,15 @@ const AtomModel3D: React.FC<{ atomicNumber: number }> = ({ atomicNumber }) => {
         minPolarAngle={Math.PI / 4}
         maxPolarAngle={Math.PI * 3 / 4}
       />
+    </>
+  );
+};
+
+// Главный компонент - обёртка с Canvas
+const AtomModel3D: React.FC<{ atomicNumber: number }> = ({ atomicNumber }) => {
+  return (
+    <Canvas camera={{ position: [0, 3, 6], fov: 50 }}>
+      <AtomScene atomicNumber={atomicNumber} />
     </Canvas>
   );
 };
