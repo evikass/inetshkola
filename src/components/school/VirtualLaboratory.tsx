@@ -173,39 +173,55 @@ function Flask3D({ position, liquidColor, liquidLevel, bubbles, precipitate, pre
 
   return (
     <group position={position}>
-      {/* Основа колбы */}
+      {/* Основа колбы - стекло */}
       <mesh position={[0, -0.3, 0]}>
         <cylinderGeometry args={[0.4, 0.3, 0.6, 32]} />
         <meshPhysicalMaterial 
-          color="#ffffff" 
+          color="#aaddff" 
           transparent 
-          opacity={0.3}
-          roughness={0}
+          opacity={0.35}
+          roughness={0.1}
           metalness={0}
-          transmission={0.9}
+          transmission={0.8}
+          thickness={0.5}
         />
+      </mesh>
+      
+      {/* Контур основы */}
+      <mesh position={[0, -0.3, 0]}>
+        <cylinderGeometry args={[0.41, 0.31, 0.6, 32]} />
+        <meshBasicMaterial color="#4488aa" wireframe />
       </mesh>
       
       {/* Горлышко */}
       <mesh position={[0, 0.2, 0]}>
         <cylinderGeometry args={[0.15, 0.2, 0.4, 32]} />
         <meshPhysicalMaterial 
-          color="#ffffff" 
+          color="#aaddff" 
           transparent 
-          opacity={0.3}
-          roughness={0}
-          transmission={0.9}
+          opacity={0.35}
+          roughness={0.1}
+          transmission={0.8}
+          thickness={0.3}
         />
+      </mesh>
+      
+      {/* Контур горлышка */}
+      <mesh position={[0, 0.2, 0]}>
+        <cylinderGeometry args={[0.16, 0.21, 0.4, 32]} />
+        <meshBasicMaterial color="#4488aa" wireframe />
       </mesh>
       
       {/* Жидкость */}
       {liquidColor && (
         <mesh position={[0, -0.3 + (liquidLevel || 0.3) / 2 - 0.15, 0]}>
-          <cylinderGeometry args={[0.38, 0.28, liquidLevel || 0.3, 32]} />
+          <cylinderGeometry args={[0.36, 0.26, liquidLevel || 0.3, 32]} />
           <meshStandardMaterial 
             color={liquidColor}
             transparent 
-            opacity={0.7}
+            opacity={0.85}
+            emissive={liquidColor}
+            emissiveIntensity={0.2}
           />
         </mesh>
       )}
@@ -214,17 +230,21 @@ function Flask3D({ position, liquidColor, liquidLevel, bubbles, precipitate, pre
       {precipitate && precipitateColor && (
         <mesh position={[0, -0.55, 0]}>
           <cylinderGeometry args={[0.25, 0.25, 0.1, 32]} />
-          <meshStandardMaterial color={precipitateColor} />
+          <meshStandardMaterial 
+            color={precipitateColor} 
+            emissive={precipitateColor}
+            emissiveIntensity={0.3}
+          />
         </mesh>
       )}
       
       {/* Пузырьки */}
       {bubbles && (
         <group ref={bubblesRef}>
-          {[...Array(8)].map((_, i) => (
-            <mesh key={i} position={[Math.sin(i) * 0.15, -0.5 + i * 0.1, Math.cos(i) * 0.15]}>
-              <sphereGeometry args={[0.03 + Math.random() * 0.02, 8, 8]} />
-              <meshStandardMaterial color="#ffffff" transparent opacity={0.6} />
+          {[...Array(12)].map((_, i) => (
+            <mesh key={i} position={[Math.sin(i) * 0.15, -0.5 + i * 0.08, Math.cos(i) * 0.15]}>
+              <sphereGeometry args={[0.035 + Math.random() * 0.025, 8, 8]} />
+              <meshStandardMaterial color="#ffffff" transparent opacity={0.8} />
             </mesh>
           ))}
         </group>
@@ -241,20 +261,44 @@ function TestTube3D({ position, liquidColor, liquidLevel }: {
 }) {
   return (
     <group position={position} rotation={[0, 0, 0.1]}>
+      {/* Стекло пробирки */}
       <mesh>
         <cylinderGeometry args={[0.1, 0.08, 0.8, 16]} />
         <meshPhysicalMaterial 
-          color="#ffffff" 
+          color="#aaddff" 
           transparent 
-          opacity={0.25}
-          roughness={0}
-          transmission={0.9}
+          opacity={0.35}
+          roughness={0.1}
+          transmission={0.8}
+          thickness={0.3}
+        />
+      </mesh>
+      {/* Контур */}
+      <mesh>
+        <cylinderGeometry args={[0.11, 0.09, 0.8, 16]} />
+        <meshBasicMaterial color="#4488aa" wireframe />
+      </mesh>
+      {/* Дно пробирки (закруглённое) */}
+      <mesh position={[0, -0.4, 0]}>
+        <sphereGeometry args={[0.08, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2]} />
+        <meshPhysicalMaterial 
+          color="#aaddff" 
+          transparent 
+          opacity={0.35}
+          roughness={0.1}
+          transmission={0.8}
         />
       </mesh>
       {liquidColor && (
         <mesh position={[0, -0.15, 0]}>
           <cylinderGeometry args={[0.08, 0.07, liquidLevel || 0.4, 16]} />
-          <meshStandardMaterial color={liquidColor} transparent opacity={0.8} />
+          <meshStandardMaterial 
+            color={liquidColor} 
+            transparent 
+            opacity={0.85}
+            emissive={liquidColor}
+            emissiveIntensity={0.2}
+          />
         </mesh>
       )}
     </group>
@@ -269,27 +313,51 @@ function Beaker3D({ position, liquidColor, liquidLevel }: {
 }) {
   return (
     <group position={position}>
+      {/* Стекло мензурки */}
       <mesh>
         <cylinderGeometry args={[0.35, 0.3, 0.7, 32]} />
         <meshPhysicalMaterial 
-          color="#ffffff" 
+          color="#aaddff" 
           transparent 
-          opacity={0.2}
-          roughness={0}
-          transmission={0.9}
+          opacity={0.3}
+          roughness={0.1}
+          transmission={0.85}
+          thickness={0.5}
+        />
+      </mesh>
+      {/* Контур */}
+      <mesh>
+        <cylinderGeometry args={[0.36, 0.31, 0.7, 32]} />
+        <meshBasicMaterial color="#4488aa" wireframe />
+      </mesh>
+      {/* Носик мензурки */}
+      <mesh position={[0.35, 0.3, 0]} rotation={[0, 0, -0.3]}>
+        <boxGeometry args={[0.15, 0.08, 0.1]} />
+        <meshPhysicalMaterial 
+          color="#aaddff" 
+          transparent 
+          opacity={0.3}
+          roughness={0.1}
+          transmission={0.85}
         />
       </mesh>
       {liquidColor && (
         <mesh position={[0, -0.15, 0]}>
-          <cylinderGeometry args={[0.33, 0.28, liquidLevel || 0.4, 32]} />
-          <meshStandardMaterial color={liquidColor} transparent opacity={0.7} />
+          <cylinderGeometry args={[0.32, 0.27, liquidLevel || 0.4, 32]} />
+          <meshStandardMaterial 
+            color={liquidColor} 
+            transparent 
+            opacity={0.85}
+            emissive={liquidColor}
+            emissiveIntensity={0.2}
+          />
         </mesh>
       )}
       {/* Шкала */}
-      <Html position={[0.35, 0, 0]} center>
-        <div className="flex flex-col text-[8px] text-white/50">
+      <Html position={[0.38, 0, 0]} center>
+        <div className="flex flex-col text-[8px] text-gray-600 font-medium">
           {[100, 75, 50, 25].map(v => (
-            <span key={v}>{v}ml</span>
+            <span key={v} className="bg-white/80 px-1 rounded">{v}ml</span>
           ))}
         </div>
       </Html>
@@ -323,7 +391,9 @@ function SubstanceContainer({ substance, onClick, selected }: {
         <meshStandardMaterial 
           color={substance.state === 'solid' ? '#f5f5f5' : substance.color}
           transparent
-          opacity={substance.state === 'solid' ? 1 : 0.7}
+          opacity={substance.state === 'solid' ? 1 : 0.85}
+          emissive={substance.state === 'solid' ? '#ffffff' : substance.color}
+          emissiveIntensity={0.2}
         />
       </mesh>
       {selected && (
@@ -339,10 +409,20 @@ function SubstanceContainer({ substance, onClick, selected }: {
 // Лабораторный стол
 function LabTable() {
   return (
-    <mesh position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-      <planeGeometry args={[8, 4]} />
-      <meshStandardMaterial color="#2d2d2d" />
-    </mesh>
+    <group>
+      {/* Основная поверхность стола */}
+      <mesh position={[0, -0.95, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[8, 4]} />
+        <meshStandardMaterial color="#e8e4e0" />
+      </mesh>
+      {/* Край стола */}
+      <mesh position={[0, -1, 0]}>
+        <boxGeometry args={[8, 0.1, 4]} />
+        <meshStandardMaterial color="#8B4513" />
+      </mesh>
+      {/* Сетка на столе */}
+      <gridHelper args={[8, 16, '#cccccc', '#dddddd']} position={[0, -0.94, 0]} />
+    </group>
   )
 }
 
@@ -416,11 +496,20 @@ function LaboratoryScene({
 }) {
   return (
     <>
-      <ambientLight intensity={0.5} />
-      <pointLight position={[5, 5, 5]} intensity={0.8} />
-      <pointLight position={[-5, 3, -5]} intensity={0.4} color="#4488ff" />
+      {/* Улучшенное освещение */}
+      <ambientLight intensity={0.7} />
+      <directionalLight position={[5, 10, 5]} intensity={1} castShadow />
+      <pointLight position={[5, 5, 5]} intensity={0.6} />
+      <pointLight position={[-5, 5, -5]} intensity={0.5} color="#ffffff" />
+      <pointLight position={[0, 3, 0]} intensity={0.4} color="#ffffee" />
       
       <LabTable />
+      
+      {/* Подставка для пробирок */}
+      <mesh position={[-1.2, -0.85, -0.8]}>
+        <boxGeometry args={[1.5, 0.1, 0.4]} />
+        <meshStandardMaterial color="#5c4033" />
+      </mesh>
       
       {/* Основная колба для эксперимента */}
       <Flask3D 
@@ -437,13 +526,19 @@ function LaboratoryScene({
         <TestTube3D 
           key={sub.id}
           position={[-1.5 + i * 0.5, -0.5, -0.8]}
-          liquidColor={sub.state === 'liquid' ? sub.color : undefined}
+          liquidColor={sub.state === 'liquid' ? sub.color : sub.color}
           liquidLevel={0.4}
         />
       ))}
       
       {/* Мензурка */}
       <Beaker3D position={[1.5, -0.5, 0.5]} />
+      
+      {/* Дополнительные предметы лаборатории */}
+      <mesh position={[2, -0.8, -0.5]}>
+        <boxGeometry args={[0.3, 0.3, 0.3]} />
+        <meshStandardMaterial color="#ff9800" />
+      </mesh>
       
       {/* Эффекты */}
       <Flame3D position={[0, -0.8, 0]} active={reaction?.effects.fire || false} />
