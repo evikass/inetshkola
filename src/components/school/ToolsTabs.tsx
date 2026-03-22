@@ -6,13 +6,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { 
   Layers3, Timer, FileText, BookOpen, Calendar, Bot, Shield,
-  Gamepad2, ArrowLeft, Sparkles, Atom
+  Gamepad2, ArrowLeft, Sparkles, Atom, FlaskConical
 } from 'lucide-react'
 import { 
   Flashcards, StudyTimer, Notes, FormulaReference, 
   Schedule, AITeacher, ParentDashboard,
   CountingGame, AlphabetGame, MemoryGame, ShapeGame,
-  MultiplicationGame, SpellingGame
+  MultiplicationGame, SpellingGame, VirtualLaboratory
 } from '@/components/school'
 import { PeriodicTable } from '@/components/school/PeriodicTable'
 import { PeriodicTableGame } from '@/components/school/PeriodicTableGame'
@@ -455,6 +455,10 @@ export default function ToolsTabs({ onExperience, gradeId = 0 }: ToolsTabsProps)
           <Atom className="w-4 h-4 mr-1.5" />
           Таблица
         </TabsTrigger>
+        <TabsTrigger value="laboratory" className="data-[state=active]:bg-purple-600 h-8 text-sm">
+          <FlaskConical className="w-4 h-4 mr-1.5" />
+          Лаборатория
+        </TabsTrigger>
         <TabsTrigger value="schedule" className="data-[state=active]:bg-purple-600 h-8 text-sm">
           <Calendar className="w-4 h-4 mr-1.5" />
           Расписание
@@ -565,6 +569,23 @@ export default function ToolsTabs({ onExperience, gradeId = 0 }: ToolsTabsProps)
           </Button>
         </div>
         <PeriodicTable />
+      </TabsContent>
+
+      <TabsContent value="laboratory">
+        <Card className="bg-white/5 border-white/10 backdrop-blur overflow-hidden">
+          <CardHeader>
+            <CardTitle className="text-white flex items-center gap-2">
+              <FlaskConical className="w-5 h-5 text-green-400" />
+              Виртуальная лаборатория
+            </CardTitle>
+            <CardDescription className="text-gray-400">
+              Проводите химические эксперименты в безопасной виртуальной среде
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-0">
+            <VirtualLaboratory />
+          </CardContent>
+        </Card>
       </TabsContent>
 
       <TabsContent value="schedule">
