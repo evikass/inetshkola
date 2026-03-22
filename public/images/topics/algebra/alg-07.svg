@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg7" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#200122"/>
+      <stop offset="100%" style="stop-color:#6f0000"/>
+    </linearGradient>
+    <linearGradient id="quad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff416c"/>
+      <stop offset="100%" style="stop-color:#ff4b2b"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg7)"/>
+  
+  <!-- Main quadratic equation -->
+  <text x="400" y="150" text-anchor="middle" font-family="Georgia, serif" font-size="64" font-weight="bold" fill="#ffffff">ax² + bx + c = 0</text>
+  
+  <!-- Discriminant formula -->
+  <rect x="250" y="180" width="300" height="70" rx="10" fill="#ffffff" fill-opacity="0.1"/>
+  <text x="400" y="230" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-weight="bold" fill="#ff416c">D = b² − 4ac</text>
+  
+  <!-- Formula -->
+  <text x="400" y="320" text-anchor="middle" font-family="Georgia, serif" font-size="42" fill="url(#quad1)">x = (−b ± √D) / 2a</text>
+  
+  <!-- Cases -->
+  <g transform="translate(150, 380)">
+    <text x="0" y="0" font-family="Georgia, serif" font-size="20" fill="#ff4b2b">D &gt; 0 → 2 корня</text>
+    <text x="0" y="35" font-family="Georgia, serif" font-size="20" fill="#ff416c">D = 0 → 1 корень</text>
+    <text x="0" y="70" font-family="Georgia, serif" font-size="20" fill="#ffffff" opacity="0.7">D &lt; 0 → нет корней</text>
+  </g>
+  
+  <!-- Vieta theorem -->
+  <g transform="translate(450, 380)">
+    <text x="0" y="0" font-family="Georgia, serif" font-size="18" fill="#ffffff" opacity="0.8">Теорема Виета:</text>
+    <text x="0" y="30" font-family="Georgia, serif" font-size="20" fill="#ff416c">x₁ + x₂ = −b/a</text>
+    <text x="0" y="60" font-family="Georgia, serif" font-size="20" fill="#ff4b2b">x₁ · x₂ = c/a</text>
+  </g>
+  
+  <!-- Decorative elements -->
+  <circle cx="100" cy="80" r="30" fill="#ff416c" opacity="0.2"/>
+  <circle cx="700" cy="420" r="40" fill="#ff4b2b" opacity="0.15"/>
+  
+  <!-- Parabola hint -->
+  <path d="M 650 100 Q 680 150 650 200 Q 620 250 650 300" fill="none" stroke="#ff416c" stroke-width="3" opacity="0.4"/>
+  
+  <!-- Title -->
+  <text x="400" y="480" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="bold" fill="#ffffff">Квадратные уравнения</text>
+</svg>

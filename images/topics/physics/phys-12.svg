@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bg12" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="400" height="300" fill="url(#bg12)"/>
+  
+  <!-- Lightbulb -->
+  <g transform="translate(200, 120)">
+    <!-- Bulb -->
+    <ellipse cx="0" cy="-20" rx="40" ry="45" fill="#f1c40f" opacity="0.9">
+      <animate attributeName="opacity" values="0.9;1;0.9" dur="1s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="0" cy="-20" rx="30" ry="35" fill="#fff" opacity="0.3"/>
+    
+    <!-- Base -->
+    <rect x="-15" y="25" width="30" height="20" fill="#bdc3c7"/>
+    <rect x="-12" y="45" width="24" height="5" fill="#95a5a6"/>
+    <rect x="-10" y="50" width="20" height="5" fill="#7f8c8d"/>
+    
+    <!-- Filament glow -->
+    <path d="M-10,0 Q0,-15 10,0" fill="none" stroke="#f39c12" stroke-width="3">
+      <animate attributeName="stroke-width" values="3;4;3" dur="0.5s" repeatCount="indefinite"/>
+    </path>
+    
+    <!-- Light rays -->
+    <line x1="50" y1="-20" x2="70" y2="-20" stroke="#f1c40f" stroke-width="2">
+      <animate attributeName="x2" values="70;75;70" dur="0.5s" repeatCount="indefinite"/>
+    </line>
+    <line x1="-50" y1="-20" x2="-70" y2="-20" stroke="#f1c40f" stroke-width="2">
+      <animate attributeName="x2" values="-70;-75;-70" dur="0.5s" repeatCount="indefinite"/>
+    </line>
+    <line x1="0" y1="-70" x2="0" y2="-90" stroke="#f1c40f" stroke-width="2">
+      <animate attributeName="y2" values="-90;-95;-90" dur="0.5s" repeatCount="indefinite"/>
+    </line>
+    <line x1="35" y1="-55" x2="50" y2="-70" stroke="#f1c40f" stroke-width="2"/>
+    <line x1="-35" y1="-55" x2="-50" y2="-70" stroke="#f1c40f" stroke-width="2"/>
+  </g>
+  
+  <!-- Formulas -->
+  <g transform="translate(200, 60)">
+    <rect x="-100" y="-20" width="80" height="40" rx="8" fill="#2c3e50" stroke="#f1c40f" stroke-width="2"/>
+    <text x="-60" y="8" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#fff">A = UIt</text>
+    
+    <rect x="20" y="-20" width="80" height="40" rx="8" fill="#2c3e50" stroke="#2ecc71" stroke-width="2"/>
+    <text x="60" y="8" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#fff">P = UI</text>
+  </g>
+  
+  <!-- Units -->
+  <text x="80" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#f1c40f">A — работа (Дж)</text>
+  <text x="200" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#2ecc71">P — мощность (Вт)</text>
+  <text x="320" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#3498db">1 кВт·ч = 3,6 МДж</text>
+  
+  <!-- Title -->
+  <text x="200" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#ffffff">РАБОТА И МОЩНОСТЬ ТОКА</text>
+</svg>

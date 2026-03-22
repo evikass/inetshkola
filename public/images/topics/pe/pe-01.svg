@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bgpe" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e65100"/>
+      <stop offset="100%" style="stop-color:#ff6d00"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bgpe)"/>
+  
+  <!-- Бегущий человек -->
+  <circle cx="200" cy="180" r="25" fill="#ffffff" opacity="0.9"/>
+  <line x1="200" y1="205" x2="200" y2="280" stroke="#ffffff" stroke-width="4"/>
+  <line x1="200" y1="230" x2="170" y2="270" stroke="#ffffff" stroke-width="4"/>
+  <line x1="200" y1="230" x2="240" y2="250" stroke="#ffffff" stroke-width="4"/>
+  <line x1="200" y1="280" x2="170" y2="350" stroke="#ffffff" stroke-width="4"/>
+  <line x1="200" y1="280" x2="250" y2="330" stroke="#ffffff" stroke-width="4"/>
+  
+  <!-- Мяч -->
+  <circle cx="280" cy="350" r="25" fill="#ffffff" stroke="#ff6d00" stroke-width="2"/>
+  <path d="M 265 340 Q 280 330 295 340" fill="none" stroke="#ff6d00" stroke-width="2"/>
+  <path d="M 265 360 Q 280 370 295 360" fill="none" stroke="#ff6d00" stroke-width="2"/>
+  
+  <!-- Гантели -->
+  <rect x="450" y="200" width="10" height="60" fill="#ffffff" opacity="0.8"/>
+  <rect x="435" y="190" width="40" height="20" rx="5" fill="#ffffff" opacity="0.8"/>
+  <rect x="435" y="250" width="40" height="20" rx="5" fill="#ffffff" opacity="0.8"/>
+  
+  <!-- Сердце (символ здоровья) -->
+  <path d="M 600 220 C 600 180 650 180 650 220 C 650 260 600 300 600 300 C 600 300 550 260 550 220 C 550 180 600 180 600 220" fill="#ffffff" opacity="0.3"/>
+  
+  <!-- Стоп-кадр -->
+  <text x="350" y="400" font-family="Georgia, serif" font-size="28" fill="#ffffff" opacity="0.7">30 мин в день!</text>
+  
+  <!-- Медаль -->
+  <circle cx="700" cy="300" r="40" fill="#ffd54f" opacity="0.6"/>
+  <text x="700" y="310" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#ff6d00">1</text>
+  <rect x="685" y="340" width="30" height="40" fill="#ffd54f" opacity="0.5"/>
+  
+  <text x="400" y="480" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="bold" fill="#ffffff">Физическая культура</text>
+</svg>

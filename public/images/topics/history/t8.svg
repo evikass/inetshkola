@@ -1,0 +1,126 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="smutaSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E3A8A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="redBanner" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#DC2626;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#991B1B;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect x="0" y="0" width="300" height="140" fill="url(#smutaSky)"/>
+
+  <!-- Clouds -->
+  <g fill="white" opacity="0.3">
+    <ellipse cx="50" cy="25" rx="30" ry="15"/>
+    <ellipse cx="70" cy="20" rx="25" ry="12"/>
+    <ellipse cx="250" cy="35" rx="35" ry="18"/>
+    <ellipse cx="275" cy="30" rx="25" ry="12"/>
+  </g>
+
+  <!-- Ground -->
+  <rect x="0" y="140" width="300" height="60" fill="#365314"/>
+
+  <!-- Moscow silhouette -->
+  <g transform="translate(180, 60)" opacity="0.3">
+    <rect x="0" y="50" width="60" height="30" fill="#E7E5E4"/>
+    <polygon points="30,30 15,50 45,50" fill="#DC2626"/>
+    <rect x="10" y="60" width="40" height="20" fill="#D4D4D8"/>
+  </g>
+
+  <!-- Minin -->
+  <g transform="translate(40, 65)">
+    <!-- Body -->
+    <ellipse cx="25" cy="45" rx="18" ry="25" fill="#78350F"/>
+    <!-- Coat -->
+    <ellipse cx="25" cy="42" rx="15" ry="22" fill="#B45309"/>
+    <!-- Fur collar -->
+    <ellipse cx="25" cy="22" rx="14" ry="5" fill="#D6D3D1"/>
+    <!-- Face -->
+    <circle cx="25" cy="12" r="12" fill="#FBBF24"/>
+    <!-- Eyes -->
+    <circle cx="21" cy="10" r="2" fill="#1F2937"/>
+    <circle cx="29" cy="10" r="2" fill="#1F2937"/>
+    <!-- Beard -->
+    <path d="M 18 20 Q 25 32 32 20" fill="#57534E"/>
+    <!-- Hat -->
+    <ellipse cx="25" cy="0" rx="12" ry="5" fill="#78350F"/>
+    <rect x="15" y="-8" width="20" height="10" fill="#92400E"/>
+    <!-- Raising hand with purse -->
+    <path d="M 45 35 Q 55 25 50 15" stroke="#FBBF24" stroke-width="6" fill="none"/>
+    <ellipse cx="52" cy="12" rx="8" ry="6" fill="#D97706"/>
+    <ellipse cx="52" cy="12" rx="6" ry="4" fill="#FBBF24"/>
+    <!-- Coins falling -->
+    <circle cx="55" cy="22" r="3" fill="#FDE047"/>
+    <circle cx="48" cy="26" r="2.5" fill="#FDE047"/>
+    <circle cx="58" cy="28" r="2" fill="#FDE047"/>
+  </g>
+
+  <!-- Pozharsky -->
+  <g transform="translate(120, 60)">
+    <!-- Body -->
+    <ellipse cx="25" cy="48" rx="18" ry="25" fill="#DC2626"/>
+    <!-- Armor hint -->
+    <ellipse cx="25" cy="45" rx="14" ry="18" fill="#71717A" opacity="0.5"/>
+    <!-- Face -->
+    <circle cx="25" cy="15" r="12" fill="#FBBF24"/>
+    <!-- Eyes -->
+    <circle cx="21" cy="13" r="2" fill="#1F2937"/>
+    <circle cx="29" cy="13" r="2" fill="#1F2937"/>
+    <!-- Mustache -->
+    <path d="M 20 20 Q 25 23 30 20" stroke="#57534E" stroke-width="2" fill="none"/>
+    <!-- Helmet -->
+    <ellipse cx="25" cy="3" rx="14" ry="8" fill="#71717A"/>
+    <rect x="12" y="-2" width="26" height="8" fill="#6B7280"/>
+    <!-- Sword raised -->
+    <line x1="48" y1="45" x2="48" y2="-5" stroke="#D4D4D8" stroke-width="4"/>
+    <polygon points="48,-5 44,5 52,5" fill="#D4D4D8"/>
+    <rect x="42" y="42" width="12" height="6" rx="2" fill="#D97706"/>
+  </g>
+
+  <!-- Banner -->
+  <g transform="translate(200, 30)">
+    <line x1="0" y1="0" x2="0" y2="100" stroke="#78350F" stroke-width="4"/>
+    <polygon points="5,10 70,20 70,60 5,50" fill="url(#redBanner)"/>
+    <!-- Icon on banner -->
+    <circle cx="40" cy="35" r="15" fill="#FDE047" opacity="0.8"/>
+    <!-- St. George silhouette -->
+    <path d="M 35 30 L 40 25 L 45 30 L 43 40 L 37 40 Z" fill="#DC2626"/>
+    <circle cx="40" cy="27" r="3" fill="#FBBF24"/>
+  </g>
+
+  <!-- Militia people -->
+  <g transform="translate(10, 105)">
+    <ellipse cx="15" cy="20" rx="8" ry="12" fill="#365314"/>
+    <circle cx="15" cy="5" r="6" fill="#FBBF24"/>
+    <line x1="25" y1="15" x2="35" y2="5" stroke="#78350F" stroke-width="3"/>
+  </g>
+  <g transform="translate(85, 100)">
+    <ellipse cx="15" cy="22" rx="8" ry="12" fill="#1E40AF"/>
+    <circle cx="15" cy="8" r="5" fill="#FBBF24"/>
+    <ellipse cx="15" cy="3" rx="6" ry="3" fill="#78350F"/>
+  </g>
+
+  <!-- Polish cavalry retreating (small) -->
+  <g transform="translate(260, 110)" opacity="0.4">
+    <ellipse cx="15" cy="12" rx="12" ry="5" fill="#DC2626"/>
+    <ellipse cx="15" cy="5" rx="5" ry="8" fill="#DC2626"/>
+    <circle cx="15" cy="-2" r="4" fill="#FBBF24"/>
+    <!-- Winged hussar wings -->
+    <line x1="22" y1="0" x2="30" y2="-15" stroke="#D4D4D8" stroke-width="1"/>
+    <line x1="24" y1="2" x2="32" y2="-10" stroke="#D4D4D8" stroke-width="1"/>
+    <line x1="20" y1="-2" x2="28" y2="-18" stroke="#D4D4D8" stroke-width="1"/>
+  </g>
+
+  <!-- Year -->
+  <g transform="translate(130, 145)">
+    <rect x="0" y="0" width="50" height="25" rx="5" fill="white" opacity="0.15"/>
+    <text x="25" y="18" font-family="Georgia, serif" font-size="14" fill="white" text-anchor="middle" font-weight="bold">1612</text>
+  </g>
+
+  <!-- Title hint -->
+  <text x="150" y="195" font-family="Georgia, serif" font-size="10" fill="#1E40AF" text-anchor="middle" font-style="italic">Минин и Пожарский</text>
+</svg>

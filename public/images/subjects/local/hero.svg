@@ -1,0 +1,95 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="localBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#047857;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="landmarkGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#DC2626;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EF4444;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="95" fill="url(#localBg)" opacity="0.12"/>
+
+  <!-- Map background -->
+  <g transform="translate(25, 35)">
+    <rect x="0" y="0" width="100" height="70" rx="5" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+    <!-- Map grid -->
+    <line x1="0" y1="23" x2="100" y2="23" stroke="#FCD34D" stroke-width="1"/>
+    <line x1="0" y1="46" x2="100" y2="46" stroke="#FCD34D" stroke-width="1"/>
+    <line x1="33" y1="0" x2="33" y2="70" stroke="#FCD34D" stroke-width="1"/>
+    <line x1="66" y1="0" x2="66" y2="70" stroke="#FCD34D" stroke-width="1"/>
+    <!-- River on map -->
+    <path d="M 0 35 Q 25 30 50 40 Q 75 50 100 45" stroke="#3B82F6" stroke-width="3" fill="none" opacity="0.6"/>
+    <!-- Location pin on map -->
+    <circle cx="70" cy="30" r="8" fill="#EF4444"/>
+    <circle cx="70" cy="28" r="3" fill="white"/>
+  </g>
+
+  <!-- Church/Kremlin (landmark) -->
+  <g transform="translate(130, 25)">
+    <!-- Main tower -->
+    <rect x="15" y="30" width="30" height="50" fill="#DC2626"/>
+    <!-- Dome -->
+    <ellipse cx="30" cy="30" rx="18" ry="12" fill="#F59E0B"/>
+    <circle cx="30" cy="20" r="5" fill="#F59E0B"/>
+    <!-- Cross -->
+    <line x1="30" y1="5" x2="30" y2="18" stroke="#FBBF24" stroke-width="2"/>
+    <line x1="25" y1="10" x2="35" y2="10" stroke="#FBBF24" stroke-width="2"/>
+    <!-- Window -->
+    <ellipse cx="30" cy="50" rx="6" ry="10" fill="#1F2937"/>
+    <!-- Side towers -->
+    <rect x="0" y="50" width="15" height="30" fill="#B91C1C"/>
+    <polygon points="7.5,35 0,50 15,50" fill="#D97706"/>
+    <rect x="45" y="50" width="15" height="30" fill="#B91C1C"/>
+    <polygon points="52.5,35 45,50 60,50" fill="#D97706"/>
+  </g>
+
+  <!-- Compass -->
+  <g transform="translate(20, 115)">
+    <circle cx="35" cy="35" r="30" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+    <circle cx="35" cy="35" r="25" fill="none" stroke="#FCD34D" stroke-width="1"/>
+    <!-- Cardinal directions -->
+    <text x="35" y="15" font-family="Arial" font-size="10" fill="#B91C1C" text-anchor="middle" font-weight="bold">С</text>
+    <text x="35" y="62" font-family="Arial" font-size="10" fill="#B91C1C" text-anchor="middle">Ю</text>
+    <text x="12" y="38" font-family="Arial" font-size="10" fill="#B91C1C" text-anchor="middle">З</text>
+    <text x="58" y="38" font-family="Arial" font-size="10" fill="#B91C1C" text-anchor="middle">В</text>
+    <!-- Needle -->
+    <polygon points="35,12 30,35 35,30 40,35" fill="#EF4444"/>
+    <polygon points="35,58 30,35 35,40 40,35" fill="#3B82F6"/>
+    <circle cx="35" cy="35" r="4" fill="#FBBF24"/>
+  </g>
+
+  <!-- Binoculars -->
+  <g transform="translate(120, 120)">
+    <ellipse cx="20" cy="15" rx="18" ry="15" fill="#374151"/>
+    <ellipse cx="55" cy="15" rx="18" ry="15" fill="#374151"/>
+    <ellipse cx="20" cy="15" rx="12" ry="10" fill="#1F2937"/>
+    <ellipse cx="55" cy="15" rx="12" ry="10" fill="#1F2937"/>
+    <ellipse cx="20" cy="15" rx="8" ry="6" fill="#3B82F6" opacity="0.3"/>
+    <ellipse cx="55" cy="15" rx="8" ry="6" fill="#3B82F6" opacity="0.3"/>
+    <rect x="25" y="25" width="8" height="20" fill="#4B5563"/>
+    <rect x="42" y="25" width="8" height="20" fill="#4B5563"/>
+    <rect x="20" y="45" width="35" height="8" rx="2" fill="#6B7280"/>
+  </g>
+
+  <!-- Trees -->
+  <g transform="translate(80, 150)">
+    <rect x="8" y="25" width="6" height="15" fill="#92400E"/>
+    <polygon points="11,0 0,25 22,25" fill="#22C55E"/>
+    <polygon points="11,10 3,25 19,25" fill="#16A34A"/>
+  </g>
+
+  <!-- House -->
+  <g transform="translate(60, 145)">
+    <rect x="0" y="15" width="25" height="20" fill="#F59E0B"/>
+    <polygon points="12.5,0 -5,15 30,15" fill="#DC2626"/>
+    <rect x="8" y="22" width="8" height="13" fill="#92400E"/>
+  </g>
+
+  <!-- Decorative elements -->
+  <circle cx="175" cy="50" r="3" fill="#22C55E" opacity="0.5"/>
+  <circle cx="185" cy="100" r="2" fill="#059669" opacity="0.6"/>
+</svg>

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#0F172A"/>
+  
+  <!-- Work and Power illustration -->
+  <!-- Person pushing box -->
+  <rect x="50" y="160" width="80" height="60" rx="5" fill="#1E293B" stroke="#475569" stroke-width="2"/>
+  <text x="90" y="195" text-anchor="middle" fill="#94A3B8" font-family="Arial" font-size="12">m</text>
+  
+  <!-- Force arrow -->
+  <line x1="130" y1="190" x2="180" y2="190" stroke="#EF4444" stroke-width="4"/>
+  <polygon points="180,190 170,185 170,195" fill="#EF4444"/>
+  <text x="155" y="180" fill="#FCA5A5" font-family="Arial" font-size="12">F</text>
+  
+  <!-- Distance arrow -->
+  <line x1="50" y1="240" x2="180" y2="240" stroke="#3B82F6" stroke-width="2"/>
+  <polygon points="180,240 170,235 170,245" fill="#3B82F6"/>
+  <polygon points="50,240 60,235 60,245" fill="#3B82F6"/>
+  <text x="115" y="260" fill="#93C5FD" font-family="Arial" font-size="12">S</text>
+  
+  <!-- Person stick figure -->
+  <circle cx="35" cy="160" r="10" fill="#F59E0B"/>
+  <line x1="35" y1="170" x2="35" y2="200" stroke="#F59E0B" stroke-width="3"/>
+  <line x1="35" y1="180" x2="55" y2="190" stroke="#F59E0B" stroke-width="3"/>
+  <line x1="35" y1="200" x2="25" y2="220" stroke="#F59E0B" stroke-width="3"/>
+  <line x1="35" y1="200" x2="45" y2="220" stroke="#F59E0B" stroke-width="3"/>
+  
+  <!-- Formulas box -->
+  <rect x="220" y="80" width="160" height="120" rx="10" fill="#1E293B" stroke="#475569" stroke-width="2"/>
+  <text x="300" y="110" text-anchor="middle" fill="#E2E8F0" font-family="Arial" font-size="14" font-weight="bold">Формулы</text>
+  <text x="300" y="140" text-anchor="middle" fill="#60A5FA" font-family="Arial" font-size="13">A = F · S</text>
+  <text x="300" y="165" text-anchor="middle" fill="#34D399" font-family="Arial" font-size="13">N = A / t</text>
+  <text x="300" y="190" text-anchor="middle" fill="#F472B6" font-family="Arial" font-size="13">N = F · v</text>
+  
+  <!-- Units -->
+  <rect x="220" y="210" width="160" height="50" rx="8" fill="#1E293B" stroke="#475569" stroke-width="1"/>
+  <text x="240" y="232" fill="#94A3B8" font-family="Arial" font-size="11">A — [Дж]</text>
+  <text x="240" y="250" fill="#94A3B8" font-family="Arial" font-size="11">N — [Вт]</text>
+  <text x="310" y="232" fill="#94A3B8" font-family="Arial" font-size="11">F — [Н]</text>
+  <text x="310" y="250" fill="#94A3B8" font-family="Arial" font-size="11">S — [м]</text>
+  
+  <!-- Title -->
+  <text x="200" y="40" text-anchor="middle" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Работа и мощность</text>
+  
+  <!-- Animation hint -->
+  <circle cx="90" cy="190" r="3" fill="#EF4444">
+    <animate attributeName="cx" values="90;120;90" dur="2s" repeatCount="indefinite"/>
+  </circle>
+</svg>

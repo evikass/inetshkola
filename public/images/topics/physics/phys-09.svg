@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bg9" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="400" height="300" fill="url(#bg9)"/>
+  
+  <!-- Balance scale -->
+  <g transform="translate(200, 100)">
+    <!-- Central pillar -->
+    <rect x="-5" y="0" width="10" height="80" fill="#7f8c8d"/>
+    <circle cx="0" cy="0" r="15" fill="#95a5a6"/>
+    
+    <!-- Beam -->
+    <rect x="-120" y="-5" width="240" height="10" rx="3" fill="#bdc3c7"/>
+    
+    <!-- Left pan (hot) -->
+    <line x1="-100" y1="5" x2="-100" y2="30" stroke="#95a5a6" stroke-width="2"/>
+    <ellipse cx="-100" cy="35" rx="40" ry="8" fill="#e74c3c" opacity="0.8"/>
+    <text x="-100" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#e74c3c">Q₁ (отдаёт)</text>
+    <text x="-100" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#fff">горячее</text>
+    
+    <!-- Right pan (cold) -->
+    <line x1="100" y1="5" x2="100" y2="30" stroke="#95a5a6" stroke-width="2"/>
+    <ellipse cx="100" cy="35" rx="40" ry="8" fill="#3498db" opacity="0.8"/>
+    <text x="100" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#3498db">Q₂ (получает)</text>
+    <text x="100" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#fff">холодное</text>
+  </g>
+  
+  <!-- Formula -->
+  <g transform="translate(200, 50)">
+    <rect x="-80" y="-18" width="160" height="36" rx="10" fill="#2c3e50" stroke="#f1c40f" stroke-width="2"/>
+    <text x="0" y="8" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#fff">Q₁ + Q₂ + ... = 0</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="200" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#ffffff">УРАВНЕНИЕ ТЕПЛОВОГО БАЛАНСА</text>
+  <text x="200" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#888">Теплота не исчезает бесследно</text>
+</svg>

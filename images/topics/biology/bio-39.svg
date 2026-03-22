@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250">
+  <defs>
+    <linearGradient id="bg39" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fce4ec"/>
+      <stop offset="100%" style="stop-color:#f8bbd0"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="250" fill="url(#bg39)" rx="20"/>
+  <text x="200" y="30" font-family="Arial" font-size="18" font-weight="bold" fill="#c2185b" text-anchor="middle">Изоляция в эволюции</text>
+  <!-- Географическая изоляция -->
+  <rect x="30" y="60" width="160" height="100" fill="#fff" stroke="#e91e63" stroke-width="2" rx="10"/>
+  <text x="110" y="80" font-family="Arial" font-size="12" font-weight="bold" fill="#c2185b" text-anchor="middle">Географическая</text>
+  <!-- Разделённые популяции -->
+  <circle cx="70" cy="120" r="20" fill="#81c784"/>
+  <circle cx="150" cy="120" r="20" fill="#a5d6a7"/>
+  <!-- Препятствие -->
+  <rect x="105" y="95" width="10" height="50" fill="#795548"/>
+  <text x="110" y="150" font-family="Arial" font-size="8" fill="#5d4037" text-anchor="middle">Горы</text>
+  <!-- Репродуктивная изоляция -->
+  <rect x="210" y="60" width="160" height="100" fill="#fff" stroke="#9c27b0" stroke-width="2" rx="10"/>
+  <text x="290" y="80" font-family="Arial" font-size="12" font-weight="bold" fill="#7b1fa2" text-anchor="middle">Репродуктивная</text>
+  <!-- Не скрещивающиеся виды -->
+  <circle cx="250" cy="115" r="18" fill="#ffab91"/>
+  <circle cx="330" cy="115" r="18" fill="#ff8a65"/>
+  <text x="250" y="145" font-family="Arial" font-size="8" fill="#bf360c" text-anchor="middle">Вид А</text>
+  <text x="330" y="145" font-family="Arial" font-size="8" fill="#e65100" text-anchor="middle">Вид Б</text>
+  <!-- Крестик -->
+  <text x="290" y="120" font-family="Arial" font-size="20" fill="#c62828" text-anchor="middle">✕</text>
+  <!-- Результат -->
+  <rect x="100" y="180" width="200" height="50" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="10"/>
+  <text x="200" y="200" font-family="Arial" font-size="11" fill="#2e7d32" text-anchor="middle">Изоляция → Образование новых видов</text>
+  <text x="200" y="220" font-family="Arial" font-size="10" fill="#388e3c" text-anchor="middle">Видообразование</text>
+</svg>

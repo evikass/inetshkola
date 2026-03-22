@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bgrus" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c62828"/>
+      <stop offset="100%" style="stop-color:#d32f2f"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bgrus)"/>
+  
+  <!-- Буквы -->
+  <text x="100" y="150" font-family="Georgia, serif" font-size="80" font-weight="bold" fill="#ffffff" opacity="0.9">А</text>
+  <text x="200" y="200" font-family="Georgia, serif" font-size="70" font-weight="bold" fill="#ffeb3b" opacity="0.85">Б</text>
+  <text x="320" y="140" font-family="Georgia, serif" font-size="90" font-weight="bold" fill="#ffffff" opacity="0.8">В</text>
+  <text x="450" y="180" font-family="Georgia, serif" font-size="75" font-weight="bold" fill="#ffeb3b" opacity="0.9">Г</text>
+  <text x="550" y="150" font-family="Georgia, serif" font-size="85" font-weight="bold" fill="#ffffff" opacity="0.85">Д</text>
+  <text x="680" y="200" font-family="Georgia, serif" font-size="70" font-weight="bold" fill="#ffeb3b" opacity="0.8">Е</text>
+  
+  <!-- Книга -->
+  <rect x="300" y="280" width="200" height="140" rx="5" fill="#ffffff" opacity="0.2"/>
+  <line x1="400" y1="280" x2="400" y2="420" stroke="#ffffff" stroke-width="2" opacity="0.4"/>
+  
+  <!-- Перо -->
+  <path d="M 550 300 Q 580 250 600 280 L 590 350 Z" fill="#ffeb3b" opacity="0.5"/>
+  
+  <!-- Декоративные элементы -->
+  <circle cx="100" cy="420" r="35" fill="#ffffff" opacity="0.1"/>
+  <circle cx="700" cy="80" r="40" fill="#ffeb3b" opacity="0.15"/>
+  
+  <text x="400" y="480" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="bold" fill="#ffffff">Русский язык</text>
+</svg>
