@@ -804,7 +804,7 @@ const ElementModal: React.FC<{ element: Element; onClose: () => void }> = ({ ele
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-2xl bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl border border-white/10 shadow-2xl overflow-hidden"
+        className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl border border-white/10 shadow-2xl"
       >
         {/* Заголовок */}
         <div className="relative p-6 bg-gradient-to-r from-purple-600/20 to-pink-600/20 border-b border-white/10">
