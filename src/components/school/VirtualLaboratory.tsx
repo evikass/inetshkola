@@ -559,7 +559,7 @@ function MoleculeTransformation({ reaction, showProducts, isReacting }: {
       
       {/* Название реакции */}
       {showProducts && (
-        <Html position={[0, 2.5, 0]} center>
+        <Html position={[0, 1.2, 0]} center>
           <div className="bg-black/70 px-3 py-1 rounded-lg">
             <span className="text-sm text-white font-medium">{reaction.equation}</span>
           </div>
