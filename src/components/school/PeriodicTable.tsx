@@ -1,46 +1,9 @@
 'use client';
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, Atom, FlaskConical, Lightbulb, Calendar, User } from 'lucide-react';
 
-// ====================== ПРОСТАЯ АНИМИРОВАННАЯ МОДЕЛЬ АТОМА ======================
-interface AtomModelProps {
-  atomicNumber: number;
-  symbol: string;
-  color?: string;
-}
-
-const AtomModel: React.FC<AtomModelProps> = ({ atomicNumber, symbol, color = '#8b5cf6' }) => {
-  const electrons = Math.min(Math.max(atomicNumber, 1), 20);
-  const shells = Math.ceil(Math.sqrt(electrons));
-
-  return (
-    <div className="relative w-48 h-48 mx-auto">
-      <svg width="192" height="192" viewBox="0 0 120 120" className="drop-shadow-2xl">
-        <circle cx="60" cy="60" r="14" fill="#1e2937" />
-        <text x="60" y="65" textAnchor="middle" fill="white" fontSize="11" fontWeight="bold">
-          {symbol}
-        </text>
-        {Array.from({ length: shells }, (_, i) => {
-          const radius = 24 + i * 14;
-          return (
-            <g key={i}>
-              <circle cx="60" cy="60" r={radius} fill="none" stroke="#94a3b8" strokeWidth="2" strokeDasharray="6 3" />
-              {Array.from({ length: Math.min(electrons - i * 4, 8) }, (_, j) => {
-                const angle = (j * 360) / Math.min(electrons - i * 4, 8) + i * 30;
-                const x = 60 + radius * Math.cos((angle * Math.PI) / 180);
-                const y = 60 + radius * Math.sin((angle * Math.PI) / 180);
-                return (
-                  <circle key={j} cx={x} cy={y} r="4" fill={color} className="animate-[spin_3s_linear_infinite]" style={{ animationDelay: `-${j * 0.2}s` }} />
-                );
-              })}
-            </g>
-          );
-        })}
-      </svg>
-    </div>
-  );
-};
-
-// ====================== ОСНОВНАЯ КОМПОНЕНТА ======================
+// ====================== ТИПЫ ======================
 interface Element {
   atomicNumber: number;
   symbol: string;
@@ -55,6 +18,7 @@ interface Element {
   funFacts?: string[];
 }
 
+// ====================== ДАННЫЕ ЭЛЕМЕНТОВ ======================
 const elementsData: Element[] = [
   { 
     atomicNumber: 1, symbol: 'H', name: 'Водород', mass: '1.008', period: 1, group: 1, block: 's',
@@ -471,28 +435,10 @@ const elementsData: Element[] = [
     funFacts: ['Радужные кристаллы', 'Самый диамагнитный металл', 'Радиоактивен с периодом полураспада в миллиарды лет']
   },
   { 
-    atomicNumber: 84, symbol: 'Po', name: 'Полоний', mass: '(209)', period: 6, group: 16, block: 'p',
-    discoveredBy: 'Мария и Пьер Кюри', yearDiscovered: '1898',
-    applications: ['Источники тепла', 'Антистатические щётки', 'Нейтронные источники'],
-    funFacts: ['Назван в честь Польши', 'Открыт Марии Кюри', 'Очень радиоактивен']
-  },
-  { 
-    atomicNumber: 85, symbol: 'At', name: 'Астат', mass: '(210)', period: 6, group: 17, block: 'p',
-    discoveredBy: 'Дейл Корсон, Кеннет Маккензи', yearDiscovered: '1940',
-    applications: ['Медицина (потенциал)', 'Исследования'],
-    funFacts: ['Название от греческого "нестабильный"', 'Самый редкий элемент на Земле', 'Всего ~30 грамм в земной коре']
-  },
-  { 
     atomicNumber: 86, symbol: 'Rn', name: 'Радон', mass: '(222)', period: 6, group: 18, block: 'p',
     discoveredBy: 'Фридрих Дорн', yearDiscovered: '1900',
     applications: ['Лечение рака (ранее)', 'Обнаружение землетрясений'],
     funFacts: ['Название от радия', 'Радиоактивный газ', 'Может накапливаться в подвалах']
-  },
-  { 
-    atomicNumber: 87, symbol: 'Fr', name: 'Франций', mass: '(223)', period: 7, group: 1, block: 's',
-    discoveredBy: 'Маргерит Перей', yearDiscovered: '1939',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь Франции', 'Самый нестабильный из первых 101 элементов', 'Открыт женщиной-учёным']
   },
   { 
     atomicNumber: 88, symbol: 'Ra', name: 'Радий', mass: '(226)', period: 7, group: 2, block: 's',
@@ -500,283 +446,169 @@ const elementsData: Element[] = [
     applications: ['Лечение рака (ранее)', 'Светящиеся краски (ранее)'],
     funFacts: ['Светится в темноте', 'Открыт Кюри', 'Название от латинского "луч"']
   },
-  { 
-    atomicNumber: 89, symbol: 'Ac', name: 'Актиний', mass: '(227)', period: 7, group: 3, block: 'f',
-    discoveredBy: 'Фридрих Гизель', yearDiscovered: '1899',
-    applications: ['Нейтронные источники', 'Исследования'],
-    funFacts: ['Название от греческого "луч"', 'Даёт название актинидам', 'В 150 раз радиоактивнее радия']
-  },
-  { 
-    atomicNumber: 104, symbol: 'Rf', name: 'Резерфордий', mass: '(267)', period: 7, group: 4, block: 'd',
-    discoveredBy: 'Объединённый институт ядерных исследований', yearDiscovered: '1969',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь Эрнеста Резерфорда', 'Искусственный элемент', 'Спор об открытии СССР/США']
-  },
-  { 
-    atomicNumber: 105, symbol: 'Db', name: 'Дубний', mass: '(270)', period: 7, group: 5, block: 'd',
-    discoveredBy: 'Объединённый институт ядерных исследований', yearDiscovered: '1970',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь города Дубна', 'Искусственный элемент', 'Ранее назывался ганий']
-  },
-  { 
-    atomicNumber: 106, symbol: 'Sg', name: 'Сиборгий', mass: '(269)', period: 7, group: 6, block: 'd',
-    discoveredBy: 'Лоуренс Беркли Лаборатория', yearDiscovered: '1974',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь Гленна Сиборга', 'Единственный элемент названный при жизни учёного', 'Искусственный элемент']
-  },
-  { 
-    atomicNumber: 107, symbol: 'Bh', name: 'Борий', mass: '(270)', period: 7, group: 7, block: 'd',
-    discoveredBy: 'GSI, Дармштадт', yearDiscovered: '1981',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь Нильса Бора', 'Искусственный элемент', 'Всего несколько атомов создано']
-  },
-  { 
-    atomicNumber: 108, symbol: 'Hs', name: 'Хассий', mass: '(270)', period: 7, group: 8, block: 'd',
-    discoveredBy: 'GSI, Дармштадт', yearDiscovered: '1984',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь немецкой земли Гессен', 'Искусственный элемент', 'GSI — институт в Дармштадте']
-  },
-  { 
-    atomicNumber: 109, symbol: 'Mt', name: 'Мейтнерий', mass: '(278)', period: 7, group: 9, block: 'd',
-    discoveredBy: 'GSI, Дармштадт', yearDiscovered: '1982',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь Лизы Мейтнер', 'Искусственный элемент', 'Мейтнер не получила Нобелевскую премию']
-  },
-  { 
-    atomicNumber: 110, symbol: 'Ds', name: 'Дармштадтий', mass: '(281)', period: 7, group: 10, block: 'd',
-    discoveredBy: 'GSI, Дармштадт', yearDiscovered: '1994',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь города Дармштадт', 'Искусственный элемент', 'Создано всего несколько атомов']
-  },
-  { 
-    atomicNumber: 111, symbol: 'Rg', name: 'Рентгений', mass: '(282)', period: 7, group: 11, block: 'd',
-    discoveredBy: 'GSI, Дармштадт', yearDiscovered: '1994',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь Вильгельма Рентгена', 'Искусственный элемент', 'Открыватель рентгеновских лучей']
-  },
-  { 
-    atomicNumber: 112, symbol: 'Cn', name: 'Коперниций', mass: '(285)', period: 7, group: 12, block: 'd',
-    discoveredBy: 'GSI, Дармштадт', yearDiscovered: '1996',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь Николая Коперника', 'Искусственный элемент', 'Может быть газом']
-  },
-  { 
-    atomicNumber: 113, symbol: 'Nh', name: 'Нихоний', mass: '(286)', period: 7, group: 13, block: 'p',
-    discoveredBy: 'RIKEN, Япония', yearDiscovered: '2003',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь Японии (Nihon)', 'Первый элемент открытый в Азии', 'Искусственный элемент']
-  },
-  { 
-    atomicNumber: 114, symbol: 'Fl', name: 'Флеровий', mass: '(289)', period: 7, group: 14, block: 'p',
-    discoveredBy: 'ОИЯИ, Дубна', yearDiscovered: '1998',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь Георгия Флёрова', 'Искусственный элемент', 'Может быть инертным газом']
-  },
-  { 
-    atomicNumber: 115, symbol: 'Mc', name: 'Московий', mass: '(290)', period: 7, group: 15, block: 'p',
-    discoveredBy: 'ОИЯИ, Дубна', yearDiscovered: '2003',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь Москвы', 'Искусственный элемент', 'Совместно с США']
-  },
-  { 
-    atomicNumber: 116, symbol: 'Lv', name: 'Ливерморий', mass: '(293)', period: 7, group: 16, block: 'p',
-    discoveredBy: 'ОИЯИ, Дубна + LLNL', yearDiscovered: '2000',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь Ливерморской лаборатории', 'Искусственный элемент', 'Калифорния, США']
-  },
-  { 
-    atomicNumber: 117, symbol: 'Ts', name: 'Теннессин', mass: '(294)', period: 7, group: 17, block: 'p',
-    discoveredBy: 'ОИЯИ, Дубна', yearDiscovered: '2010',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь штата Теннесси', 'Искусственный элемент', 'Самый тяжёлый галоген']
-  },
-  { 
-    atomicNumber: 118, symbol: 'Og', name: 'Оганесон', mass: '(294)', period: 7, group: 18, block: 'p',
-    discoveredBy: 'ОИЯИ, Дубна', yearDiscovered: '2002',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь Юрия Оганесяна', 'Самый тяжёлый известный элемент', 'Может не быть благородным газом']
-  },
-  // Лантаноиды (Ce–Lu)
-  { 
-    atomicNumber: 58, symbol: 'Ce', name: 'Церий', mass: '140.12', period: 6, group: 3, block: 'f',
-    discoveredBy: 'Йёнс Якоб Берцелиус', yearDiscovered: '1803',
-    applications: ['Самоподжигающиеся сплавы', 'Стекло', 'Катализаторы', 'Газовые лампы'],
-    funFacts: ['Назван в честь астероида Церера', 'Самый распространённый редкоземельный элемент', 'Используется в зажигалках']
-  },
-  { 
-    atomicNumber: 59, symbol: 'Pr', name: 'Празеодим', mass: '140.91', period: 6, group: 3, block: 'f',
-    discoveredBy: 'Карл Ауэр фон Вельсбах', yearDiscovered: '1885',
-    applications: ['Магниты', 'Стекло', 'Керамика', 'Сварочные маски'],
-    funFacts: ['Название от греческого "зелёный близнец"', 'Зелёный цвет стекла', 'Вместе с неодимом назывался дидим']
-  },
-  { 
-    atomicNumber: 60, symbol: 'Nd', name: 'Неодим', mass: '144.24', period: 6, group: 3, block: 'f',
-    discoveredBy: 'Карл Ауэр фон Вельсбах', yearDiscovered: '1885',
-    applications: ['Мощные магниты', 'Лазеры', 'Наушники', 'Электромобили'],
-    funFacts: ['Название от греческого "новый близнец"', 'В самых сильных магнитах', 'В ветрогенераторах']
-  },
-  { 
-    atomicNumber: 61, symbol: 'Pm', name: 'Прометий', mass: '(145)', period: 6, group: 3, block: 'f',
-    discoveredBy: 'Чиен Шиунг Ву', yearDiscovered: '1945',
-    applications: ['Светящиеся краски', 'Батарейки', 'Толщиномеры'],
-    funFacts: ['Назван в честь Прометея', 'Все изотопы радиоактивны', 'Нет стабильных изотопов']
-  },
-  { 
-    atomicNumber: 62, symbol: 'Sm', name: 'Самарий', mass: '150.36', period: 6, group: 3, block: 'f',
-    discoveredBy: 'Поль Эмиль Лекок де Буабодран', yearDiscovered: '1879',
-    applications: ['Магниты', 'Ракеты', 'Лазеры', 'Медицина'],
-    funFacts: ['Назван в честь минерала самарскита', 'В магните SmCo', 'Первый редкоземельный элемент полученный чистым']
-  },
-  { 
-    atomicNumber: 63, symbol: 'Eu', name: 'Европий', mass: '151.96', period: 6, group: 3, block: 'f',
-    discoveredBy: 'Эжен Анатоль Демарсе', yearDiscovered: '1901',
-    applications: ['Евробанкноты (защита)', 'Светодиоды', 'ТВ экраны', 'Лазеры'],
-    funFacts: ['Назван в честь Европы', 'Самый реактивный редкоземельный элемент', 'Красный и синий люминофор']
-  },
-  { 
-    atomicNumber: 64, symbol: 'Gd', name: 'Гадолиний', mass: '157.25', period: 6, group: 3, block: 'f',
-    discoveredBy: 'Жан де Мариньяк', yearDiscovered: '1880',
-    applications: ['МРТ-контраст', 'Магниты', 'Реакторы', 'Микроволновые печи'],
-    funFacts: ['Назван в честь Йохана Гадолина', 'Используется в МРТ', 'Поглощает нейтроны']
-  },
-  { 
-    atomicNumber: 65, symbol: 'Tb', name: 'Тербий', mass: '158.93', period: 6, group: 3, block: 'f',
-    discoveredBy: 'Карл Мосандер', yearDiscovered: '1843',
-    applications: ['Зелёные люминофоры', 'ТВ экраны', 'Магниты', 'Термостаты'],
-    funFacts: ['Назван в честь деревни Иттербю', 'Зелёный цвет в телевизорах', 'Один из 4 элементов из Иттербю']
-  },
-  { 
-    atomicNumber: 66, symbol: 'Dy', name: 'Диспрозий', mass: '162.50', period: 6, group: 3, block: 'f',
-    discoveredBy: 'Поль Эмиль Лекок де Буабодран', yearDiscovered: '1886',
-    applications: ['Магниты', 'Реакторы', 'Лазеры', 'Жёсткие диски'],
-    funFacts: ['Название от греческого "труднодоступный"', 'В неодимовых магнитах', 'Поглощает нейтроны']
-  },
-  { 
-    atomicNumber: 67, symbol: 'Ho', name: 'Гольмий', mass: '164.93', period: 6, group: 3, block: 'f',
-    discoveredBy: 'Марк Делафонтен, Жак-Луи Соре', yearDiscovered: '1878',
-    applications: ['Лазеры', 'Магниты', 'Медицина', 'Ядерные реакторы'],
-    funFacts: ['Назван в честь Стокгольма (Holmia)', 'Самый магнитный элемент', 'Используется в медицинских лазерах']
-  },
-  { 
-    atomicNumber: 68, symbol: 'Er', name: 'Эрбий', mass: '167.26', period: 6, group: 3, block: 'f',
-    discoveredBy: 'Карл Мосандер', yearDiscovered: '1843',
-    applications: ['Волокно', 'Лазеры', 'Стекло', 'Металлургия'],
-    funFacts: ['Назван в честь деревни Иттербю', 'Розовое стекло', 'В оптоволоконном интернете']
-  },
-  { 
-    atomicNumber: 69, symbol: 'Tm', name: 'Тулий', mass: '168.93', period: 6, group: 3, block: 'f',
-    discoveredBy: 'Пер Теодор Клеве', yearDiscovered: '1879',
-    applications: ['Лазеры', 'Рентген', 'Евробанкноты'],
-    funFacts: ['Назван в честь легендарной страны Туле', 'Самый редкий лантаноид', 'В портативных рентгенах']
-  },
-  { 
-    atomicNumber: 70, symbol: 'Yb', name: 'Иттербий', mass: '173.05', period: 6, group: 3, block: 'f',
-    discoveredBy: 'Жан де Мариньяк', yearDiscovered: '1878',
-    applications: ['Лазеры', 'Стальные сплавы', 'Атомные часы', 'Сейсмометры'],
-    funFacts: ['Назван в честь деревни Иттербю', '4-й элемент из этой деревни', 'Используется в геологии']
-  },
-  { 
-    atomicNumber: 71, symbol: 'Lu', name: 'Лютеций', mass: '174.97', period: 6, group: 3, block: 'f',
-    discoveredBy: 'Жорж Урбен', yearDiscovered: '1907',
-    applications: ['Катализаторы', 'ПЭТ-сканеры', 'Светодиоды'],
-    funFacts: ['Назван в честь Парижа (Lutetia)', 'Последний лантаноид', 'Спор об открытии']
-  },
-  // Актиноиды (Th–Lr)
-  { 
-    atomicNumber: 90, symbol: 'Th', name: 'Торий', mass: '232.04', period: 7, group: 3, block: 'f',
-    discoveredBy: 'Йёнс Якоб Берцелиус', yearDiscovered: '1829',
-    applications: ['Газовые мантии', 'Ядерное топливо', 'Сварка', 'Стекло'],
-    funFacts: ['Назван в честь Тора', '3-4 раза распространённее урана', 'Потенциальное ядерное топливо']
-  },
-  { 
-    atomicNumber: 91, symbol: 'Pa', name: 'Протактиний', mass: '231.04', period: 7, group: 3, block: 'f',
-    discoveredBy: 'Касимир Фаянс, Отто Гёринг', yearDiscovered: '1913',
-    applications: ['Только исследования'],
-    funFacts: ['Название от греческого "родитель актиния"', 'Очень редкий', 'Высокорадиоактивный']
-  },
-  { 
-    atomicNumber: 92, symbol: 'U', name: 'Уран', mass: '238.03', period: 7, group: 3, block: 'f',
-    discoveredBy: 'Мартин Клапрот', yearDiscovered: '1789',
-    applications: ['Ядерное топливо', 'Ядерное оружие', 'Бронепробивающие снаряды', 'Радиометрия'],
-    funFacts: ['Назван в честь планеты Уран', 'Открыт раньше самой планеты', 'В природе 99.3% U-238']
-  },
-  { 
-    atomicNumber: 93, symbol: 'Np', name: 'Нептуний', mass: '(237)', period: 7, group: 3, block: 'f',
-    discoveredBy: 'Эдвин Макмиллан, Филип Абельсон', yearDiscovered: '1940',
-    applications: ['Нейтронные детекторы', 'Исследования'],
-    funFacts: ['Назван в честь планеты Нептун', 'Первый трансурановый элемент', 'В природе в следовых количествах']
-  },
-  { 
-    atomicNumber: 94, symbol: 'Pu', name: 'Плутоний', mass: '(244)', period: 7, group: 3, block: 'f',
-    discoveredBy: 'Гленн Сиборг', yearDiscovered: '1940',
-    applications: ['Ядерное оружие', 'Ядерные реакторы', 'Термостаты', 'Космические аппараты'],
-    funFacts: ['Назван в честь планеты Плутон', 'В атомной бомбе над Нагасаки', 'Самоподдерживающаяся цепная реакция']
-  },
-  { 
-    atomicNumber: 95, symbol: 'Am', name: 'Америций', mass: '(243)', period: 7, group: 3, block: 'f',
-    discoveredBy: 'Гленн Сиборг', yearDiscovered: '1944',
-    applications: ['Дымовые детекторы', 'Нейтронные источники', 'Радиография'],
-    funFacts: ['Назван в честь Америки', 'В бытовых датчиках дыма', 'Самый распространённый трансуран в мире']
-  },
-  { 
-    atomicNumber: 96, symbol: 'Cm', name: 'Кюрий', mass: '(247)', period: 7, group: 3, block: 'f',
-    discoveredBy: 'Гленн Сиборг', yearDiscovered: '1944',
-    applications: ['Термогенераторы', 'Рентген', 'Марсоходы'],
-    funFacts: ['Назван в честь Марии и Пьера Кюри', 'Испускает много тепла', 'В энергосистемах космических аппаратов']
-  },
-  { 
-    atomicNumber: 97, symbol: 'Bk', name: 'Берклий', mass: '(247)', period: 7, group: 3, block: 'f',
-    discoveredBy: 'Лоуренс Беркли Лаборатория', yearDiscovered: '1949',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь Беркли', 'Искусственный элемент', 'Создан в циклотроне']
-  },
-  { 
-    atomicNumber: 98, symbol: 'Cf', name: 'Калифорний', mass: '(251)', period: 7, group: 3, block: 'f',
-    discoveredBy: 'Лоуренс Беркли Лаборатория', yearDiscovered: '1950',
-    applications: ['Нейтронные источники', 'Поиск золота/серебра', 'Медицина'],
-    funFacts: ['Назван в честь Калифорнии', 'Сильный нейтронный излучатель', 'Используется для поиска руд']
-  },
-  { 
-    atomicNumber: 99, symbol: 'Es', name: 'Эйнштейний', mass: '(252)', period: 7, group: 3, block: 'f',
-    discoveredBy: 'Лоуренс Беркли Лаборатория', yearDiscovered: '1952',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь Альберта Эйнштейна', 'Обнаружен в остатках водородной бомбы', 'Всего миллиграммы в год']
-  },
-  { 
-    atomicNumber: 100, symbol: 'Fm', name: 'Фермий', mass: '(257)', period: 7, group: 3, block: 'f',
-    discoveredBy: 'Лоуренс Беркли Лаборатория', yearDiscovered: '1952',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь Энрико Ферми', 'Обнаружен в остатках водородной бомбы', 'Нет практического применения']
-  },
-  { 
-    atomicNumber: 101, symbol: 'Md', name: 'Менделевий', mass: '(258)', period: 7, group: 3, block: 'f',
-    discoveredBy: 'Лоуренс Беркли Лаборатория', yearDiscovered: '1955',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь Дмитрия Менделеева', 'Создан всего несколько тысяч атомов', 'В честь создателя таблицы']
-  },
-  { 
-    atomicNumber: 102, symbol: 'No', name: 'Нобелий', mass: '(259)', period: 7, group: 3, block: 'f',
-    discoveredBy: 'ОИЯИ, Дубна', yearDiscovered: '1966',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь Альфреда Нобеля', 'Спор об открытии СССР/США', 'Очень нестабилен']
-  },
-  { 
-    atomicNumber: 103, symbol: 'Lr', name: 'Лоуренсий', mass: '(266)', period: 7, group: 3, block: 'f',
-    discoveredBy: 'Лоуренс Беркли Лаборатория', yearDiscovered: '1961',
-    applications: ['Только исследования'],
-    funFacts: ['Назван в честь Эрнеста Лоуренса', 'Последний актиноид', 'Изобретатель циклотрона']
-  },
+  // Лантаноиды
+  { atomicNumber: 58, symbol: 'Ce', name: 'Церий', mass: '140.12', period: 6, group: 3, block: 'f', discoveredBy: 'Йёнс Якоб Берцелиус', yearDiscovered: '1803', applications: ['Зажигалки', 'Стекло', 'Катализаторы'], funFacts: ['Самый редкий элемент среди лантаноидов'] },
+  { atomicNumber: 59, symbol: 'Pr', name: 'Празеодим', mass: '140.91', period: 6, group: 3, block: 'f', discoveredBy: 'Карл Ауэр фон Вельсбах', yearDiscovered: '1885', applications: ['Магниты', 'Стекло'], funFacts: ['Даёт зелёный цвет стеклу'] },
+  { atomicNumber: 60, symbol: 'Nd', name: 'Неодим', mass: '144.24', period: 6, group: 3, block: 'f', discoveredBy: 'Карл Ауэр фон Вельсбах', yearDiscovered: '1885', applications: ['Мощные магниты', 'Лазеры', 'Наушники'], funFacts: ['Используется в жестких дисках'] },
+  { atomicNumber: 61, symbol: 'Pm', name: 'Прометий', mass: '(145)', period: 6, group: 3, block: 'f', discoveredBy: 'Чиен Шиунг Ву', yearDiscovered: '1945', applications: ['Светящиеся краски', 'Батарейки'], funFacts: ['Радиоактивен', 'Назван в честь Прометея'] },
+  { atomicNumber: 62, symbol: 'Sm', name: 'Самарий', mass: '150.36', period: 6, group: 3, block: 'f', discoveredBy: 'Поль Эмиль Лекок де Буабодран', yearDiscovered: '1879', applications: ['Магниты', 'Рак лечение'], funFacts: ['Назван в честь минерала самарскита'] },
+  { atomicNumber: 63, symbol: 'Eu', name: 'Европий', mass: '151.96', period: 6, group: 3, block: 'f', discoveredBy: 'Эжен Демарсе', yearDiscovered: '1901', applications: ['Евро банкноты', 'ТВ экраны'], funFacts: ['Защита от подделок'] },
+  { atomicNumber: 64, symbol: 'Gd', name: 'Гадолиний', mass: '157.25', period: 6, group: 3, block: 'f', discoveredBy: 'Жан Шарль Галиссар де Мариньяк', yearDiscovered: '1880', applications: ['МРТ контраст', 'Реакторы'], funFacts: ['Назван в честь Йохана Гадолина'] },
+  { atomicNumber: 65, symbol: 'Tb', name: 'Тербий', mass: '158.93', period: 6, group: 3, block: 'f', discoveredBy: 'Карл Густав Мосандер', yearDiscovered: '1843', applications: ['ТВ экраны', 'Магниты'], funFacts: ['Назван по шведской деревне Иттербю'] },
+  { atomicNumber: 66, symbol: 'Dy', name: 'Диспрозий', mass: '162.50', period: 6, group: 3, block: 'f', discoveredBy: 'Поль Эмиль Лекок де Буабодран', yearDiscovered: '1886', applications: ['Магниты', 'Реакторы'], funFacts: ['Название от греческого "труднодоступный"'] },
+  { atomicNumber: 67, symbol: 'Ho', name: 'Гольмий', mass: '164.93', period: 6, group: 3, block: 'f', discoveredBy: 'Марк Делафонтен', yearDiscovered: '1878', applications: ['Магниты', 'Лазеры'], funFacts: ['Назван в честь Стокгольма'] },
+  { atomicNumber: 68, symbol: 'Er', name: 'Эрбий', mass: '167.26', period: 6, group: 3, block: 'f', discoveredBy: 'Карл Густав Мосандер', yearDiscovered: '1843', applications: ['Лазеры', 'Оптика'], funFacts: ['Назван по шведской деревне Иттербю'] },
+  { atomicNumber: 69, symbol: 'Tm', name: 'Тулий', mass: '168.93', period: 6, group: 3, block: 'f', discoveredBy: 'Пер Теодор Клеве', yearDiscovered: '1879', applications: ['Лазеры', 'Рентген'], funFacts: ['Назван в честь Скандинавии'] },
+  { atomicNumber: 70, symbol: 'Yb', name: 'Иттербий', mass: '173.05', period: 6, group: 3, block: 'f', discoveredBy: 'Жан Шарль Галиссар де Мариньяк', yearDiscovered: '1878', applications: ['Лазеры', 'Металлургия'], funFacts: ['Назван по шведской деревне Иттербю'] },
+  { atomicNumber: 71, symbol: 'Lu', name: 'Лютеций', mass: '174.97', period: 6, group: 3, block: 'f', discoveredBy: 'Жорж Урбен', yearDiscovered: '1907', applications: ['Катализаторы', 'Петрология'], funFacts: ['Назван в честь Парижа'] },
+  // Актиноиды
+  { atomicNumber: 89, symbol: 'Ac', name: 'Актиний', mass: '(227)', period: 7, group: 3, block: 'f', discoveredBy: 'Фридрих Гизель', yearDiscovered: '1899', applications: ['Нейтронные источники'], funFacts: ['Светится в темноте'] },
+  { atomicNumber: 90, symbol: 'Th', name: 'Торий', mass: '232.04', period: 7, group: 3, block: 'f', discoveredBy: 'Йёнс Якоб Берцелиус', yearDiscovered: '1829', applications: ['Ядерное топливо', 'Газовые лампы'], funFacts: ['Назван в честь Тора'] },
+  { atomicNumber: 91, symbol: 'Pa', name: 'Протактиний', mass: '231.04', period: 7, group: 3, block: 'f', discoveredBy: 'Касимир Фаянс', yearDiscovered: '1913', applications: ['Исследования'], funFacts: ['Очень редкий и токсичный'] },
+  { atomicNumber: 92, symbol: 'U', name: 'Уран', mass: '238.03', period: 7, group: 3, block: 'f', discoveredBy: 'Мартин Клапрот', yearDiscovered: '1789', applications: ['Ядерное топливо', 'Оружие'], funFacts: ['Назван в честь планеты Уран'] },
+  { atomicNumber: 93, symbol: 'Np', name: 'Нептуний', mass: '(237)', period: 7, group: 3, block: 'f', discoveredBy: 'Эдвин Макмиллан', yearDiscovered: '1940', applications: ['Детекторы нейтронов'], funFacts: ['Назван в честь Нептуна'] },
+  { atomicNumber: 94, symbol: 'Pu', name: 'Плутоний', mass: '(244)', period: 7, group: 3, block: 'f', discoveredBy: 'Гленн Сиборг', yearDiscovered: '1940', applications: ['Ядерное оружие', 'Топливо'], funFacts: ['Назван в честь Плутона'] },
+  { atomicNumber: 95, symbol: 'Am', name: 'Америций', mass: '(243)', period: 7, group: 3, block: 'f', discoveredBy: 'Гленн Сиборг', yearDiscovered: '1944', applications: ['Датчики дыма'], funFacts: ['Назван в честь Америки'] },
+  { atomicNumber: 96, symbol: 'Cm', name: 'Кюрий', mass: '(247)', period: 7, group: 3, block: 'f', discoveredBy: 'Гленн Сиборг', yearDiscovered: '1944', applications: ['Космические аппараты'], funFacts: ['Назван в честь Кюри'] },
+  { atomicNumber: 97, symbol: 'Bk', name: 'Берклий', mass: '(247)', period: 7, group: 3, block: 'f', discoveredBy: 'Лоуренс Беркли Лаборатория', yearDiscovered: '1949', applications: ['Исследования'], funFacts: ['Назван в честь Беркли'] },
+  { atomicNumber: 98, symbol: 'Cf', name: 'Калифорний', mass: '(251)', period: 7, group: 3, block: 'f', discoveredBy: 'Лоуренс Беркли Лаборатория', yearDiscovered: '1950', applications: ['Скважины', 'Медицина'], funFacts: ['Назван в честь Калифорнии'] },
+  { atomicNumber: 99, symbol: 'Es', name: 'Эйнштейний', mass: '(252)', period: 7, group: 3, block: 'f', discoveredBy: 'Альберт Гиорсо', yearDiscovered: '1952', applications: ['Исследования'], funFacts: ['Назван в честь Эйнштейна'] },
+  { atomicNumber: 100, symbol: 'Fm', name: 'Фермий', mass: '(257)', period: 7, group: 3, block: 'f', discoveredBy: 'Альберт Гиорсо', yearDiscovered: '1952', applications: ['Исследования'], funFacts: ['Назван в честь Ферми'] },
+  { atomicNumber: 101, symbol: 'Md', name: 'Менделевий', mass: '(258)', period: 7, group: 3, block: 'f', discoveredBy: 'Лоуренс Беркли Лаборатория', yearDiscovered: '1955', applications: ['Исследования'], funFacts: ['Назван в честь Менделеева'] },
+  { atomicNumber: 102, symbol: 'No', name: 'Нобелий', mass: '(259)', period: 7, group: 3, block: 'f', discoveredBy: 'ОИЯИ, Дубна', yearDiscovered: '1966', applications: ['Исследования'], funFacts: ['Назван в честь Нобеля'] },
+  { atomicNumber: 103, symbol: 'Lr', name: 'Лоуренсий', mass: '(266)', period: 7, group: 3, block: 'f', discoveredBy: 'Лоуренс Беркли Лаборатория', yearDiscovered: '1961', applications: ['Исследования'], funFacts: ['Назван в честь Лоуренса'] },
 ];
 
+// ====================== ЦВЕТА ДЛЯ БЛОКОВ ======================
 const getBlockColor = (block: Element['block']) => {
   switch (block) {
-    case 's': return 'bg-blue-100 border-blue-500 hover:bg-blue-200 text-blue-900';
-    case 'p': return 'bg-emerald-100 border-emerald-500 hover:bg-emerald-200 text-emerald-900';
-    case 'd': return 'bg-violet-100 border-violet-500 hover:bg-violet-200 text-violet-900';
-    case 'f': return 'bg-amber-100 border-amber-500 hover:bg-amber-200 text-amber-900';
+    case 's': return 'from-blue-500/30 to-cyan-500/30 border-blue-400/50 hover:from-blue-500/50 hover:to-cyan-500/50';
+    case 'p': return 'from-emerald-500/30 to-green-500/30 border-emerald-400/50 hover:from-emerald-500/50 hover:to-green-500/50';
+    case 'd': return 'from-violet-500/30 to-purple-500/30 border-violet-400/50 hover:from-violet-500/50 hover:to-purple-500/50';
+    case 'f': return 'from-amber-500/30 to-orange-500/30 border-amber-400/50 hover:from-amber-500/50 hover:to-orange-500/50';
   }
 };
 
+// ====================== МОДАЛЬНОЕ ОКНО ЭЛЕМЕНТА ======================
+const ElementModal: React.FC<{ element: Element; onClose: () => void }> = ({ element, onClose }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-2xl bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl border border-white/10 shadow-2xl overflow-hidden"
+      >
+        {/* Заголовок */}
+        <div className="relative p-6 bg-gradient-to-r from-purple-600/20 to-pink-600/20 border-b border-white/10">
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+          
+          <div className="flex items-center gap-6">
+            <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center border border-white/20">
+              <span className="text-5xl font-black text-white">{element.symbol}</span>
+            </div>
+            <div>
+              <h2 className="text-3xl font-bold text-white">{element.name}</h2>
+              <p className="text-lg text-gray-400">№ {element.atomicNumber} • Атомная масса: {element.mass}</p>
+              <div className="flex gap-3 mt-2">
+                <span className="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-300">
+                  Период {element.period}
+                </span>
+                <span className="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-300">
+                  Группа {element.group}
+                </span>
+                <span className="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-300 font-mono">
+                  {element.block}-блок
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Содержимое */}
+        <div className="p-6 space-y-4">
+          {/* Открытие */}
+          {element.discoveredBy && (
+            <div className="flex items-start gap-3 p-4 bg-blue-500/10 rounded-2xl border border-blue-500/20">
+              <User className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold text-blue-300 mb-1">Открытие</h3>
+                <p className="text-gray-300">
+                  {element.discoveredBy}
+                  {element.yearDiscovered && element.yearDiscovered !== '—' && (
+                    <span className="text-gray-500">, {element.yearDiscovered}</span>
+                  )}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Применение */}
+          {element.applications && element.applications.length > 0 && (
+            <div className="flex items-start gap-3 p-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/20">
+              <FlaskConical className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold text-emerald-300 mb-2">Применение</h3>
+                <div className="flex flex-wrap gap-2">
+                  {element.applications.map((app, i) => (
+                    <span key={i} className="px-3 py-1 bg-emerald-500/20 text-emerald-200 rounded-full text-sm">
+                      {app}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Интересные факты */}
+          {element.funFacts && element.funFacts.length > 0 && (
+            <div className="flex items-start gap-3 p-4 bg-purple-500/10 rounded-2xl border border-purple-500/20">
+              <Lightbulb className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold text-purple-300 mb-2">Интересные факты</h3>
+                <ul className="space-y-2">
+                  {element.funFacts.map((fact, i) => (
+                    <li key={i} className="flex items-start gap-2 text-gray-300">
+                      <span className="text-purple-400 mt-1">•</span>
+                      <span>{fact}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Атом */}
+        <div className="p-6 bg-gradient-to-r from-slate-700/50 to-slate-800/50 border-t border-white/10">
+          <div className="flex items-center justify-center gap-4">
+            <Atom className="w-8 h-8 text-purple-400" />
+            <div className="text-center">
+              <p className="text-sm text-gray-400">Электронная конфигурация</p>
+              <p className="text-lg font-mono text-white">
+                {element.atomicNumber} электрон{element.atomicNumber > 4 ? 'ов' : element.atomicNumber > 1 ? 'а' : ''}
+              </p>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+// ====================== ГЛАВНЫЙ КОМПОНЕНТ ======================
 export const PeriodicTable: React.FC = () => {
   const [selected, setSelected] = useState<Element | null>(null);
   const [search, setSearch] = useState('');
@@ -795,71 +627,93 @@ export const PeriodicTable: React.FC = () => {
   const actinides = filteredElements.filter(el => el.atomicNumber >= 90 && el.atomicNumber <= 103);
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-6 bg-white rounded-3xl shadow-xl">
-      <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-6">
-        <h2 className="text-3xl font-bold text-slate-900">Периодическая таблица элементов</h2>
+    <div className="w-full">
+      {/* Заголовок */}
+      <div className="flex flex-col sm:flex-row gap-4 items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <Atom className="w-8 h-8 text-purple-400" />
+          <h2 className="text-2xl font-bold text-white">Периодическая таблица элементов</h2>
+        </div>
         
         <input
           type="text"
-          placeholder="Поиск по символу или названию..."
+          placeholder="Поиск элемента..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="w-full md:w-80 px-5 py-3 border border-slate-300 rounded-2xl focus:outline-none focus:border-violet-500 text-lg"
+          className="w-full sm:w-64 px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500"
         />
       </div>
 
+      {/* Легенда */}
+      <div className="flex flex-wrap gap-3 mb-6">
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 rounded bg-gradient-to-r from-blue-500/50 to-cyan-500/50 border border-blue-400/50"></div>
+          <span className="text-sm text-gray-400">s-блок</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 rounded bg-gradient-to-r from-emerald-500/50 to-green-500/50 border border-emerald-400/50"></div>
+          <span className="text-sm text-gray-400">p-блок</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 rounded bg-gradient-to-r from-violet-500/50 to-purple-500/50 border border-violet-400/50"></div>
+          <span className="text-sm text-gray-400">d-блок</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 rounded bg-gradient-to-r from-amber-500/50 to-orange-500/50 border border-amber-400/50"></div>
+          <span className="text-sm text-gray-400">f-блок</span>
+        </div>
+      </div>
+
       {/* Основная таблица */}
-      <div className="relative overflow-x-auto pb-8">
+      <div className="relative overflow-x-auto pb-4">
         <div
-          className="grid gap-1.5 text-center text-xs font-medium"
+          className="grid gap-1 text-center text-xs font-medium min-w-[900px]"
           style={{
-            gridTemplateColumns: 'repeat(18, minmax(48px, 1fr))',
-            gridTemplateRows: 'repeat(7, 68px)',
+            gridTemplateColumns: 'repeat(18, minmax(44px, 1fr))',
+            gridTemplateRows: 'repeat(7, 60px)',
           }}
         >
           {mainElements.map(el => (
-            <div
+            <motion.div
               key={el.atomicNumber}
               onClick={() => setSelected(el)}
               style={{
                 gridColumn: el.group,
                 gridRow: el.period,
               }}
-              className={`group flex flex-col items-center justify-center border-2 rounded-2xl cursor-pointer transition-all active:scale-95 ${getBlockColor(el.block)} ${
-                selected?.atomicNumber === el.atomicNumber ? 'ring-4 ring-violet-500 ring-offset-4 scale-110' : ''
+              className={`group flex flex-col items-center justify-center border rounded-xl cursor-pointer transition-all bg-gradient-to-br ${getBlockColor(el.block)} ${
+                selected?.atomicNumber === el.atomicNumber ? 'ring-2 ring-white ring-offset-2 ring-offset-slate-900 scale-110 z-10' : ''
               }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <div className="text-[10px] opacity-70">{el.atomicNumber}</div>
-              <div className="text-3xl font-bold mt-0.5 group-hover:scale-110 transition-transform">
-                {el.symbol}
-              </div>
-              <div className="text-[10px] mt-1 leading-none">{el.name}</div>
-              <div className="text-[9px] opacity-60 mt-0.5">{el.mass}</div>
-            </div>
+              <div className="text-[9px] text-gray-400">{el.atomicNumber}</div>
+              <div className="text-lg font-bold text-white mt-0.5">{el.symbol}</div>
+              <div className="text-[9px] text-gray-400 mt-0.5 leading-tight truncate w-full px-1">{el.name}</div>
+            </motion.div>
           ))}
         </div>
       </div>
 
       {/* Лантаноиды */}
       {lanthanides.length > 0 && (
-        <div className="mt-10">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
-            <span className="text-amber-600 font-semibold text-lg">Лантаноиды (Ce–Lu)</span>
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
+        <div className="mt-4">
+          <div className="flex items-center gap-3 mb-2">
+            <span className="text-amber-400 font-medium text-sm">Лантаноиды</span>
+            <div className="h-px flex-1 bg-white/10" />
           </div>
-          <div className="grid grid-cols-14 gap-1.5">
+          <div className="grid grid-cols-7 sm:grid-cols-14 gap-1">
             {lanthanides.map(el => (
-              <div
+              <motion.div
                 key={el.atomicNumber}
                 onClick={() => setSelected(el)}
-                className={`flex flex-col items-center justify-center border-2 rounded-2xl h-16 cursor-pointer transition-all active:scale-95 ${getBlockColor(el.block)} ${
-                  selected?.atomicNumber === el.atomicNumber ? 'ring-4 ring-violet-500 ring-offset-4' : ''
-                }`}
+                className={`flex flex-col items-center justify-center h-14 border rounded-xl cursor-pointer transition-all bg-gradient-to-br ${getBlockColor(el.block)}`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <div className="text-xs opacity-70">{el.atomicNumber}</div>
-                <div className="text-2xl font-bold">{el.symbol}</div>
-              </div>
+                <div className="text-[9px] text-gray-400">{el.atomicNumber}</div>
+                <div className="text-base font-bold text-white">{el.symbol}</div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -867,131 +721,37 @@ export const PeriodicTable: React.FC = () => {
 
       {/* Актиноиды */}
       {actinides.length > 0 && (
-        <div className="mt-8">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
-            <span className="text-amber-600 font-semibold text-lg">Актиноиды (Th–Lr)</span>
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
+        <div className="mt-4">
+          <div className="flex items-center gap-3 mb-2">
+            <span className="text-amber-400 font-medium text-sm">Актиноиды</span>
+            <div className="h-px flex-1 bg-white/10" />
           </div>
-          <div className="grid grid-cols-14 gap-1.5">
+          <div className="grid grid-cols-7 sm:grid-cols-14 gap-1">
             {actinides.map(el => (
-              <div
+              <motion.div
                 key={el.atomicNumber}
                 onClick={() => setSelected(el)}
-                className={`flex flex-col items-center justify-center border-2 rounded-2xl h-16 cursor-pointer transition-all active:scale-95 ${getBlockColor(el.block)} ${
-                  selected?.atomicNumber === el.atomicNumber ? 'ring-4 ring-violet-500 ring-offset-4' : ''
-                }`}
+                className={`flex flex-col items-center justify-center h-14 border rounded-xl cursor-pointer transition-all bg-gradient-to-br ${getBlockColor(el.block)}`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <div className="text-xs opacity-70">{el.atomicNumber}</div>
-                <div className="text-2xl font-bold">{el.symbol}</div>
-              </div>
+                <div className="text-[9px] text-gray-400">{el.atomicNumber}</div>
+                <div className="text-base font-bold text-white">{el.symbol}</div>
+              </motion.div>
             ))}
           </div>
         </div>
       )}
 
-      {/* ДЕТАЛЬНАЯ КАРТОЧКА + АНИМИРОВАННЫЙ АТОМ */}
-      {selected && (
-        <div className="mt-12 bg-gradient-to-br from-slate-50 to-white border border-slate-200 rounded-3xl p-8 shadow-inner">
-          <div className="flex flex-col lg:flex-row gap-10 items-start">
-            {/* Инфо */}
-            <div className="flex-1">
-              <div className="flex items-center gap-6">
-                <div className="text-8xl font-black text-slate-800 tracking-tighter">{selected.symbol}</div>
-                <div>
-                  <div className="text-4xl font-bold">{selected.name}</div>
-                  <div className="text-2xl text-slate-500">№ {selected.atomicNumber}</div>
-                  <div className="text-xl mt-2">Атомная масса: <span className="font-mono">{selected.mass}</span></div>
-                </div>
-              </div>
+      {/* Модальное окно */}
+      <AnimatePresence>
+        {selected && (
+          <ElementModal element={selected} onClose={() => setSelected(null)} />
+        )}
+      </AnimatePresence>
 
-              <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-6 text-sm">
-                <div>
-                  <div className="uppercase text-slate-400 text-xs mb-1">Период</div>
-                  <div className="text-3xl font-semibold">{selected.period}</div>
-                </div>
-                <div>
-                  <div className="uppercase text-slate-400 text-xs mb-1">Группа</div>
-                  <div className="text-3xl font-semibold">{selected.group}</div>
-                </div>
-                <div>
-                  <div className="uppercase text-slate-400 text-xs mb-1">Блок</div>
-                  <div className="inline-block px-5 py-1 rounded-full bg-slate-200 text-slate-700 font-mono text-lg">
-                    {selected.block}
-                  </div>
-                </div>
-              </div>
-
-              {/* Открытие элемента */}
-              {selected.discoveredBy && (
-                <div className="mt-6 p-4 bg-blue-50 rounded-2xl border border-blue-200">
-                  <div className="flex items-center gap-2 text-blue-700 mb-2">
-                    <span className="text-lg">🔬</span>
-                    <span className="font-semibold">Открытие</span>
-                  </div>
-                  <p className="text-slate-700">
-                    <strong>{selected.discoveredBy}</strong>
-                    {selected.yearDiscovered && selected.yearDiscovered !== '—' && (
-                      <span className="text-slate-500">, {selected.yearDiscovered}</span>
-                    )}
-                  </p>
-                </div>
-              )}
-
-              {/* Применение */}
-              {selected.applications && selected.applications.length > 0 && (
-                <div className="mt-4 p-4 bg-green-50 rounded-2xl border border-green-200">
-                  <div className="flex items-center gap-2 text-green-700 mb-2">
-                    <span className="text-lg">🏭</span>
-                    <span className="font-semibold">Применение</span>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {selected.applications.map((app, i) => (
-                      <span key={i} className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
-                        {app}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Интересные факты */}
-              {selected.funFacts && selected.funFacts.length > 0 && (
-                <div className="mt-4 p-4 bg-purple-50 rounded-2xl border border-purple-200">
-                  <div className="flex items-center gap-2 text-purple-700 mb-2">
-                    <span className="text-lg">💡</span>
-                    <span className="font-semibold">Интересные факты</span>
-                  </div>
-                  <ul className="space-y-2">
-                    {selected.funFacts.map((fact, i) => (
-                      <li key={i} className="flex items-start gap-2 text-slate-700">
-                        <span className="text-purple-400 mt-1">•</span>
-                        <span>{fact}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-
-            {/* Анимированный атом */}
-            <div className="flex-shrink-0">
-              <AtomModel atomicNumber={selected.atomicNumber} symbol={selected.symbol} />
-              <div className="text-center text-xs text-slate-400 mt-3">Модель атома (электроны анимированы)</div>
-            </div>
-          </div>
-
-          <button
-            onClick={() => setSelected(null)}
-            className="mt-8 w-full md:w-auto px-8 py-4 bg-slate-900 text-white rounded-2xl hover:bg-black transition-colors"
-          >
-            Закрыть карточку
-          </button>
-        </div>
-      )}
-
-      <div className="mt-10 text-center text-xs text-slate-400">
-        Интерактивная периодическая таблица для ИНЕТШКОЛА • кликай на элементы • данные соответствуют ФГОС
+      <div className="mt-6 text-center text-xs text-gray-500">
+        Кликните на элемент для подробной информации • Интерактивная таблица Менделеева
       </div>
     </div>
   );
