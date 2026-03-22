@@ -22,6 +22,8 @@ interface Reaction {
   name: string
   reactants: string[]
   products: string[]
+  reactantMolecules?: string[]
+  productMolecules?: string[]
   description: string
   equation: string
   effects: {
@@ -33,6 +35,203 @@ interface Reaction {
     precipitateColor?: string
   }
   safetyNote?: string
+}
+
+// Данные атомов для 3D визуализации
+interface Atom {
+  element: string
+  color: string
+  radius: number
+  position: [number, number, number]
+}
+
+interface Bond {
+  from: number
+  to: number
+  order: number // 1, 2 или 3 - одинарная, двойная, тройная
+}
+
+interface MoleculeData {
+  name: string
+  formula: string
+  atoms: Atom[]
+  bonds: Bond[]
+}
+
+// Цвета и размеры атомов
+const atomProperties: Record<string, { color: string, radius: number }> = {
+  H: { color: '#ffffff', radius: 0.15 },
+  O: { color: '#ff4444', radius: 0.25 },
+  N: { color: '#3333ff', radius: 0.24 },
+  C: { color: '#333333', radius: 0.28 },
+  Cl: { color: '#22cc22', radius: 0.30 },
+  Na: { color: '#ff8800', radius: 0.35 },
+  Cu: { color: '#ff6600', radius: 0.32 },
+  Fe: { color: '#cc8844', radius: 0.32 },
+  S: { color: '#cccc00', radius: 0.28 },
+  Ba: { color: '#8844cc', radius: 0.40 },
+  Ag: { color: '#cccccc', radius: 0.35 },
+  I: { color: '#660066', radius: 0.35 },
+  Mg: { color: '#44aa44', radius: 0.30 },
+  Zn: { color: '#8888cc', radius: 0.30 },
+  K: { color: '#cc44cc', radius: 0.38 },
+}
+
+// 3D структура молекул
+const molecules3D: Record<string, MoleculeData> = {
+  'HCl': {
+    name: 'Хлороводород',
+    formula: 'HCl',
+    atoms: [
+      { element: 'H', color: '#ffffff', radius: 0.15, position: [-0.3, 0, 0] },
+      { element: 'Cl', color: '#22cc22', radius: 0.30, position: [0.3, 0, 0] },
+    ],
+    bonds: [{ from: 0, to: 1, order: 1 }]
+  },
+  'NaOH': {
+    name: 'Гидроксид натрия',
+    formula: 'NaOH',
+    atoms: [
+      { element: 'Na', color: '#ff8800', radius: 0.35, position: [-0.5, 0, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [0, 0, 0] },
+      { element: 'H', color: '#ffffff', radius: 0.15, position: [0.4, 0, 0] },
+    ],
+    bonds: [{ from: 0, to: 1, order: 1 }, { from: 1, to: 2, order: 1 }]
+  },
+  'H2O': {
+    name: 'Вода',
+    formula: 'H₂O',
+    atoms: [
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [0, 0, 0] },
+      { element: 'H', color: '#ffffff', radius: 0.15, position: [-0.35, 0.2, 0] },
+      { element: 'H', color: '#ffffff', radius: 0.15, position: [0.35, 0.2, 0] },
+    ],
+    bonds: [{ from: 0, to: 1, order: 1 }, { from: 0, to: 2, order: 1 }]
+  },
+  'NaCl': {
+    name: 'Хлорид натрия',
+    formula: 'NaCl',
+    atoms: [
+      { element: 'Na', color: '#ff8800', radius: 0.35, position: [-0.35, 0, 0] },
+      { element: 'Cl', color: '#22cc22', radius: 0.30, position: [0.35, 0, 0] },
+    ],
+    bonds: [{ from: 0, to: 1, order: 1 }]
+  },
+  'H2SO4': {
+    name: 'Серная кислота',
+    formula: 'H₂SO₄',
+    atoms: [
+      { element: 'S', color: '#cccc00', radius: 0.28, position: [0, 0, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [-0.4, 0.3, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [0.4, 0.3, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [-0.3, -0.4, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [0.3, -0.4, 0] },
+      { element: 'H', color: '#ffffff', radius: 0.15, position: [-0.5, -0.6, 0] },
+      { element: 'H', color: '#ffffff', radius: 0.15, position: [0.5, -0.6, 0] },
+    ],
+    bonds: [
+      { from: 0, to: 1, order: 2 }, { from: 0, to: 2, order: 2 },
+      { from: 0, to: 3, order: 1 }, { from: 0, to: 4, order: 1 },
+      { from: 3, to: 5, order: 1 }, { from: 4, to: 6, order: 1 }
+    ]
+  },
+  'BaCl2': {
+    name: 'Хлорид бария',
+    formula: 'BaCl₂',
+    atoms: [
+      { element: 'Ba', color: '#8844cc', radius: 0.40, position: [0, 0, 0] },
+      { element: 'Cl', color: '#22cc22', radius: 0.30, position: [-0.5, 0, 0] },
+      { element: 'Cl', color: '#22cc22', radius: 0.30, position: [0.5, 0, 0] },
+    ],
+    bonds: [{ from: 0, to: 1, order: 1 }, { from: 0, to: 2, order: 1 }]
+  },
+  'CuSO4': {
+    name: 'Сульфат меди',
+    formula: 'CuSO₄',
+    atoms: [
+      { element: 'Cu', color: '#ff6600', radius: 0.32, position: [0, 0.4, 0] },
+      { element: 'S', color: '#cccc00', radius: 0.28, position: [0, -0.2, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [-0.4, -0.4, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [0.4, -0.4, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [-0.25, -0.6, 0.3] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [0.25, -0.6, -0.3] },
+    ],
+    bonds: [
+      { from: 0, to: 1, order: 1 },
+      { from: 1, to: 2, order: 2 }, { from: 1, to: 3, order: 2 },
+      { from: 1, to: 4, order: 1 }, { from: 1, to: 5, order: 1 }
+    ]
+  },
+  'Mg': {
+    name: 'Магний',
+    formula: 'Mg',
+    atoms: [
+      { element: 'Mg', color: '#44aa44', radius: 0.30, position: [0, 0, 0] },
+    ],
+    bonds: []
+  },
+  'AgNO3': {
+    name: 'Нитрат серебра',
+    formula: 'AgNO₃',
+    atoms: [
+      { element: 'Ag', color: '#cccccc', radius: 0.35, position: [-0.5, 0, 0] },
+      { element: 'N', color: '#3333ff', radius: 0.24, position: [0.2, 0, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [0.5, 0.3, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [0.5, -0.3, 0.2] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [0.5, -0.3, -0.2] },
+    ],
+    bonds: [
+      { from: 0, to: 1, order: 1 },
+      { from: 1, to: 2, order: 2 }, { from: 1, to: 3, order: 2 }, { from: 1, to: 4, order: 2 }
+    ]
+  },
+  'KI': {
+    name: 'Йодид калия',
+    formula: 'KI',
+    atoms: [
+      { element: 'K', color: '#cc44cc', radius: 0.38, position: [-0.4, 0, 0] },
+      { element: 'I', color: '#660066', radius: 0.35, position: [0.4, 0, 0] },
+    ],
+    bonds: [{ from: 0, to: 1, order: 1 }]
+  },
+  'CO2': {
+    name: 'Углекислый газ',
+    formula: 'CO₂',
+    atoms: [
+      { element: 'C', color: '#333333', radius: 0.28, position: [0, 0, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [-0.45, 0, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [0.45, 0, 0] },
+    ],
+    bonds: [{ from: 0, to: 1, order: 2 }, { from: 0, to: 2, order: 2 }]
+  },
+  'FeSO4': {
+    name: 'Сульфат железа',
+    formula: 'FeSO₄',
+    atoms: [
+      { element: 'Fe', color: '#cc8844', radius: 0.32, position: [0, 0.4, 0] },
+      { element: 'S', color: '#cccc00', radius: 0.28, position: [0, -0.2, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [-0.4, -0.4, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [0.4, -0.4, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [-0.25, -0.6, 0.3] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [0.25, -0.6, -0.3] },
+    ],
+    bonds: [
+      { from: 0, to: 1, order: 1 },
+      { from: 1, to: 2, order: 2 }, { from: 1, to: 3, order: 2 },
+      { from: 1, to: 4, order: 1 }, { from: 1, to: 5, order: 1 }
+    ]
+  },
+  'FeCl3': {
+    name: 'Хлорид железа(III)',
+    formula: 'FeCl₃',
+    atoms: [
+      { element: 'Fe', color: '#cc8844', radius: 0.32, position: [0, 0, 0] },
+      { element: 'Cl', color: '#22cc22', radius: 0.30, position: [-0.5, 0.3, 0] },
+      { element: 'Cl', color: '#22cc22', radius: 0.30, position: [0.5, 0.3, 0] },
+      { element: 'Cl', color: '#22cc22', radius: 0.30, position: [0, -0.5, 0] },
+    ],
+    bonds: [{ from: 0, to: 1, order: 1 }, { from: 0, to: 2, order: 1 }, { from: 0, to: 3, order: 1 }]
+  },
 }
 
 // ====================== ДАННЫЕ ======================
@@ -61,6 +260,8 @@ const reactions: Reaction[] = [
     name: 'Нейтрализация',
     reactants: ['hcl', 'naoh'],
     products: ['nacl', 'h2o'],
+    reactantMolecules: ['HCl', 'NaOH'],
+    productMolecules: ['NaCl', 'H2O'],
     description: 'Кислота реагирует со щёлочью, образуя соль и воду. Это классическая реакция нейтрализации.',
     equation: 'HCl + NaOH → NaCl + H₂O',
     effects: { bubbles: true }
@@ -70,6 +271,8 @@ const reactions: Reaction[] = [
     name: 'Качественная реакция на карбонат-ион',
     reactants: ['hcl', 'na2co3'],
     products: ['nacl', 'h2o'],
+    reactantMolecules: ['HCl'],
+    productMolecules: ['NaCl', 'H2O', 'CO2'],
     description: 'Карбонат натрия реагирует с соляной кислотой с выделением углекислого газа.',
     equation: 'Na₂CO₃ + 2HCl → 2NaCl + H₂O + CO₂↑',
     effects: { bubbles: true, smoke: true }
@@ -79,6 +282,8 @@ const reactions: Reaction[] = [
     name: 'Получение гидроксида меди',
     reactants: ['cuso4', 'naoh'],
     products: ['nacl'],
+    reactantMolecules: ['CuSO4', 'NaOH'],
+    productMolecules: ['NaCl'],
     description: 'Голубой осадок гидроксида меди(II) выпадает при взаимодействии сульфата меди с щёлочью.',
     equation: 'CuSO₄ + 2NaOH → Cu(OH)₂↓ + Na₂SO₄',
     effects: { precipitate: true, precipitateColor: '#4169E1', colorChange: '#4169E1' }
@@ -88,6 +293,8 @@ const reactions: Reaction[] = [
     name: 'Индикатор фенолфталеин',
     reactants: ['naoh', 'phenol'],
     products: [],
+    reactantMolecules: ['NaOH'],
+    productMolecules: [],
     description: 'Фенолфталеин становится малиновым в щелочной среде. Это качественная реакция на щёлочи.',
     equation: 'В щелочной среде → малиновое окрашивание',
     effects: { colorChange: '#FF1493' }
@@ -97,6 +304,8 @@ const reactions: Reaction[] = [
     name: 'Качественная реакция на сульфат-ион',
     reactants: ['h2so4', 'bacl2'],
     products: ['bacl2'],
+    reactantMolecules: ['H2SO4', 'BaCl2'],
+    productMolecules: ['NaCl'],
     description: 'Белый осадок сульфата бария выпадает при взаимодействии сульфатов с хлоридом бария.',
     equation: 'H₂SO₄ + BaCl₂ → BaSO₄↓ + 2HCl',
     effects: { precipitate: true, precipitateColor: '#ffffff', colorChange: '#f5f5f5' }
@@ -106,6 +315,8 @@ const reactions: Reaction[] = [
     name: 'Качественная реакция на хлорид-ион',
     reactants: ['agno3', 'nacl'],
     products: ['nacl'],
+    reactantMolecules: ['AgNO3', 'NaCl'],
+    productMolecules: ['NaCl'],
     description: 'Белый творожистый осадок хлорида серебра выпадает при взаимодействии хлоридов с нитратом серебра.',
     equation: 'AgNO₃ + NaCl → AgCl↓ + NaNO₃',
     effects: { precipitate: true, precipitateColor: '#ffffff', colorChange: '#f8f8ff' }
@@ -115,6 +326,8 @@ const reactions: Reaction[] = [
     name: 'Взаимодействие магния с кислотой',
     reactants: ['mg', 'hcl'],
     products: [],
+    reactantMolecules: ['Mg', 'HCl'],
+    productMolecules: ['H2O'],
     description: 'Магний активно реагирует с соляной кислотой с выделением водорода.',
     equation: 'Mg + 2HCl → MgCl₂ + H₂↑',
     effects: { bubbles: true, fire: true },
@@ -125,6 +338,8 @@ const reactions: Reaction[] = [
     name: 'Образование йодида серебра',
     reactants: ['ki', 'agno3'],
     products: [],
+    reactantMolecules: ['KI', 'AgNO3'],
+    productMolecules: [],
     description: 'Жёлтый осадок йодида серебра выпадает при взаимодействии йодидов с нитратом серебра.',
     equation: 'KI + AgNO₃ → AgI↓ + KNO₃',
     effects: { precipitate: true, precipitateColor: '#FFD700', colorChange: '#FFF8DC' }
@@ -134,6 +349,8 @@ const reactions: Reaction[] = [
     name: 'Гидроксид железа(II)',
     reactants: ['fes04', 'naoh'],
     products: [],
+    reactantMolecules: ['FeSO4', 'NaOH'],
+    productMolecules: [],
     description: 'Зеленоватый осадок гидроксида железа(II) быстро окисляется на воздухе.',
     equation: 'FeSO₄ + 2NaOH → Fe(OH)₂↓ + Na₂SO₄',
     effects: { precipitate: true, precipitateColor: '#90EE90', colorChange: '#98FB98' }
@@ -143,6 +360,8 @@ const reactions: Reaction[] = [
     name: 'Гидроксид железа(III)',
     reactants: ['fecl3', 'naoh'],
     products: [],
+    reactantMolecules: ['FeCl3', 'NaOH'],
+    productMolecules: [],
     description: 'Бурый осадок гидроксида железа(III) выпадает при взаимодействии солей железа(III) с щёлочью.',
     equation: 'FeCl₃ + 3NaOH → Fe(OH)₃↓ + 3NaCl',
     effects: { precipitate: true, precipitateColor: '#8B4513', colorChange: '#D2691E' }
@@ -150,6 +369,140 @@ const reactions: Reaction[] = [
 ]
 
 // ====================== 3D КОМПОНЕНТЫ ======================
+
+// 3D Молекула
+function Molecule3D({ moleculeKey, position, scale = 1, showLabel = true, opacity = 1 }: { 
+  moleculeKey: string, 
+  position: [number, number, number], 
+  scale?: number,
+  showLabel?: boolean,
+  opacity?: number
+}) {
+  const groupRef = useRef<THREE.Group>(null)
+  const molecule = molecules3D[moleculeKey]
+  
+  useFrame(({ clock }) => {
+    if (groupRef.current) {
+      // Медленное вращение молекулы
+      groupRef.current.rotation.y = clock.getElapsedTime() * 0.5
+      groupRef.current.rotation.x = Math.sin(clock.getElapsedTime() * 0.3) * 0.1
+    }
+  })
+
+  if (!molecule) return null
+
+  return (
+    <group ref={groupRef} position={position} scale={scale}>
+      {/* Атомы */}
+      {molecule.atoms.map((atom, i) => (
+        <mesh key={i} position={atom.position}>
+          <sphereGeometry args={[atom.radius, 24, 24]} />
+          <meshStandardMaterial 
+            color={atom.color}
+            transparent
+            opacity={opacity}
+            emissive={atom.color}
+            emissiveIntensity={0.2}
+          />
+          {/* Подпись элемента */}
+          {showLabel && (
+            <Html position={[0, atom.radius + 0.1, 0]} center>
+              <span className="text-xs font-bold text-white bg-black/50 px-1 rounded">{atom.element}</span>
+            </Html>
+          )}
+        </mesh>
+      ))}
+      
+      {/* Связи между атомами */}
+      {molecule.bonds.map((bond, i) => {
+        const from = molecule.atoms[bond.from]
+        const to = molecule.atoms[bond.to]
+        if (!from || !to) return null
+        
+        const start = new THREE.Vector3(...from.position)
+        const end = new THREE.Vector3(...to.position)
+        const mid = start.clone().add(end).multiplyScalar(0.5)
+        const direction = end.clone().sub(start)
+        const length = direction.length()
+        const bondRadius = 0.04
+        
+        // Для двойных и тройных связей создаём несколько цилиндров
+        const bondOffsets = bond.order === 2 ? [-0.06, 0.06] : bond.order === 3 ? [-0.08, 0, 0.08] : [0]
+        
+        return bondOffsets.map((offset, j) => (
+          <mesh key={`${i}-${j}`} position={mid.toArray()} rotation={[0, 0, Math.atan2(direction.y, direction.x)]}>
+            <cylinderGeometry args={[bondRadius, bondRadius, length * 0.9, 8]} />
+            <meshStandardMaterial 
+              color="#888888" 
+              transparent 
+              opacity={opacity * 0.8}
+            />
+          </mesh>
+        ))
+      })}
+    </group>
+  )
+}
+
+// Анимация превращения молекул
+function MoleculeTransformation({ reaction, showProducts }: { 
+  reaction: Reaction | null, 
+  showProducts: boolean 
+}) {
+  const reactants = reaction?.reactantMolecules || []
+  const products = reaction?.productMolecules || []
+  
+  if (!reaction || reactants.length === 0) return null
+
+  // Позиции для реагентов (слева)
+  const reactantPositions: [number, number, number][] = reactants.length === 1 
+    ? [[0, 1.5, 0]] 
+    : reactants.map((_, i) => [-0.8 + i * 1.6, 1.5, 0])
+  
+  // Позиции для продуктов (справа)
+  const productPositions: [number, number, number][] = products.length === 1 
+    ? [[0, 1.5, 0]] 
+    : products.map((_, i) => [-0.8 + i * 1.6, 1.5, 0])
+
+  return (
+    <group>
+      {/* Реагенты - появляются, потом исчезают */}
+      {!showProducts && reactants.map((mol, i) => (
+        <Molecule3D 
+          key={`reactant-${mol}`}
+          moleculeKey={mol} 
+          position={reactantPositions[i] || [0, 1.5, 0]}
+          scale={0.8}
+          opacity={1}
+        />
+      ))}
+      
+      {/* Стрелка реакции */}
+      {showProducts && (
+        <group position={[0, 1.5, 0]}>
+          <mesh rotation={[0, 0, -Math.PI / 2]} position={[0, 0, 0]}>
+            <coneGeometry args={[0.1, 0.2, 8]} />
+            <meshStandardMaterial color="#ffcc00" emissive="#ff8800" emissiveIntensity={0.5} />
+          </mesh>
+          <Html position={[0, 0.4, 0]} center>
+            <span className="text-lg">→</span>
+          </Html>
+        </group>
+      )}
+      
+      {/* Продукты - появляются после реакции */}
+      {showProducts && products.map((mol, i) => (
+        <Molecule3D 
+          key={`product-${mol}`}
+          moleculeKey={mol} 
+          position={productPositions[i] || [0, 1.5, 0]}
+          scale={0.8}
+          opacity={1}
+        />
+      ))}
+    </group>
+  )
+}
 
 // Реалистичные пузырьки
 function Bubble({ startPos, speed, size }: { startPos: [number, number, number], speed: number, size: number }) {
@@ -618,7 +971,8 @@ function LaboratoryScene({
   flaskLiquid,
   showPrecipitate,
   precipitateColor,
-  isReacting
+  isReacting,
+  showProducts
 }: { 
   selectedSubstances: Substance[]
   reaction: Reaction | null
@@ -626,6 +980,7 @@ function LaboratoryScene({
   showPrecipitate: boolean
   precipitateColor: string | null
   isReacting: boolean
+  showProducts: boolean
 }) {
   return (
     <>
@@ -634,6 +989,9 @@ function LaboratoryScene({
       <directionalLight position={[3, 5, 3]} intensity={0.8} />
       
       <LabTable />
+      
+      {/* 3D молекулы и превращение */}
+      <MoleculeTransformation reaction={reaction} showProducts={showProducts} />
       
       {/* Подставка для пробирок */}
       <mesh position={[-1.2, -0.83, -0.8]}>
@@ -744,6 +1102,7 @@ export default function VirtualLaboratory() {
   const [precipitateColor, setPrecipitateColor] = useState<string | null>(null)
   const [showResult, setShowResult] = useState(false)
   const [isReacting, setIsReacting] = useState(false)
+  const [showProducts, setShowProducts] = useState(false)
 
   const toggleSubstance = useCallback((substance: Substance) => {
     setSelectedSubstances(prev => {
@@ -773,6 +1132,7 @@ export default function VirtualLaboratory() {
 
     const reaction = findReaction(selectedSubstances)
     setIsReacting(true)
+    setShowProducts(false)
 
     setTimeout(() => {
       if (reaction) {
@@ -788,6 +1148,7 @@ export default function VirtualLaboratory() {
         }
         
         setShowResult(true)
+        setShowProducts(true)
       } else {
         setFlaskLiquid(selectedSubstances[0]?.color || '#87CEEB')
         setShowResult(true)
@@ -808,6 +1169,7 @@ export default function VirtualLaboratory() {
     setPrecipitateColor(null)
     setShowResult(false)
     setIsReacting(false)
+    setShowProducts(false)
   }, [])
 
   const tryReaction = useCallback((reaction: Reaction) => {
@@ -851,6 +1213,7 @@ export default function VirtualLaboratory() {
               showPrecipitate={showPrecipitate}
               precipitateColor={precipitateColor}
               isReacting={isReacting}
+              showProducts={showProducts}
             />
           </Canvas>
           
