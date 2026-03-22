@@ -232,6 +232,47 @@ const molecules3D: Record<string, MoleculeData> = {
     ],
     bonds: [{ from: 0, to: 1, order: 1 }, { from: 0, to: 2, order: 1 }, { from: 0, to: 3, order: 1 }]
   },
+  'Na2CO3': {
+    name: 'Карбонат натрия',
+    formula: 'Na₂CO₃',
+    atoms: [
+      { element: 'Na', color: '#ff8800', radius: 0.35, position: [-0.7, 0.2, 0] },
+      { element: 'Na', color: '#ff8800', radius: 0.35, position: [0.7, 0.2, 0] },
+      { element: 'C', color: '#333333', radius: 0.28, position: [0, 0, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [-0.3, -0.4, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [0.3, -0.4, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [0, -0.5, 0.3] },
+    ],
+    bonds: [
+      { from: 2, to: 3, order: 2 }, { from: 2, to: 4, order: 2 }, { from: 2, to: 5, order: 1 }
+    ]
+  },
+  'CuSO4': {
+    name: 'Сульфат меди',
+    formula: 'CuSO₄',
+    atoms: [
+      { element: 'Cu', color: '#ff6600', radius: 0.32, position: [0, 0.4, 0] },
+      { element: 'S', color: '#cccc00', radius: 0.28, position: [0, -0.1, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [-0.4, -0.4, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [0.4, -0.4, 0] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [-0.2, -0.6, 0.3] },
+      { element: 'O', color: '#ff4444', radius: 0.25, position: [0.2, -0.6, -0.3] },
+    ],
+    bonds: [
+      { from: 0, to: 1, order: 1 },
+      { from: 1, to: 2, order: 2 }, { from: 1, to: 3, order: 2 },
+      { from: 1, to: 4, order: 1 }, { from: 1, to: 5, order: 1 }
+    ]
+  },
+  'H2': {
+    name: 'Водород',
+    formula: 'H₂',
+    atoms: [
+      { element: 'H', color: '#ffffff', radius: 0.15, position: [-0.2, 0, 0] },
+      { element: 'H', color: '#ffffff', radius: 0.15, position: [0.2, 0, 0] },
+    ],
+    bonds: [{ from: 0, to: 1, order: 1 }]
+  },
 }
 
 // ====================== ДАННЫЕ ======================
@@ -445,61 +486,85 @@ function Molecule3D({ moleculeKey, position, scale = 1, showLabel = true, opacit
 }
 
 // Анимация превращения молекул
-function MoleculeTransformation({ reaction, showProducts }: { 
+function MoleculeTransformation({ reaction, showProducts, isReacting }: { 
   reaction: Reaction | null, 
-  showProducts: boolean 
+  showProducts: boolean,
+  isReacting: boolean
 }) {
   const reactants = reaction?.reactantMolecules || []
   const products = reaction?.productMolecules || []
   
   if (!reaction || reactants.length === 0) return null
 
-  // Позиции для реагентов (слева)
+  // Позиции для реагентов (слева до реакции)
   const reactantPositions: [number, number, number][] = reactants.length === 1 
-    ? [[0, 1.5, 0]] 
-    : reactants.map((_, i) => [-0.8 + i * 1.6, 1.5, 0])
+    ? [[-1, 1.8, 0]] 
+    : reactants.map((_, i) => [-1.5 + i * 1.2, 1.8, 0])
   
-  // Позиции для продуктов (справа)
+  // Позиции для продуктов (после реакции)
   const productPositions: [number, number, number][] = products.length === 1 
-    ? [[0, 1.5, 0]] 
-    : products.map((_, i) => [-0.8 + i * 1.6, 1.5, 0])
+    ? [[0, 1.8, 0]] 
+    : products.map((_, i) => [-1.2 + i * 1.2, 1.8, 0])
 
   return (
     <group>
-      {/* Реагенты - появляются, потом исчезают */}
+      {/* Реагенты - показываются всегда, исчезают при появлении продуктов */}
       {!showProducts && reactants.map((mol, i) => (
-        <Molecule3D 
-          key={`reactant-${mol}`}
-          moleculeKey={mol} 
-          position={reactantPositions[i] || [0, 1.5, 0]}
-          scale={0.8}
-          opacity={1}
-        />
+        <group key={`reactant-group-${mol}`}>
+          <Molecule3D 
+            moleculeKey={mol} 
+            position={reactantPositions[i] || [-1, 1.8, 0]}
+            scale={0.7}
+            opacity={isReacting ? 0.5 : 1}
+          />
+          {/* Знак + между реагентами */}
+          {i < reactants.length - 1 && (
+            <Html position={[-0.9 + i * 1.2, 1.8, 0]} center>
+              <span className="text-2xl font-bold text-yellow-400">+</span>
+            </Html>
+          )}
+        </group>
       ))}
       
-      {/* Стрелка реакции */}
-      {showProducts && (
-        <group position={[0, 1.5, 0]}>
-          <mesh rotation={[0, 0, -Math.PI / 2]} position={[0, 0, 0]}>
-            <coneGeometry args={[0.1, 0.2, 8]} />
-            <meshStandardMaterial color="#ffcc00" emissive="#ff8800" emissiveIntensity={0.5} />
-          </mesh>
-          <Html position={[0, 0.4, 0]} center>
-            <span className="text-lg">→</span>
-          </Html>
-        </group>
+      {/* Стрелка реакции - появляется во время реакции */}
+      {(isReacting || showProducts) && (
+        <Html position={[0, 1.8, 0]} center>
+          <motion.span 
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="text-3xl font-bold text-yellow-400"
+          >
+            →
+          </motion.span>
+        </Html>
       )}
       
       {/* Продукты - появляются после реакции */}
       {showProducts && products.map((mol, i) => (
-        <Molecule3D 
-          key={`product-${mol}`}
-          moleculeKey={mol} 
-          position={productPositions[i] || [0, 1.5, 0]}
-          scale={0.8}
-          opacity={1}
-        />
+        <group key={`product-group-${mol}`}>
+          <Molecule3D 
+            moleculeKey={mol} 
+            position={productPositions[i] || [0, 1.8, 0]}
+            scale={0.7}
+            opacity={1}
+          />
+          {/* Знак + между продуктами */}
+          {i < products.length - 1 && (
+            <Html position={[0.6 + i * 1.2, 1.8, 0]} center>
+              <span className="text-2xl font-bold text-green-400">+</span>
+            </Html>
+          )}
+        </group>
       ))}
+      
+      {/* Название реакции */}
+      {showProducts && (
+        <Html position={[0, 2.5, 0]} center>
+          <div className="bg-black/70 px-3 py-1 rounded-lg">
+            <span className="text-sm text-white font-medium">{reaction.equation}</span>
+          </div>
+        </Html>
+      )}
     </group>
   )
 }
@@ -991,7 +1056,7 @@ function LaboratoryScene({
       <LabTable />
       
       {/* 3D молекулы и превращение */}
-      <MoleculeTransformation reaction={reaction} showProducts={showProducts} />
+      <MoleculeTransformation reaction={reaction} showProducts={showProducts} isReacting={isReacting} />
       
       {/* Подставка для пробирок */}
       <mesh position={[-1.2, -0.83, -0.8]}>
