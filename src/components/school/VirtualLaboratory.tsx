@@ -403,8 +403,6 @@ function LabTable() {
         <boxGeometry args={[8, 0.1, 4]} />
         <meshStandardMaterial color="#8B4513" />
       </mesh>
-      {/* Сетка на столе */}
-      <gridHelper args={[8, 16, '#cccccc', '#dddddd']} position={[0, -0.94, 0]} />
     </group>
   )
 }
