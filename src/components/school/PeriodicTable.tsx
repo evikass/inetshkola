@@ -810,12 +810,12 @@ const ElementModal: React.FC<{ element: Element; onClose: () => void }> = ({ ele
         <div className="relative p-6 bg-gradient-to-r from-purple-600/20 to-pink-600/20 border-b border-white/10">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-colors"
+            className="absolute top-2 left-1/2 -translate-x-1/2 p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-colors bg-slate-800/80 backdrop-blur-sm"
           >
             <X className="w-5 h-5" />
           </button>
           
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-6 mt-8">
             <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center border border-white/20">
               <span className="text-5xl font-black text-white">{element.symbol}</span>
             </div>
