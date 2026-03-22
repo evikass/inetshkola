@@ -165,86 +165,85 @@ function Flask3D({ position, liquidColor, liquidLevel, bubbles, precipitate, pre
   useFrame(({ clock }) => {
     if (bubblesRef.current && bubbles) {
       bubblesRef.current.children.forEach((child, i) => {
-        const t = clock.getElapsedTime() + i * 0.5
-        child.position.y = -0.5 + ((t * 0.3 + i * 0.2) % 1) * 0.8
+        const t = clock.getElapsedTime() + i * 0.3
+        child.position.y = -0.5 + ((t * 0.5 + i * 0.15) % 0.9) * 0.8
       })
     }
   })
 
   return (
     <group position={position}>
-      {/* Основа колбы - стекло */}
+      {/* Основа колбы - стекло с обводкой */}
       <mesh position={[0, -0.3, 0]}>
-        <cylinderGeometry args={[0.4, 0.3, 0.6, 32]} />
-        <meshPhysicalMaterial 
-          color="#aaddff" 
+        <cylinderGeometry args={[0.42, 0.32, 0.6, 32]} />
+        <meshStandardMaterial 
+          color="#88ccff" 
           transparent 
-          opacity={0.35}
+          opacity={0.5}
           roughness={0.1}
-          metalness={0}
-          transmission={0.8}
-          thickness={0.5}
         />
       </mesh>
       
-      {/* Контур основы */}
+      {/* Внутренность колбы */}
       <mesh position={[0, -0.3, 0]}>
-        <cylinderGeometry args={[0.41, 0.31, 0.6, 32]} />
-        <meshBasicMaterial color="#4488aa" wireframe />
+        <cylinderGeometry args={[0.38, 0.28, 0.58, 32]} />
+        <meshStandardMaterial 
+          color="#ffffff" 
+          transparent 
+          opacity={0.15}
+        />
       </mesh>
       
       {/* Горлышко */}
       <mesh position={[0, 0.2, 0]}>
-        <cylinderGeometry args={[0.15, 0.2, 0.4, 32]} />
-        <meshPhysicalMaterial 
-          color="#aaddff" 
+        <cylinderGeometry args={[0.17, 0.22, 0.4, 32]} />
+        <meshStandardMaterial 
+          color="#88ccff" 
           transparent 
-          opacity={0.35}
+          opacity={0.5}
           roughness={0.1}
-          transmission={0.8}
-          thickness={0.3}
         />
       </mesh>
       
-      {/* Контур горлышка */}
-      <mesh position={[0, 0.2, 0]}>
-        <cylinderGeometry args={[0.16, 0.21, 0.4, 32]} />
-        <meshBasicMaterial color="#4488aa" wireframe />
-      </mesh>
-      
-      {/* Жидкость */}
+      {/* Жидкость - более яркая */}
       {liquidColor && (
         <mesh position={[0, -0.3 + (liquidLevel || 0.3) / 2 - 0.15, 0]}>
-          <cylinderGeometry args={[0.36, 0.26, liquidLevel || 0.3, 32]} />
+          <cylinderGeometry args={[0.35, 0.25, liquidLevel || 0.3, 32]} />
           <meshStandardMaterial 
             color={liquidColor}
             transparent 
-            opacity={0.85}
+            opacity={0.95}
             emissive={liquidColor}
-            emissiveIntensity={0.2}
+            emissiveIntensity={0.8}
           />
         </mesh>
       )}
       
-      {/* Осадок */}
+      {/* Осадок - более заметный */}
       {precipitate && precipitateColor && (
         <mesh position={[0, -0.55, 0]}>
-          <cylinderGeometry args={[0.25, 0.25, 0.1, 32]} />
+          <cylinderGeometry args={[0.28, 0.28, 0.15, 32]} />
           <meshStandardMaterial 
             color={precipitateColor} 
             emissive={precipitateColor}
-            emissiveIntensity={0.3}
+            emissiveIntensity={0.6}
           />
         </mesh>
       )}
       
-      {/* Пузырьки */}
+      {/* Пузырьки - больше и ярче */}
       {bubbles && (
         <group ref={bubblesRef}>
-          {[...Array(12)].map((_, i) => (
-            <mesh key={i} position={[Math.sin(i) * 0.15, -0.5 + i * 0.08, Math.cos(i) * 0.15]}>
-              <sphereGeometry args={[0.035 + Math.random() * 0.025, 8, 8]} />
-              <meshStandardMaterial color="#ffffff" transparent opacity={0.8} />
+          {[...Array(20)].map((_, i) => (
+            <mesh key={i} position={[Math.sin(i * 1.5) * 0.2, -0.5 + i * 0.05, Math.cos(i * 1.5) * 0.2]}>
+              <sphereGeometry args={[0.04 + Math.random() * 0.03, 12, 12]} />
+              <meshStandardMaterial 
+                color="#ffffff" 
+                transparent 
+                opacity={0.9}
+                emissive="#ffffff"
+                emissiveIntensity={0.5}
+              />
             </mesh>
           ))}
         </group>
@@ -263,41 +262,33 @@ function TestTube3D({ position, liquidColor, liquidLevel }: {
     <group position={position} rotation={[0, 0, 0.1]}>
       {/* Стекло пробирки */}
       <mesh>
-        <cylinderGeometry args={[0.1, 0.08, 0.8, 16]} />
-        <meshPhysicalMaterial 
-          color="#aaddff" 
+        <cylinderGeometry args={[0.12, 0.1, 0.8, 16]} />
+        <meshStandardMaterial 
+          color="#88ccff" 
           transparent 
-          opacity={0.35}
+          opacity={0.5}
           roughness={0.1}
-          transmission={0.8}
-          thickness={0.3}
         />
-      </mesh>
-      {/* Контур */}
-      <mesh>
-        <cylinderGeometry args={[0.11, 0.09, 0.8, 16]} />
-        <meshBasicMaterial color="#4488aa" wireframe />
       </mesh>
       {/* Дно пробирки (закруглённое) */}
       <mesh position={[0, -0.4, 0]}>
-        <sphereGeometry args={[0.08, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2]} />
-        <meshPhysicalMaterial 
-          color="#aaddff" 
+        <sphereGeometry args={[0.1, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2]} />
+        <meshStandardMaterial 
+          color="#88ccff" 
           transparent 
-          opacity={0.35}
+          opacity={0.5}
           roughness={0.1}
-          transmission={0.8}
         />
       </mesh>
       {liquidColor && (
         <mesh position={[0, -0.15, 0]}>
-          <cylinderGeometry args={[0.08, 0.07, liquidLevel || 0.4, 16]} />
+          <cylinderGeometry args={[0.09, 0.08, liquidLevel || 0.4, 16]} />
           <meshStandardMaterial 
             color={liquidColor} 
             transparent 
-            opacity={0.85}
+            opacity={0.95}
             emissive={liquidColor}
-            emissiveIntensity={0.2}
+            emissiveIntensity={0.6}
           />
         </mesh>
       )}
@@ -315,46 +306,38 @@ function Beaker3D({ position, liquidColor, liquidLevel }: {
     <group position={position}>
       {/* Стекло мензурки */}
       <mesh>
-        <cylinderGeometry args={[0.35, 0.3, 0.7, 32]} />
-        <meshPhysicalMaterial 
-          color="#aaddff" 
+        <cylinderGeometry args={[0.38, 0.33, 0.7, 32]} />
+        <meshStandardMaterial 
+          color="#88ccff" 
           transparent 
-          opacity={0.3}
+          opacity={0.5}
           roughness={0.1}
-          transmission={0.85}
-          thickness={0.5}
         />
       </mesh>
-      {/* Контур */}
-      <mesh>
-        <cylinderGeometry args={[0.36, 0.31, 0.7, 32]} />
-        <meshBasicMaterial color="#4488aa" wireframe />
-      </mesh>
       {/* Носик мензурки */}
-      <mesh position={[0.35, 0.3, 0]} rotation={[0, 0, -0.3]}>
+      <mesh position={[0.38, 0.3, 0]} rotation={[0, 0, -0.3]}>
         <boxGeometry args={[0.15, 0.08, 0.1]} />
-        <meshPhysicalMaterial 
-          color="#aaddff" 
+        <meshStandardMaterial 
+          color="#88ccff" 
           transparent 
-          opacity={0.3}
+          opacity={0.5}
           roughness={0.1}
-          transmission={0.85}
         />
       </mesh>
       {liquidColor && (
         <mesh position={[0, -0.15, 0]}>
-          <cylinderGeometry args={[0.32, 0.27, liquidLevel || 0.4, 32]} />
+          <cylinderGeometry args={[0.34, 0.29, liquidLevel || 0.4, 32]} />
           <meshStandardMaterial 
             color={liquidColor} 
             transparent 
-            opacity={0.85}
+            opacity={0.95}
             emissive={liquidColor}
-            emissiveIntensity={0.2}
+            emissiveIntensity={0.6}
           />
         </mesh>
       )}
       {/* Шкала */}
-      <Html position={[0.38, 0, 0]} center>
+      <Html position={[0.4, 0, 0]} center>
         <div className="flex flex-col text-[8px] text-gray-600 font-medium">
           {[100, 75, 50, 25].map(v => (
             <span key={v} className="bg-white/80 px-1 rounded">{v}ml</span>
@@ -426,42 +409,75 @@ function LabTable() {
   )
 }
 
-// Пламя (для эффектов)
+// Пламя (для эффектов) - более яркое
 function Flame3D({ position, active }: { position: [number, number, number], active: boolean }) {
-  const flameRef = useRef<THREE.Mesh>(null)
+  const flameRef = useRef<THREE.Group>(null)
   
   useFrame(({ clock }) => {
     if (flameRef.current && active) {
       const t = clock.getElapsedTime()
-      flameRef.current.scale.x = 1 + Math.sin(t * 10) * 0.1
-      flameRef.current.scale.z = 1 + Math.cos(t * 8) * 0.1
+      flameRef.current.children.forEach((child, i) => {
+        child.scale.x = 1 + Math.sin(t * 12 + i) * 0.15
+        child.scale.z = 1 + Math.cos(t * 10 + i) * 0.15
+        child.scale.y = 1 + Math.sin(t * 8 + i) * 0.1
+      })
     }
   })
 
   if (!active) return null
 
   return (
-    <group position={position}>
-      <mesh ref={flameRef}>
-        <coneGeometry args={[0.1, 0.3, 8]} />
-        <meshStandardMaterial color="#ff6600" emissive="#ff3300" emissiveIntensity={2} transparent opacity={0.8} />
+    <group position={position} ref={flameRef}>
+      {/* Внешнее пламя */}
+      <mesh position={[0, 0.2, 0]}>
+        <coneGeometry args={[0.15, 0.5, 8]} />
+        <meshStandardMaterial 
+          color="#ff4400" 
+          emissive="#ff2200" 
+          emissiveIntensity={3} 
+          transparent 
+          opacity={0.9} 
+        />
       </mesh>
-      <pointLight color="#ff6600" intensity={0.5} distance={2} />
+      {/* Внутреннее пламя */}
+      <mesh position={[0, 0.25, 0]}>
+        <coneGeometry args={[0.08, 0.35, 8]} />
+        <meshStandardMaterial 
+          color="#ffff00" 
+          emissive="#ffaa00" 
+          emissiveIntensity={4} 
+          transparent 
+          opacity={0.95} 
+        />
+      </mesh>
+      {/* Ядро */}
+      <mesh position={[0, 0.15, 0]}>
+        <sphereGeometry args={[0.05, 8, 8]} />
+        <meshStandardMaterial 
+          color="#ffffff" 
+          emissive="#ffffff" 
+          emissiveIntensity={5} 
+        />
+      </mesh>
+      <pointLight color="#ff6600" intensity={2} distance={3} />
+      <pointLight color="#ffaa00" intensity={1} distance={2} position={[0, 0.3, 0]} />
     </group>
   )
 }
 
-// Дым
+// Дым - более заметный
 function SmokeEffect({ active }: { active: boolean }) {
   const smokeRef = useRef<THREE.Group>(null)
   
   useFrame(({ clock }) => {
     if (smokeRef.current && active) {
       smokeRef.current.children.forEach((child, i) => {
-        const t = clock.getElapsedTime() + i
-        child.position.y = -0.3 + (t * 0.2 % 1.5)
-        child.position.x = Math.sin(t + i) * 0.1
-        child.position.z = Math.cos(t + i) * 0.1
+        const t = clock.getElapsedTime() + i * 0.5
+        child.position.y = -0.3 + (t * 0.3 % 2)
+        child.position.x = Math.sin(t + i) * 0.15
+        child.position.z = Math.cos(t + i) * 0.15
+        const scale = 1 + (t * 0.1 % 0.5)
+        child.scale.setScalar(scale)
       })
     }
   })
@@ -470,10 +486,16 @@ function SmokeEffect({ active }: { active: boolean }) {
 
   return (
     <group ref={smokeRef} position={[0, 0.5, 0]}>
-      {[...Array(5)].map((_, i) => (
-        <mesh key={i} position={[Math.sin(i) * 0.1, i * 0.2, Math.cos(i) * 0.1]}>
-          <sphereGeometry args={[0.05 + i * 0.02, 8, 8]} />
-          <meshStandardMaterial color="#aaaaaa" transparent opacity={0.3 - i * 0.05} />
+      {[...Array(12)].map((_, i) => (
+        <mesh key={i} position={[Math.sin(i) * 0.12, i * 0.15, Math.cos(i) * 0.12]}>
+          <sphereGeometry args={[0.08 + i * 0.03, 12, 12]} />
+          <meshStandardMaterial 
+            color="#dddddd" 
+            transparent 
+            opacity={0.6 - i * 0.04}
+            emissive="#ffffff"
+            emissiveIntensity={0.3}
+          />
         </mesh>
       ))}
     </group>
