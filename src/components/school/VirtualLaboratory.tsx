@@ -1316,7 +1316,7 @@ export default function VirtualLaboratory() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
-                className="absolute top-4 left-4 right-4 p-4 bg-slate-800/90 backdrop-blur-sm rounded-xl border border-purple-500/30"
+                className="absolute bottom-20 left-4 right-4 p-4 bg-slate-800/90 backdrop-blur-sm rounded-xl border border-purple-500/30"
               >
                 {currentReaction ? (
                   <>
